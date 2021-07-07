@@ -72,7 +72,6 @@ Application that lets musicians of all skill levels find band mates to play with
    * Profile Screen
 
 ## Wireframes
-[Add picture of your hand sketched wireframes in this section]
 <img src="https://github.com/rigrergl/fbu-project/blob/main/wireframe.jpg" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
