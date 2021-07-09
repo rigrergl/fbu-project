@@ -93,6 +93,9 @@ Application that lets musicians of all skill levels find band mates to play with
 | likedGenres  | Array of String    | music genres that the user likes (using application standard name)
 | profileImage| File        |profile image for user
 | media       | TBD         |media (video, soundbite, or image). Feasibility research required to determine type
+| eventsOwned | Array of pointer to Event      |list of events the user created
+| eventsInvited | Array of pointer to Event      |list of events the user was invited to
+| eventsAccepted | Array of pointer to Event      |list of events the user has accepted
 | createdAt   | DateTime      |date when user is created (default field)
 | updatedAt   | DateTime      |date when user is last updated (default field)
 
