@@ -130,7 +130,7 @@ Application that lets musicians of all skill levels find band mates to play with
 | createdAt   | DateTime    |date when like is created (default field)
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
-#### directMessage
+#### DirectMessage
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
@@ -140,7 +140,7 @@ Application that lets musicians of all skill levels find band mates to play with
 | content   | Strings    |contents of the message
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
-##### groupchatMessage
+#### GroupchatMessage
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
