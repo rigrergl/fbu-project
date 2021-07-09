@@ -147,5 +147,13 @@ Application that lets musicians of all skill levels find band mates to play with
 
 ### Networking
 ## List of Network requests by screen
+- Matching Screen
+- Profile Screen
+- DMs Screen
+- Events Screen
+- Event Details Screen
+- New Event Screen
+- Event Groupchat Screen
+- Login Screen
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
