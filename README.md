@@ -155,13 +155,46 @@ Application that lets musicians of all skill levels find band mates to play with
 ### Networking
 ## List of Network requests by screen
 - Matching Screen
-   - test
+   - (GET) Query all users that fit the logged in user's preferences (and which the logged in user has not already liked)
 - Profile Screen
-- DMs Screen
+    - (GET) instruments played by current user
+    - (GET) instuments sought by current user
+    - (GET) likd genres by current user
+    - (GET) current user's profile image
+    - (GET) current user's media
+    - (PUT) instruments played by current user
+    - (PUT) instuments sought by current user
+    - (PUT) liked genres by current user
+    - (PUT) current user's profile image
+    - (PUT) current user's media
+- Matches Screen
+    - (GET) current user's matches
+    - (GET) latest message for each of the current user's match
+- DM Chat Screen 
+    - (GET) messages between the current user and the other user
+    - (POST) create new message by current user (in the DirectMessage table)
 - Events Screen
+    - (GET) events accepted by current user
+    - (GET) events current user was invited to
+    - (GET) events current user has accepted
 - Event Details Screen
+    - (GET) event time
+    - (GET) event location
+    - (GET) event organizer
+    - (GET) event description
+    - (GET) users that accepted the event
+    - (GET) users that were invited to the event
+    - (PUT) event time
+    - (PUT) event location
+    - (PUT) event description
 - New Event Screen
+    - (GET) current user's matched users
+    - (POST) create new event
 - Event Groupchat Screen
+    - (GET) messages in the current groupchat
+    - (POST) create new message by current user (in the GroupchatMessage table)
 - Login Screen
+    - (GET) login
+    - (POST) register
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
