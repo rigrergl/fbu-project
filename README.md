@@ -80,7 +80,7 @@ Application that lets musicians of all skill levels find band mates to play with
 
 ## Schema 
 ### Models
-User
+#### User
 
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
@@ -92,7 +92,7 @@ User
 | createdAt   | DateTime      |date when user is created (default field)
 | updatedAt   | DateTime      |date when user is last updated (default field)
 
-Like
+#### Like
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
@@ -101,7 +101,7 @@ Like
 | createdAt   | DateTime      |date when like is created (default field)
 | updatedAt   | DateTime      |date when like is last updated (default field)
 
-Match
+#### Match
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
@@ -110,7 +110,7 @@ Match
 | createdAt   | DateTime      |date when like is created (default field)
 | updatedAt   | DateTime      |date when like is last updated (default field)
 
-Event
+#### Event
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
@@ -123,7 +123,7 @@ Event
 | createdAt   | DateTime    |date when like is created (default field)
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
-directMessage
+#### directMessage
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
@@ -133,7 +133,7 @@ directMessage
 | content   | Strings    |contents of the message
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
-groupchatMessage
+##### groupchatMessage
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
@@ -146,6 +146,6 @@ groupchatMessage
 
 
 ### Networking
-- [Add list of network requests by screen ]
+## List of Network requests by screen
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
