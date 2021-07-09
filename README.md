@@ -87,6 +87,7 @@ Application that lets musicians of all skill levels find band mates to play with
 | objectId    | String      |unique id for the user (default field)
 | username    | String      |unique username for user 
 | password    | String      |password for user
+| location    | String      |last known location of user
 | profileImage| File        |profile image for user
 | media       | TBD         |media (video, soundbite, or image). Feasibility research required to determine type
 | createdAt   | DateTime      |date when user is created (default field)
@@ -148,6 +149,7 @@ Application that lets musicians of all skill levels find band mates to play with
 ### Networking
 ## List of Network requests by screen
 - Matching Screen
+   - test
 - Profile Screen
 - DMs Screen
 - Events Screen
