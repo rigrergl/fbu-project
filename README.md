@@ -11,7 +11,7 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
-Application that lets musicians of all skill levels find band mates to play with. Stretch goal would be for app to also allow users to share videos from jam sessions.
+Application that lets musicians of all skill levels find other musicians to jam with
 
 ### App Evaluation
 - **Category:** Music / Social
