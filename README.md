@@ -88,6 +88,9 @@ Application that lets musicians of all skill levels find band mates to play with
 | username    | String      |unique username for user 
 | password    | String      |password for user
 | location    | String      |last known location of user
+| instrumentsPlayed  | Array of String  | instruments the user can play (using application standard name)
+| instrumentsSought  | Array of String    | instruments that the user is looking for in jam buddies (used to filter match recommendations) (using application standard name)
+| likedGenres  | Array of String    | music genres that the user likes (using application standard name)
 | profileImage| File        |profile image for user
 | media       | TBD         |media (video, soundbite, or image). Feasibility research required to determine type
 | createdAt   | DateTime      |date when user is created (default field)
