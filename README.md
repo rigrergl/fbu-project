@@ -79,9 +79,72 @@ Application that lets musicians of all skill levels find band mates to play with
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+User
+
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| username    | String      |unique username for user 
+| password    | String      |password for user
+| profileImage| File        |profile image for user
+| media       | TBD         |media (video, soundbite, or image). Feasibility research required to determine type
+| createdAt   | DateTime      |date when user is created (default field)
+| updatedAt   | DateTime      |date when user is last updated (default field)
+
+Like
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| originUser  | Pointer to User | User that made the like
+| destinationUser  | Pointer to User | User that was liked
+| createdAt   | DateTime      |date when like is created (default field)
+| updatedAt   | DateTime      |date when like is last updated (default field)
+
+Match
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| user1       | Pointer to User |first user in the match
+| user2       | Pointer to User |second user in the match
+| createdAt   | DateTime      |date when like is created (default field)
+| updatedAt   | DateTime      |date when like is last updated (default field)
+
+Event
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| organizer    | Pointer to User |user that created the event
+| date    | DateTime |time the event is going to happen
+| location    | String |address or link of the event
+| description    | String |description of the event
+| invited    |Array of Pointer to User |list of users that were invited to this event
+| accepted    |Array of Pointer to User |list of users that accepted the invitation to this event
+| createdAt   | DateTime    |date when like is created (default field)
+| updatedAt   | DateTime    |date when like is last updated (default field)
+
+directMessage
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| createdAt   | DateTime    |date when like is created (default field)
+| sender   | Pointer to User    |user that sent the message
+| receiver   | Pointer to User    |user that received the message
+| content   | Strings    |contents of the message
+| updatedAt   | DateTime    |date when like is last updated (default field)
+
+groupchatMessage
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| createdAt   | DateTime    |date when like is created (default field)
+| sender   | Pointer to User    |user that sent the message
+| event   | Pointer to Event    |event that this message was sent to
+| content   | Strings    |contents of the message
+| updatedAt   | DateTime    |date when like is last updated (default field)
+
+
+
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
