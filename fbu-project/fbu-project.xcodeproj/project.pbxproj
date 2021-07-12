@@ -23,6 +23,7 @@
 		3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126FE269CEA8E006444E4 /* OverlayView.m */; };
 		3BB12703269CF119006444E4 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BB12702269CF119006444E4 /* Keys.plist */; };
 		3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12705269CF2A4006444E4 /* AuthenticationViewController.m */; };
+		3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12708269CFD12006444E4 /* ProfileViewController.m */; };
 		4ED1297FBAF7783CF2DE63E4 /* Pods_fbu_projectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43F2627CFA3486FC348D61 /* Pods_fbu_projectTests.framework */; };
 		AB9A5B5E194CF3EE5B1C4E05 /* Pods_fbu_project_fbu_projectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,8 @@
 		3BB12702269CF119006444E4 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		3BB12704269CF2A4006444E4 /* AuthenticationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthenticationViewController.h; sourceTree = "<group>"; };
 		3BB12705269CF2A4006444E4 /* AuthenticationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuthenticationViewController.m; sourceTree = "<group>"; };
+		3BB12707269CFD12006444E4 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		3BB12708269CFD12006444E4 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		4DFFBC7BA6E690BD2E32EA74 /* Pods-fbu-project-fbu-projectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5201BAA0F905BCB14125320F /* Pods-fbu-projectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80B327F9D8CE82AEFACEDF74 /* Pods-fbu-projectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.release.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				3BB126F5269CEA3F006444E4 /* CardsViewController.m */,
 				3BB12704269CF2A4006444E4 /* AuthenticationViewController.h */,
 				3BB12705269CF2A4006444E4 /* AuthenticationViewController.m */,
+				3BB12707269CFD12006444E4 /* ProfileViewController.h */,
+				3BB12708269CFD12006444E4 /* ProfileViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -474,6 +479,7 @@
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
 				3BB126F3269CE8C4006444E4 /* MatchingViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
+				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
 				3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
 				3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */,

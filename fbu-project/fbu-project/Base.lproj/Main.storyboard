@@ -169,17 +169,23 @@
             </objects>
             <point key="canvasLocation" x="3229" y="1557"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="d1D-jC-i8E">
             <objects>
-                <viewController id="1JA-tM-tXk" sceneMemberID="viewController">
+                <viewController id="1JA-tM-tXk" customClass="ProfileViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vxu-7E-5Ak">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="w8A-H8-ChZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UsD-37-OOc"/>
+                    <navigationItem key="navigationItem" id="UsD-37-OOc">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="5ca-dS-55Z">
+                            <connections>
+                                <action selector="didTapLogout:" destination="1JA-tM-tXk" id="K1r-hd-e1m"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjd-q9-rfs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -188,7 +194,7 @@
         <!--Authentication View Controller-->
         <scene sceneID="GGu-eR-aN5">
             <objects>
-                <viewController id="TGP-oq-9Ag" customClass="AuthenticationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthenticationViewController" id="TGP-oq-9Ag" customClass="AuthenticationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g4B-GA-7uY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
