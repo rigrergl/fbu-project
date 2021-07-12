@@ -7,7 +7,6 @@ target 'fbu-project' do
 
   # Pods for fbu-project
   pod 'LoremIpsum'
-  pod "Koloda"
 
   target 'fbu-projectTests' do
     inherit! :search_paths

@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  MatchingViewController.m
 //  fbu-project
 //
 //  Created by Rigre Reinier Garciandia Larquin on 7/12/21.
@@ -11,12 +11,11 @@
 
 @end
 
-@implementation ViewController
+@implementation MatchingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.kolodaView reloadData];
 }
-
 
 @end
