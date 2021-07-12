@@ -16,7 +16,11 @@
 		3B4BB28A269CC98800E5F692 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB289269CC98800E5F692 /* main.m */; };
 		3B4BB294269CC98800E5F692 /* fbu_projectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB293269CC98800E5F692 /* fbu_projectTests.m */; };
 		3B4BB29F269CC98800E5F692 /* fbu_projectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */; };
-		3BB126E4269CD4C5006444E4 /* MatchingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126E3269CD4C5006444E4 /* MatchingViewController.m */; };
+		3BB126F3269CE8C4006444E4 /* MatchingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F2269CE8C4006444E4 /* MatchingViewController.m */; };
+		3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F5269CEA3F006444E4 /* CardsViewController.m */; };
+		3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */; };
+		3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126FB269CEA7E006444E4 /* DraggableView.m */; };
+		3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126FE269CEA8E006444E4 /* OverlayView.m */; };
 		4ED1297FBAF7783CF2DE63E4 /* Pods_fbu_projectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43F2627CFA3486FC348D61 /* Pods_fbu_projectTests.framework */; };
 		AB9A5B5E194CF3EE5B1C4E05 /* Pods_fbu_project_fbu_projectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */; };
 /* End PBXBuildFile section */
@@ -58,8 +62,16 @@
 		3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fbu_projectUITests.m; sourceTree = "<group>"; };
 		3B4BB2A0269CC98800E5F692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BB126DC269CD3C7006444E4 /* fbu-project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fbu-project-Bridging-Header.h"; sourceTree = "<group>"; };
-		3BB126E2269CD4C5006444E4 /* MatchingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchingViewController.h; sourceTree = "<group>"; };
-		3BB126E3269CD4C5006444E4 /* MatchingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchingViewController.m; sourceTree = "<group>"; };
+		3BB126F1269CE8C4006444E4 /* MatchingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchingViewController.h; sourceTree = "<group>"; };
+		3BB126F2269CE8C4006444E4 /* MatchingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchingViewController.m; sourceTree = "<group>"; };
+		3BB126F4269CEA3F006444E4 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
+		3BB126F5269CEA3F006444E4 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
+		3BB126F7269CEA6B006444E4 /* DraggableViewBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DraggableViewBackground.h; sourceTree = "<group>"; };
+		3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DraggableViewBackground.m; sourceTree = "<group>"; };
+		3BB126FA269CEA7E006444E4 /* DraggableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DraggableView.h; sourceTree = "<group>"; };
+		3BB126FB269CEA7E006444E4 /* DraggableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
+		3BB126FD269CEA8E006444E4 /* OverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		3BB126FE269CEA8E006444E4 /* OverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		4DFFBC7BA6E690BD2E32EA74 /* Pods-fbu-project-fbu-projectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5201BAA0F905BCB14125320F /* Pods-fbu-projectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80B327F9D8CE82AEFACEDF74 /* Pods-fbu-projectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.release.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -167,8 +179,10 @@
 		3BB126E0269CD474006444E4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3BB126E2269CD4C5006444E4 /* MatchingViewController.h */,
-				3BB126E3269CD4C5006444E4 /* MatchingViewController.m */,
+				3BB126F1269CE8C4006444E4 /* MatchingViewController.h */,
+				3BB126F2269CE8C4006444E4 /* MatchingViewController.m */,
+				3BB126F4269CEA3F006444E4 /* CardsViewController.h */,
+				3BB126F5269CEA3F006444E4 /* CardsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -176,6 +190,12 @@
 		3BB126E1269CD483006444E4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3BB126F7269CEA6B006444E4 /* DraggableViewBackground.h */,
+				3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */,
+				3BB126FA269CEA7E006444E4 /* DraggableView.h */,
+				3BB126FB269CEA7E006444E4 /* DraggableView.m */,
+				3BB126FD269CEA8E006444E4 /* OverlayView.h */,
+				3BB126FE269CEA8E006444E4 /* OverlayView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,10 +461,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */,
+				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
+				3BB126F3269CE8C4006444E4 /* MatchingViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
-				3BB126E4269CD4C5006444E4 /* MatchingViewController.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
+				3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */,
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
+				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
