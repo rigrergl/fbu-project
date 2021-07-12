@@ -33,10 +33,10 @@
             </objects>
             <point key="canvasLocation" x="5.7971014492753632" y="115.84821428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Cards View Controller-->
         <scene sceneID="JSb-zL-4eo">
             <objects>
-                <viewController id="VFP-1N-3qn" sceneMemberID="viewController">
+                <viewController id="VFP-1N-3qn" customClass="CardsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HxN-Oa-lbn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

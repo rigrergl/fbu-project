@@ -6,6 +6,7 @@
 //
 
 #import "CardsViewController.h"
+#import "DraggableViewBackground.h"
 
 @interface CardsViewController ()
 
@@ -16,16 +17,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self insertDraggableView];
 }
 
-/*
-#pragma mark - Navigation
+- (void)insertDraggableView {
+    CGRect frame = self.view.frame;
+    frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
+    DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:frame];
+    draggableBackground.alpha = 0; //making the view fade in
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [self.view addSubview:draggableBackground];
+
+    //animate down and in
+    [UIView animateWithDuration:0.5 animations:^{
+        draggableBackground.center = self.view.center;
+        draggableBackground.alpha = 1;
+    }];
 }
-*/
 
 @end
