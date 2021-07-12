@@ -53,11 +53,11 @@
             </objects>
             <point key="canvasLocation" x="2499" y="-12"/>
         </scene>
-        <!--Item-->
+        <!--Search-->
         <scene sceneID="aUX-Ca-FJm">
             <objects>
                 <navigationController id="cHg-Rv-d4p" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="magnifyingglass" catalog="system" id="Hw9-Tm-JTE"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="Hw9-Tm-JTE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nga-x2-9ys">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -70,11 +70,11 @@
             </objects>
             <point key="canvasLocation" x="483" y="790"/>
         </scene>
-        <!--Item-->
+        <!--Message-->
         <scene sceneID="Vz2-VT-ZF3">
             <objects>
                 <navigationController id="7rF-VY-mau" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="message" catalog="system" id="WrW-me-52i"/>
+                    <tabBarItem key="tabBarItem" title="Message" image="message" catalog="system" id="WrW-me-52i"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YP4-TJ-dIi">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -87,11 +87,11 @@
             </objects>
             <point key="canvasLocation" x="1946" y="790"/>
         </scene>
-        <!--Item-->
+        <!--Jam Sessions-->
         <scene sceneID="4vp-dE-ilE">
             <objects>
                 <navigationController id="PGM-eW-wOs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="music.note.house" catalog="system" id="0rK-G4-3lC"/>
+                    <tabBarItem key="tabBarItem" title="Jam Sessions" image="music.note.house" catalog="system" id="0rK-G4-3lC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hba-1p-e12">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -104,11 +104,11 @@
             </objects>
             <point key="canvasLocation" x="3229" y="790"/>
         </scene>
-        <!--Item-->
+        <!--Profile-->
         <scene sceneID="qjx-bh-2T6">
             <objects>
                 <navigationController id="zma-AZ-Mce" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="person" catalog="system" id="GBF-j1-5BE"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="GBF-j1-5BE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lps-SF-sD7">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
