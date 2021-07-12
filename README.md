@@ -38,6 +38,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 * Personalized jam buddy suggestions based on preferences and instrument (not just location)
 * Being able to organize jam sessions inside the app and invite people
 * In-app groupchats for events
+* Users are able to post videos instead of soundbites
 * Being able to follow people and view their feed
 * Experienced musicians can offer paid lessons
 
