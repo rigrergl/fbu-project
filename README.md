@@ -30,13 +30,14 @@ Application that lets musicians of all skill levels find other musicians to jam 
 * User can create a new account
 * User can login/logout
 * Being able to find musicians in your local area
-* Being able to post and view videos (a la Tinder)
+* Being able to post a soundbite 
 * Messaging other users (to schedule a meetup)
 
 **Optional Nice-to-have Stories**
 
 * Personalized jam buddy suggestions based on preferences and instrument (not just location)
 * Being able to organize jam sessions inside the app and invite people
+* In-app groupchats for events
 * Being able to follow people and view their feed
 * Experienced musicians can offer paid lessons
 
