@@ -9,10 +9,12 @@
 #import "DraggableViewBackground.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface CardsViewController () <AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) NSArray *recommendedUsers;
 
 @end
 
@@ -20,8 +22,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self insertDraggableView];
+    [self fetchRecommendedUsers];
+}
+
+- (void)fetchRecommendedUsers {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    [userQuery whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
+    [userQuery includeKey:@"recording"];
+    
+    [userQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingUsers, NSError *_Nullable error){
+        if (error) {
+            NSLog(@"Error fetching mathching users");
+        } else {
+            self.recommendedUsers = matchingUsers;
+            [self insertDraggableView];
+        }
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

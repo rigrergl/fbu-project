@@ -3,6 +3,7 @@ PODS:
   - Koloda (5.0.1):
     - pop (~> 1.0)
   - LoremIpsum (2.0.0)
+  - MBProgressHUD (1.2.0)
   - Parse (1.19.2):
     - Parse/Core (= 1.19.2)
   - Parse/Core (1.19.2):
@@ -12,6 +13,7 @@ PODS:
 DEPENDENCIES:
   - Koloda
   - LoremIpsum
+  - MBProgressHUD (~> 1.2.0)
   - Parse
 
 SPEC REPOS:
@@ -19,6 +21,7 @@ SPEC REPOS:
     - Bolts
     - Koloda
     - LoremIpsum
+    - MBProgressHUD
     - Parse
     - pop
 
@@ -26,9 +29,10 @@ SPEC CHECKSUMS:
   Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   LoremIpsum: 25837e6f8f9c63471c23140be3e4c6e1b6743c9e
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Parse: 081fb8755c3000fd11df817eec235def233d0af3
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
 
-PODFILE CHECKSUM: fc20c3cac9d864d4a786b0f6ec26536b13879975
+PODFILE CHECKSUM: a73598a8c631d7bae070b4c21853a344de772a1f
 
 COCOAPODS: 1.10.1

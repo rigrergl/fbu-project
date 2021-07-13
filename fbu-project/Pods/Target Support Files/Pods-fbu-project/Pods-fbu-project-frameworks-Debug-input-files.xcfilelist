@@ -2,5 +2,6 @@ ${PODS_ROOT}/Target Support Files/Pods-fbu-project/Pods-fbu-project-frameworks.s
 ${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework
 ${BUILT_PRODUCTS_DIR}/Koloda/Koloda.framework
 ${BUILT_PRODUCTS_DIR}/LoremIpsum/LoremIpsum.framework
+${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/Parse/Parse.framework
 ${BUILT_PRODUCTS_DIR}/pop/pop.framework
