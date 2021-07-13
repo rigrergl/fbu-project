@@ -296,8 +296,6 @@
     if (self.audioPlayer) {
         [self.audioPlayer stop];
         self.audioPlayer = nil;
-    } else {
-        NSLog(@"Tried to stop audio player but it was nil");
     }
 }
 
