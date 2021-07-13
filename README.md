@@ -32,10 +32,10 @@ Application that lets musicians of all skill levels find other musicians to jam 
 * Being able to find musicians in your local area
 * Being able to post a soundbite 
 * Messaging other users (to schedule a meetup)
+* Personalized jam buddy suggestions based on preferences and instrument (not just location)
 
 **Optional Nice-to-have Stories**
 
-* Personalized jam buddy suggestions based on preferences and instrument (not just location)
 * Being able to organize jam sessions inside the app and invite people
 * In-app groupchats for events
 * Users are able to post videos instead of soundbites
