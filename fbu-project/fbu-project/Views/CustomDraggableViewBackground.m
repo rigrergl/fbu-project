@@ -44,13 +44,21 @@ static const int MAX_BUFFER_SIZE = 5;
     [self addSubview:super.checkButton];
 }
 
--(DraggableView *)createDraggableViewWithDataAtIndex:(NSInteger)index
+- (void)swipeLeft {
+    [super swipeLeft];
+}
+
+- (void)swipeRight {
+    [super swipeRight];
+}
+
+-(CustomDraggableView *)createDraggableViewWithDataAtIndex:(NSInteger)index
 {
     CGFloat cardMargins = 50;
     CGFloat cardWidth = self.frame.size.width - cardMargins;
     CGFloat cardHeight = self.frame.size.height - cardMargins - BUTTON_SECTION_HEIGHT;
     
-    CustomDraggableView *draggableView = [[DraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT + 20)/2,  cardWidth, cardHeight) andUser:self.users[index]];
+    CustomDraggableView *draggableView = [[CustomDraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT + 20)/2,  cardWidth, cardHeight) andUser:self.users[index]];
     draggableView.delegate = self;
     return draggableView;
 }

@@ -41,6 +41,8 @@
 -(void)cardSwipedLeft:(UIView *)card;
 -(void)cardSwipedRight:(UIView *)card;
 -(void)loadCards;
+-(void)swipeRight;
+-(void)swipeLeft;
 
 @property (retain,nonatomic)NSArray* exampleCardLabels; //%%% the labels the cards
 @property (assign, nonatomic) NSInteger cardsLoadedIndex; //%%% the index of the card you have loaded into the loadedCards array last

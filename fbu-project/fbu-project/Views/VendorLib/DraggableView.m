@@ -16,14 +16,7 @@
 
 
 #import "DraggableView.h"
-#import <AVFoundation/AVFoundation.h>
 
-@interface DraggableView () <AVAudioPlayerDelegate>
-
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
-@property (nonatomic, strong) PFUser *user;
-
-@end
 
 @implementation DraggableView {
     CGFloat xFromCenter;
@@ -34,23 +27,17 @@
 @synthesize delegate;
 
 @synthesize panGestureRecognizer;
-@synthesize usernameLabel;
 @synthesize overlayView;
-@synthesize playButton;
-@synthesize user;
 
-- (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user
+
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self setupView];
-        self.user = user;
-#warning placeholder stuff, replace with card-specific information {
-        [self setupUsernameLabel];
-        [self setupPlayButton];
         
         self.backgroundColor = [UIColor whiteColor];
-#warning placeholder stuff, replace with card-specific information }
+
         panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(beingDragged:)];
         
         [self addGestureRecognizer:panGestureRecognizer];
@@ -60,41 +47,6 @@
         [self addSubview:overlayView];
     }
     return self;
-}
-
-#pragma mark - Setup
-
-- (void)setupUsernameLabel {
-    usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, self.frame.size.width, 100)];
-    usernameLabel.text = user[@"username"];
-    [usernameLabel setTextAlignment:NSTextAlignmentCenter];
-    usernameLabel.textColor = [UIColor blackColor];
-    
-    [self addSubview:usernameLabel];
-}
-
-- (void)setupPlayButton {
-    CGFloat buttonWidth = 50;
-    playButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth/2, 200, buttonWidth, buttonWidth)];
-    [playButton setTitle:@"" forState:UIControlStateNormal];
-    [playButton setBackgroundImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateNormal];
-    [playButton setBackgroundImage:[UIImage systemImageNamed:@"stop"] forState:UIControlStateSelected];
-    [playButton addTarget:self action:@selector(didTapPlayButton) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self addSubview:playButton];
-}
-
-- (void)didTapPlayButton {
-    if (playButton == nil) {
-        NSLog(@"Error: nil play button");
-        return;
-    }
-    
-    if ([playButton isSelected]) {
-        [self stopPlaying];
-    } else {
-        [self playRecording];
-    }
 }
 
 - (void)setupView
@@ -181,8 +133,6 @@
 //%%% called when the card is let go
 - (void)afterSwipeAction
 {
-    [self stopPlaying];
-    
     if (xFromCenter > ACTION_MARGIN) {
         [self rightAction];
     } else if (xFromCenter < -ACTION_MARGIN) {
@@ -260,54 +210,6 @@
     
     NSLog(@"NO");
 }
-
-
-#pragma mark - Recording playback
-
--(void)playRecording
-{
-    [playButton setSelected:YES];
-    
-    PFFileObject *recordingFile = user[@"recording"];
-    [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error getting data from PFFileObject");
-        } else {
-            [self playRecordingWithData:data];
-        }
-    }];
-}
-
-- (void)playRecordingWithData:(NSData *)data {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    NSError *error = nil;
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
-    self.audioPlayer.delegate = self;
-    self.audioPlayer.numberOfLoops = 0;
-    [self.audioPlayer play];
-}
-
-
-- (void)stopPlaying {
-    [playButton setSelected:NO];
-    
-    if (self.audioPlayer) {
-        [self.audioPlayer stop];
-        self.audioPlayer = nil;
-    }
-}
-
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
-    if (flag) {
-        [self stopPlaying];
-    } else {
-        NSLog(@"audioPlayerDidFinishPlaying with error");
-    }
-}
-
 
 
 @end

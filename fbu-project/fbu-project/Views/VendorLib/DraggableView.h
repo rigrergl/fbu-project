@@ -49,10 +49,9 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic) CGPoint originalPoint;
 @property (nonatomic,strong) OverlayView* overlayView;
-@property (nonatomic,strong) UILabel* usernameLabel;
-@property (nonatomic, strong)UIButton *playButton;
 
-- (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user;
+- (void)setupView;
+- (void)afterSwipeAction;
 - (void)leftClickAction;
 - (void)rightClickAction;
 
