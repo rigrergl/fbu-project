@@ -238,6 +238,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="uxX-PV-3UE"/>
                     <connections>
+                        <outlet property="playButton" destination="PWb-SI-E2n" id="X4I-qU-rCf"/>
                         <outlet property="recordButton" destination="0Hr-x8-Ohj" id="R4w-Gr-gui"/>
                     </connections>
                 </viewController>

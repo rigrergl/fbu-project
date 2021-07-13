@@ -9,9 +9,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
 
-@interface AudioRecorderViewController () <AVAudioRecorderDelegate>
+@interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) AVAudioSession *recordingSession;
 @property (strong, nonatomic) AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
@@ -37,7 +38,7 @@
     if (self.audioPlayer == nil) {
         [self playRecording];
     } else {
-        [self stopRecording];
+        [self stopPlaying];
     }
 }
 
@@ -69,8 +70,7 @@
     [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
     [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
     
-    NSURL *audioFile = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
-    
+    NSURL *audioFile = [AudioRecorderViewController getRecordingURL];
     error = nil;
     self.audioRecorder = [[ AVAudioRecorder alloc] initWithURL:audioFile settings:recordSetting error:&error];
     if(!self.audioRecorder){
@@ -98,10 +98,14 @@
     [self.recordButton setTitle:@"Tap to Stop" forState:UIControlStateNormal];
 }
 
-+ (NSURL *)getDocumentsDirectory {
++ (NSURL *)getRecordingURL {
     NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     NSLog(@"Documents Directory: %@", paths[0]);
-    return paths[0];
+    
+    NSURL *documentsDirectory = paths[0];
+    NSURL *recordingURL = [documentsDirectory URLByAppendingPathComponent:@"recording.m4a"];
+    
+    return recordingURL;
 }
 
 
@@ -122,7 +126,7 @@
 
     [self.audioRecorder stop];
     
-    NSURL *url = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
+    NSURL *url = [AudioRecorderViewController getRecordingURL];
     NSError *error= nil;
     NSData *audioData = [NSData dataWithContentsOfFile:[url path] options: 0 error:&error];
     if(!audioData)
@@ -142,7 +146,7 @@
 }
 
 - (void)deleteFile {
-    NSURL *url = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
+    NSURL *url = [AudioRecorderViewController getRecordingURL];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error;
     error = nil;
@@ -172,18 +176,34 @@
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    NSURL *url = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
+    NSURL *url = [AudioRecorderViewController getRecordingURL];
     NSError *error = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.audioPlayer.delegate = self;
     self.audioPlayer.numberOfLoops = 0;
     [self.audioPlayer play];
+    
+    [self.playButton setTitle:@"Stop Playing" forState:UIControlStateNormal];
 }
 
-- (void)stopRecording {
+- (void)stopPlaying {
     if (self.audioPlayer) {
         [self.audioPlayer stop];
+        self.audioPlayer = nil;
+        
+        [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
     } else {
         NSLog(@"Tried to stop audio player but it was nil");
+    }
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+    
+    if (flag) {
+        [self stopPlaying];
+    } else {
+        NSLog(@"audioPlayerDidFinishPlaying with error");
     }
 }
 
