@@ -74,7 +74,8 @@
 }
 
 - (void)setupPlayButton {
-    playButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2 - 20, 200, 20, 20)];
+    CGFloat buttonWidth = 50;
+    playButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth/2, 200, buttonWidth, buttonWidth)];
     [playButton setTitle:@"" forState:UIControlStateNormal];
     [playButton setBackgroundImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateNormal];
     [playButton setBackgroundImage:[UIImage systemImageNamed:@"stop"] forState:UIControlStateSelected];
