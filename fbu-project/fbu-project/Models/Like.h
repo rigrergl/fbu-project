@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFUser *_Nonnull originUser;
 @property (nonatomic, strong) PFUser *_Nonnull destinationUser;
 
++ (void)postLikeFrom:(PFUser *_Nonnull)originUser to:(PFUser *_Nonnull)destinationUser withCompletion:(PFBooleanResultBlock  _Nullable)completion;
+
 @end
 
 NS_ASSUME_NONNULL_END
