@@ -74,13 +74,26 @@
 }
 
 - (void)setupPlayButton {
-//    CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
     playButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2 - 20, 200, 20, 20)];
     [playButton setTitle:@"" forState:UIControlStateNormal];
     [playButton setBackgroundImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateNormal];
-    [playButton addTarget:self action:@selector(playRecording) forControlEvents:UIControlEventTouchUpInside];
+    [playButton setBackgroundImage:[UIImage systemImageNamed:@"stop"] forState:UIControlStateSelected];
+    [playButton addTarget:self action:@selector(didTapPlayButton) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:playButton];
+}
+
+- (void)didTapPlayButton {
+    if (playButton == nil) {
+        NSLog(@"Error: nil play button");
+        return;
+    }
+    
+    if ([playButton isSelected]) {
+        [self stopPlaying];
+    } else {
+        [self playRecording];
+    }
 }
 
 - (void)setupView
@@ -252,6 +265,8 @@
 
 -(void)playRecording
 {
+    [playButton setSelected:YES];
+    
     PFFileObject *recordingFile = user[@"recording"];
     [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
         if (error) {
@@ -275,6 +290,8 @@
 
 
 - (void)stopPlaying {
+    [playButton setSelected:NO];
+    
     if (self.audioPlayer) {
         [self.audioPlayer stop];
         self.audioPlayer = nil;
