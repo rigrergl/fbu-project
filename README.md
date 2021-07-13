@@ -38,6 +38,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 
 * Being able to organize jam sessions inside the app and invite people
 * In-app groupchats for events
+* Using MLKit
 * Users are able to post videos instead of soundbites
 * Being able to follow people and view their feed
 * Experienced musicians can offer paid lessons
