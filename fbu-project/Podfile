@@ -7,7 +7,6 @@ target 'fbu-project' do
 
   # Pods for fbu-project
   pod 'LoremIpsum'
-  pod 'Koloda'
   pod 'Parse'
   pod 'MBProgressHUD', '~> 1.2.0'
 
