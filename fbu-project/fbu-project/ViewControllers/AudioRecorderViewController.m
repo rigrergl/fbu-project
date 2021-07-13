@@ -149,7 +149,9 @@
     if(!audioData)
         NSLog(@"audio data: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
     
-    [[PFUser currentUser] setValue:[NSData dataWithContentsOfURL:url] forKey:@"recording"];
+    
+    PFFileObject *recordingFile = [PFFileObject fileObjectWithData:[NSData dataWithContentsOfURL:url]];
+    [[PFUser currentUser] setValue:recordingFile forKey:@"recording"];
     
     [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
         if(error) {
@@ -168,10 +170,6 @@
     [fm removeItemAtPath:[url path] error:&error];
     if(error)
         NSLog(@"File Manager: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
-}
-
-- (void)saveVideoData {
-    
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *) aRecorder successfully:(BOOL)flag

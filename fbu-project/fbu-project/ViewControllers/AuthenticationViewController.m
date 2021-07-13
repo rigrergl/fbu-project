@@ -20,6 +20,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupAlert];
+    [self setupGestures];
+}
+
+- (void)setupGestures {
+    UITapGestureRecognizer *screenTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScreen:)];
+    [self.view addGestureRecognizer:screenTapGestureRecognizer];
+    [self.view setUserInteractionEnabled:YES];
+}
+
+- (void)didTapScreen:(UITapGestureRecognizer *)sender {
+    NSLog(@"Tapped on screen");
+    [self.view endEditing:YES];
 }
 
 - (void)setupAlert {
@@ -86,9 +98,9 @@
 - (IBAction)didTapLogin:(UIButton *)sender {
     if(self.usernameField.text.length > 0 && self.passwordField.text.length > 0){
         [self loginUser];
-      } else {
-          [self presentAlertWithTitle:@"Error" andMessage:@"Empty fields"];
-      }
+    } else {
+        [self presentAlertWithTitle:@"Error" andMessage:@"Empty fields"];
+    }
 }
 
 - (IBAction)didTapSignUp:(UIButton *)sender {
