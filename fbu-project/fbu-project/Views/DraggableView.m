@@ -29,7 +29,7 @@
 @synthesize information;
 @synthesize overlayView;
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -37,7 +37,7 @@
         
 #warning placeholder stuff, replace with card-specific information {
         information = [[UILabel alloc]initWithFrame:CGRectMake(0, 50, self.frame.size.width, 100)];
-        information.text = @"no info given";
+        information.text = user[@"username"];
         [information setTextAlignment:NSTextAlignmentCenter];
         information.textColor = [UIColor blackColor];
         

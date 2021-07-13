@@ -33,6 +33,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OverlayView.h"
+#import <Parse/Parse.h>
 
 @protocol DraggableViewDelegate <NSObject>
 
@@ -50,7 +51,8 @@
 @property (nonatomic,strong)OverlayView* overlayView;
 @property (nonatomic,strong)UILabel* information; //%%% a placeholder for any card-specific information
 
--(void)leftClickAction;
--(void)rightClickAction;
+- (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user;
+- (void)leftClickAction;
+- (void)rightClickAction;
 
 @end

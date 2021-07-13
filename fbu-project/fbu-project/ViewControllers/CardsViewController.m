@@ -45,9 +45,7 @@
     [self playCurrentUserRecording];
 }
 
-- (void)insertDraggableView:(NSArray *)users {
-    NSLog(@"Users: %@", users);
-    
+- (void)insertDraggableView:(NSArray *)users {    
     CGRect frame = self.view.frame;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
     DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:frame andUsers:users];
