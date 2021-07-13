@@ -42,7 +42,7 @@
 }
 
 - (void)insertDraggableView:(NSArray *)users {
-    CGFloat topBarHeight = self.view.window.windowScene.statusBarManager.statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
+    CGFloat topBarHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat bottomBarHeight = self.tabBarController.tabBar.frame.size.height;
     
     CGRect frame = self.view.frame;

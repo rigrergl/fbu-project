@@ -19,7 +19,7 @@
 //this makes it so only two cards are loaded at a time to
 //avoid performance and memory costs
 static const int MAX_BUFFER_SIZE = 5; //%%% max number of cards loaded at any given time, must be greater than 1
-static const int BUTTON_SECTION_HEIGHT = 100;
+static const int BUTTON_SECTION_HEIGHT = 120;
 
 @synthesize users; //%%% all the labels I'm using as example data at the moment
 @synthesize allCards;//%%% all the cards
@@ -46,10 +46,10 @@ static const int BUTTON_SECTION_HEIGHT = 100;
     CGFloat buttonWidth = BUTTON_SECTION_HEIGHT - 15;
     
     self.backgroundColor = [UIColor colorWithRed:.92 green:.93 blue:.95 alpha:1]; //the gray background colors
-    xButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth - 15, self.frame.size.height - BUTTON_SECTION_HEIGHT, buttonWidth, buttonWidth)];
+    xButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth - 15, self.frame.size.height - BUTTON_SECTION_HEIGHT - 10, buttonWidth, buttonWidth)];
     [xButton setImage:[UIImage imageNamed:@"xButton"] forState:UIControlStateNormal];
     [xButton addTarget:self action:@selector(swipeLeft) forControlEvents:UIControlEventTouchUpInside];
-    checkButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 + 15, self.frame.size.height - BUTTON_SECTION_HEIGHT, buttonWidth, buttonWidth)];
+    checkButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 + 15, self.frame.size.height - BUTTON_SECTION_HEIGHT - 10, buttonWidth, buttonWidth)];
     [checkButton setImage:[UIImage imageNamed:@"checkButton"] forState:UIControlStateNormal];
     [checkButton addTarget:self action:@selector(swipeRight) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:xButton];
@@ -66,7 +66,7 @@ static const int BUTTON_SECTION_HEIGHT = 100;
     CGFloat cardWidth = self.frame.size.width - cardMargins;
     CGFloat cardHeight = self.frame.size.height - cardMargins - BUTTON_SECTION_HEIGHT;
     
-    DraggableView *draggableView = [[DraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT)/2,  cardWidth, cardHeight) andUser:users[index]];
+    DraggableView *draggableView = [[DraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT + 20)/2,  cardWidth, cardHeight) andUser:users[index]];
     draggableView.delegate = self;
     return draggableView;
 }
