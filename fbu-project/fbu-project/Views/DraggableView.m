@@ -93,6 +93,25 @@
     [self.audioPlayer play];
 }
 
+
+- (void)stopPlaying {
+    if (self.audioPlayer) {
+        [self.audioPlayer stop];
+        self.audioPlayer = nil;
+    } else {
+        NSLog(@"Tried to stop audio player but it was nil");
+    }
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+    if (flag) {
+        [self stopPlaying];
+    } else {
+        NSLog(@"audioPlayerDidFinishPlaying with error");
+    }
+}
+
 #pragma mark - Setup
 
 -(void)setupView
@@ -179,6 +198,8 @@
 //%%% called when the card is let go
 - (void)afterSwipeAction
 {
+    [self stopPlaying];
+    
     if (xFromCenter > ACTION_MARGIN) {
         [self rightAction];
     } else if (xFromCenter < -ACTION_MARGIN) {
