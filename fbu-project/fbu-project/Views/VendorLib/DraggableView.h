@@ -54,5 +54,8 @@
 - (void)afterSwipeAction;
 - (void)leftClickAction;
 - (void)rightClickAction;
+- (void)swipedRight;
+- (void)swipedLeft;
+
 
 @end

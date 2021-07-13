@@ -26,6 +26,7 @@
         [self setupUsernameLabel];
         [self setupPlayButton];
         
+        self.delegate = self;
     }
     return self;
 }
@@ -115,6 +116,16 @@
     } else {
         NSLog(@"audioPlayerDidFinishPlaying with error");
     }
+}
+
+#pragma mark - Card Swiped Override Methods
+
+- (void)swipedRight {
+    NSLog(@"YES sub");
+}
+
+- (void)swipedLeft {
+    NSLog(@"NO sub");
 }
 
 @end
