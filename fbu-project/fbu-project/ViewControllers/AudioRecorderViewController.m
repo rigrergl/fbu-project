@@ -21,9 +21,15 @@
 
 @implementation AudioRecorderViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.playButton.alpha = 0;
+    [self.playButton setEnabled:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self deleteFile];
 }
 
 - (IBAction)didTapRecord:(UIButton *)sender {
@@ -117,13 +123,24 @@
     
     if (success) {
         [self.recordButton setTitle:@"Tap to Re-record" forState:UIControlStateNormal];
+        [self showPlayButton];
     } else {
         [self.recordButton setTitle:@"Tap to Record" forState:UIControlStateNormal];
     }
 }
 
-- (void)retrieveRecordedFile{
+- (void)showPlayButton {
+    if (!self.playButton.enabled) {
+        [self.playButton setEnabled:YES];
+        
+        [UIView animateWithDuration:.5 animations:^{
+            self.playButton.alpha = 1;
+        }];
+    }
+}
 
+- (void)retrieveRecordedFile{
+    
     [self.audioRecorder stop];
     
     NSURL *url = [AudioRecorderViewController getRecordingURL];
@@ -141,8 +158,6 @@
             NSLog(@"Successfully saved recording for user");
         }
     }];
-    
-//    [self deleteFile]; TODO: uncomment this line
 }
 
 - (void)deleteFile {
@@ -198,7 +213,6 @@
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
     
     if (flag) {
         [self stopPlaying];
