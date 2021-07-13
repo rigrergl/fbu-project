@@ -159,6 +159,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 ## List of Network requests by screen
 - Matching Screen
    - (GET) Query all users that fit the logged in user's preferences (and which the logged in user has not already liked)
+   - (POST) new like from current user to user in card
 - Profile Screen
     - (GET) instruments played by current user
     - (GET) instuments sought by current user
