@@ -59,9 +59,14 @@ static const int MAX_BUFFER_SIZE = 5; //%%% max number of cards loaded at any gi
 // to get rid of it (eg: if you are building cards from data from the internet)
 -(DraggableView *)createDraggableViewWithDataAtIndex:(NSInteger)index
 {
-    CGFloat cardWidth = self.frame.size.width - self.safeAreaInsets.left - self.safeAreaInsets.right - 50;
-    CGFloat cardHeight = self.frame.size.height - self.safeAreaInsets.top - self.safeAreaInsets.bottom - 200;
-    DraggableView *draggableView = [[DraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - 50)/2,  cardWidth, cardHeight) andUser:users[index]];
+    CGFloat cardMargins = 50;
+    
+    CGFloat buttonSectionHeight = 100;
+    
+    CGFloat cardWidth = self.frame.size.width - cardMargins;
+    CGFloat cardHeight = self.frame.size.height - cardMargins - buttonSectionHeight;
+    
+    DraggableView *draggableView = [[DraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - buttonSectionHeight)/2,  cardWidth, cardHeight) andUser:users[index]];
     draggableView.delegate = self;
     return draggableView;
 }

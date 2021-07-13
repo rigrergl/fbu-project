@@ -41,8 +41,12 @@
     }];
 }
 
-- (void)insertDraggableView:(NSArray *)users {    
+- (void)insertDraggableView:(NSArray *)users {
+    CGFloat topBarHeight = self.view.window.windowScene.statusBarManager.statusBarFrame.size.height + self.navigationController.navigationBar.frame.size.height;
+    CGFloat bottomBarHeight = self.tabBarController.tabBar.frame.size.height;
+    
     CGRect frame = self.view.frame;
+    frame.size.height = frame.size.height - topBarHeight - bottomBarHeight;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
     DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:frame andUsers:users];
     draggableBackground.alpha = 0; //making the view fade in
