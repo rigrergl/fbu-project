@@ -176,8 +176,21 @@
                     <view key="view" contentMode="scaleToFill" id="Vxu-7E-5Ak">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4u8-3C-qvP">
+                                <rect key="frame" x="161" y="433" width="92" height="30"/>
+                                <state key="normal" title="Record Audio"/>
+                                <connections>
+                                    <segue destination="76d-1b-h45" kind="show" id="GYV-en-28j"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="w8A-H8-ChZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4u8-3C-qvP" firstAttribute="centerY" secondItem="Vxu-7E-5Ak" secondAttribute="centerY" id="Cof-yZ-KVb"/>
+                            <constraint firstItem="4u8-3C-qvP" firstAttribute="centerX" secondItem="Vxu-7E-5Ak" secondAttribute="centerX" id="cW7-y3-83A"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UsD-37-OOc">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="5ca-dS-55Z">
@@ -190,6 +203,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjd-q9-rfs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4580" y="1557"/>
+        </scene>
+        <!--Audio Recorder View Controller-->
+        <scene sceneID="HcD-CY-4Ll">
+            <objects>
+                <viewController id="76d-1b-h45" customClass="AudioRecorderViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s9R-9B-773">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hr-x8-Ohj">
+                                <rect key="frame" x="182.5" y="433" width="49" height="30"/>
+                                <state key="normal" title="Record"/>
+                                <connections>
+                                    <action selector="didTapRecord:" destination="76d-1b-h45" eventType="touchUpInside" id="V4G-jg-K8C"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kA1-ot-MiU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0Hr-x8-Ohj" firstAttribute="centerY" secondItem="s9R-9B-773" secondAttribute="centerY" id="Xns-fu-VVr"/>
+                            <constraint firstItem="0Hr-x8-Ohj" firstAttribute="centerX" secondItem="s9R-9B-773" secondAttribute="centerX" id="hqc-YI-Ix2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uxX-PV-3UE"/>
+                    <connections>
+                        <outlet property="recordButton" destination="0Hr-x8-Ohj" id="R4w-Gr-gui"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M2v-Ro-dKv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5530" y="1557"/>
         </scene>
         <!--Authentication View Controller-->
         <scene sceneID="GGu-eR-aN5">
