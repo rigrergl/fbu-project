@@ -145,6 +145,7 @@
 		3B4BB276269CC98700E5F692 /* fbu-project */ = {
 			isa = PBXGroup;
 			children = (
+				3BCC8597269E03810083F1F1 /* Utility */,
 				3BB126E1269CD483006444E4 /* Views */,
 				3BB126E0269CD474006444E4 /* ViewControllers */,
 				3BB126DF269CD459006444E4 /* Models */,
@@ -216,6 +217,13 @@
 				3BB126FE269CEA8E006444E4 /* OverlayView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3BCC8597269E03810083F1F1 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		7D5E161615907C82CACBDF87 /* Pods */ = {

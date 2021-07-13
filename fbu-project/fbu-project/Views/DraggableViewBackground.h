@@ -35,11 +35,13 @@
 
 @interface DraggableViewBackground : UIView <DraggableViewDelegate>
 
+- (id)initWithFrame:(CGRect)frame andUsers:(NSArray *)users;
+
 //methods called in DraggableView
 -(void)cardSwipedLeft:(UIView *)card;
 -(void)cardSwipedRight:(UIView *)card;
 
-@property (retain,nonatomic)NSArray* exampleCardLabels; //%%% the labels the cards
+@property (retain,nonatomic)NSArray* users; //%%% the labels the cards
 @property (retain,nonatomic)NSMutableArray* allCards; //%%% the labels the cards
 
 

@@ -14,7 +14,6 @@
 @interface CardsViewController () <AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
-@property (nonatomic, strong) NSArray *recommendedUsers;
 
 @end
 
@@ -29,15 +28,14 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-    [userQuery whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
+    [userQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     [userQuery includeKey:@"recording"];
     
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingUsers, NSError *_Nullable error){
         if (error) {
             NSLog(@"Error fetching mathching users");
         } else {
-            self.recommendedUsers = matchingUsers;
-            [self insertDraggableView];
+            [self insertDraggableView:matchingUsers];
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
@@ -47,10 +45,12 @@
     [self playCurrentUserRecording];
 }
 
-- (void)insertDraggableView {
+- (void)insertDraggableView:(NSArray *)users {
+    NSLog(@"Users: %@", users);
+    
     CGRect frame = self.view.frame;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
-    DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:frame];
+    DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:frame andUsers:users];
     draggableBackground.alpha = 0; //making the view fade in
 
     [self.view addSubview:draggableBackground];
