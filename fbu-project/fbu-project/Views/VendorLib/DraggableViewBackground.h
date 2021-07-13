@@ -35,14 +35,19 @@
 
 @interface DraggableViewBackground : UIView <DraggableViewDelegate>
 
-- (id)initWithFrame:(CGRect)frame andUsers:(NSArray *)users;
+- (id)initWithFrame:(CGRect)frame;
 
 //methods called in DraggableView
 -(void)cardSwipedLeft:(UIView *)card;
 -(void)cardSwipedRight:(UIView *)card;
+-(void)loadCards;
 
-@property (retain,nonatomic)NSArray* users; //%%% the labels the cards
+@property (retain,nonatomic)NSArray* exampleCardLabels; //%%% the labels the cards
+@property (assign, nonatomic) NSInteger cardsLoadedIndex; //%%% the index of the card you have loaded into the loadedCards array last
 @property (retain,nonatomic)NSMutableArray* allCards; //%%% the labels the cards
+@property (strong, nonatomic) NSMutableArray *loadedCards; //%%% the array of card loaded (change max_buffer_size to increase or decrease the number of cards this holds)
+@property (strong, nonatomic) UIButton* checkButton;
+@property (strong, nonatomic) UIButton* xButton;
 
 
 @end

@@ -25,6 +25,8 @@
 		3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12705269CF2A4006444E4 /* AuthenticationViewController.m */; };
 		3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12708269CFD12006444E4 /* ProfileViewController.m */; };
 		3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */; };
+		3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */; };
+		3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */; };
 		4ED1297FBAF7783CF2DE63E4 /* Pods_fbu_projectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43F2627CFA3486FC348D61 /* Pods_fbu_projectTests.framework */; };
 		AB9A5B5E194CF3EE5B1C4E05 /* Pods_fbu_project_fbu_projectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */; };
 /* End PBXBuildFile section */
@@ -83,6 +85,10 @@
 		3BB12708269CFD12006444E4 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3BB1270A269D008B006444E4 /* AudioRecorderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioRecorderViewController.h; sourceTree = "<group>"; };
 		3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderViewController.m; sourceTree = "<group>"; };
+		3BCC859E269E41D60083F1F1 /* CustomDraggableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableView.h; sourceTree = "<group>"; };
+		3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDraggableView.m; sourceTree = "<group>"; };
+		3BCC85A1269E42190083F1F1 /* CustomDraggableViewBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableViewBackground.h; sourceTree = "<group>"; };
+		3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDraggableViewBackground.m; sourceTree = "<group>"; };
 		4DFFBC7BA6E690BD2E32EA74 /* Pods-fbu-project-fbu-projectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5201BAA0F905BCB14125320F /* Pods-fbu-projectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80B327F9D8CE82AEFACEDF74 /* Pods-fbu-projectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.release.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,12 +215,11 @@
 		3BB126E1269CD483006444E4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3BB126F7269CEA6B006444E4 /* DraggableViewBackground.h */,
-				3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */,
-				3BB126FA269CEA7E006444E4 /* DraggableView.h */,
-				3BB126FB269CEA7E006444E4 /* DraggableView.m */,
-				3BB126FD269CEA8E006444E4 /* OverlayView.h */,
-				3BB126FE269CEA8E006444E4 /* OverlayView.m */,
+				3BCC859D269E3D540083F1F1 /* VendorLib */,
+				3BCC859E269E41D60083F1F1 /* CustomDraggableView.h */,
+				3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */,
+				3BCC85A1269E42190083F1F1 /* CustomDraggableViewBackground.h */,
+				3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +229,19 @@
 			children = (
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		3BCC859D269E3D540083F1F1 /* VendorLib */ = {
+			isa = PBXGroup;
+			children = (
+				3BB126F7269CEA6B006444E4 /* DraggableViewBackground.h */,
+				3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */,
+				3BB126FA269CEA7E006444E4 /* DraggableView.h */,
+				3BB126FB269CEA7E006444E4 /* DraggableView.m */,
+				3BB126FD269CEA8E006444E4 /* OverlayView.h */,
+				3BB126FE269CEA8E006444E4 /* OverlayView.m */,
+			);
+			path = VendorLib;
 			sourceTree = "<group>";
 		};
 		7D5E161615907C82CACBDF87 /* Pods */ = {
@@ -492,6 +510,7 @@
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
 				3BB126F3269CE8C4006444E4 /* MatchingViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
+				3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */,
 				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
 				3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
@@ -499,6 +518,7 @@
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
+				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

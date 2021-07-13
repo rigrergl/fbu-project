@@ -6,7 +6,7 @@
 //
 
 #import "CardsViewController.h"
-#import "DraggableViewBackground.h"
+#import "CustomDraggableViewBackground.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
 #import <MBProgressHUD/MBProgressHUD.h>
@@ -48,7 +48,7 @@
     CGRect frame = self.view.frame;
     frame.size.height = frame.size.height - topBarHeight - bottomBarHeight;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
-    DraggableViewBackground *draggableBackground = [[DraggableViewBackground alloc]initWithFrame:frame andUsers:users];
+    CustomDraggableViewBackground *draggableBackground = [[CustomDraggableViewBackground alloc]initWithFrame:frame andUsers:users];
     draggableBackground.alpha = 0; //making the view fade in
 
     [self.view addSubview:draggableBackground];

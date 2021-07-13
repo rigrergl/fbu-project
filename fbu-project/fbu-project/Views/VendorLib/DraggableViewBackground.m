@@ -9,28 +9,28 @@
 #import "DraggableViewBackground.h"
 #import <Parse/Parse.h>
 
-@implementation DraggableViewBackground{
-    NSInteger cardsLoadedIndex; //%%% the index of the card you have loaded into the loadedCards array last
-    NSMutableArray *loadedCards; //%%% the array of card loaded (change max_buffer_size to increase or decrease the number of cards this holds)
-    
-    UIButton* checkButton;
-    UIButton* xButton;
+@implementation DraggableViewBackground {
+    UIButton* menuButton;
+    UIButton* messageButton;
 }
 //this makes it so only two cards are loaded at a time to
 //avoid performance and memory costs
-static const int MAX_BUFFER_SIZE = 5; //%%% max number of cards loaded at any given time, must be greater than 1
-static const int BUTTON_SECTION_HEIGHT = 120;
+static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any given time, must be greater than 1
 
-@synthesize users; //%%% all the labels I'm using as example data at the moment
+@synthesize exampleCardLabels; //%%% all the labels I'm using as example data at the moment //%%% all the labels I'm using as example data at the moment
 @synthesize allCards;//%%% all the cards
+@synthesize loadedCards;
+@synthesize cardsLoadedIndex;
+@synthesize xButton;
+@synthesize checkButton;
 
-- (id)initWithFrame:(CGRect)frame andUsers:(NSArray *)users
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [super layoutSubviews];
         [self setupView];
-        self.users = users;
+        exampleCardLabels = [[NSArray alloc]initWithObjects:@"first",@"second",@"third",@"fourth",@"last", nil]; //%%% placeholder for card-specific information
         loadedCards = [[NSMutableArray alloc] init];
         allCards = [[NSMutableArray alloc] init];
         cardsLoadedIndex = 0;
@@ -43,15 +43,19 @@ static const int BUTTON_SECTION_HEIGHT = 120;
 -(void)setupView
 {
 #warning customize all of this.  These are just place holders to make it look pretty
-    CGFloat buttonWidth = BUTTON_SECTION_HEIGHT - 15;
-    
     self.backgroundColor = [UIColor colorWithRed:.92 green:.93 blue:.95 alpha:1]; //the gray background colors
-    xButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth - 15, self.frame.size.height - BUTTON_SECTION_HEIGHT - 10, buttonWidth, buttonWidth)];
+    menuButton = [[UIButton alloc]initWithFrame:CGRectMake(17, 34, 22, 15)];
+    [menuButton setImage:[UIImage imageNamed:@"menuButton"] forState:UIControlStateNormal];
+    messageButton = [[UIButton alloc]initWithFrame:CGRectMake(284, 34, 18, 18)];
+    [messageButton setImage:[UIImage imageNamed:@"messageButton"] forState:UIControlStateNormal];
+    xButton = [[UIButton alloc]initWithFrame:CGRectMake(60, 485, 59, 59)];
     [xButton setImage:[UIImage imageNamed:@"xButton"] forState:UIControlStateNormal];
     [xButton addTarget:self action:@selector(swipeLeft) forControlEvents:UIControlEventTouchUpInside];
-    checkButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 + 15, self.frame.size.height - BUTTON_SECTION_HEIGHT - 10, buttonWidth, buttonWidth)];
+    checkButton = [[UIButton alloc]initWithFrame:CGRectMake(200, 485, 59, 59)];
     [checkButton setImage:[UIImage imageNamed:@"checkButton"] forState:UIControlStateNormal];
     [checkButton addTarget:self action:@selector(swipeRight) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:menuButton];
+    [self addSubview:messageButton];
     [self addSubview:xButton];
     [self addSubview:checkButton];
 }
@@ -62,24 +66,18 @@ static const int BUTTON_SECTION_HEIGHT = 120;
 // to get rid of it (eg: if you are building cards from data from the internet)
 -(DraggableView *)createDraggableViewWithDataAtIndex:(NSInteger)index
 {
-    CGFloat cardMargins = 50;
-    CGFloat cardWidth = self.frame.size.width - cardMargins;
-    CGFloat cardHeight = self.frame.size.height - cardMargins - BUTTON_SECTION_HEIGHT;
-    
-    DraggableView *draggableView = [[DraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT + 20)/2,  cardWidth, cardHeight) andUser:users[index]];
-    draggableView.delegate = self;
-    return draggableView;
+    return nil;
 }
 
 //%%% loads all the cards and puts the first x in the "loaded cards" array
 -(void)loadCards
 {
-    if([users count] > 0) {
-        NSInteger numLoadedCardsCap =(([users count] > MAX_BUFFER_SIZE)?MAX_BUFFER_SIZE:[users count]);
+    if([exampleCardLabels count] > 0) {
+        NSInteger numLoadedCardsCap =(([exampleCardLabels count] > MAX_BUFFER_SIZE)?MAX_BUFFER_SIZE:[exampleCardLabels count]);
         //%%% if the buffer size is greater than the data size, there will be an array error, so this makes sure that doesn't happen
         
         //%%% loops through the exampleCardsLabels array to create a card for each label.  This should be customized by removing "exampleCardLabels" with your own array of data
-        for (int i = 0; i<[users count]; i++) {
+        for (int i = 0; i<[exampleCardLabels count]; i++) {
             DraggableView* newCard = [self createDraggableViewWithDataAtIndex:i];
             [allCards addObject:newCard];
             
