@@ -34,8 +34,10 @@
 @synthesize delegate;
 
 @synthesize panGestureRecognizer;
-@synthesize information;
+@synthesize usernameLabel;
 @synthesize overlayView;
+@synthesize playButton;
+@synthesize user;
 
 - (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user
 {
@@ -44,77 +46,44 @@
         [self setupView];
         self.user = user;
 #warning placeholder stuff, replace with card-specific information {
-        information = [[UILabel alloc]initWithFrame:CGRectMake(0, 50, self.frame.size.width, 100)];
-        information.text = user[@"username"];
-        [information setTextAlignment:NSTextAlignmentCenter];
-        information.textColor = [UIColor blackColor];
+        [self setupUsernameLabel];
+        [self setupPlayButton];
         
         self.backgroundColor = [UIColor whiteColor];
 #warning placeholder stuff, replace with card-specific information }
-        
-        
-        
         panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(beingDragged:)];
         
         [self addGestureRecognizer:panGestureRecognizer];
-        [self addSubview:information];
         
         overlayView = [[OverlayView alloc]initWithFrame:CGRectMake(self.frame.size.width/2-100, 0, 100, 100)];
         overlayView.alpha = 0;
         [self addSubview:overlayView];
-        
-        [self playRecording];
     }
     return self;
 }
 
-#pragma mark - Recording playback
-
--(void)playRecording
-{
-    PFFileObject *recordingFile = self.user[@"recording"];
-    [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error getting data from PFFileObject");
-        } else {
-            [self playRecordingWithData:data];
-        }
-    }];
-}
-
-- (void)playRecordingWithData:(NSData *)data {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    NSError *error = nil;
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
-    self.audioPlayer.delegate = self;
-    self.audioPlayer.numberOfLoops = 0;
-    [self.audioPlayer play];
-}
-
-
-- (void)stopPlaying {
-    if (self.audioPlayer) {
-        [self.audioPlayer stop];
-        self.audioPlayer = nil;
-    } else {
-        NSLog(@"Tried to stop audio player but it was nil");
-    }
-}
-
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
-    if (flag) {
-        [self stopPlaying];
-    } else {
-        NSLog(@"audioPlayerDidFinishPlaying with error");
-    }
-}
-
 #pragma mark - Setup
 
--(void)setupView
+- (void)setupUsernameLabel {
+    usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, self.frame.size.width, 100)];
+    usernameLabel.text = user[@"username"];
+    [usernameLabel setTextAlignment:NSTextAlignmentCenter];
+    usernameLabel.textColor = [UIColor blackColor];
+    
+    [self addSubview:usernameLabel];
+}
+
+- (void)setupPlayButton {
+//    CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    playButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width / 2 - 20, 200, 20, 20)];
+    [playButton setTitle:@"" forState:UIControlStateNormal];
+    [playButton setBackgroundImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateNormal];
+    [playButton addTarget:self action:@selector(playRecording) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:playButton];
+}
+
+- (void)setupView
 {
     self.layer.cornerRadius = 4;
     self.layer.shadowRadius = 3;
@@ -276,6 +245,51 @@
     [delegate cardSwipedLeft:self];
     
     NSLog(@"NO");
+}
+
+
+#pragma mark - Recording playback
+
+-(void)playRecording
+{
+    PFFileObject *recordingFile = user[@"recording"];
+    [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
+        if (error) {
+            NSLog(@"Error getting data from PFFileObject");
+        } else {
+            [self playRecordingWithData:data];
+        }
+    }];
+}
+
+- (void)playRecordingWithData:(NSData *)data {
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    self.audioPlayer.delegate = self;
+    self.audioPlayer.numberOfLoops = 0;
+    [self.audioPlayer play];
+}
+
+
+- (void)stopPlaying {
+    if (self.audioPlayer) {
+        [self.audioPlayer stop];
+        self.audioPlayer = nil;
+    } else {
+        NSLog(@"Tried to stop audio player but it was nil");
+    }
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+    if (flag) {
+        [self stopPlaying];
+    } else {
+        NSLog(@"audioPlayerDidFinishPlaying with error");
+    }
 }
 
 
