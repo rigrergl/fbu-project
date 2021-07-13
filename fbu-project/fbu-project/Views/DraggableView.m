@@ -16,6 +16,14 @@
 
 
 #import "DraggableView.h"
+#import <AVFoundation/AVFoundation.h>
+
+@interface DraggableView () <AVAudioPlayerDelegate>
+
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) PFUser *user;
+
+@end
 
 @implementation DraggableView {
     CGFloat xFromCenter;
@@ -34,7 +42,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setupView];
-        
+        self.user = user;
 #warning placeholder stuff, replace with card-specific information {
         information = [[UILabel alloc]initWithFrame:CGRectMake(0, 50, self.frame.size.width, 100)];
         information.text = user[@"username"];
@@ -54,9 +62,38 @@
         overlayView = [[OverlayView alloc]initWithFrame:CGRectMake(self.frame.size.width/2-100, 0, 100, 100)];
         overlayView.alpha = 0;
         [self addSubview:overlayView];
+        
+        [self playRecording];
     }
     return self;
 }
+
+#pragma mark - Recording playback
+
+-(void)playRecording
+{
+    PFFileObject *recordingFile = self.user[@"recording"];
+    [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
+        if (error) {
+            NSLog(@"Error getting data from PFFileObject");
+        } else {
+            [self playRecordingWithData:data];
+        }
+    }];
+}
+
+- (void)playRecordingWithData:(NSData *)data {
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    self.audioPlayer.delegate = self;
+    self.audioPlayer.numberOfLoops = 0;
+    [self.audioPlayer play];
+}
+
+#pragma mark - Setup
 
 -(void)setupView
 {

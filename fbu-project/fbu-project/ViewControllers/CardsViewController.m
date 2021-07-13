@@ -41,10 +41,6 @@
     }];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self playCurrentUserRecording];
-}
-
 - (void)insertDraggableView:(NSArray *)users {    
     CGRect frame = self.view.frame;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
@@ -58,37 +54,6 @@
         draggableBackground.center = self.view.center;
         draggableBackground.alpha = 1;
     }];
-}
-
-#pragma mark - Testing audio playback from database
-
-- (void)playCurrentUserRecording {
-    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-    [userQuery whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
-    [userQuery includeKey:@"recording"];
-    
-    [userQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingUsers, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error fetching mathching users");
-        } else {
-            for (PFUser *user in matchingUsers) {
-                PFFileObject *recordingFile = user[@"recording"];
-                NSData *data = [recordingFile getData];
-                [self playRecordingWithData:data];
-            }
-        }
-    }];
-}
-
-- (void)playRecordingWithData:(NSData *)data {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    NSError *error = nil;
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
-    self.audioPlayer.delegate = self;
-    self.audioPlayer.numberOfLoops = 0;
-    [self.audioPlayer play];
 }
 
 @end
