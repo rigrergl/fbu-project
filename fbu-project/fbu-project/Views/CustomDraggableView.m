@@ -24,9 +24,10 @@
     if (self) {
         self.user = user;
         [self setupUsernameLabel];
-        [self setupPlayButton];
         
-        self.delegate = self;
+        if (self.user[@"recording"] != nil) {
+            [self setupPlayButton];
+        }
     }
     return self;
 }
@@ -76,9 +77,15 @@
 
 -(void)playRecording
 {
-    [self.playButton setSelected:YES];
     
     PFFileObject *recordingFile = self.user[@"recording"];
+    if(recordingFile == nil) {
+        NSLog(@"User has no recording");
+        return;
+    }
+    
+    [self.playButton setSelected:YES];
+    
     [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
         if (error) {
             NSLog(@"Error getting data from PFFileObject");
