@@ -219,11 +219,20 @@
                                     <action selector="didTapRecord:" destination="76d-1b-h45" eventType="touchUpInside" id="V4G-jg-K8C"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWb-SI-E2n">
+                                <rect key="frame" x="192" y="485" width="30" height="30"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="didTapPlay:" destination="76d-1b-h45" eventType="touchUpInside" id="bUs-vG-oBt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kA1-ot-MiU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="PWb-SI-E2n" firstAttribute="centerX" secondItem="s9R-9B-773" secondAttribute="centerX" id="7ti-ph-X2H"/>
                             <constraint firstItem="0Hr-x8-Ohj" firstAttribute="centerY" secondItem="s9R-9B-773" secondAttribute="centerY" id="Xns-fu-VVr"/>
+                            <constraint firstItem="PWb-SI-E2n" firstAttribute="top" secondItem="0Hr-x8-Ohj" secondAttribute="bottom" constant="22" id="apq-gp-5PE"/>
                             <constraint firstItem="0Hr-x8-Ohj" firstAttribute="centerX" secondItem="s9R-9B-773" secondAttribute="centerX" id="hqc-YI-Ix2"/>
                         </constraints>
                     </view>

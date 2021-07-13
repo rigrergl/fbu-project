@@ -33,6 +33,14 @@
     }
 }
 
+- (IBAction)didTapPlay:(UIButton *)sender {
+    if (self.audioPlayer == nil) {
+        [self playRecording];
+    } else {
+        [self stopRecording];
+    }
+}
+
 - (void)startRecording {
     
     self.recordingSession = [AVAudioSession sharedInstance];
@@ -130,10 +138,7 @@
         }
     }];
     
-//    [editedObject setValue:[NSData dataWithContentsOfURL:url] forKey:editedFieldKey];
-
-    //[recorder deleteRecording];
-    [self deleteFile];
+//    [self deleteFile]; TODO: uncomment this line
 }
 
 - (void)deleteFile {
@@ -157,6 +162,28 @@
     } else {
         NSLog (@"audioRecorderDidFinishRecording:successfully:");
         // your actions here∫
+    }
+}
+
+
+#pragma mark - Playing the recording
+
+- (void)playRecording {
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    NSURL *url = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
+    NSError *error = nil;
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    self.audioPlayer.numberOfLoops = 0;
+    [self.audioPlayer play];
+}
+
+- (void)stopRecording {
+    if (self.audioPlayer) {
+        [self.audioPlayer stop];
+    } else {
+        NSLog(@"Tried to stop audio player but it was nil");
     }
 }
 
