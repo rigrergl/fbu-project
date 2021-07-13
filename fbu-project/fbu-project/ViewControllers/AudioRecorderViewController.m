@@ -7,6 +7,7 @@
 
 #import "AudioRecorderViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <Parse/Parse.h>
 
 @interface AudioRecorderViewController () <AVAudioRecorderDelegate>
 
@@ -25,7 +26,11 @@
 }
 
 - (IBAction)didTapRecord:(UIButton *)sender {
-    [self startRecording];
+    if (self.audioRecorder == nil) {
+        [self startRecording];
+    } else {
+        [self finishRecording:YES];
+    }
 }
 
 - (void)startRecording {
@@ -56,15 +61,10 @@
     [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
     [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
     
-    // Create a new dated file
-    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSString *caldate = [now description];
-    NSURL *documentsDirectory = [AudioRecorderViewController getDocumentsDirectory];
-    NSString *recorderFilePath = [NSString stringWithFormat:@"%@/%@.caf", documentsDirectory, caldate];
+    NSURL *audioFile = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
     
-    NSURL *url = [NSURL fileURLWithPath:recorderFilePath];
     error = nil;
-    self.audioRecorder = [[ AVAudioRecorder alloc] initWithURL:url settings:recordSetting error:&error];
+    self.audioRecorder = [[ AVAudioRecorder alloc] initWithURL:audioFile settings:recordSetting error:&error];
     if(!self.audioRecorder){
         NSLog(@"recorder: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning"
@@ -84,30 +84,10 @@
     }
     
     //prepare to record
-    [self.audioRecorder setDelegate:self];
-    [self.audioRecorder  prepareToRecord];
-    self.audioRecorder .meteringEnabled = YES;
+    self.audioRecorder.delegate = self;
+    [self.audioRecorder record];
     
-    BOOL audioHWAvailable = self.recordingSession.isInputAvailable;
-    if (! audioHWAvailable) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning"
-                                                                       message:@"Audio input hardware not available"
-                                                                preferredStyle:(UIAlertControllerStyleAlert)];
-        // create an OK action
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-            // handle response here.
-        }];
-        // add the OK action to the alert controller
-        [alert addAction:okAction];
-        
-        [self presentViewController:alert animated:YES completion:^{}];
-        return;
-    }
-    
-    // start recording
-    [self.audioRecorder recordForDuration:(NSTimeInterval) 10];
+    [self.recordButton setTitle:@"Tap to Stop" forState:UIControlStateNormal];
 }
 
 + (NSURL *)getDocumentsDirectory {
@@ -116,22 +96,50 @@
     return paths[0];
 }
 
-- (void) stopRecording{
+
+- (void)finishRecording:(BOOL)success {
+    [self.audioRecorder stop];
+    self.audioRecorder = nil;
     
+    [self retrieveRecordedFile];
+    
+    if (success) {
+        [self.recordButton setTitle:@"Tap to Re-record" forState:UIControlStateNormal];
+    } else {
+        [self.recordButton setTitle:@"Tap to Record" forState:UIControlStateNormal];
+    }
+}
+
+- (void)retrieveRecordedFile{
+
     [self.audioRecorder stop];
     
-    NSURL *url = [AudioRecorderViewController getDocumentsDirectory];
+    NSURL *url = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
     NSError *error= nil;
     NSData *audioData = [NSData dataWithContentsOfFile:[url path] options: 0 error:&error];
     if(!audioData)
         NSLog(@"audio data: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
+    
+    [[PFUser currentUser] setValue:[NSData dataWithContentsOfURL:url] forKey:@"recording"];
+    
+    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
+        if(error) {
+            NSLog(@"Error saving recording for user");
+        } else {
+            NSLog(@"Successfully saved recording for user");
+        }
+    }];
+    
 //    [editedObject setValue:[NSData dataWithContentsOfURL:url] forKey:editedFieldKey];
-    
+
     //[recorder deleteRecording];
-    
-    
+    [self deleteFile];
+}
+
+- (void)deleteFile {
+    NSURL *url = [[AudioRecorderViewController getDocumentsDirectory] URLByAppendingPathComponent:@"recording.m4a"];
     NSFileManager *fm = [NSFileManager defaultManager];
-    
+    NSError *error;
     error = nil;
     [fm removeItemAtPath:[url path] error:&error];
     if(error)
@@ -144,10 +152,12 @@
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *) aRecorder successfully:(BOOL)flag
 {
-    
-    NSLog (@"audioRecorderDidFinishRecording:successfully:");
-    // your actions here
-    
+    if (!flag) {
+        [self finishRecording:false];
+    } else {
+        NSLog (@"audioRecorderDidFinishRecording:successfully:");
+        // your actions here∫
+    }
 }
 
 @end
