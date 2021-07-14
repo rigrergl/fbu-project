@@ -6,14 +6,26 @@
 //
 
 #import "CommonQueries.h"
+#import "Match.h"
 
 #import <Parse/Parse.h>
 
 void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSError *_Nullable error) ){
-    PFQuery *likedUsersQuery = [PFQuery queryWithClassName:@"Like"];
-    [likedUsersQuery whereKey:@"originUser" equalTo: [PFUser currentUser]];
-
-    [likedUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likedUsers, NSError *_Nullable error){
-        completion(likedUsers, nil);
+    PFQuery *matchQuery = [PFQuery queryWithClassName:@"Match"];
+    [matchQuery whereKey:@"users" containsAllObjectsInArray:@[[PFUser currentUser]]];
+    
+    [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matches, NSError *_Nullable error){
+        NSMutableArray *matchedUsers = [[NSMutableArray alloc] initWithCapacity:matches.count];
+        for (Match *match in matches) {
+            NSArray *usersInMatch = match.users;
+            PFUser *user1 = usersInMatch[0];
+            PFUser *user2 = usersInMatch[1];
+            if ([user1.objectId isEqualToString: [PFUser currentUser].objectId]) {
+                [matchedUsers addObject:user2];
+            } else {
+                [matchedUsers addObject:user1];
+            }
+        }
+        completion(matchedUsers, nil);
     }];
 }

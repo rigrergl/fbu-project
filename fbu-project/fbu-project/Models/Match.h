@@ -11,12 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Match : PFObject<PFSubclassing>
 
-@property (nonatomic, strong) PFUser *_Nonnull user1;
-@property (nonatomic, strong) PFUser *_Nonnull user2;
+@property (nonatomic, strong) NSArray *_Nonnull users;
 
 + (void)postMatchBetween:(PFUser *)user1
-                     and:(PFUser *)user2
-withCompletion:(PFBooleanResultBlock _Nullable)completion ;
+                 andUser:(PFUser *)user2
+          withCompletion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

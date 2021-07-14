@@ -21,7 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     MatchingUsers(^(NSArray *_Nullable matchedUsers, NSError *_Nullable error){
-        NSLog(@"%@", matchedUsers);
+        NSLog(@"Matched users: %@", matchedUsers);
+        //TODO: update class property
     });
 }
 

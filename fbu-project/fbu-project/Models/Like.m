@@ -50,12 +50,10 @@
     [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
         if (!error && likes.count == 1) {
             //make new Match
-            [Match postMatchBetween:newLike.originUser and:newLike.destinationUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+            [Match postMatchBetween:newLike.originUser andUser:newLike.destinationUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
                 if (error) {
                     NSLog(@"Error posting new match: %@", error.localizedDescription);
-                } else {
-                    NSLog(@"successfully posted new match");
-                }
+                } 
             }];
         } else if (error) {
             NSLog(@"Error posting match: %@", error.localizedDescription);

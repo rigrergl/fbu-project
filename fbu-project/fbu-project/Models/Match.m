@@ -14,12 +14,12 @@
 }
 
 + (void)postMatchBetween:(PFUser *)user1
-                     and:(PFUser *)user2
+                 andUser:(PFUser *)user2
           withCompletion:(PFBooleanResultBlock _Nullable)completion {
     
     Match *newMatch = [Match new];
-    newMatch.user1 = user1;
-    newMatch.user2 = user2;
+    NSArray *users = @[user1, user2];
+    newMatch.users = users;
     
     [newMatch saveInBackgroundWithBlock:completion];
 }
