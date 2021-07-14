@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *messages;
 
+@property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 
 @end
 
@@ -25,7 +26,20 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView reloadData];
+    
+    [self setupGestures];
 }
+
+- (void)setupGestures {
+    UITapGestureRecognizer *screenTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScreen:)];
+    [self.view addGestureRecognizer:screenTapGestureRecognizer];
+    [self.view setUserInteractionEnabled:YES];
+}
+
+- (void)didTapScreen:(UIGestureRecognizer *)sender {
+    [self endTyping];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -57,6 +71,11 @@
 }
 
 #pragma mark - keyboard movements
+
+- (void)endTyping {
+    [self.inputTextView resignFirstResponder];
+}
+
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
