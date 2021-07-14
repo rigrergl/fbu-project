@@ -7,6 +7,7 @@
 
 #import "Like.h"
 #import "UnLike.h"
+#import "Match.h"
 
 @implementation Like
 
@@ -34,6 +35,32 @@
     [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
         if (!error && likes && likes.count == 0) {
             [newLike saveInBackgroundWithBlock:completion];
+            [Like makeMatchIfApplicable:newLike];
+            
+        }
+    }];
+}
+
++ (void)makeMatchIfApplicable:(Like *)newLike {
+    //check if reverse like exists
+    PFQuery *likeQuery = [PFQuery queryWithClassName:@"Like"];
+    [likeQuery whereKey:@"originUser" equalTo:newLike.destinationUser];
+    [likeQuery whereKey:@"destinationUser" equalTo:newLike.originUser];
+    
+    [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
+        if (!error && likes.count == 1) {
+            //make new Match
+            [Match postMatchBetween:newLike.originUser and:newLike.destinationUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+                if (error) {
+                    NSLog(@"Error posting new match: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"successfully posted new match");
+                }
+            }];
+        } else if (error) {
+            NSLog(@"Error posting match: %@", error.localizedDescription);
+        } else if (likes.count > 1) {
+            NSLog(@"Found inconsistency in database: duplicate likes. Fix bug and wipe database");
         }
     }];
 }
