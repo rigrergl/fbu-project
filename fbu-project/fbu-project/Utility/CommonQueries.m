@@ -11,7 +11,7 @@
 
 void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSError *_Nullable error) ){
     PFQuery *likedUsersQuery = [PFQuery queryWithClassName:@"Like"];
-    [likedUsersQuery whereKey:@"originUser" equalTo: [PFUser currentUser].objectId];
+    [likedUsersQuery whereKey:@"originUser" equalTo: [PFUser currentUser]];
 
     [likedUsersQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likedUsers, NSError *_Nullable error){
         completion(likedUsers, nil);
