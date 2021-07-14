@@ -111,12 +111,12 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | createdAt   | DateTime      |date when like is created (default field)
 | updatedAt   | DateTime      |date when like is last updated (default field)
 
-#### Match
+#### UnLike
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
-| user1       | Pointer to User |first user in the match
-| user2       | Pointer to User |second user in the match
+| originUser       | Pointer to User |first user in the unlike
+| destinationUser       | Pointer to User |second user in the unlike
 | createdAt   | DateTime      |date when like is created (default field)
 | updatedAt   | DateTime      |date when like is last updated (default field)
 
