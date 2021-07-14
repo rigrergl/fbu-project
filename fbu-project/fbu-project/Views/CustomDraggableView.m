@@ -95,16 +95,10 @@
 }
 
 - (void)hideProgressView {
-    [UIView animateWithDuration:0.5
-                     animations:^{self.progressView.alpha = 0;}
-                     completion:^(BOOL finished){
-        if (finished) {
-            [self.progressTimer invalidate];
-            self.progressTimer = nil;
-            [self.progressView removeFromSuperview];
-            self.progressView = nil;
-        }
-    }];
+    [self.progressTimer invalidate];
+    self.progressTimer = nil;
+    [self.progressView removeFromSuperview];
+    self.progressView = nil;
 }
 
 - (void)updatePlaybackSlider:(NSTimer *)timer {
