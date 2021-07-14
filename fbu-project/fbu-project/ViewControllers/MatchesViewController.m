@@ -7,12 +7,14 @@
 
 #import "MatchesViewController.h"
 #import "CommonQueries.h"
+#import "MatchCollectionViewCell.h"
 
 
-@interface MatchesViewController ()
+@interface MatchesViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UICollectionView *matchesCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *conversationsCollectionView;
-
+@property (strong, nonatomic) NSArray *matchedUsers;
 
 @end
 
@@ -20,9 +22,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadMatches];
+}
+
+- (void)loadMatches {
+    
+    UICollectionViewFlowLayout *flowLayout = self.matchesCollectionView.collectionViewLayout;
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    
+    self.matchesCollectionView.delegate = self;
+    self.matchesCollectionView.dataSource = self;
+    
     MatchingUsers(^(NSArray *_Nullable matchedUsers, NSError *_Nullable error){
-        NSLog(@"Matched users: %@", matchedUsers);
-        //TODO: update class property
+        self.matchedUsers = matchedUsers;
+        [self.matchesCollectionView reloadData];
     });
 }
 
@@ -35,5 +48,20 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.matchedUsers.count;
+}
+
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return CGSizeMake(CGRectGetWidth(collectionView.frame), (CGRectGetHeight(collectionView.frame)));
+//}
 
 @end
