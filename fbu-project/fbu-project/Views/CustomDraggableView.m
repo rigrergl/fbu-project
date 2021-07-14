@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) PFUser *user;
+@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) NSTimer *progressTimer;
 
 @end
 
@@ -77,6 +79,47 @@
 
 #pragma mark - Recording playback
 
+- (void)showProgressView {
+    CGFloat barWidth = 300;
+    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - barWidth/2, 300, barWidth, 50)];
+    self.progressView.progress = 0.5;
+ 
+    [self addSubview:self.progressView];
+    
+    self.progressView.alpha = 0;
+    [UIView animateWithDuration:.5 animations:^{
+        self.progressView.alpha = 1;
+    }];
+    
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updatePlaybackSlider:) userInfo:nil repeats:YES];
+}
+
+- (void)hideProgressView {
+    [UIView animateWithDuration:0.5
+                     animations:^{self.progressView.alpha = 0;}
+                     completion:^(BOOL finished){
+        if (finished) {
+            [self.progressTimer invalidate];
+            self.progressTimer = nil;
+            [self.progressView removeFromSuperview];
+            self.progressView = nil;
+        }
+    }];
+}
+
+- (void)updatePlaybackSlider:(NSTimer *)timer {
+    if (self.audioPlayer == nil || self.progressView == nil) {
+        NSLog(@"Not ready for progress bar");
+    }
+    
+    float totalTime = self.audioPlayer.duration;
+    float currentTime = self.audioPlayer.currentTime / totalTime;
+    
+    NSLog(@"Current time: %f", currentTime);
+    
+    self.progressView.progress = currentTime;
+}
+
 -(void)playRecording
 {
     
@@ -106,11 +149,16 @@
     self.audioPlayer.delegate = self;
     self.audioPlayer.numberOfLoops = 0;
     [self.audioPlayer play];
+    [self showProgressView];
 }
 
 
 - (void)stopPlaying {
     [self.playButton setSelected:NO];
+    
+    if (self.progressView) {
+        [self hideProgressView];
+    }
     
     if (self.audioPlayer) {
         [self.audioPlayer stop];
