@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MessageCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrappingViewWidth;
 
 
 @end

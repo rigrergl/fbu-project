@@ -6,9 +6,12 @@
 //
 
 #import "ChatViewController.h"
+#import "MessageCollectionViewCell.h"
+#import <LoremIpsum/LoremIpsum.h>
 
-@interface ChatViewController ()
+@interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) NSArray *messages;
 
 @end
 
@@ -17,16 +20,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.messages = [[NSArray alloc] initWithObjects:@"First Message", @"Second Message", @"Third Message", nil];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView reloadData];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatCell" forIndexPath:indexPath];
+    
+    if (cell) {
+        cell.contentLabel.text = [LoremIpsum sentence];//self.messages[indexPath.item];
+        cell.wrappingViewWidth.constant = self.view.frame.size.width;
+    }
+    
+    return cell;
 }
-*/
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.messages.count;
+}
+
 
 @end
