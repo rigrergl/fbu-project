@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TGP-oq-9Ag">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LGb-Xt-dCy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -127,6 +128,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZn-mZ-OL2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1945" y="1557"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="DXw-6b-IbF">
+            <objects>
+                <viewController id="LGb-Xt-dCy" customClass="ChatViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CT5-Gr-224">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GPF-Ff-D2S">
+                                <rect key="frame" x="0.0" y="100" width="414" height="796"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g4f-Nn-am5">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1lx-tz-tlA">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jCR-ZV-GLf">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A4H-Yc-fC3">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mV-ec-H9J">
+                                        <rect key="frame" x="167.5" y="39.5" width="79" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="0mV-ec-H9J" firstAttribute="centerY" secondItem="A4H-Yc-fC3" secondAttribute="centerY" id="DyH-JY-t6z"/>
+                                    <constraint firstItem="0mV-ec-H9J" firstAttribute="centerX" secondItem="A4H-Yc-fC3" secondAttribute="centerX" id="TuV-ph-xdA"/>
+                                    <constraint firstAttribute="height" constant="100" id="qVj-kI-99v"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mDa-2D-n36"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="A4H-Yc-fC3" firstAttribute="top" secondItem="CT5-Gr-224" secondAttribute="top" id="0FM-LX-ErM"/>
+                            <constraint firstItem="A4H-Yc-fC3" firstAttribute="trailing" secondItem="mDa-2D-n36" secondAttribute="trailing" id="3gQ-yH-5hs"/>
+                            <constraint firstItem="GPF-Ff-D2S" firstAttribute="leading" secondItem="mDa-2D-n36" secondAttribute="leading" id="LzU-QF-ZmL"/>
+                            <constraint firstItem="GPF-Ff-D2S" firstAttribute="trailing" secondItem="mDa-2D-n36" secondAttribute="trailing" id="Ohk-9e-9iI"/>
+                            <constraint firstItem="GPF-Ff-D2S" firstAttribute="top" secondItem="A4H-Yc-fC3" secondAttribute="bottom" id="Zk0-6F-QYg"/>
+                            <constraint firstAttribute="bottom" secondItem="GPF-Ff-D2S" secondAttribute="bottom" id="myb-nj-SoR"/>
+                            <constraint firstItem="GPF-Ff-D2S" firstAttribute="top" secondItem="A4H-Yc-fC3" secondAttribute="bottom" id="uIN-yb-xKG"/>
+                            <constraint firstItem="A4H-Yc-fC3" firstAttribute="leading" secondItem="mDa-2D-n36" secondAttribute="leading" id="xJZ-MV-1OD"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hIo-1g-gA5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1944.9275362318842" y="2284.8214285714284"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="aqw-s9-qGg">

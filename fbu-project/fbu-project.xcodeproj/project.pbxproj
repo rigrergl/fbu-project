@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */; };
+		3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2F7732269F43C300BB7F4B /* MessageUI.framework */; };
+		3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7735269F441600BB7F4B /* ChatViewController.m */; };
 		3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB278269CC98700E5F692 /* AppDelegate.m */; };
 		3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB27B269CC98700E5F692 /* SceneDelegate.m */; };
 		3B4BB282269CC98700E5F692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4BB280269CC98700E5F692 /* Main.storyboard */; };
@@ -52,6 +54,9 @@
 /* Begin PBXFileReference section */
 		024F8DC8150730B04A13C684 /* Pods-fbu-project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project.release.xcconfig"; path = "Target Support Files/Pods-fbu-project/Pods-fbu-project.release.xcconfig"; sourceTree = "<group>"; };
 		16CB7359656FB7EE4CBCEB8C /* Pods-fbu-project-fbu-projectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.release.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3B2F7732269F43C300BB7F4B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		3B2F7734269F441600BB7F4B /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		3B2F7735269F441600BB7F4B /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		3B4BB274269CC98700E5F692 /* fbu-project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4BB277269CC98700E5F692 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3B4BB278269CC98700E5F692 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -106,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */,
 				28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,6 +219,8 @@
 				3BB12708269CFD12006444E4 /* ProfileViewController.m */,
 				3BB1270A269D008B006444E4 /* AudioRecorderViewController.h */,
 				3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */,
+				3B2F7734269F441600BB7F4B /* ChatViewController.h */,
+				3B2F7735269F441600BB7F4B /* ChatViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 		A667211F5783930463835B26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B2F7732269F43C300BB7F4B /* MessageUI.framework */,
 				EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */,
 				DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */,
 				DD43F2627CFA3486FC348D61 /* Pods_fbu_projectTests.framework */,
@@ -513,6 +522,7 @@
 			files = (
 				3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */,
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
+				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
 				3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */,
 				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
