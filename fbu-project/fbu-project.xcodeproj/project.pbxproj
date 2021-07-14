@@ -27,6 +27,7 @@
 		3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */; };
 		3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */; };
 		3BCC85A6269E551D0083F1F1 /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A5269E551D0083F1F1 /* Like.m */; };
+		3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A8269E61450083F1F1 /* UnLike.m */; };
 		4ED1297FBAF7783CF2DE63E4 /* Pods_fbu_projectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43F2627CFA3486FC348D61 /* Pods_fbu_projectTests.framework */; };
 		AB9A5B5E194CF3EE5B1C4E05 /* Pods_fbu_project_fbu_projectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,8 @@
 		3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDraggableViewBackground.m; sourceTree = "<group>"; };
 		3BCC85A4269E551D0083F1F1 /* Like.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Like.h; sourceTree = "<group>"; };
 		3BCC85A5269E551D0083F1F1 /* Like.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Like.m; sourceTree = "<group>"; };
+		3BCC85A7269E61450083F1F1 /* UnLike.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnLike.h; sourceTree = "<group>"; };
+		3BCC85A8269E61450083F1F1 /* UnLike.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnLike.m; sourceTree = "<group>"; };
 		4DFFBC7BA6E690BD2E32EA74 /* Pods-fbu-project-fbu-projectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5201BAA0F905BCB14125320F /* Pods-fbu-projectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80B327F9D8CE82AEFACEDF74 /* Pods-fbu-projectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.release.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 			children = (
 				3BCC85A4269E551D0083F1F1 /* Like.h */,
 				3BCC85A5269E551D0083F1F1 /* Like.m */,
+				3BCC85A7269E61450083F1F1 /* UnLike.h */,
+				3BCC85A8269E61450083F1F1 /* UnLike.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
+				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

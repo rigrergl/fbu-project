@@ -8,6 +8,7 @@
 #import "CustomDraggableView.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Like.h"
+#import "UnLike.h"
 
 @interface CustomDraggableView () <AVAudioPlayerDelegate>
 
@@ -129,7 +130,7 @@
 #pragma mark - Card Swiped Override Methods
 
 - (void)swipedRight {
-    NSLog(@"YES");
+    //YES
     [Like postLikeFrom:[PFUser currentUser] to:self.user withCompletion:^(BOOL succeeded, NSError *_Nullable error){
         if (error) {
             NSLog(@"Error posting like: %@", error.localizedDescription);
@@ -138,7 +139,12 @@
 }
 
 - (void)swipedLeft {
-    NSLog(@"NO");
+    //NO
+    [UnLike postUnLikeFrom:[PFUser currentUser] to:self.user withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+        if (error) {
+            NSLog(@"Error posting like: %@", error.localizedDescription);
+        }
+    }];
 }
 
 @end
