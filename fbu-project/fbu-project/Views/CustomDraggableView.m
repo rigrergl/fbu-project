@@ -115,8 +115,6 @@
     float totalTime = self.audioPlayer.duration;
     float currentTime = self.audioPlayer.currentTime / totalTime;
     
-    NSLog(@"Current time: %f", currentTime);
-    
     self.progressView.progress = currentTime;
 }
 
