@@ -148,9 +148,9 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
 | createdAt   | DateTime    |date when like is created (default field)
-| sender   | Pointer to User    |user that sent the message
-| receiver   | Pointer to User    |user that received the message
-| content   | Strings    |contents of the message
+| sender      | Pointer to User    |user that sent the message
+| conversation| Pointer to Conversation   |conversation this message belongs to
+| content     | Strings    |contents of the message
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
 #### GroupchatMessage
