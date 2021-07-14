@@ -138,7 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GPF-Ff-D2S">
-                                <rect key="frame" x="0.0" y="100" width="414" height="712"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="706"/>
                                 <color key="backgroundColor" red="1" green="0.930317222" blue="0.02777995137" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g4f-Nn-am5">
                                     <size key="itemSize" width="239" height="128"/>
@@ -207,7 +207,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysZ-8D-d4G">
-                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="806" width="414" height="50"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eFi-Ee-S45">
                                         <rect key="frame" x="0.0" y="0.0" width="362" height="50"/>
@@ -241,7 +241,7 @@
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="leading" secondItem="mDa-2D-n36" secondAttribute="leading" id="LzU-QF-ZmL"/>
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="trailing" secondItem="mDa-2D-n36" secondAttribute="trailing" id="Ohk-9e-9iI"/>
                             <constraint firstItem="mDa-2D-n36" firstAttribute="trailing" secondItem="ysZ-8D-d4G" secondAttribute="trailing" id="Q1l-wO-NZH"/>
-                            <constraint firstItem="ysZ-8D-d4G" firstAttribute="bottom" secondItem="mDa-2D-n36" secondAttribute="bottom" id="U3g-8V-Zh2"/>
+                            <constraint firstAttribute="bottom" secondItem="ysZ-8D-d4G" secondAttribute="bottom" constant="40" id="Yk7-K2-YqV"/>
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="top" secondItem="A4H-Yc-fC3" secondAttribute="bottom" id="Zk0-6F-QYg"/>
                             <constraint firstItem="A4H-Yc-fC3" firstAttribute="top" secondItem="CT5-Gr-224" secondAttribute="top" id="fDa-6R-kyG"/>
                             <constraint firstItem="ysZ-8D-d4G" firstAttribute="top" secondItem="GPF-Ff-D2S" secondAttribute="bottom" id="l8e-ut-gkT"/>
