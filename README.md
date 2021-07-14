@@ -133,6 +133,16 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | createdAt   | DateTime    |date when like is created (default field)
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
+
+#### Conversation
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| createdAt   | DateTime    |date when like is created (default field)
+| user1   | Pointer to User    |first user in the conversation
+| user2   | Pointer to User    |second user in the conversation
+| updatedAt   | DateTime    |date when like is last updated (default field)
+
 #### DirectMessage
 | Property    | Type        | Description |
 | ----------- | ----------- |-------------|
