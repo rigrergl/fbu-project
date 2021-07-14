@@ -28,6 +28,13 @@
     [self.collectionView reloadData];
     
     [self setupGestures];
+    [self styleInputTextView];
+}
+
+- (void)styleInputTextView {
+    self.inputTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.inputTextView.layer.borderWidth = 1;
+    self.inputTextView.layer.cornerRadius = 10.0f;
 }
 
 - (void)setupGestures {
