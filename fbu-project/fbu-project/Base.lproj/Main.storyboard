@@ -141,19 +141,35 @@
                                 <rect key="frame" x="0.0" y="100" width="414" height="796"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g4f-Nn-am5">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="239" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1lx-tz-tlA">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatCell" id="1lx-tz-tlA" customClass="MessageCollectionViewCell">
+                                        <rect key="frame" x="87.5" y="0.0" width="239" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jCR-ZV-GLf">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="239" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SX9-ja-zEY">
+                                                    <rect key="frame" x="98.5" y="53.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="SX9-ja-zEY" firstAttribute="centerX" secondItem="jCR-ZV-GLf" secondAttribute="centerX" id="Gh8-3t-drF"/>
+                                                <constraint firstItem="SX9-ja-zEY" firstAttribute="centerY" secondItem="jCR-ZV-GLf" secondAttribute="centerY" id="PK6-gD-cOU"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="239" height="128"/>
+                                        <connections>
+                                            <outlet property="contentLabel" destination="SX9-ja-zEY" id="ckQ-Nm-9qu"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -178,16 +194,19 @@
                         <viewLayoutGuide key="safeArea" id="mDa-2D-n36"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="A4H-Yc-fC3" firstAttribute="top" secondItem="CT5-Gr-224" secondAttribute="top" id="0FM-LX-ErM"/>
                             <constraint firstItem="A4H-Yc-fC3" firstAttribute="trailing" secondItem="mDa-2D-n36" secondAttribute="trailing" id="3gQ-yH-5hs"/>
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="leading" secondItem="mDa-2D-n36" secondAttribute="leading" id="LzU-QF-ZmL"/>
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="trailing" secondItem="mDa-2D-n36" secondAttribute="trailing" id="Ohk-9e-9iI"/>
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="top" secondItem="A4H-Yc-fC3" secondAttribute="bottom" id="Zk0-6F-QYg"/>
+                            <constraint firstItem="A4H-Yc-fC3" firstAttribute="top" secondItem="CT5-Gr-224" secondAttribute="top" id="fDa-6R-kyG"/>
                             <constraint firstAttribute="bottom" secondItem="GPF-Ff-D2S" secondAttribute="bottom" id="myb-nj-SoR"/>
                             <constraint firstItem="GPF-Ff-D2S" firstAttribute="top" secondItem="A4H-Yc-fC3" secondAttribute="bottom" id="uIN-yb-xKG"/>
                             <constraint firstItem="A4H-Yc-fC3" firstAttribute="leading" secondItem="mDa-2D-n36" secondAttribute="leading" id="xJZ-MV-1OD"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="GPF-Ff-D2S" id="TrL-8x-oJr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIo-1g-gA5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

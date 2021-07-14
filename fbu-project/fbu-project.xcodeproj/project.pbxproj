@@ -10,6 +10,7 @@
 		28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */; };
 		3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2F7732269F43C300BB7F4B /* MessageUI.framework */; };
 		3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7735269F441600BB7F4B /* ChatViewController.m */; };
+		3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7738269F47B900BB7F4B /* MessageCollectionViewCell.m */; };
 		3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB278269CC98700E5F692 /* AppDelegate.m */; };
 		3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB27B269CC98700E5F692 /* SceneDelegate.m */; };
 		3B4BB282269CC98700E5F692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4BB280269CC98700E5F692 /* Main.storyboard */; };
@@ -57,6 +58,8 @@
 		3B2F7732269F43C300BB7F4B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3B2F7734269F441600BB7F4B /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		3B2F7735269F441600BB7F4B /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		3B2F7737269F47B900BB7F4B /* MessageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageCollectionViewCell.h; sourceTree = "<group>"; };
+		3B2F7738269F47B900BB7F4B /* MessageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageCollectionViewCell.m; sourceTree = "<group>"; };
 		3B4BB274269CC98700E5F692 /* fbu-project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4BB277269CC98700E5F692 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3B4BB278269CC98700E5F692 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 				3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */,
 				3BCC85A1269E42190083F1F1 /* CustomDraggableViewBackground.h */,
 				3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */,
+				3B2F7737269F47B900BB7F4B /* MessageCollectionViewCell.h */,
+				3B2F7738269F47B900BB7F4B /* MessageCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 			files = (
 				3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */,
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
+				3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
 				3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */,

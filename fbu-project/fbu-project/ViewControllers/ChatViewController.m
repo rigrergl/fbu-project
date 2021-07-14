@@ -8,6 +8,7 @@
 #import "ChatViewController.h"
 
 @interface ChatViewController ()
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
 
