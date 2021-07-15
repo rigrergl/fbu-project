@@ -20,6 +20,7 @@
     Match *newMatch = [Match new];
     NSArray *users = @[user1, user2];
     newMatch.users = users;
+    newMatch.hasConversationStarted = NO;
     
     [newMatch saveInBackgroundWithBlock:completion];
 }
