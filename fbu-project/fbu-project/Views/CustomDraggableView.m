@@ -117,7 +117,6 @@
     
     PFFileObject *recordingFile = self.user[@"recording"];
     if(recordingFile == nil) {
-        NSLog(@"User has no recording");
         return;
     }
     
