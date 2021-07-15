@@ -412,8 +412,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4u8-3C-qvP">
-                                <rect key="frame" x="161" y="433" width="92" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4u8-3C-qvP">
+                                <rect key="frame" x="278" y="433" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Record Audio"/>
                                 <connections>
                                     <segue destination="76d-1b-h45" kind="show" id="GYV-en-28j"/>
@@ -422,10 +423,6 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="w8A-H8-ChZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="4u8-3C-qvP" firstAttribute="centerY" secondItem="Vxu-7E-5Ak" secondAttribute="centerY" id="Cof-yZ-KVb"/>
-                            <constraint firstItem="4u8-3C-qvP" firstAttribute="centerX" secondItem="Vxu-7E-5Ak" secondAttribute="centerX" id="cW7-y3-83A"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UsD-37-OOc">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="5ca-dS-55Z">
