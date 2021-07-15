@@ -147,8 +147,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
 | createdAt   | DateTime    |date when like is created (default field)
-| user1   | Pointer to User    |first user in the conversation
-| user2   | Pointer to User    |second user in the conversation
+| Match   | Pointer to Match    | match corresponding to this conversation
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
 #### DirectMessage
