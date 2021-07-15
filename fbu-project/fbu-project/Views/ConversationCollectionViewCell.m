@@ -16,7 +16,6 @@
     self.usernameLabel.text = user.username;
     
     //TODO: SET PROFILE IMAGE
-    //TODO: FETCH LATEST MESSAGE IN MATCH
     
     self.latestMessageLabel.alpha = 0;
     fetchLatestMessageInMatch(match, ^(DirectMessage *_Nullable latestMessage, NSError *_Nullable error){

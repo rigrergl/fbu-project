@@ -135,7 +135,7 @@
     
     if (cell) {
         DirectMessage *message = (DirectMessage *) self.messages[indexPath.item];
-        cell.contentLabel.text = message.content;
+        [cell setCellWithDirectMessage:message];
         cell.wrappingViewWidth.constant = self.view.frame.size.width;
     }
     

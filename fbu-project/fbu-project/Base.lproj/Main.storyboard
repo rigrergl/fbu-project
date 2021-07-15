@@ -291,7 +291,6 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                     <constraints>
                                                         <constraint firstItem="SX9-ja-zEY" firstAttribute="top" secondItem="g3y-vD-LWS" secondAttribute="top" constant="14" id="Rgc-0D-7Vz"/>
                                                         <constraint firstAttribute="bottom" secondItem="SX9-ja-zEY" secondAttribute="bottom" constant="8" id="Xia-n1-KVn"/>
@@ -311,6 +310,7 @@
                                         <size key="customSize" width="239" height="128"/>
                                         <connections>
                                             <outlet property="contentLabel" destination="SX9-ja-zEY" id="ckQ-Nm-9qu"/>
+                                            <outlet property="mainView" destination="g3y-vD-LWS" id="ejB-ib-56Q"/>
                                             <outlet property="wrappingViewWidth" destination="k6J-rw-06G" id="yIy-ja-buz"/>
                                         </connections>
                                     </collectionViewCell>
@@ -555,9 +555,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

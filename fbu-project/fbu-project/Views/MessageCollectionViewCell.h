@@ -6,14 +6,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DirectMessage.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MessageCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrappingViewWidth;
 
+- (void)setCellWithDirectMessage:(DirectMessage *)message;
+
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @end
 
