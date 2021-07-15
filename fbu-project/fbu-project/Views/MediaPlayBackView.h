@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MediaPlayBackView : UIView
 
 - (id)initWithFrame:(CGRect)frame andData:(NSData *_Nonnull)data;
+- (void)stopPlaying;
 
 @end
 
