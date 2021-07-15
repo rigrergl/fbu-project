@@ -46,8 +46,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return self.matchedUsers.count;
-    return 20;
+    return self.matchedUsers.count;
 }
 
 @end
