@@ -25,7 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.messages = [[NSArray alloc] initWithObjects:@"First Message", @"Second Message", @"Third Message", nil];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView reloadData];
@@ -43,6 +42,7 @@
     if (self.match) {
         [self fetchMatchMessages];
     }
+    //TODO: ELSE FETCH EVENT MESSAGES
 }
 
 - (void)fetchMatchMessages {
@@ -121,7 +121,8 @@
     MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatCell" forIndexPath:indexPath];
     
     if (cell) {
-        cell.contentLabel.text = [LoremIpsum sentence];
+        DirectMessage *message = (DirectMessage *) self.messages[indexPath.item];
+        cell.contentLabel.text = message.content;
         cell.wrappingViewWidth.constant = self.view.frame.size.width;
     }
     
@@ -129,7 +130,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return self.messages.count;
 }
 
 #pragma mark - keyboard movements
