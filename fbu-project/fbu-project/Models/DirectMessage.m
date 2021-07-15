@@ -15,13 +15,15 @@
 
 + (void)postMessageWithContent:(NSString *)content
             inMatch: (Match *_Nonnull)match
-     withCompletion:(PFBooleanResultBlock _Nullable)completion {
+     withCompletion:(void(^)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error))completion {
     DirectMessage *newMessage = [DirectMessage new];
     newMessage.author = [PFUser currentUser];
     newMessage.match = match;
     newMessage.content = content;
     
-    [newMessage saveInBackgroundWithBlock:completion];
+    [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){
+        completion(succeeded, newMessage, error);
+    }];
 }
 
 

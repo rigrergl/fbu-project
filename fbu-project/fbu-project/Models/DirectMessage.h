@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)postMessageWithContent:(NSString *)content
                        inMatch: (Match *_Nonnull)match
-                withCompletion:(PFBooleanResultBlock _Nullable)completion;
+                withCompletion:(void(^)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error))completion;
 
 @end
 

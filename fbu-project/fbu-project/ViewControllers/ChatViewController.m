@@ -13,10 +13,10 @@
 
 @interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) NSArray *messages;
-
+@property (strong, nonatomic) NSMutableArray *messages;
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 @property (weak, nonatomic) IBOutlet UILabel *chatNameLabel;
+@property (nonatomic, strong) NSTimer *refreshTimer;
 
 @end
 
@@ -54,8 +54,17 @@
             NSLog(@"Error fetching messages: %@", error.localizedDescription);
         } else {
             self.messages = messages;
-            [self.collectionView reloadData];
+            [self reloadCollectionViewAndScrollToBottom];
         }
+    }];
+}
+
+-  (void)reloadCollectionViewAndScrollToBottom {
+    [self.collectionView reloadData];
+    [self.collectionView performBatchUpdates:^{}
+                                  completion:^(BOOL finished) {
+        // collection-view finished reload
+        [self scrollToBottomOfCollectionView];
     }];
 }
 
@@ -89,11 +98,15 @@
 }
 
 - (IBAction)didTapSend:(UIButton *)sender {
-    
     if (self.match) {
-        [DirectMessage postMessageWithContent:self.inputTextView.text inMatch:self.match withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+        [DirectMessage postMessageWithContent:self.inputTextView.text
+                                      inMatch:self.match
+                               withCompletion:^(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error){
             if (error) {
                 NSLog(@"Error posting new message: %@", error.localizedDescription);
+            } else if (newMessage) {
+                [self.messages addObject:newMessage];
+                [self reloadCollectionViewAndScrollToBottom];
             }
         }];
     }
@@ -139,8 +152,7 @@
     [self.inputTextView resignFirstResponder];
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification
-{
+- (void)keyboardWillShow:(NSNotification *)notification {
 
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 
@@ -151,13 +163,20 @@
     }];
 }
 
--(void)keyboardWillHide:(NSNotification *)notification
-{
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
     [UIView animateWithDuration:0.3 animations:^{
         CGRect f = self.view.frame;
         f.origin.y = 0.0f;
         self.view.frame = f;
     }];
+}
+
+- (void)scrollToBottomOfCollectionView {
+    
+    NSInteger item = [self.collectionView numberOfItemsInSection:0] - 1;
+    NSIndexPath *lastIndex = [NSIndexPath indexPathForItem:item inSection:0];
+    [self.collectionView scrollToItemAtIndexPath:lastIndex atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
 }
 
 @end
