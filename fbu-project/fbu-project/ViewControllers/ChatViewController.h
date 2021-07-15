@@ -7,12 +7,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "Match.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatViewController : UIViewController
 
-@property (nonatomic, strong) PFUser *otherUser;
+@property (nonatomic, strong) Match *match;
 
 @end
 

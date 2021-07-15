@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSArray *messages;
 
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
-@property (weak, nonatomic) IBOutlet UILabel *topUsernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *chatNameLabel;
 
 @end
 
@@ -31,7 +31,20 @@
     [self setupGestures];
     [self styleInputTextView];
     
-    self.topUsernameLabel.text = self.otherUser.username;
+    [self setChatNameLabel];
+}
+
+- (void)setChatNameLabel {
+    if (self.match) {
+        NSArray *usersInMatch = self.match.users;
+        PFUser *user1 = usersInMatch[0];
+        PFUser *user2 = usersInMatch[1];
+        if ([user1.objectId isEqualToString: [PFUser currentUser].objectId]) {
+            self.chatNameLabel.text = user2.username;
+        } else {
+            self.chatNameLabel.text = user1.username;
+        }
+    }
 }
 
 - (void)styleInputTextView {

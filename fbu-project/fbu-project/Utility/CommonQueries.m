@@ -10,7 +10,7 @@
 
 #import <Parse/Parse.h>
 
-void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSError *_Nullable error) ){
+void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSArray *_Nullable matches, NSError *_Nullable error) ){
     PFQuery *matchQuery = [PFQuery queryWithClassName:@"Match"];
     [matchQuery whereKey:@"users" containsAllObjectsInArray:@[[PFUser currentUser]]];
     [matchQuery includeKey:@"users"];
@@ -27,6 +27,6 @@ void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSError 
                 [matchedUsers addObject:user1];
             }
         }
-        completion(matchedUsers, nil);
+        completion(matchedUsers, matches, nil);
     }];
 }

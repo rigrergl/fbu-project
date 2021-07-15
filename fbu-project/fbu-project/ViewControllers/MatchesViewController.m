@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *matchesCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *conversationsCollectionView;
 @property (strong, nonatomic) NSArray *matchedUsers;
+@property (strong, nonatomic) NSArray *matches;
 
 @end
 
@@ -35,8 +36,9 @@
     self.matchesCollectionView.delegate = self;
     self.matchesCollectionView.dataSource = self;
     
-    MatchingUsers(^(NSArray *_Nullable matchedUsers, NSError *_Nullable error){
+    MatchingUsers(^(NSArray *_Nullable matchedUsers,NSArray *_Nullable matches, NSError *_Nullable error){
         self.matchedUsers = matchedUsers;
+        self.matches  = matches;
         [self.matchesCollectionView reloadData];
     });
 }
@@ -54,7 +56,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"matchToChat" sender:self.matchedUsers[indexPath.item]];
+    [self performSegueWithIdentifier:@"matchToChat" sender:self.matches[indexPath.item]];
 }
 
 #pragma mark - Navigation
@@ -67,9 +69,9 @@
     
     if ([segue.identifier isEqualToString:@"matchToChat"]) {
         
-        PFUser *user = (PFUser *) sender;
+        Match *user = (Match *) sender;
         ChatViewController *destinationController = [segue destinationViewController];
-        destinationController.otherUser = user;
+        destinationController.match = user;
         
     }
 }

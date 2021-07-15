@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSError *_Nullable error) );
+extern void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSArray *_Nullable matches, NSError *_Nullable error) );
 
 
 NS_ASSUME_NONNULL_END
