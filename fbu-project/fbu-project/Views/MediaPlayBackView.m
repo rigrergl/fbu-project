@@ -86,8 +86,8 @@
 }
 
 - (void)showProgressView {
-    CGFloat barWidth = 300;
-    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - barWidth/2, 300, barWidth, 50)];
+    CGFloat barWidth = self.frame.size.width;
+    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - barWidth/2, 70, barWidth, 50)];
     self.progressView.progress = 0.5;
  
     [self addSubview:self.progressView];
