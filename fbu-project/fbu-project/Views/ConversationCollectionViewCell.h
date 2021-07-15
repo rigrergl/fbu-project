@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+#import "Match.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *latestMessageLabel;
+
+- (void)setCellWithUser:(PFUser *)user
+               andMatch:(Match *)match;
 
 @end
 

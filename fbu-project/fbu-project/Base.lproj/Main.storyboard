@@ -226,6 +226,9 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <connections>
+                                            <outlet property="profileImageView" destination="176-YS-jCa" id="qAF-BB-Fxx"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>

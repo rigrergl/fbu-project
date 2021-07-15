@@ -6,10 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MatchCollectionViewCell : UICollectionViewCell
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
+- (void)setCellWithUser:(PFUser *)user;
 
 @end
 

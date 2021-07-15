@@ -9,4 +9,9 @@
 
 @implementation MatchCollectionViewCell
 
+- (void)setCellWithUser:(PFUser *)user {
+    
+    //TODO: SET CELL IMAGE TO USER'S PROFILE IMAGE
+}
+
 @end

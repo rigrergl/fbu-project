@@ -28,8 +28,8 @@
 
 @implementation MatchesViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self loadMatches];
 }
 
@@ -72,12 +72,22 @@
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
     if (collectionView == self.matchesCollectionView) {
         MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
+        
+        int indexInFulArray = [self.unconversedMatchesIndexes[indexPath.item] intValue];
+        [cell setCellWithUser:self.matchedUsers[indexInFulArray]];
         
         return cell;
     } else {
         ConversationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ConversationCollectionViewCell" forIndexPath:indexPath];
+        
+        int indexInFulArray = [self.conversedMatchIndexes[indexPath.item] intValue];
+        Match *match = self.matches[indexInFulArray];
+        PFUser *user = self.matchedUsers[indexInFulArray];
+        
+        [cell setCellWithUser:user andMatch:match];
         
         return cell;
     }
