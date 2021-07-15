@@ -15,8 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
-
 @end
 
 @implementation ChatViewController
@@ -31,13 +29,6 @@
     
     [self setupGestures];
     [self styleInputTextView];
-    
-    [self setupBottomConstraint];
-}
-
-- (void)setupBottomConstraint {
-    CGFloat bottomBarHeight = self.tabBarController.tabBar.frame.size.height;
-    self.bottomConstraint.constant = bottomBarHeight + 8;
 }
 
 - (void)styleInputTextView {
@@ -61,12 +52,16 @@
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.tabBarController.tabBar.hidden = true;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    self.tabBarController.tabBar.hidden = false;
 }
 
 #pragma mark - Collection View methods
