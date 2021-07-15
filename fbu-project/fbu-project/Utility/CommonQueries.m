@@ -13,6 +13,7 @@
 void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSError *_Nullable error) ){
     PFQuery *matchQuery = [PFQuery queryWithClassName:@"Match"];
     [matchQuery whereKey:@"users" containsAllObjectsInArray:@[[PFUser currentUser]]];
+    [matchQuery includeKey:@"users"];
     
     [matchQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matches, NSError *_Nullable error){
         NSMutableArray *matchedUsers = [[NSMutableArray alloc] initWithCapacity:matches.count];

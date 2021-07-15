@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSArray *messages;
 
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
+@property (weak, nonatomic) IBOutlet UILabel *topUsernameLabel;
 
 @end
 
@@ -29,6 +30,8 @@
     
     [self setupGestures];
     [self styleInputTextView];
+    
+    self.topUsernameLabel.text = self.otherUser.username;
 }
 
 - (void)styleInputTextView {

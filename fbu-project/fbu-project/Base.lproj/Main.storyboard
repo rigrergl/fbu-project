@@ -325,6 +325,7 @@
                     <connections>
                         <outlet property="collectionView" destination="GPF-Ff-D2S" id="TrL-8x-oJr"/>
                         <outlet property="inputTextView" destination="eFi-Ee-S45" id="CWT-UJ-a1u"/>
+                        <outlet property="topUsernameLabel" destination="0mV-ec-H9J" id="wJG-c8-1SX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIo-1g-gA5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
