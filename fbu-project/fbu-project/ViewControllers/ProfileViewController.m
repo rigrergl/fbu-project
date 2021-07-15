@@ -52,7 +52,6 @@
     
     PFFileObject *recordingFile = self.targetUser[@"recording"];
     if(recordingFile == nil) {
-        NSLog(@"User has no recording FROM PROFILE");
         return;
     }
     
@@ -61,7 +60,6 @@
             MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
                                                initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
                                                andData:data];
-            
             [self.playbackContainerView addSubview:playbackView];
         }
     }];

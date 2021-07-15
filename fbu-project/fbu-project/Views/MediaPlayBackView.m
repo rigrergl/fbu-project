@@ -8,7 +8,7 @@
 #import "MediaPlayBackView.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface MediaPlayBackView ()
+@interface MediaPlayBackView () <AVAudioPlayerDelegate>
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) NSData *recordingData;
@@ -23,18 +23,14 @@
 - (id)initWithFrame:(CGRect)frame andData:(NSData *_Nonnull)data {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupView];
         
         self.backgroundColor = [UIColor whiteColor];
         if (data) {
+            self.recordingData = data;
             [self setupPlayButton];
         }
     }
     return self;
-}
-
-- (void)setupView {
-    //TODO: ADD COMPONENTS
 }
 
 - (void)setupPlayButton {
@@ -61,11 +57,15 @@
 }
 
 - (void)startPlaying {
+    [self.playButton setSelected:YES];
+    
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
+    
     NSError *error = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithData:self.recordingData error:&error];
+    
     self.audioPlayer.delegate = self;
     self.audioPlayer.numberOfLoops = 0;
     [self.audioPlayer play];
@@ -116,6 +116,13 @@
     self.progressTimer = nil;
     [self.progressView removeFromSuperview];
     self.progressView = nil;
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+    if (flag) {
+        [self stopPlaying];
+    }
 }
 
 
