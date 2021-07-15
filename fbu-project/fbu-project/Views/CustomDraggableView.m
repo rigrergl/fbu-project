@@ -112,7 +112,7 @@
     self.progressView.progress = currentTime;
 }
 
--(void)playRecording
+- (void)playRecording
 {
     
     PFFileObject *recordingFile = self.user[@"recording"];
