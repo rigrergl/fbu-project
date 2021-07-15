@@ -6,6 +6,7 @@
 //
 
 #import "ConversationCollectionViewCell.h"
+#import "DirectMessage.h"
 
 @implementation ConversationCollectionViewCell
 
@@ -13,8 +14,27 @@
                andMatch:(Match *)match; {
     
     self.usernameLabel.text = user.username;
+    
     //TODO: SET PROFILE IMAGE
     //TODO: FETCH LATEST MESSAGE IN MATCH
+    
+    fetchLatestMessageInMatch(match, ^(DirectMessage *_Nullable latestMessage, NSError *_Nullable error){
+        if (latestMessage) {
+            self.latestMessageLabel.text = latestMessage.content;
+        }
+    });
+}
+
+void fetchLatestMessageInMatch( Match *match,
+                                void (^completion)(DirectMessage *_Nullable latestMessage, NSError *error) ){
+    PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
+    [messageQuery whereKey:@"match" equalTo:match];
+    [messageQuery orderByDescending:@"createdAt"];
+    messageQuery.limit = 1;
+    
+    [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
+        completion(messages[0], error);
+    }];
 }
 
 @end

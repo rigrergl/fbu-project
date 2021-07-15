@@ -6,7 +6,7 @@
 //
 
 #import "AuthenticationViewController.h"
-#import <Parse/Parse.h>nnchgklrtrkflftjhftburvdcrckgkee
+#import <Parse/Parse.h>
 
 @interface AuthenticationViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -30,7 +30,6 @@
 }
 
 - (void)didTapScreen:(UITapGestureRecognizer *)sender {
-    NSLog(@"Tapped on screen");
     [self.view endEditing:YES];
 }
 
@@ -71,8 +70,6 @@
             NSLog(@"Error: %@", error.localizedDescription);
             [self presentAlertWithTitle:@"Error" andMessage:[NSString stringWithFormat:@"%@",error.localizedDescription]];
         } else {
-            NSLog(@"User registered successfully");
-            
             // manually segue to logged in view
             [self performSegueWithIdentifier:@"loginSegue" sender:self];
         }
@@ -88,8 +85,6 @@
             NSLog(@"User log in failed: %@", error.localizedDescription);
             [self presentAlertWithTitle:@"Error" andMessage:[NSString stringWithFormat:@"%@",error.localizedDescription]];
         } else {
-            NSLog(@"User logged in successfully");
-            
             // display view controller that needs to shown after successful login
             [self performSegueWithIdentifier:@"loginSegue" sender:self];
         }
