@@ -116,6 +116,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
 | users  | Array of Pointer to User | users in match (length of 2)
+| hasConversationStarted  | BOOL | indicates whether the users have started a conversation
 | createdAt   | DateTime      |date when like is created (default field)
 | updatedAt   | DateTime      |date when like is last updated (default field)
 
@@ -142,13 +143,6 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
 
-#### Conversation
-| Property    | Type        | Description |
-| ----------- | ----------- |-------------|
-| objectId    | String      |unique id for the user (default field)
-| createdAt   | DateTime    |date when like is created (default field)
-| Match   | Pointer to Match    | match corresponding to this conversation
-| updatedAt   | DateTime    |date when like is last updated (default field)
 
 #### DirectMessage
 | Property    | Type        | Description |
@@ -156,7 +150,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | objectId    | String      |unique id for the user (default field)
 | createdAt   | DateTime    |date when like is created (default field)
 | sender      | Pointer to User    |user that sent the message
-| conversation| Pointer to Conversation   |conversation this message belongs to
+| match | Pointer to Conversation   |match this message belongs to
 | content     | Strings    |contents of the message
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
