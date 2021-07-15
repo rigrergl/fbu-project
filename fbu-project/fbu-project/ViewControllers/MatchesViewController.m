@@ -19,7 +19,10 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *conversationsCollectionView;
 @property (strong, nonatomic) NSArray *matchedUsers;
 @property (strong, nonatomic) NSArray *matches;
-@property (strong, nonatomic) NSArray *conversationMatches; //TODO: USE THIS
+
+//keep track of indexes that contain conversed versus unconversed matches (in matches array)
+@property (strong, nonatomic) NSMutableArray *conversedMatchIndexes;
+@property (strong, nonatomic) NSMutableArray *unconversedMatchesIndexes;
 
 @end
 
@@ -43,14 +46,32 @@
     MatchingUsers(^(NSArray *_Nullable matchedUsers,NSArray *_Nullable matches, NSError *_Nullable error){
         self.matchedUsers = matchedUsers;
         self.matches  = matches;
+        
+        [self fillInIndexArrays];
+        
         [self.matchesCollectionView reloadData];
         [self.conversationsCollectionView reloadData];
     });
 }
 
+- (void)fillInIndexArrays {
+    self.unconversedMatchesIndexes = [[NSMutableArray alloc] init];
+    self.conversedMatchIndexes = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < self.matches.count; i++) {
+        Match *match = self.matches[i];
+        if (match.hasConversationStarted) {
+            [self.conversedMatchIndexes addObject: [NSNumber numberWithInt:i]];
+        } else {
+            [self.unconversedMatchesIndexes addObject:[NSNumber numberWithInt:i]];
+        }
+    }
+}
+
 #pragma mark - CollectionView methods
 
-- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
+                          cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (collectionView == self.matchesCollectionView) {
         MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
         
@@ -62,12 +83,25 @@
     }
 }
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.matchedUsers.count;
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section {
+    
+    if (collectionView == self.matchesCollectionView) {
+        return self.unconversedMatchesIndexes.count;
+    } else {
+        return self.conversedMatchIndexes.count;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"matchToChat" sender:self.matches[indexPath.item]];
+    int indexOfMatch;
+    if (collectionView == self.conversationsCollectionView) {
+        indexOfMatch = [self.conversedMatchIndexes[indexPath.item] intValue];
+    } else {
+        indexOfMatch = [self.unconversedMatchesIndexes[indexPath.item] intValue];
+    }
+    
+    [self performSegueWithIdentifier:@"matchToChat" sender:self.matches[indexOfMatch]];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
