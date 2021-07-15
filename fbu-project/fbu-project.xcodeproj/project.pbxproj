@@ -24,6 +24,7 @@
 		3B4BB28A269CC98800E5F692 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB289269CC98800E5F692 /* main.m */; };
 		3B4BB294269CC98800E5F692 /* fbu_projectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB293269CC98800E5F692 /* fbu_projectTests.m */; };
 		3B4BB29F269CC98800E5F692 /* fbu_projectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */; };
+		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F5269CEA3F006444E4 /* CardsViewController.m */; };
 		3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */; };
 		3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126FB269CEA7E006444E4 /* DraggableView.m */; };
@@ -91,6 +92,8 @@
 		3B4BB29A269CC98800E5F692 /* fbu-projectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fbu-projectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fbu_projectUITests.m; sourceTree = "<group>"; };
 		3B4BB2A0269CC98800E5F692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationCollectionViewCell.h; sourceTree = "<group>"; };
+		3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationCollectionViewCell.m; sourceTree = "<group>"; };
 		3BB126DC269CD3C7006444E4 /* fbu-project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fbu-project-Bridging-Header.h"; sourceTree = "<group>"; };
 		3BB126F4269CEA3F006444E4 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		3BB126F5269CEA3F006444E4 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
@@ -261,6 +264,8 @@
 				3B2F7738269F47B900BB7F4B /* MessageCollectionViewCell.m */,
 				3B2F774C269FAE9200BB7F4B /* MatchCollectionViewCell.h */,
 				3B2F774D269FAE9200BB7F4B /* MatchCollectionViewCell.m */,
+				3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */,
+				3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
 				3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */,
 				3B2F773F269F76DB00BB7F4B /* MatchesViewController.m in Sources */,
+				3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
 				3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */,

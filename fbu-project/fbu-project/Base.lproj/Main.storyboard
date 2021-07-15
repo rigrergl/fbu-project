@@ -125,19 +125,60 @@
                                 <rect key="frame" x="0.0" y="196" width="414" height="617"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dpt-wx-jym">
-                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="itemSize" width="382" height="85"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="4nt-6y-dxE">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ConversationCollectionViewCell" id="4nt-6y-dxE" customClass="ConversationCollectionViewCell">
+                                        <rect key="frame" x="16" y="0.0" width="382" height="85"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Tgn-dm-gSe">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="382" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ulY-Iw-tsa">
+                                                    <rect key="frame" x="8" y="8" width="60" height="60"/>
+                                                    <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="7CD-do-wxX"/>
+                                                        <constraint firstAttribute="height" constant="60" id="txF-a4-ppv"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpt-tr-1in">
+                                                    <rect key="frame" x="76" y="37" width="117" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wx8-O7-MxW">
+                                                    <rect key="frame" x="76" y="8" width="76" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ulY-Iw-tsa" secondAttribute="bottom" constant="8" id="7fV-oR-HXE"/>
+                                                <constraint firstItem="ulY-Iw-tsa" firstAttribute="leading" secondItem="Tgn-dm-gSe" secondAttribute="leading" constant="8" id="FVJ-oz-GdV"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cpt-tr-1in" secondAttribute="trailing" constant="8" id="STb-Pl-wVx"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cpt-tr-1in" secondAttribute="bottom" constant="8" id="T1i-Yo-Gap"/>
+                                                <constraint firstItem="cpt-tr-1in" firstAttribute="top" secondItem="wx8-O7-MxW" secondAttribute="bottom" constant="8" symbolic="YES" id="bND-NM-7yC"/>
+                                                <constraint firstItem="wx8-O7-MxW" firstAttribute="top" secondItem="Tgn-dm-gSe" secondAttribute="top" constant="8" id="iHs-lV-CWQ"/>
+                                                <constraint firstItem="wx8-O7-MxW" firstAttribute="leading" secondItem="ulY-Iw-tsa" secondAttribute="trailing" constant="8" symbolic="YES" id="mGb-fI-xiG"/>
+                                                <constraint firstItem="cpt-tr-1in" firstAttribute="leading" secondItem="ulY-Iw-tsa" secondAttribute="trailing" constant="8" symbolic="YES" id="mPx-FX-ele"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wx8-O7-MxW" secondAttribute="trailing" constant="8" id="qpf-tx-AgJ"/>
+                                                <constraint firstItem="ulY-Iw-tsa" firstAttribute="top" secondItem="Tgn-dm-gSe" secondAttribute="top" constant="8" id="upf-g3-nQz"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <size key="customSize" width="382" height="85"/>
+                                        <connections>
+                                            <outlet property="latestMessageLabel" destination="cpt-tr-1in" id="z1u-ZN-WHj"/>
+                                            <outlet property="profileImageView" destination="ulY-Iw-tsa" id="g3b-LL-l5T"/>
+                                            <outlet property="usernameLabel" destination="wx8-O7-MxW" id="OQM-Sj-ndf"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -502,6 +543,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
