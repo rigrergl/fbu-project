@@ -14,6 +14,7 @@
 @interface ProfileViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *playbackContainerView;
+@property (strong, nonatomic) MediaPlayBackView *playbackView;
 
 @end
 
@@ -25,6 +26,12 @@
     
     if(self.targetUser == nil) {
         self.targetUser = [PFUser currentUser];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    if (self.playbackView) {
+        [self.playbackView stopPlaying];
     }
 }
 
@@ -60,6 +67,8 @@
             MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
                                                initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
                                                andData:data];
+            
+            self.playbackView = playbackView;
             [self.playbackContainerView addSubview:playbackView];
         }
     }];
