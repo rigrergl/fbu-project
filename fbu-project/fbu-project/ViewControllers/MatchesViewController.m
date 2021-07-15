@@ -8,6 +8,8 @@
 #import "MatchesViewController.h"
 #import "CommonQueries.h"
 #import "MatchCollectionViewCell.h"
+#import "ChatViewController.h"
+#import <Parse/Parse.h>
 
 
 @interface MatchesViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -39,6 +41,8 @@
     });
 }
 
+#pragma mark - CollectionView methods
+
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
     
@@ -47,6 +51,27 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.matchedUsers.count;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"matchToChat" sender:self.matchedUsers[indexPath.item]];
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"matchToChat"]) {
+        
+        PFUser *user = (PFUser *) sender;
+        ChatViewController *destinationController = [segue destinationViewController];
+        destinationController.otherUser = user;
+        
+    }
 }
 
 @end

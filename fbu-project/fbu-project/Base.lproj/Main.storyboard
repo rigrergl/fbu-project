@@ -175,6 +175,7 @@
                                                 <constraint firstItem="176-YS-jCa" firstAttribute="centerY" secondItem="pey-2q-Sc4" secondAttribute="centerY" id="6VY-eT-k4A"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -195,6 +196,7 @@
                     <connections>
                         <outlet property="conversationsCollectionView" destination="I3X-Mq-Vcv" id="uyp-SH-q28"/>
                         <outlet property="matchesCollectionView" destination="yN3-BL-pzx" id="sJv-nk-hDL"/>
+                        <segue destination="LGb-Xt-dCy" kind="show" identifier="matchToChat" id="dOh-k7-uf7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZn-mZ-OL2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -210,7 +212,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GPF-Ff-D2S">
-                                <rect key="frame" x="0.0" y="94" width="414" height="712"/>
+                                <rect key="frame" x="0.0" y="138" width="414" height="668"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g4f-Nn-am5">
                                     <size key="itemSize" width="239" height="128"/>
@@ -262,7 +264,7 @@
                                 </cells>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A4H-Yc-fC3">
-                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mV-ec-H9J">
                                         <rect key="frame" x="167.5" y="14.5" width="79" height="21"/>
@@ -319,6 +321,7 @@
                             <constraint firstItem="A4H-Yc-fC3" firstAttribute="leading" secondItem="mDa-2D-n36" secondAttribute="leading" id="xJZ-MV-1OD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="72g-rg-Jjv"/>
                     <connections>
                         <outlet property="collectionView" destination="GPF-Ff-D2S" id="TrL-8x-oJr"/>
                         <outlet property="inputTextView" destination="eFi-Ee-S45" id="CWT-UJ-a1u"/>
@@ -326,7 +329,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIo-1g-gA5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1244.9275362318842" y="2314.2857142857142"/>
+            <point key="canvasLocation" x="1945" y="2306"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="aqw-s9-qGg">
@@ -495,6 +498,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
