@@ -323,6 +323,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="72g-rg-Jjv"/>
                     <connections>
+                        <outlet property="bottomConstraint" destination="Yk7-K2-YqV" id="k50-uC-nyT"/>
                         <outlet property="collectionView" destination="GPF-Ff-D2S" id="TrL-8x-oJr"/>
                         <outlet property="inputTextView" destination="eFi-Ee-S45" id="CWT-UJ-a1u"/>
                     </connections>

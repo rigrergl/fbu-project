@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+
 @end
 
 @implementation ChatViewController
@@ -29,6 +31,13 @@
     
     [self setupGestures];
     [self styleInputTextView];
+    
+    [self setupBottomConstraint];
+}
+
+- (void)setupBottomConstraint {
+    CGFloat bottomBarHeight = self.tabBarController.tabBar.frame.size.height;
+    self.bottomConstraint.constant = bottomBarHeight + 8;
 }
 
 - (void)styleInputTextView {
