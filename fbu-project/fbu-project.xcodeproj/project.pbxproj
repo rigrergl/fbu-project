@@ -15,6 +15,7 @@
 		3B2F7748269F7DD500BB7F4B /* CommonQueries.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7747269F7DD500BB7F4B /* CommonQueries.m */; };
 		3B2F774B269F9F3500BB7F4B /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F774A269F9F3500BB7F4B /* Match.m */; };
 		3B2F774E269FAE9200BB7F4B /* MatchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F774D269FAE9200BB7F4B /* MatchCollectionViewCell.m */; };
+		3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3086D326A0904000AA7894 /* DirectMessage.m */; };
 		3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB278269CC98700E5F692 /* AppDelegate.m */; };
 		3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB27B269CC98700E5F692 /* SceneDelegate.m */; };
 		3B4BB282269CC98700E5F692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4BB280269CC98700E5F692 /* Main.storyboard */; };
@@ -72,6 +73,8 @@
 		3B2F774A269F9F3500BB7F4B /* Match.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
 		3B2F774C269FAE9200BB7F4B /* MatchCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchCollectionViewCell.h; sourceTree = "<group>"; };
 		3B2F774D269FAE9200BB7F4B /* MatchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchCollectionViewCell.m; sourceTree = "<group>"; };
+		3B3086D226A0904000AA7894 /* DirectMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectMessage.h; sourceTree = "<group>"; };
+		3B3086D326A0904000AA7894 /* DirectMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectMessage.m; sourceTree = "<group>"; };
 		3B4BB274269CC98700E5F692 /* fbu-project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fbu-project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4BB277269CC98700E5F692 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3B4BB278269CC98700E5F692 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 				3BCC85A8269E61450083F1F1 /* UnLike.m */,
 				3B2F7749269F9F3500BB7F4B /* Match.h */,
 				3B2F774A269F9F3500BB7F4B /* Match.m */,
+				3B3086D226A0904000AA7894 /* DirectMessage.h */,
+				3B3086D326A0904000AA7894 /* DirectMessage.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
+				3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
 			);

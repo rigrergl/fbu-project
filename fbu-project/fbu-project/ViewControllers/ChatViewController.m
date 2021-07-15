@@ -8,6 +8,8 @@
 #import "ChatViewController.h"
 #import "MessageCollectionViewCell.h"
 #import <LoremIpsum/LoremIpsum.h>
+#import "DirectMessage.h"
+#import <Parse/Parse.h>
 
 @interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -32,6 +34,29 @@
     [self styleInputTextView];
     
     [self setChatNameLabel];
+    [self fetchMessages];
+}
+
+
+
+- (void)fetchMessages {
+    if (self.match) {
+        [self fetchMatchMessages];
+    }
+}
+
+- (void)fetchMatchMessages {
+    PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
+    [messageQuery whereKey:@"match" equalTo:self.match];
+    
+    [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
+        if (error) {
+            NSLog(@"Error fetching messages: %@", error.localizedDescription);
+        } else {
+            self.messages = messages;
+            [self.collectionView reloadData];
+        }
+    }];
 }
 
 - (void)setChatNameLabel {
@@ -63,6 +88,16 @@
     [self endTyping];
 }
 
+- (IBAction)didTapSend:(UIButton *)sender {
+    
+    if (self.match) {
+        [DirectMessage postMessageWithContent:self.inputTextView.text inMatch:self.match withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+            if (error) {
+                NSLog(@"Error posting new message: %@", error.localizedDescription);
+            }
+        }];
+    }
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
