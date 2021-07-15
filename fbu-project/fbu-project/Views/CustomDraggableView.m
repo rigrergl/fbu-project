@@ -6,7 +6,8 @@
 //
 
 #import "CustomDraggableView.h"
-#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVFoundation.h> //TODO: REMOVE THIS IMPORT
+#import "MediaPlayBackView.h"
 #import "Like.h"
 #import "UnLike.h"
 
@@ -29,14 +30,33 @@
         self.user = user;
         [self setupUsernameLabel];
         
-        if (self.user[@"recording"] != nil) {
-            [self setupPlayButton];
-        }
+        [self setupPlaybackSubview];
     }
     return self;
 }
 
 #pragma mark - Setup
+
+- (void)setupPlaybackSubview {
+    PFFileObject *recordingFile = self.user[@"recording"];
+    if(recordingFile == nil) {
+        return;
+    }
+    
+    [self.playButton setSelected:YES];
+    
+    [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
+        if (error) {
+            NSLog(@"Error getting data from PFFileObject");
+        } else {
+            
+            MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
+                                               initWithFrame:CGRectMake(20, 200, self.frame.size.width - 40, 200)
+                                               andData:data];
+            [self addSubview:playbackView];
+        }
+    }];
+}
 
 - (void)setupUsernameLabel {
     self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, self.frame.size.width, 100)];
