@@ -58,7 +58,9 @@
     
     [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
         if (data) {
-            MediaPlayBackView *playbackView = [[MediaPlayBackView alloc] initWithFrame:self.playbackContainerView.frame andData:data];
+            MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
+                                               initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
+                                               andData:data];
             
             [self.playbackContainerView addSubview:playbackView];
         }

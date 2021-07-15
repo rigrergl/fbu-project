@@ -420,14 +420,21 @@
                                     <segue destination="76d-1b-h45" kind="show" id="GYV-en-28j"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZy-pK-JBy">
-                                <rect key="frame" x="68" y="326" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZy-pK-JBy">
+                                <rect key="frame" x="87" y="384" width="240" height="128"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="A2K-j5-iUU"/>
+                                    <constraint firstAttribute="width" constant="240" id="raY-mM-02J"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="w8A-H8-ChZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="GZy-pK-JBy" firstAttribute="centerY" secondItem="Vxu-7E-5Ak" secondAttribute="centerY" id="cs2-qK-3rr"/>
+                            <constraint firstItem="GZy-pK-JBy" firstAttribute="centerX" secondItem="Vxu-7E-5Ak" secondAttribute="centerX" id="lLM-Av-MC9"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UsD-37-OOc">
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="5ca-dS-55Z">
