@@ -18,15 +18,19 @@
     //TODO: SET PROFILE IMAGE
     //TODO: FETCH LATEST MESSAGE IN MATCH
     
+    self.latestMessageLabel.alpha = 0;
     fetchLatestMessageInMatch(match, ^(DirectMessage *_Nullable latestMessage, NSError *_Nullable error){
         if (latestMessage) {
             self.latestMessageLabel.text = latestMessage.content;
+            [UIView animateWithDuration:0.1 animations:^{
+                self.latestMessageLabel.alpha = 1;
+            }];
         }
     });
 }
 
 void fetchLatestMessageInMatch( Match *match,
-                                void (^completion)(DirectMessage *_Nullable latestMessage, NSError *error) ){
+                               void (^completion)(DirectMessage *_Nullable latestMessage, NSError *error) ){
     PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
     [messageQuery whereKey:@"match" equalTo:match];
     [messageQuery orderByDescending:@"createdAt"];
