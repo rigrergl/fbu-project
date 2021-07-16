@@ -412,28 +412,79 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4u8-3C-qvP">
-                                <rect key="frame" x="68" y="144" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Record Audio"/>
-                                <connections>
-                                    <segue destination="76d-1b-h45" kind="show" id="GYV-en-28j"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZy-pK-JBy">
-                                <rect key="frame" x="87" y="384" width="240" height="128"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nKU-cn-iPa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rS2-X3-13h">
+                                        <rect key="frame" x="0.0" y="0.0" width="406" height="725"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4u8-3C-qvP">
+                                                <rect key="frame" x="2579" y="5381" width="92" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Record Audio"/>
+                                                <connections>
+                                                    <segue destination="76d-1b-h45" kind="show" id="GYV-en-28j"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mvt-ig-jQC">
+                                                <rect key="frame" x="0.0" y="0.0" width="5101.5" height="128"/>
+                                                <color key="backgroundColor" red="0.96848052740000001" green="0.79047036199999998" blue="0.41509675200000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="i48-NY-lIY"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IeD-h3-dBs">
+                                                <rect key="frame" x="100" y="98" width="4901.5" height="4901.5"/>
+                                                <color key="backgroundColor" red="1" green="0.930317222" blue="0.02777995137" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="IeD-h3-dBs" secondAttribute="height" multiplier="1:1" id="LFj-hn-X0U"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0U-Pz-mRb">
+                                                <rect key="frame" x="2513" y="5007.5" width="76" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9e-Ii-eUI">
+                                                <rect key="frame" x="42" y="5059.5" width="5017.5" height="20.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <mutableString key="text">BioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBioBio</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZy-pK-JBy">
+                                                <rect key="frame" x="2431" y="5180" width="240" height="193"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="725" id="GzP-iE-uej"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="A2K-j5-iUU"/>
-                                    <constraint firstAttribute="width" constant="240" id="raY-mM-02J"/>
+                                    <constraint firstItem="rS2-X3-13h" firstAttribute="top" secondItem="Ekz-Ay-r6t" secondAttribute="top" id="5oh-4d-zzK"/>
+                                    <constraint firstItem="rS2-X3-13h" firstAttribute="bottom" secondItem="Ekz-Ay-r6t" secondAttribute="bottom" id="Kmw-Ep-z4M"/>
+                                    <constraint firstItem="rS2-X3-13h" firstAttribute="trailing" secondItem="Ekz-Ay-r6t" secondAttribute="trailing" id="PXa-H7-8Ev"/>
+                                    <constraint firstItem="rS2-X3-13h" firstAttribute="width" secondItem="gKe-sM-hwt" secondAttribute="width" multiplier="0.980676" id="QZc-Wb-Lvv"/>
+                                    <constraint firstItem="rS2-X3-13h" firstAttribute="leading" secondItem="Ekz-Ay-r6t" secondAttribute="leading" id="vh1-5W-lf8"/>
                                 </constraints>
-                            </view>
+                                <viewLayoutGuide key="contentLayoutGuide" id="Ekz-Ay-r6t"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="gKe-sM-hwt"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="w8A-H8-ChZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GZy-pK-JBy" firstAttribute="centerY" secondItem="Vxu-7E-5Ak" secondAttribute="centerY" id="cs2-qK-3rr"/>
-                            <constraint firstItem="GZy-pK-JBy" firstAttribute="centerX" secondItem="Vxu-7E-5Ak" secondAttribute="centerX" id="lLM-Av-MC9"/>
+                            <constraint firstAttribute="bottom" secondItem="nKU-cn-iPa" secondAttribute="bottom" id="5Bj-On-xvv"/>
+                            <constraint firstAttribute="trailing" secondItem="nKU-cn-iPa" secondAttribute="trailing" id="8Rk-D6-LRr"/>
+                            <constraint firstItem="nKU-cn-iPa" firstAttribute="leading" secondItem="Vxu-7E-5Ak" secondAttribute="leading" id="O38-Mg-Yzo"/>
+                            <constraint firstItem="nKU-cn-iPa" firstAttribute="top" secondItem="Vxu-7E-5Ak" secondAttribute="top" id="exO-xg-IL0"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UsD-37-OOc">
@@ -449,7 +500,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjd-q9-rfs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4580" y="1557"/>
+            <point key="canvasLocation" x="4579.7101449275369" y="1556.9196428571429"/>
         </scene>
         <!--Audio Recorder View Controller-->
         <scene sceneID="HcD-CY-4Ll">
