@@ -37,7 +37,6 @@
         if (!error && likes && likes.count == 0) {
             [newLike saveInBackgroundWithBlock:completion];
             [Like makeMatchIfApplicable:newLike];
-            
         }
     }];
 }
@@ -51,15 +50,7 @@
     [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
         if (!error && likes.count == 1) {
             //make new Match
-            [Match postMatchBetween:newLike.originUser andUser:newLike.destinationUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
-                if (error) {
-                    NSLog(@"Error posting new match: %@", error.localizedDescription);
-                } 
-            }];
-        } else if (error) {
-            NSLog(@"Error posting match: %@", error.localizedDescription);
-        } else if (likes.count > 1) {
-            NSLog(@"Found inconsistency in database: duplicate likes. Fix bug and wipe database");
+            [Match postMatchBetween:newLike.originUser andUser:newLike.destinationUser withCompletion:nil];
         }
     }];
 }

@@ -10,7 +10,7 @@
 
 @interface MediaPlayBackView () <AVAudioPlayerDelegate>
 
-@property (nonatomic, strong) AVAudioPlayer *_Nonnull audioPlayer;
+@property (nonatomic, strong) AVAudioPlayer *_Nullable audioPlayer;
 @property (nonatomic, strong) NSData *_Nonnull recordingData;
 @property (nonatomic, strong) UIProgressView *_Nullable progressView;
 @property (nonatomic, strong) NSTimer *_Nullable progressTimer;

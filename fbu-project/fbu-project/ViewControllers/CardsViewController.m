@@ -32,9 +32,7 @@
     [userQuery includeKey:@"recording"];
     
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingUsers, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error fetching mathching users");
-        } else {
+        if (!error) {
             [self insertDraggableView:matchingUsers];
         }
         [MBProgressHUD hideHUDForView:self.view animated:YES];

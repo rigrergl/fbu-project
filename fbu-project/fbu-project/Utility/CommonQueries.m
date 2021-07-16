@@ -36,6 +36,9 @@ void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSArray 
                 [matchedUsers addObject:user1];
             }
         }
-        completion(matchedUsers, matches, nil);
+        
+        if (completion) {
+            completion(matchedUsers, matches, nil);
+        }
     }];
 }

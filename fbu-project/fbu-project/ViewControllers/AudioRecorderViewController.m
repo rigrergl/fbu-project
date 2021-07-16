@@ -53,14 +53,12 @@
     NSError *error = nil;
     [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
     if (error) {
-        NSLog(@"audioSession: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
         return;
     }
     
     error = nil;
     [self.recordingSession setActive:YES error:&error];
     if (error) {
-        NSLog(@"audioSession: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
         return;
     }
     
@@ -79,7 +77,6 @@
     error = nil;
     self.audioRecorder = [[ AVAudioRecorder alloc] initWithURL:audioFile settings:recordSetting error:&error];
     if(!self.audioRecorder){
-        NSLog(@"recorder: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning"
                                                                        message:[error localizedDescription]
                                                                 preferredStyle:(UIAlertControllerStyleAlert)];
@@ -105,7 +102,6 @@
 
 + (NSURL *)getRecordingURL {
     NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSLog(@"Documents Directory: %@", paths[0]);
     
     NSURL *documentsDirectory = paths[0];
     NSURL *recordingURL = [documentsDirectory URLByAppendingPathComponent:@"recording.m4a"];
@@ -144,20 +140,12 @@
     NSURL *url = [AudioRecorderViewController getRecordingURL];
     NSError *error= nil;
     NSData *audioData = [NSData dataWithContentsOfFile:[url path] options: 0 error:&error];
-    if(!audioData)
-        NSLog(@"audio data: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
     
     
     PFFileObject *recordingFile = [PFFileObject fileObjectWithData:[NSData dataWithContentsOfURL:url]];
     [[PFUser currentUser] setValue:recordingFile forKey:@"recording"];
     
-    [[PFUser currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error) {
-        if(error) {
-            NSLog(@"Error saving recording for user");
-        } else {
-            NSLog(@"Successfully saved recording for user");
-        }
-    }];
+    [[PFUser currentUser] saveInBackground];
 }
 
 - (void)deleteFile {
@@ -166,17 +154,12 @@
     NSError *error;
     error = nil;
     [fm removeItemAtPath:[url path] error:&error];
-    if(error)
-        NSLog(@"File Manager: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *) aRecorder
                            successfully:(BOOL)flag {
     if (!flag) {
         [self finishRecording:false];
-    } else {
-        NSLog (@"audioRecorderDidFinishRecording:successfully:");
-        // your actions here∫
     }
 }
 
@@ -203,8 +186,6 @@
         self.audioPlayer = nil;
         
         [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
-    } else {
-        NSLog(@"Tried to stop audio player but it was nil");
     }
 }
 
@@ -212,8 +193,6 @@
                        successfully:(BOOL)flag {
     if (flag) {
         [self stopPlaying];
-    } else {
-        NSLog(@"audioPlayerDidFinishPlaying with error");
     }
 }
 

@@ -22,15 +22,13 @@
     newMessage.content = content;
     
     [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){
-        completion(succeeded, newMessage, error);
+        if (completion) {
+            completion(succeeded, newMessage, error);
+        }
     }];
     
     match.hasConversationStarted = true;
-    [match saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error updating match: %@", error.localizedDescription);
-        }
-    }];
+    [match saveInBackground];
 }
 
 

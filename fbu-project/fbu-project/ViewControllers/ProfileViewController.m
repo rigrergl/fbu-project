@@ -80,11 +80,7 @@
     AuthenticationViewController *userAuthenticationViewController = [storyboard instantiateViewControllerWithIdentifier:@"AuthenticationViewController"];
     sceneDelegate.window.rootViewController = userAuthenticationViewController;
     
-    [PFUser logOutInBackgroundWithBlock:^(NSError *_Nullable error){
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
+    [PFUser logOutInBackground];
 }
 
 @end

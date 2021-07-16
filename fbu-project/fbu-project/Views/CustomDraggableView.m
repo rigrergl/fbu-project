@@ -43,9 +43,7 @@
     [self.playButton setSelected:YES];
     
     [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error getting data from PFFileObject");
-        } else {
+        if (!error) {
             
             MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
                                                initWithFrame:CGRectMake(20, 200, self.frame.size.width - 40, 200)
@@ -74,20 +72,12 @@
 
 - (void)swipedRight {
     //RIGHT = YES
-    [Like postLikeFrom:[PFUser currentUser] to:self.user withCompletion:^(BOOL succeeded, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error posting like: %@", error.localizedDescription);
-        }
-    }];
+    [Like postLikeFrom:[PFUser currentUser] to:self.user withCompletion:nil];
 }
 
 - (void)swipedLeft {
     //LEFT = NO
-    [UnLike postUnLikeFrom:[PFUser currentUser] to:self.user withCompletion:^(BOOL succeeded, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error posting like: %@", error.localizedDescription);
-        }
-    }];
+    [UnLike postUnLikeFrom:[PFUser currentUser] to:self.user withCompletion:nil];
 }
 
 @end

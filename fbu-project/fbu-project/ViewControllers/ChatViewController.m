@@ -52,9 +52,7 @@
     [messageQuery whereKey:@"match" equalTo:self.match];
     
     [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
-        if (error) {
-            NSLog(@"Error fetching messages: %@", error.localizedDescription);
-        } else {
+        if (!error) {
             self.messages = messages;
             [self reloadCollectionViewAndScrollToBottom];
         }
@@ -104,9 +102,7 @@
         [DirectMessage postMessageWithContent:self.inputTextView.text
                                       inMatch:self.match
                                withCompletion:^(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error){
-            if (error) {
-                NSLog(@"Error posting new message: %@", error.localizedDescription);
-            } else if (newMessage) {
+           if (newMessage) {
                 [self.messages addObject:newMessage];
                 [self reloadCollectionViewAndScrollToBottom];
             }
