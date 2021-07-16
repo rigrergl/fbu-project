@@ -9,6 +9,7 @@
 #import "CommonQueries.h"
 #import "Like.h"
 #import "UnLike.h"
+#import "Match.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -40,7 +41,7 @@
 - (void)testPostLike {
     XCTestExpectation *postLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [Like postLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+    [Like postLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [postLikeExpectation fulfill];
@@ -52,7 +53,7 @@
 - (void)testRemoveLike {
     XCTestExpectation *removeLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [Like removeLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+    [Like removeLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [removeLikeExpectation fulfill];
@@ -64,7 +65,7 @@
 - (void)testPostUnlike {
     XCTestExpectation *postUnLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [UnLike postUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+    [UnLike postUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [postUnLikeExpectation fulfill];
@@ -76,10 +77,22 @@
 - (void)testRemoveUnLike {
     XCTestExpectation *removeUnLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [UnLike removeUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+    [UnLike removeUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError * _Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [removeUnLikeExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+- (void)testPostMatch {
+    XCTestExpectation *postMatchExpectation = [self expectationWithDescription:@"Post Match expectation"];
+    PFUser *currentUser = [PFUser currentUser];
+    [Match postMatchBetween:currentUser andUser:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+        BOOL flag = (error == nil && succeeded);
+        XCTAssert(flag);
+        [postMatchExpectation fulfill];
     }];
     
     [self waitForExpectationsWithTimeout:10 handler:nil];
