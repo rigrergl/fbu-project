@@ -9,9 +9,9 @@
 #import <Parse/Parse.h>
 
 @interface AuthenticationViewController ()
+
 @property (strong, nonatomic) IBOutlet UITextField *_Nonnull usernameField;
 @property (strong, nonatomic) IBOutlet UITextField *_Nonnull passwordField;
-@property (strong, nonatomic) UIAlertController *_Nonnull alert;
 
 @end
 
@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupAlert];
     [self setupGestures];
 }
 
@@ -33,7 +32,7 @@
     [self.view endEditing:YES];
 }
 
-- (void)setupAlert {
+- (UIAlertController *)createAlert {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                    message:@"Empty fields"
                                                             preferredStyle:(UIAlertControllerStyleAlert)];
@@ -46,14 +45,15 @@
     // add the OK action to the alert controller
     [alert addAction:okAction];
     
-    self.alert = alert;
+    return alert;
 }
 
 - (void)presentAlertWithTitle:(NSString *)title
                    andMessage:(NSString *)message {
-    self.alert.title = title;
-    self.alert.message = message;
-    [self presentViewController:self.alert animated:YES completion:^{}];
+    UIAlertController *alert = [self createAlert];
+    alert.title = title;
+    alert.message = message;
+    [self presentViewController:alert animated:YES completion:^{}];
 }
 
 - (void)registerUser {
