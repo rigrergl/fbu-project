@@ -7,6 +7,8 @@
 
 #import <XCTest/XCTest.h>
 #import "CommonQueries.h"
+#import "Like.h"
+#import "UnLike.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -31,6 +33,70 @@
 
         [expectation fulfill];
     });
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)testPostLike {
+    XCTestExpectation *postLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
+    PFUser *currentUser = [PFUser currentUser];
+    [Like postLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+        BOOL flag = (error == nil && succeeded);
+        XCTAssert(flag);
+        [postLikeExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)testRemoveLike {
+    XCTestExpectation *removeLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
+    PFUser *currentUser = [PFUser currentUser];
+    [Like removeLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+        BOOL flag = (error == nil && succeeded);
+        XCTAssert(flag);
+        [removeLikeExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)testPostUnlike {
+    XCTestExpectation *postUnLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
+    PFUser *currentUser = [PFUser currentUser];
+    [UnLike postUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+        BOOL flag = (error == nil && succeeded);
+        XCTAssert(flag);
+        [postUnLikeExpectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)testRemoveUnLike {
+    XCTestExpectation *removeUnLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
+    PFUser *currentUser = [PFUser currentUser];
+    [UnLike removeUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *error){
+        BOOL flag = (error == nil && succeeded);
+        XCTAssert(flag);
+        [removeUnLikeExpectation fulfill];
+    }];
     
     [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
         if (error != nil) {

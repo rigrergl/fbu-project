@@ -24,7 +24,7 @@
     newLike.destinationUser = destinationUser;
     
     [Like postLikeIfNew:newLike withCompletion:completion];
-    [Like removeUnlikeFrom:originUser to:destinationUser];
+    [UnLike removeUnLikeFrom:originUser to:destinationUser withCompletion:nil];
 }
 
 + (void)postLikeIfNew:(Like *)newLike
@@ -64,17 +64,18 @@
     }];
 }
 
-+ (void)removeUnlikeFrom:(PFUser *_Nonnull)originUser
-                      to:(PFUser *_Nonnull)destinationUser {
-    PFQuery *unlikeQuery = [PFQuery queryWithClassName:@"UnLike"];
-    [unlikeQuery whereKey:@"originUser" equalTo:originUser];
-    [unlikeQuery whereKey:@"destinationUser" equalTo:destinationUser];
++ (void)removeLikeFrom:(PFUser *_Nonnull)originUser
+                    to:(PFUser *_Nonnull)destinationUser
+        withCompletion:(PFBooleanResultBlock _Nullable)completion {
+    PFQuery *Like = [PFQuery queryWithClassName:@"Like"];
+    [Like whereKey:@"originUser" equalTo:originUser];
+    [Like whereKey:@"destinationUser" equalTo:destinationUser];
     
-    [unlikeQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable unlikes, NSError *_Nullable error){
-        if (unlikes) {
-            [PFObject deleteAllInBackground:unlikes block:^(BOOL succeeded, NSError *_Nullable error){
-                if (error) {
-                    NSLog(@"Error deleting matching unlikes: %@", error.localizedDescription);
+    [Like findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
+        if (likes) {
+            [PFObject deleteAllInBackground:likes block:^(BOOL succeeded, NSError *_Nullable error){
+                if (completion) {
+                    completion(succeeded, error);
                 }
             }];
         }

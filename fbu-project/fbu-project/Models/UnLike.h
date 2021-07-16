@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
                   to:(PFUser *_Nonnull)destinationUser
       withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 
++ (void)removeUnLikeFrom:(PFUser *_Nonnull)originUser
+                      to:(PFUser *_Nonnull)destinationUser
+          withCompletion:(PFBooleanResultBlock _Nullable)completion;
+
 @end
 
 NS_ASSUME_NONNULL_END
