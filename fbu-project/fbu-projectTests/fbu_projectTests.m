@@ -34,11 +34,7 @@
         [expectation fulfill];
     });
     
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)testPostLike {
@@ -50,11 +46,7 @@
         [postLikeExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)testRemoveLike {
@@ -66,11 +58,7 @@
         [removeLikeExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)testPostUnlike {
@@ -82,11 +70,7 @@
         [postUnLikeExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)testRemoveUnLike {
@@ -98,11 +82,7 @@
         [removeUnLikeExpectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
-        if (error != nil) {
-            NSLog(@"Error: %@", error.localizedDescription);
-        }
-    }];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)testExample {
