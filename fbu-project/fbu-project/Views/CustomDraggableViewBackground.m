@@ -16,7 +16,6 @@ static const int MAX_BUFFER_SIZE = 5;
 
 - (id)initWithFrame:(CGRect)frame
            andUsers:(NSArray *)users {
-    
     self = [super initWithFrame:frame];
     if (self) {
         [super layoutSubviews];

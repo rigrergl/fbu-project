@@ -56,7 +56,6 @@
 }
 
 - (void)addPlaybackView {
-    
     PFFileObject *recordingFile = self.targetUser[@"recording"];
     if(recordingFile == nil) {
         return;

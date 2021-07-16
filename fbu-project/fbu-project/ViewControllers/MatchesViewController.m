@@ -71,7 +71,6 @@
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     if (collectionView == self.matchesCollectionView) {
         MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
         
@@ -94,7 +93,6 @@
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    
     if (collectionView == self.matchesCollectionView) {
         return self.unconversedMatchesIndexes.count;
     } else {
@@ -128,7 +126,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender {
-    
     if ([segue.identifier isEqualToString:@"matchToChat"]) {
         
         Match *user = (Match *) sender;

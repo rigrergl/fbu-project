@@ -12,7 +12,6 @@
 
 - (void)setCellWithUser:(PFUser *)user
                andMatch:(Match *)match {
-    
     self.usernameLabel.text = user.username;
     
     //TODO: SET PROFILE IMAGE
@@ -30,7 +29,6 @@
 
 void fetchLatestMessageInMatch( Match *match,
                                void (^completion)(DirectMessage *_Nullable latestMessage, NSError *error) ){
-    
     PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
     [messageQuery whereKey:@"match" equalTo:match];
     [messageQuery orderByDescending:@"createdAt"];

@@ -22,7 +22,6 @@
 
 - (id)initWithFrame:(CGRect)frame
             andData:(NSData *_Nonnull)data {
-    
     self = [super initWithFrame:frame];
     if (self) {
         

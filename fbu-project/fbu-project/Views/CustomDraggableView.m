@@ -22,7 +22,6 @@
 
 - (id)initWithFrame:(CGRect)frame
             andUser:(PFUser *)user {
-    
     self = (CustomDraggableView *)[super initWithFrame:frame];
     if (self) {
         self.user = user;
