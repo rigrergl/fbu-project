@@ -6,6 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "CommonQueries.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -19,6 +20,23 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testMatchingUsers {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"MatchingUsers expectation"];
+    
+    MatchingUsers(^(NSArray *_Nullable matchedUsers,NSArray *_Nullable matches, NSError *_Nullable error){
+        BOOL flag = (error == nil && matches && matches.count >= 0);
+        XCTAssert(flag);
+
+        [expectation fulfill];
+    });
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
+    }];
 }
 
 - (void)testExample {

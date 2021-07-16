@@ -12,6 +12,14 @@
 
 void MatchingUsers( void (^completion)(NSArray *_Nullable matchedUsers, NSArray *_Nullable matches,
                                        NSError *_Nullable error) ){
+    if ([PFUser currentUser] == nil) {
+        NSError *error = [NSError errorWithDomain:@"com.eezytutorials.iosTuts"
+                                             code:200
+                                         userInfo:@{@"Error reason": @"Invalid Input"}];
+        completion(nil, nil, error);
+        return;
+    }
+    
     PFQuery *matchQuery = [PFQuery queryWithClassName:@"Match"];
     [matchQuery whereKey:@"users" containsAllObjectsInArray:@[[PFUser currentUser]]];
     [matchQuery includeKey:@"users"];
