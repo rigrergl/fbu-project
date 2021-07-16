@@ -35,6 +35,8 @@
 		3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12705269CF2A4006444E4 /* AuthenticationViewController.m */; };
 		3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12708269CFD12006444E4 /* ProfileViewController.m */; };
 		3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */; };
+		3BB3B66226A2305600D06528 /* AddArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3B66126A2305600D06528 /* AddArtistViewController.m */; };
+		3BB3B66526A2334D00D06528 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3B66426A2334D00D06528 /* APIManager.m */; };
 		3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */; };
 		3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */; };
 		3BCC85A6269E551D0083F1F1 /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A5269E551D0083F1F1 /* Like.m */; };
@@ -116,6 +118,10 @@
 		3BB12708269CFD12006444E4 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3BB1270A269D008B006444E4 /* AudioRecorderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioRecorderViewController.h; sourceTree = "<group>"; };
 		3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderViewController.m; sourceTree = "<group>"; };
+		3BB3B66026A2305600D06528 /* AddArtistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddArtistViewController.h; sourceTree = "<group>"; };
+		3BB3B66126A2305600D06528 /* AddArtistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddArtistViewController.m; sourceTree = "<group>"; };
+		3BB3B66326A2334D00D06528 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		3BB3B66426A2334D00D06528 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		3BCC859E269E41D60083F1F1 /* CustomDraggableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableView.h; sourceTree = "<group>"; };
 		3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDraggableView.m; sourceTree = "<group>"; };
 		3BCC85A1269E42190083F1F1 /* CustomDraggableViewBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableViewBackground.h; sourceTree = "<group>"; };
@@ -254,6 +260,8 @@
 				3B2F7735269F441600BB7F4B /* ChatViewController.m */,
 				3B2F773D269F76DB00BB7F4B /* MatchesViewController.h */,
 				3B2F773E269F76DB00BB7F4B /* MatchesViewController.m */,
+				3BB3B66026A2305600D06528 /* AddArtistViewController.h */,
+				3BB3B66126A2305600D06528 /* AddArtistViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -285,6 +293,8 @@
 				3B2F7747269F7DD500BB7F4B /* CommonQueries.m */,
 				3B66F68526A0DAC80086BEDE /* StylingConstants.h */,
 				3B66F68626A0DAC80086BEDE /* StylingConstants.m */,
+				3BB3B66326A2334D00D06528 /* APIManager.h */,
+				3BB3B66426A2334D00D06528 /* APIManager.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -577,6 +587,7 @@
 				3B2F7748269F7DD500BB7F4B /* CommonQueries.m in Sources */,
 				3B2F774E269FAE9200BB7F4B /* MatchCollectionViewCell.m in Sources */,
 				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
+				3BB3B66226A2305600D06528 /* AddArtistViewController.m in Sources */,
 				3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */,
 				3B2F774B269F9F3500BB7F4B /* Match.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
@@ -586,6 +597,7 @@
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
 				3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */,
+				3BB3B66526A2334D00D06528 /* APIManager.m in Sources */,
 				3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
