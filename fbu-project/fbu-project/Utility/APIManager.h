@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchArtist:(NSString *)artistId
      withCompletion:(void(^)(NSDictionary *_Nullable responseDictionary,NSError *_Nullable error))completion;
 
++ (NSString *)formatArtistName:(NSString *)artistName;
+
 @end
 
 NS_ASSUME_NONNULL_END

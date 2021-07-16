@@ -165,15 +165,6 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
 
-#### FavoriteArtist
-| Property    | Type        | Description |
-| ----------- | ----------- |-------------|
-| objectId    | String      |unique id for the user (default field)
-| user       | Pointer to User |user that has this favorite artist
-| artistName  | String |artist id 
-| createdAt   | DateTime      |date when like is created (default field)
-| updatedAt   | DateTime      |date when like is last updated (default field)
-
 
 ### Networking
 ## List of Network requests by screen

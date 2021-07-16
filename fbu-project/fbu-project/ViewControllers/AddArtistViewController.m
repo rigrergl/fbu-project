@@ -19,19 +19,15 @@
 
 - (IBAction)searchTextDidChange:(UITextField *)sender {
     NSString *searchText = self.searchTextField.text;
+    NSString *artistId = [APIManager formatArtistName:searchText];
     
     APIManager *apiManager = [APIManager new];
-    [apiManager fetchArtist:searchText withCompletion:^(NSDictionary *_Nullable responseData, NSError *_Nullable error){
+    [apiManager fetchArtist:artistId withCompletion:^(NSDictionary *_Nullable responseData, NSError *_Nullable error){
         if (responseData) {
-            NSLog(@"%@", responseData);
+            //TODO: init Artist with dictionary
         }
     }];
 }
-
-- (NSString *)formatText {
-    
-}
-
 
 
 @end

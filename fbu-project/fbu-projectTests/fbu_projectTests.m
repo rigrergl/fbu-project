@@ -10,6 +10,7 @@
 #import "Like.h"
 #import "UnLike.h"
 #import "Match.h"
+#import "APIManager.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -23,6 +24,24 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testFormatArtistName {
+    NSString *testString = @" joHn   MayeR ";
+    NSString *resultString = [APIManager formatArtistName:testString];
+    NSString *expectedString = @"john_mayer";
+    XCTAssert([resultString isEqualToString:expectedString]);
+    
+    testString = @"THe Beatles ";
+    resultString = [APIManager formatArtistName:testString];
+    expectedString = @"the_beatles";
+    XCTAssert([resultString isEqualToString:expectedString]);
+    
+    testString = @"ColdPlay";
+    resultString = [APIManager formatArtistName:testString];
+    expectedString = @"coldplay";
+    XCTAssert([resultString isEqualToString:expectedString]);
+
 }
 
 - (void)testMatchingUsers {
