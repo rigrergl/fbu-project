@@ -14,8 +14,8 @@
 }
 
 + (void)postMessageWithContent:(NSString *)content
-            inMatch: (Match *_Nonnull)match
-     withCompletion:(void(^)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error))completion {
+                       inMatch: (Match *_Nonnull)match
+                withCompletion:(void(^)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error))completion {
     DirectMessage *newMessage = [DirectMessage new];
     newMessage.author = [PFUser currentUser];
     newMessage.match = match;

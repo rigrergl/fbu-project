@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatViewController : UIViewController
 
-@property (nonatomic, strong) Match *match;
+@property (nonatomic, strong) Match *_Nonnull match;
 
 @end
 

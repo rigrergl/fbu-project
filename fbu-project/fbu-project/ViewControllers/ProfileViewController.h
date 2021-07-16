@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProfileViewController : UIViewController
 
-@property (nonatomic, strong) PFUser *targetUser;
+@property (nonatomic, strong) PFUser *_Nullable targetUser;
 
 @end
 

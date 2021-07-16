@@ -11,8 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomDraggableViewBackground : DraggableViewBackground
 
-@property (retain,nonatomic)NSArray* users;
-- (id)initWithFrame:(CGRect)frame andUsers:(NSArray *)users;
+@property (retain,nonatomic)NSArray *_Nonnull users;
+
+- (id)initWithFrame:(CGRect)frame
+           andUsers:(NSArray *)users;
 
 @end
 

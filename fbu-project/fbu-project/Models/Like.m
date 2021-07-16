@@ -27,7 +27,8 @@
     [Like removeUnlikeFrom:originUser to:destinationUser];
 }
 
-+ (void)postLikeIfNew:(Like *)newLike withCompletion:(PFBooleanResultBlock _Nullable)completion {
++ (void)postLikeIfNew:(Like *)newLike
+       withCompletion:(PFBooleanResultBlock _Nullable)completion {
     PFQuery *likeQuery = [PFQuery queryWithClassName:@"Like"];
     [likeQuery whereKey:@"originUser" equalTo:newLike.originUser];
     [likeQuery whereKey:@"destinationUser" equalTo:newLike.destinationUser];
@@ -63,7 +64,8 @@
     }];
 }
 
-+ (void)removeUnlikeFrom:(PFUser *_Nonnull)originUser to:(PFUser *_Nonnull)destinationUser {
++ (void)removeUnlikeFrom:(PFUser *_Nonnull)originUser
+                      to:(PFUser *_Nonnull)destinationUser {
     PFQuery *unlikeQuery = [PFQuery queryWithClassName:@"UnLike"];
     [unlikeQuery whereKey:@"originUser" equalTo:originUser];
     [unlikeQuery whereKey:@"destinationUser" equalTo:destinationUser];

@@ -11,10 +11,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomDraggableView : DraggableView
 
-@property (nonatomic,strong) UILabel* usernameLabel;
-@property (nonatomic, strong)UIButton *playButton;
+@property (nonatomic, strong) UILabel *_Nonnull usernameLabel;
+@property (nonatomic, strong) UIButton *_Nonnull playButton;
 
-- (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user;
+- (id)initWithFrame:(CGRect)frame
+            andUser:(PFUser *)user;
 
 @end
 

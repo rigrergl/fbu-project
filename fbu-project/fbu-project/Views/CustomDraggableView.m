@@ -12,18 +12,17 @@
 
 @interface CustomDraggableView ()
 
-
-@property (nonatomic, strong) PFUser *user;
-@property (nonatomic, strong) MediaPlayBackView *playbackView;
-
+@property (nonatomic, strong) PFUser *_Nonnull user;
+@property (nonatomic, strong) MediaPlayBackView *_Nonnull playbackView;
 
 @end
 
 @implementation CustomDraggableView
 
 
-- (id)initWithFrame:(CGRect)frame andUser:(PFUser *)user
-{
+- (id)initWithFrame:(CGRect)frame
+            andUser:(PFUser *)user {
+    
     self = (CustomDraggableView *)[super initWithFrame:frame];
     if (self) {
         self.user = user;
@@ -75,7 +74,7 @@
 #pragma mark - Card Swiped Override Methods
 
 - (void)swipedRight {
-    //YES
+    //RIGHT = YES
     [Like postLikeFrom:[PFUser currentUser] to:self.user withCompletion:^(BOOL succeeded, NSError *_Nullable error){
         if (error) {
             NSLog(@"Error posting like: %@", error.localizedDescription);
@@ -84,7 +83,7 @@
 }
 
 - (void)swipedLeft {
-    //NO
+    //LEFT = NO
     [UnLike postUnLikeFrom:[PFUser currentUser] to:self.user withCompletion:^(BOOL succeeded, NSError *_Nullable error){
         if (error) {
             NSLog(@"Error posting like: %@", error.localizedDescription);

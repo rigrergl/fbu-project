@@ -10,17 +10,19 @@
 
 @interface MediaPlayBackView () <AVAudioPlayerDelegate>
 
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
-@property (nonatomic, strong) NSData *recordingData;
-@property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) NSTimer *progressTimer;
-@property (nonatomic, strong) UIButton *playButton;
+@property (nonatomic, strong) AVAudioPlayer *_Nonnull audioPlayer;
+@property (nonatomic, strong) NSData *_Nonnull recordingData;
+@property (nonatomic, strong) UIProgressView *_Nullable progressView;
+@property (nonatomic, strong) NSTimer *_Nullable progressTimer;
+@property (nonatomic, strong) UIButton *_Nullable playButton;
 
 @end
 
 @implementation MediaPlayBackView
 
-- (id)initWithFrame:(CGRect)frame andData:(NSData *_Nonnull)data {
+- (id)initWithFrame:(CGRect)frame
+            andData:(NSData *_Nonnull)data {
+    
     self = [super initWithFrame:frame];
     if (self) {
         
@@ -118,8 +120,8 @@
     self.progressView = nil;
 }
 
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
+                       successfully:(BOOL)flag {
     if (flag) {
         [self stopPlaying];
     }

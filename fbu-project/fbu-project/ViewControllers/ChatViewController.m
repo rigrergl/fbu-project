@@ -12,11 +12,11 @@
 #import <Parse/Parse.h>
 
 @interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) NSMutableArray *messages;
-@property (weak, nonatomic) IBOutlet UITextView *inputTextView;
-@property (weak, nonatomic) IBOutlet UILabel *chatNameLabel;
-@property (nonatomic, strong) NSTimer *refreshTimer;
+@property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull collectionView;
+@property (strong, nonatomic) NSMutableArray *_Nullable messages;
+@property (strong, nonatomic) IBOutlet UITextView *_Nonnull inputTextView;
+@property (strong, nonatomic) IBOutlet UILabel *_Nonnull chatNameLabel;
+@property (nonatomic, strong) NSTimer *_Nullable refreshTimer;
 
 @end
 
@@ -24,10 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    [self.collectionView reloadData];
+  
+    [self setupCollectionView];
     
     [self setupGestures];
     [self styleInputTextView];
@@ -36,7 +34,11 @@
     [self fetchMessages];
 }
 
-
+- (void)setupCollectionView {
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self.collectionView reloadData];
+}
 
 - (void)fetchMessages {
     if (self.match) {
@@ -130,7 +132,8 @@
 
 #pragma mark - Collection View methods
 
-- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
+                          cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatCell" forIndexPath:indexPath];
     
     if (cell) {
@@ -142,8 +145,13 @@
     return cell;
 }
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.messages.count;
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section {
+    if (self.messages) {
+        return self.messages.count;
+    } else {
+        return 0;
+    }
 }
 
 #pragma mark - keyboard movements
@@ -153,7 +161,6 @@
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 
     [UIView animateWithDuration:0.3 animations:^{
@@ -164,7 +171,6 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    
     [UIView animateWithDuration:0.3 animations:^{
         CGRect f = self.view.frame;
         f.origin.y = 0.0f;
@@ -173,7 +179,6 @@
 }
 
 - (void)scrollToBottomOfCollectionView {
-    
     NSInteger item = [self.collectionView numberOfItemsInSection:0] - 1;
     NSIndexPath *lastIndex = [NSIndexPath indexPathForItem:item inSection:0];
     [self.collectionView scrollToItemAtIndexPath:lastIndex atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];

@@ -11,7 +11,7 @@
 @implementation ConversationCollectionViewCell
 
 - (void)setCellWithUser:(PFUser *)user
-               andMatch:(Match *)match; {
+               andMatch:(Match *)match {
     
     self.usernameLabel.text = user.username;
     
@@ -30,6 +30,7 @@
 
 void fetchLatestMessageInMatch( Match *match,
                                void (^completion)(DirectMessage *_Nullable latestMessage, NSError *error) ){
+    
     PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
     [messageQuery whereKey:@"match" equalTo:match];
     [messageQuery orderByDescending:@"createdAt"];

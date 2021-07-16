@@ -13,7 +13,7 @@
 
 @interface CardsViewController () <AVAudioPlayerDelegate>
 
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) AVAudioPlayer *_Nonnull audioPlayer;
 
 @end
 

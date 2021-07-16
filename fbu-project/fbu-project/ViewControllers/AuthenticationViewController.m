@@ -9,8 +9,8 @@
 #import <Parse/Parse.h>
 
 @interface AuthenticationViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) IBOutlet UITextField *_Nonnull usernameField;
+@property (strong, nonatomic) IBOutlet UITextField *_Nonnull passwordField;
 @property (strong, nonatomic) UIAlertController *_Nonnull alert;
 
 @end

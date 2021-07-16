@@ -11,11 +11,11 @@
 
 @interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *recordButton;
-@property (weak, nonatomic) IBOutlet UIButton *playButton;
-@property (strong, nonatomic) AVAudioSession *recordingSession;
-@property (strong, nonatomic) AVAudioRecorder *audioRecorder;
-@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+@property (strong, nonatomic) IBOutlet UIButton *_Nonnull recordButton;
+@property (strong, nonatomic) IBOutlet UIButton *_Nonnull playButton;
+@property (strong, nonatomic) AVAudioSession *_Nonnull recordingSession;
+@property (strong, nonatomic) AVAudioRecorder *_Nullable audioRecorder;
+@property (strong, nonatomic) AVAudioPlayer *_Nullable audioPlayer;
 
 @end
 
@@ -49,7 +49,6 @@
 }
 
 - (void)startRecording {
-    
     self.recordingSession = [AVAudioSession sharedInstance];
     NSError *error = nil;
     [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
@@ -139,8 +138,7 @@
     }
 }
 
-- (void)retrieveRecordedFile{
-    
+- (void)retrieveRecordedFile {
     [self.audioRecorder stop];
     
     NSURL *url = [AudioRecorderViewController getRecordingURL];
@@ -172,8 +170,8 @@
         NSLog(@"File Manager: %@ %ld %@", [error domain], (long)[error code], [[error userInfo] description]);
 }
 
-- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *) aRecorder successfully:(BOOL)flag
-{
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *) aRecorder
+                           successfully:(BOOL)flag {
     if (!flag) {
         [self finishRecording:false];
     } else {
@@ -210,8 +208,8 @@
     }
 }
 
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
+                       successfully:(BOOL)flag {
     if (flag) {
         [self stopPlaying];
     } else {

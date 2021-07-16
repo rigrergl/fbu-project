@@ -23,12 +23,12 @@
 
 - (void)styleForSentMessage {
     self.mainView.backgroundColor = SENT_MESSAGE_BACKGROUND;
-//    [self.mainView setBackgroundColor:[UIColor blackColor]];
+    //TODO: FURTHER STYLING
 }
 
 - (void)styleForReceivedMessage {
     self.mainView.backgroundColor = RECEIVED_MESSAGE_BACKGROUND;
-//    [self.mainView setBackgroundColor:[UIColor blackColor]];
+    //TODO: FURTHER STYLING
 }
 
 @end

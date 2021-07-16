@@ -13,8 +13,8 @@
 
 @interface ProfileViewController ()
 
-@property (weak, nonatomic) IBOutlet UIView *playbackContainerView;
-@property (strong, nonatomic) MediaPlayBackView *playbackView;
+@property (strong, nonatomic) IBOutlet UIView *_Nonnull playbackContainerView;
+@property (strong, nonatomic) MediaPlayBackView *_Nullable playbackView;
 
 @end
 

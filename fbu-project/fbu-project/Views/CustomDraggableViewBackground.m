@@ -14,8 +14,9 @@ static const int BUTTON_SECTION_HEIGHT = 120;
 static const int MAX_BUFFER_SIZE = 5;
 
 
-- (id)initWithFrame:(CGRect)frame andUsers:(NSArray *)users
-{
+- (id)initWithFrame:(CGRect)frame
+           andUsers:(NSArray *)users {
+    
     self = [super initWithFrame:frame];
     if (self) {
         [super layoutSubviews];
@@ -29,8 +30,7 @@ static const int MAX_BUFFER_SIZE = 5;
     return self;
 }
 
-- (void)setupView
-{
+- (void)setupView {
     CGFloat buttonWidth = BUTTON_SECTION_HEIGHT - 15;
     
     self.backgroundColor = [UIColor colorWithRed:.92 green:.93 blue:.95 alpha:1]; //the gray background colors
@@ -44,16 +44,7 @@ static const int MAX_BUFFER_SIZE = 5;
     [self addSubview:super.checkButton];
 }
 
-- (void)swipeLeft {
-    [super swipeLeft];
-}
-
-- (void)swipeRight {
-    [super swipeRight];
-}
-
--(CustomDraggableView *)createDraggableViewWithDataAtIndex:(NSInteger)index
-{
+- (CustomDraggableView *)createDraggableViewWithDataAtIndex:(NSInteger)index {
     CGFloat cardMargins = 50;
     CGFloat cardWidth = self.frame.size.width - cardMargins;
     CGFloat cardHeight = self.frame.size.height - cardMargins - BUTTON_SECTION_HEIGHT;
@@ -63,8 +54,7 @@ static const int MAX_BUFFER_SIZE = 5;
     return draggableView;
 }
 
--(void)loadCards
-{
+- (void)loadCards {
     if([self.users count] > 0) {
         NSInteger numLoadedCardsCap =(([self.users count] > MAX_BUFFER_SIZE)?MAX_BUFFER_SIZE:[self.users count]);
         //%%% if the buffer size is greater than the data size, there will be an array error, so this makes sure that doesn't happen
