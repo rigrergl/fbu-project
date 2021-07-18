@@ -11,6 +11,8 @@
 #import "UnLike.h"
 #import "Match.h"
 #import "APIManager.h"
+#import "APIManager+Tests.h"
+#import "LikedGenre.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -24,6 +26,63 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testLikedGenre {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"LikedGenre expectation"];
+    [LikedGenre postLikedGenre:@"test" forUser:[PFUser currentUser] withCompletion:^(LikedGenre *_Nullable newLikedGenre, NSError *_Nullable error){
+        XCTAssert(error == nil);
+        if (newLikedGenre) {
+            [LikedGenre deleteLikedGenre:newLikedGenre withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+                XCTAssert(succeeded);
+                XCTAssert(error == nil);
+                [expectation fulfill];
+            }];
+        }
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+- (void)testBase64URLSafeEncode {
+    NSString *originalString = @"jlvdjklnvz939484587jfvjsbfjn:rsgfdl958583dfljdbjn";
+    NSString *expectedEncoding = @"amx2ZGprbG52ejkzOTQ4NDU4N2pmdmpzYmZqbjpyc2dmZGw5NTg1ODNkZmxqZGJqbg";
+    
+    NSString *result = [APIManager base64URLSafeEncode:originalString];
+    BOOL flag = [result isEqualToString:expectedEncoding];
+    XCTAssert(flag);
+}
+
+- (void)testGenerateSpotifyToken {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch Spotify Token expectation"];
+    
+    [APIManager generateSpotifyToken:^(NSString *_Nullable spotifyToken, NSError *_Nullable error){
+        XCTAssert(error == nil);
+        XCTAssert(spotifyToken != nil);
+        XCTAssert([spotifyToken isKindOfClass:[NSString class]]);
+
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+- (void)testFetchGenres {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch Genres expectation"];
+    
+    [APIManager fetchGenres:^(NSArray *_Nullable genres, NSError *_Nullable error){
+        XCTAssert(error == nil);
+        XCTAssert(genres != nil);
+        //confirm entries are indeed genre strings
+        for (NSString *genre in genres) {
+            XCTAssert(genre != nil);
+            XCTAssert([genre isKindOfClass: [NSString class]]);
+        }
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 - (void)testFormatArtistName {

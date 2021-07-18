@@ -27,6 +27,10 @@
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68626A0DAC80086BEDE /* StylingConstants.m */; };
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
+		3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */; };
+		3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */; };
+		3BA93F1D26A4CEA900CA9E01 /* AddLikedGenreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */; };
+		3BA93F2026A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1F26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m */; };
 		3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F5269CEA3F006444E4 /* CardsViewController.m */; };
 		3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126F8269CEA6B006444E4 /* DraggableViewBackground.m */; };
 		3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB126FB269CEA7E006444E4 /* DraggableView.m */; };
@@ -103,6 +107,15 @@
 		3B66F68626A0DAC80086BEDE /* StylingConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StylingConstants.m; sourceTree = "<group>"; };
 		3B66F69226A0E5E90086BEDE /* MediaPlayBackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaPlayBackView.h; sourceTree = "<group>"; };
 		3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaPlayBackView.m; sourceTree = "<group>"; };
+		3BA93F1426A4B98E00CA9E01 /* APIManager+Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APIManager+Tests.h"; sourceTree = "<group>"; };
+		3BA93F1526A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LikedGenreCollectionViewCell.h; sourceTree = "<group>"; };
+		3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedGenreCollectionViewCell.m; sourceTree = "<group>"; };
+		3BA93F1826A4C74C00CA9E01 /* LikedGenre.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LikedGenre.h; sourceTree = "<group>"; };
+		3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedGenre.m; sourceTree = "<group>"; };
+		3BA93F1B26A4CEA900CA9E01 /* AddLikedGenreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddLikedGenreViewController.h; sourceTree = "<group>"; };
+		3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddLikedGenreViewController.m; sourceTree = "<group>"; };
+		3BA93F1E26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddLikedGenreCollectionViewCell.h; sourceTree = "<group>"; };
+		3BA93F1F26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddLikedGenreCollectionViewCell.m; sourceTree = "<group>"; };
 		3BB126DC269CD3C7006444E4 /* fbu-project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fbu-project-Bridging-Header.h"; sourceTree = "<group>"; };
 		3BB126F4269CEA3F006444E4 /* CardsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		3BB126F5269CEA3F006444E4 /* CardsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
@@ -220,6 +233,7 @@
 			children = (
 				3B4BB293269CC98800E5F692 /* fbu_projectTests.m */,
 				3B4BB295269CC98800E5F692 /* Info.plist */,
+				3BA93F1426A4B98E00CA9E01 /* APIManager+Tests.h */,
 			);
 			path = "fbu-projectTests";
 			sourceTree = "<group>";
@@ -246,6 +260,8 @@
 				3B3086D326A0904000AA7894 /* DirectMessage.m */,
 				3BB3B66926A24F5000D06528 /* FavoriteArtist.h */,
 				3BB3B66A26A24F5000D06528 /* FavoriteArtist.m */,
+				3BA93F1826A4C74C00CA9E01 /* LikedGenre.h */,
+				3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,6 +283,8 @@
 				3B2F773E269F76DB00BB7F4B /* MatchesViewController.m */,
 				3BB3B66026A2305600D06528 /* AddArtistViewController.h */,
 				3BB3B66126A2305600D06528 /* AddArtistViewController.m */,
+				3BA93F1B26A4CEA900CA9E01 /* AddLikedGenreViewController.h */,
+				3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -287,6 +305,10 @@
 				3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */,
 				3B66F69226A0E5E90086BEDE /* MediaPlayBackView.h */,
 				3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */,
+				3BA93F1526A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.h */,
+				3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */,
+				3BA93F1E26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.h */,
+				3BA93F1F26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -588,6 +610,7 @@
 				3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
+				3BA93F1D26A4CEA900CA9E01 /* AddLikedGenreViewController.m in Sources */,
 				3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */,
 				3B2F7748269F7DD500BB7F4B /* CommonQueries.m in Sources */,
 				3B2F774E269FAE9200BB7F4B /* MatchCollectionViewCell.m in Sources */,
@@ -599,13 +622,16 @@
 				3BCC85A6269E551D0083F1F1 /* Like.m in Sources */,
 				3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */,
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
+				3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */,
 				3BB3B66B26A24F5000D06528 /* FavoriteArtist.m in Sources */,
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
 				3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */,
+				3BA93F2026A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m in Sources */,
 				3BB3B66526A2334D00D06528 /* APIManager.m in Sources */,
 				3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
+				3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

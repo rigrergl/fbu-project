@@ -31,10 +31,8 @@
     NSString *searchText = self.searchTextField.text;
     NSString *artistId = [APIManager formatArtistName:searchText];
     
-    APIManager *apiManager = [APIManager new];
-    [apiManager fetchArtist:artistId withCompletion:^(NSDictionary *_Nullable responseData, NSError *_Nullable error){
+    [APIManager fetchArtist:artistId withCompletion:^(NSDictionary *_Nullable responseData, NSError *_Nullable error){
         FavoriteArtist *artist = [[FavoriteArtist alloc] initWithDictionary:responseData andId:artistId];
-        
         if (responseData && artist) {
             self.addButton.enabled = YES;
         } else {
