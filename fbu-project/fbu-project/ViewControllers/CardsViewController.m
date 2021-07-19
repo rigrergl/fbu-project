@@ -11,9 +11,10 @@
 #import <Parse/Parse.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 
-@interface CardsViewController () <AVAudioPlayerDelegate>
+@interface CardsViewController () <AVAudioPlayerDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) AVAudioPlayer *_Nonnull audioPlayer;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -22,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self fetchRecommendedUsers];
+    [self updateLocation];
 }
 
 - (void)fetchRecommendedUsers {
@@ -56,6 +58,37 @@
         draggableBackground.center = self.view.center;
         draggableBackground.alpha = 1;
     }];
+}
+
+#pragma mark - Update Location
+
+- (void)updateLocation {
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    [self.locationManager requestWhenInUseAuthorization];
+    
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = [locations lastObject];
+    [self updateLatestLocationForCurrentUser:location];
+    
+    [manager stopUpdatingLocation];
+    self.locationManager = nil;
+}
+
+- (void)updateLatestLocationForCurrentUser:(CLLocation *)latestLocation {
+    PFUser *currentUser = [PFUser currentUser];
+    NSNumber *latitude = [NSNumber numberWithDouble:latestLocation.coordinate.latitude];
+    NSNumber *longitude = [NSNumber numberWithDouble:latestLocation.coordinate.longitude];
+    currentUser[@"latestLatitude"] = latitude;
+    currentUser[@"latestLongitude"] = longitude;
+    
+    [[PFUser currentUser] saveInBackground];
 }
 
 @end

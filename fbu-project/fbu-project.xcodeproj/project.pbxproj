@@ -27,6 +27,7 @@
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68626A0DAC80086BEDE /* StylingConstants.m */; };
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
+		3B9A4CB426A5242E00B38190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9A4CB326A5242E00B38190 /* CoreLocation.framework */; };
 		3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */; };
 		3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */; };
 		3BA93F1D26A4CEA900CA9E01 /* AddLikedGenreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */; };
@@ -107,6 +108,7 @@
 		3B66F68626A0DAC80086BEDE /* StylingConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StylingConstants.m; sourceTree = "<group>"; };
 		3B66F69226A0E5E90086BEDE /* MediaPlayBackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaPlayBackView.h; sourceTree = "<group>"; };
 		3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaPlayBackView.m; sourceTree = "<group>"; };
+		3B9A4CB326A5242E00B38190 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3BA93F1426A4B98E00CA9E01 /* APIManager+Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APIManager+Tests.h"; sourceTree = "<group>"; };
 		3BA93F1526A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LikedGenreCollectionViewCell.h; sourceTree = "<group>"; };
 		3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedGenreCollectionViewCell.m; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9A4CB426A5242E00B38190 /* CoreLocation.framework in Frameworks */,
 				3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */,
 				28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */,
 			);
@@ -355,6 +358,7 @@
 		A667211F5783930463835B26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B9A4CB326A5242E00B38190 /* CoreLocation.framework */,
 				3B2F7732269F43C300BB7F4B /* MessageUI.framework */,
 				EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */,
 				DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */,
