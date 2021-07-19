@@ -24,6 +24,7 @@
 		3B4BB28A269CC98800E5F692 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB289269CC98800E5F692 /* main.m */; };
 		3B4BB294269CC98800E5F692 /* fbu_projectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB293269CC98800E5F692 /* fbu_projectTests.m */; };
 		3B4BB29F269CC98800E5F692 /* fbu_projectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */; };
+		3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6100A826A5D86E00325CF2 /* UserSorter.m */; };
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68626A0DAC80086BEDE /* StylingConstants.m */; };
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
@@ -102,6 +103,9 @@
 		3B4BB29A269CC98800E5F692 /* fbu-projectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fbu-projectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fbu_projectUITests.m; sourceTree = "<group>"; };
 		3B4BB2A0269CC98800E5F692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B6100A726A5D86E00325CF2 /* UserSorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSorter.h; sourceTree = "<group>"; };
+		3B6100A826A5D86E00325CF2 /* UserSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserSorter.m; sourceTree = "<group>"; };
+		3B6100AC26A618FE00325CF2 /* DictionaryConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionaryConstants.h; sourceTree = "<group>"; };
 		3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationCollectionViewCell.h; sourceTree = "<group>"; };
 		3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationCollectionViewCell.m; sourceTree = "<group>"; };
 		3B66F68526A0DAC80086BEDE /* StylingConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StylingConstants.h; sourceTree = "<group>"; };
@@ -325,6 +329,9 @@
 				3B66F68626A0DAC80086BEDE /* StylingConstants.m */,
 				3BB3B66326A2334D00D06528 /* APIManager.h */,
 				3BB3B66426A2334D00D06528 /* APIManager.m */,
+				3B6100A726A5D86E00325CF2 /* UserSorter.h */,
+				3B6100A826A5D86E00325CF2 /* UserSorter.m */,
+				3B6100AC26A618FE00325CF2 /* DictionaryConstants.h */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -611,6 +618,7 @@
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
 				3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */,
 				3B2F773F269F76DB00BB7F4B /* MatchesViewController.m in Sources */,
+				3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */,
 				3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,

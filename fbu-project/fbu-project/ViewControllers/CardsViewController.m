@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "UserSorter.h"
 
 @interface CardsViewController () <AVAudioPlayerDelegate, CLLocationManagerDelegate>
 
@@ -27,19 +28,27 @@
 }
 
 - (void)fetchRecommendedUsers {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-    [userQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
-    [userQuery includeKey:@"recording"];
-    
-    [userQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingUsers, NSError *_Nullable error){
-        if (!error) {
-            [self insertDraggableView:matchingUsers];
-        }
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //async thread
+        NSArray *users = Recommended();
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            // This will be called on the main thread, so that UI  can be updated
+            [self finishedFetchingRecommended:users];
+        });
+    });
 }
+
+
+- (void)finishedFetchingRecommended:(NSArray *_Nullable)users {    
+    if (users) {
+        [self insertDraggableView:users];
+    }
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+
 
 - (void)insertDraggableView:(NSArray *)users {
     CGFloat topBarHeight = self.navigationController.navigationBar.frame.size.height;

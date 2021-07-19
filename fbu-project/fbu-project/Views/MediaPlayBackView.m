@@ -103,7 +103,7 @@
 
 - (void)updatePlaybackSlider:(NSTimer *)timer {
     if (self.audioPlayer == nil || self.progressView == nil) {
-        return; //TODO: DOUBLE CHECK THIS
+        return;
     }
     
     float totalTime = self.audioPlayer.duration;

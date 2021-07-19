@@ -13,6 +13,7 @@
 #import "APIManager.h"
 #import "APIManager+Tests.h"
 #import "LikedGenre.h"
+#import "UserSorter.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -60,7 +61,7 @@
         XCTAssert(error == nil);
         XCTAssert(spotifyToken != nil);
         XCTAssert([spotifyToken isKindOfClass:[NSString class]]);
-
+        
         [expectation fulfill];
     }];
     
@@ -100,7 +101,7 @@
     resultString = [APIManager formatArtistName:testString];
     expectedString = @"coldplay";
     XCTAssert([resultString isEqualToString:expectedString]);
-
+    
 }
 
 - (void)testMatchingUsers {
@@ -109,7 +110,7 @@
     MatchingUsers(^(NSArray *_Nullable matchedUsers,NSArray *_Nullable matches, NSError *_Nullable error){
         BOOL flag = (error == nil && matches && matches.count >= 0);
         XCTAssert(flag);
-
+        
         [expectation fulfill];
     });
     
@@ -187,5 +188,105 @@
         // Put the code you want to measure the time of here.
     }];
 }
+
+#pragma mark - Testing UserSorter
+
+- (void)testNotLikedUsers {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"NotLikedUsers expectation"];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSArray<PFUser *>*notLikedUsers = NotLikedUsers();
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            if ([PFUser currentUser] == nil) {
+                XCTAssert(notLikedUsers == nil);
+            } else {
+                XCTAssert(notLikedUsers != nil);
+            }
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+- (void)testLocationForUser {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"LocationForUser expectation"];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        CLLocation *nilUserLocation = LocationForUser(nil);
+        CLLocation *newUserLocation = LocationForUser([PFUser new]);
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            XCTAssert(nilUserLocation == nil);
+            XCTAssert(newUserLocation == nil);
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+- (void)testDistanceBetweenUsers {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"LocationForUser expectation"];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        double newUsersDistance = DistanceBetweenUsers([PFUser new], [PFUser new]);
+        double nilUsersDistance = DistanceBetweenUsers(nil, nil);
+        double zeroDistance = DistanceBetweenUsers([PFUser currentUser], [PFUser currentUser]);
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            XCTAssert(newUsersDistance == CGFLOAT_MAX);
+            XCTAssert(nilUsersDistance == CGFLOAT_MAX);
+            XCTAssert(zeroDistance == 0.0);
+            [expectation fulfill];
+        });
+    });
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+- (void)testPointsForDistance {
+    double negativeDistancePoints = PointsForDistance(-1);
+    XCTAssert(negativeDistancePoints == 0);
+}
+
+- (void)testSetWithGenreTitles {
+    NSSet<NSString *> *nilSet = SetWithGenreTitles(nil);
+    XCTAssert(nilSet == nil);
+    
+    NSMutableArray<LikedGenre *> *likedGenresArray = [[NSMutableArray alloc] initWithCapacity:3];
+    
+    NSSet<NSString *> *emptySet = SetWithGenreTitles(likedGenresArray);
+    XCTAssert(emptySet != nil);
+    XCTAssert([emptySet count] == 0);
+    
+    LikedGenre *likedGenre = [LikedGenre new];
+    likedGenre.title = @"genre1";
+    [likedGenresArray addObject:likedGenre];
+    
+    likedGenre = [LikedGenre new];
+    likedGenre.title = @"genre2";
+    [likedGenresArray addObject:likedGenre];
+    
+    likedGenre = [LikedGenre new];
+    likedGenre.title = @"genre3";
+    [likedGenresArray addObject:likedGenre];
+    
+    NSSet<NSString *> *normalSet = SetWithGenreTitles(likedGenresArray);
+    for (LikedGenre *likedGenre in likedGenresArray) {
+        XCTAssert([normalSet containsObject: likedGenre.title]);
+    }
+}
+
+- (void)testPointsForCommonGenres {
+    int nilPoints = PointsForCommonGenres(nil, nil);
+    XCTAssert(nilPoints == 0);
+    
+    int zeroPoints = PointsForCommonGenres([PFUser new], [PFUser new]);
+    XCTAssert(zeroPoints == 0);
+}
+
 
 @end
