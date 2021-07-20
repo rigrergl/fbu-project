@@ -6,11 +6,28 @@
 //
 
 #import "MatchCollectionViewCell.h"
+#import "DictionaryConstants.h"
 
 @implementation MatchCollectionViewCell
 
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self doStyling];
+}
+
+- (void)doStyling {
+    //making profile image round
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+    self.profileImageView.clipsToBounds = YES;
+}
+
 - (void)setCellWithUser:(PFUser *)user {
-    //TODO: SET CELL IMAGE TO USER'S PROFILE IMAGE
+    [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
+        if (!error) {
+            self.profileImageView.image = [UIImage imageWithData:data];
+        }
+    }];
 }
 
 @end

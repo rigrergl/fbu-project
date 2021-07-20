@@ -74,16 +74,16 @@
     if (collectionView == self.matchesCollectionView) {
         MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
         
-        int indexInFulArray = [self.unconversedMatchesIndexes[indexPath.item] intValue];
-        [cell setCellWithUser:self.matchedUsers[indexInFulArray]];
+        int indexInFullArray = [self.unconversedMatchesIndexes[indexPath.item] intValue];
+        [cell setCellWithUser:self.matchedUsers[indexInFullArray]];
         
         return cell;
     } else {
         ConversationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ConversationCollectionViewCell" forIndexPath:indexPath];
         
-        int indexInFulArray = [self.conversedMatchIndexes[indexPath.item] intValue];
-        Match *match = self.matches[indexInFulArray];
-        PFUser *user = self.matchedUsers[indexInFulArray];
+        int indexInFullArray = [self.conversedMatchIndexes[indexPath.item] intValue];
+        Match *match = self.matches[indexInFullArray];
+        PFUser *user = self.matchedUsers[indexInFullArray];
         
         [cell setCellWithUser:user andMatch:match];
         

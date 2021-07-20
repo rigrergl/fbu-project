@@ -7,14 +7,30 @@
 
 #import "ConversationCollectionViewCell.h"
 #import "DirectMessage.h"
+#import "DictionaryConstants.h"
 
 @implementation ConversationCollectionViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self doStyling];
+}
+
+- (void)doStyling {
+    //making profile image round
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+    self.profileImageView.clipsToBounds = YES;
+}
 
 - (void)setCellWithUser:(PFUser *)user
                andMatch:(Match *)match {
     self.usernameLabel.text = user.username;
     
-    //TODO: SET PROFILE IMAGE
+    [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
+        if (!error) {
+            self.profileImageView.image = [UIImage imageWithData:data];
+        }
+    }];
     
     self.latestMessageLabel.alpha = 0;
     fetchLatestMessageInMatch(match, ^(DirectMessage *_Nullable latestMessage, NSError *_Nullable error){

@@ -13,14 +13,18 @@
 #import "LikedGenreCollectionViewCell.h"
 #import "LikedGenre.h"
 #import "AddLikedGenreViewController.h"
+#import "DictionaryConstants.h"
 
-@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *_Nonnull playbackContainerView;
 @property (strong, nonatomic) MediaPlayBackView *_Nullable playbackView;
 @property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull likedGenresCollectionView;
 @property (assign, nonatomic) BOOL canEditProfile;
 @property (strong, nonatomic) NSMutableArray *_Nullable likedGenres;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *changeProfileImageButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 
 @end
 
@@ -35,8 +39,44 @@
         self.canEditProfile = YES;
     }
     
+    [self setupEditRights];
     [self setupCollectionView];
     [self fetchLikedGenres];
+    [self fetchUserData];
+    [self doStyling];
+}
+
+- (void)doStyling {
+    //making profile image round
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+    self.profileImageView.clipsToBounds = YES;
+}
+
+- (void)fetchUserData {
+    //fetch user profile image
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    NSString *userId = self.targetUser.objectId;
+    [userQuery getObjectInBackgroundWithId:userId
+                                 block:^(PFObject *object, NSError *error) {
+        PFUser *user = (PFUser *)object;
+        self.usernameLabel.text = user.username;
+        [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
+            if (!error) {
+                self.profileImageView.image = [UIImage imageWithData:data];
+            }
+        }];
+    }];
+}
+
+- (void)setupEditRights {
+    if (self.canEditProfile) {
+        self.changeProfileImageButton.alpha = 1;
+        self.changeProfileImageButton.enabled = YES;
+        
+    } else {
+        self.changeProfileImageButton.alpha = 0;
+        self.changeProfileImageButton.enabled = NO;
+    }
 }
 
 - (void)setupCollectionView {
@@ -165,6 +205,106 @@
             }
         };
     }
+}
+
+#pragma mark - Editing profile
+
+- (IBAction)didTapChangeProfileImage:(UIButton *)sender {
+    UIAlertController *photoAlert = [UIAlertController alertControllerWithTitle:nil
+                                                                        message:nil
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *chooseAction = [UIAlertAction actionWithTitle:@"Choose From Photos" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+        //choose from photos
+        [self launchImagePicker:NO];
+    }];
+    
+    UIAlertAction *takeAction = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+        //take a photo
+        [self launchImagePicker:YES];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    [photoAlert addAction:chooseAction];
+    [photoAlert addAction:takeAction];
+    [photoAlert addAction:cancelAction];
+    [self presentViewController:photoAlert animated:YES completion:nil];
+}
+
+- (void)launchImagePicker:(BOOL)take {
+    UIImagePickerController *imagePickerVC = [UIImagePickerController new];
+    imagePickerVC.delegate = self;
+    imagePickerVC.allowsEditing = YES;
+    
+    if (take && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }
+    else {
+        imagePickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [self presentViewController:imagePickerVC animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    // Get the image captured by the UIImagePickerController
+    UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    [self uploadProfileImage:editedImage];
+    
+    // Dismiss UIImagePickerController to go back to your original view controller
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)uploadProfileImage:(UIImage *)newProfileImage {
+    if (![self.targetUser.objectId isEqualToString:[PFUser currentUser].objectId]) {
+        return;
+    }
+    
+    newProfileImage = [ProfileViewController resizeImage:newProfileImage withSize:CGSizeMake(500, 500)];
+    self.profileImageView.image = newProfileImage;
+    
+    PFFileObject *pfImage = [ProfileViewController getPFFileFromImage:newProfileImage];
+    
+    if (pfImage != nil) {
+        [PFUser currentUser][PROFILE_IMAGE_KEY] = pfImage;
+        [[PFUser currentUser] saveInBackground];
+    }
+}
+
++ (PFFileObject *)getPFFileFromImage:(UIImage * _Nullable)image {
+    // check if image is not nil
+    if (!image) {
+        return nil;
+    }
+    
+    NSData *imageData = UIImagePNGRepresentation(image);
+    // get image data and check if that is not nil
+    if (!imageData) {
+        return nil;
+    }
+    
+    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+}
+
++ (UIImage *)resizeImage:(UIImage *)image
+                withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 @end

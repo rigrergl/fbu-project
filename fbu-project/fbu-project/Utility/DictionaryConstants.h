@@ -15,6 +15,7 @@ static NSString * const OBJECT_ID_KEY = @"objectId";
 static NSString * const RECORDING_KEY = @"recording";
 static NSString * const LATITUDE_KEY = @"latestLatitude";
 static NSString * const LONGITUDE_KEY = @"latestLongitude";
+static NSString * const PROFILE_IMAGE_KEY = @"profileImage";
 
 //Like
 static NSString * const ORIGIN_USER_KEY = @"originUser";
