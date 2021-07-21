@@ -6,28 +6,30 @@
 //
 
 #import "LikedGenre.h"
+#import "DictionaryConstants.h"
 
 @implementation LikedGenre
 
 + (nonnull NSString *)parseClassName {
-    return @"LikedGenre";
+    return LIKED_GENRE_CLASS_NAME;
 }
 
 + (void)postLikedGenre:(NSString *)title
                forUser:(PFUser *)user
-        withCompletion:(void(^)(LikedGenre *_Nullable newLikedGenre, NSError *error))completion {
+            completion:(LikedGenreReturnBlock _Nullable)completion {
     
     LikedGenre *newLikedGenre = [LikedGenre new];
     newLikedGenre.title = title;
     newLikedGenre.user = user;
     
-    [LikedGenre postLikedGenreIfNew:newLikedGenre withCompletion:completion];
+    [LikedGenre postLikedGenreIfNew:newLikedGenre completion:completion];
 }
 
-+ (void)postLikedGenreIfNew:(LikedGenre *)likedGenre withCompletion:(void(^)(LikedGenre *_Nullable newLikedGenre, NSError *error))completion {
++ (void)postLikedGenreIfNew:(LikedGenre *)likedGenre
+                 completion:(LikedGenreReturnBlock _Nullable)completion {
     PFQuery *likedGenreQuery = [PFQuery queryWithClassName:[LikedGenre parseClassName]];
-    [likedGenreQuery whereKey:@"title" equalTo:likedGenre.title];
-    [likedGenreQuery whereKey:@"user" equalTo:likedGenre.user];
+    [likedGenreQuery whereKey:GENRE_TITLE_KEY equalTo:likedGenre.title];
+    [likedGenreQuery whereKey:LIKED_GENRE_USER_KEY equalTo:likedGenre.user];
     
     [likedGenreQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingObjects, NSError *_Nullable error){
         if (!error && matchingObjects && matchingObjects.count == 0) {
@@ -43,7 +45,7 @@
 }
 
 + (void)deleteLikedGenre:(LikedGenre *)likedGenre
-          withCompletion:(void(^)(BOOL suceeded, NSError *_Nullable error))completion {
+              completion:(PFBooleanResultBlock _Nullable)completion {
     PFQuery *likedGenreQuery = [PFQuery queryWithClassName:[LikedGenre parseClassName]];
     [likedGenreQuery getObjectInBackgroundWithId:likedGenre.objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
         [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){

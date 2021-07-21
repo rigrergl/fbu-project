@@ -12,14 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LikedGenre : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) PFUser *user;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *title;
+
+typedef void(^LikedGenreReturnBlock)(LikedGenre *_Nullable newLikedGenre, NSError *_Nullable error);
 
 + (void)postLikedGenre:(NSString *)title
                forUser:(PFUser *)user
-        withCompletion:(void(^)(LikedGenre *_Nullable newLikedGenre, NSError *error))completion;
+            completion:(LikedGenreReturnBlock _Nullable)completion;
 
 + (void)deleteLikedGenre:(LikedGenre *)likedGenre
-          withCompletion:(void(^)(BOOL suceeded, NSError *_Nullable error))completion;
+              completion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

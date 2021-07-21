@@ -16,11 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)postLikeFrom:(PFUser *_Nonnull)originUser
                   to:(PFUser *_Nonnull)destinationUser
-      withCompletion:(PFBooleanResultBlock  _Nullable)completion;
+          completion:(PFBooleanResultBlock  _Nullable)completion;
 
 + (void)removeLikeFrom:(PFUser *_Nonnull)originUser
                     to:(PFUser *_Nonnull)destinationUser
-        withCompletion:(PFBooleanResultBlock _Nullable)completion;
+            completion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

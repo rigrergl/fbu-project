@@ -20,6 +20,8 @@
 
 @implementation AddLikedGenreViewController
 
+static int CELL_HEIGHT = 50;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self fetchGenres];
@@ -48,10 +50,13 @@
 #pragma mark - CollectionView methods
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    AddLikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AddLikedGenreCollectionViewCell" forIndexPath:indexPath];
+    static NSString * const ADD_LIKED_GENRE_CELL_IDENTIFIER = @"AddLikedGenreCollectionViewCell";
     
+    AddLikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ADD_LIKED_GENRE_CELL_IDENTIFIER
+                                                                                      forIndexPath:indexPath];
     if (cell) {
-        cell.titleLabel.text = self.filteredGenreTitles[indexPath.item];    }
+        cell.titleLabel.text = self.filteredGenreTitles[indexPath.item];
+    }
     
     return cell;
 }
@@ -63,12 +68,12 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.collectionView.frame.size.width, 50);
+    return CGSizeMake(self.collectionView.frame.size.width, CELL_HEIGHT);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *genreTitle = self.filteredGenreTitles[indexPath.item];
-    [LikedGenre postLikedGenre:genreTitle forUser:[PFUser currentUser] withCompletion:^(LikedGenre *newLikedGenre, NSError *error){
+    [LikedGenre postLikedGenre:genreTitle forUser:[PFUser currentUser] completion:^(LikedGenre *newLikedGenre, NSError *error){
         if (self.didAddLikedGenre) {
             self.didAddLikedGenre(newLikedGenre);
         }
@@ -90,7 +95,6 @@
     }
     
     [self.collectionView reloadData];
-    
 }
 
 @end

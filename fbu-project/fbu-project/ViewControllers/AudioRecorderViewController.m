@@ -7,6 +7,7 @@
 
 #import "AudioRecorderViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "DictionaryConstants.h"
 #import <Parse/Parse.h>
 
 @interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
@@ -65,13 +66,13 @@
     
     NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
     
-    [recordSetting setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey:AVFormatIDKey];
-    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
-    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    [recordSetting setValue :@(kAudioFormatLinearPCM) forKey:AVFormatIDKey];
+    [recordSetting setValue:@(44100.0) forKey:AVSampleRateKey];
+    [recordSetting setValue:@(2) forKey:AVNumberOfChannelsKey];
     
-    [recordSetting setValue :[NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-    [recordSetting setValue :[NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
+    [recordSetting setValue :@(16) forKey:AVLinearPCMBitDepthKey];
+    [recordSetting setValue :@(NO) forKey:AVLinearPCMIsBigEndianKey];
+    [recordSetting setValue :@(NO) forKey:AVLinearPCMIsFloatKey];
     
     NSURL *audioFile = [AudioRecorderViewController getRecordingURL];
     error = nil;
@@ -101,10 +102,12 @@
 }
 
 + (NSURL *)getRecordingURL {
+    static NSString * const RECORDING_TITLE = @"recording.m4a";
+    
     NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     
     NSURL *documentsDirectory = paths[0];
-    NSURL *recordingURL = [documentsDirectory URLByAppendingPathComponent:@"recording.m4a"];
+    NSURL *recordingURL = [documentsDirectory URLByAppendingPathComponent:RECORDING_TITLE];
     
     return recordingURL;
 }
@@ -125,10 +128,13 @@
 }
 
 - (void)showPlayButton {
+    static float SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
+    
     if (!self.playButton.enabled) {
         [self.playButton setEnabled:YES];
         
-        [UIView animateWithDuration:.5 animations:^{
+        [UIView animateWithDuration:SHOW_PLAY_BUTTON_ANIMATION_DURATION
+                         animations:^{
             self.playButton.alpha = 1;
         }];
     }
@@ -143,7 +149,7 @@
     
     
     PFFileObject *recordingFile = [PFFileObject fileObjectWithData:[NSData dataWithContentsOfURL:url]];
-    [[PFUser currentUser] setValue:recordingFile forKey:@"recording"];
+    [[PFUser currentUser] setValue:recordingFile forKey:RECORDING_KEY];
     
     [[PFUser currentUser] saveInBackground];
 }

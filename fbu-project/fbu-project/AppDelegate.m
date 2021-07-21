@@ -14,19 +14,23 @@
 
 @implementation AppDelegate
 
+static NSString * const APP_ID_KEY = @"app_id";
+static NSString * const CLIENT_KEY = @"client_key";
+static NSString * const KEYS_PATH = @"Keys";
+static NSString * const KEYS_PATH_FILE_TYPE = @"plist";
+static NSString * const PARSE_URL_STRING = @"https://parseapi.back4app.com";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource: KEYS_PATH ofType: KEYS_PATH_FILE_TYPE];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    NSString *appId = [dict objectForKey: @"app_id"];
-    NSString *clientKey = [dict objectForKey: @"client_key"];
+    NSString *appId = [dict objectForKey: APP_ID_KEY];
+    NSString *clientKey = [dict objectForKey: CLIENT_KEY];
     
     ParseClientConfiguration *config = [ParseClientConfiguration  configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = appId;
         configuration.clientKey = clientKey;
-        configuration.server = @"https://parseapi.back4app.com";
+        configuration.server = PARSE_URL_STRING;
     }];
     
     [Parse initializeWithConfiguration:config];
@@ -35,7 +39,6 @@
 }
 
 #pragma mark - UISceneSession lifecycle
-
 
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
     // Called when a new scene session is being created.
@@ -49,6 +52,5 @@
     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
-
 
 @end

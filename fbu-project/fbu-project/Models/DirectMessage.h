@@ -14,11 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) PFUser *author;
 @property (strong, nonatomic) Match *match;
-@property (strong, nonatomic) NSString *content;
+@property (copy, nonatomic) NSString *content;
+
+typedef void(^DirectMessageReturnBlock)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error);
 
 + (void)postMessageWithContent:(NSString *)content
                        inMatch: (Match *_Nonnull)match
-                withCompletion:(void(^)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error))completion;
+                    completion:(DirectMessageReturnBlock _Nullable)completion;
 
 @end
 

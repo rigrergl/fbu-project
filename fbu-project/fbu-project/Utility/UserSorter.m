@@ -151,7 +151,7 @@ NSNumber * RankUserForUser(PFUser *_Nonnull recommendedUser, PFUser *_Nonnull cu
     
     rank += PointsForCommonGenres(recommendedUser, currentUser);
     
-    return [NSNumber numberWithInt:rank];
+    return @(rank);
 }
 
 NSArray<PFUser *> *_Nullable Recommended(void) {

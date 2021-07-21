@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initWithFrame:(CGRect)frame
             andData:(NSData *_Nonnull)data;
+
 - (void)stopPlaying;
 
 @end

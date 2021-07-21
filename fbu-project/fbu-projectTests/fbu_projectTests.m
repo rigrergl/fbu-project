@@ -31,10 +31,10 @@
 
 - (void)testLikedGenre {
     XCTestExpectation *expectation = [self expectationWithDescription:@"LikedGenre expectation"];
-    [LikedGenre postLikedGenre:@"test" forUser:[PFUser currentUser] withCompletion:^(LikedGenre *_Nullable newLikedGenre, NSError *_Nullable error){
+    [LikedGenre postLikedGenre:@"test" forUser:[PFUser currentUser] completion:^(LikedGenre *_Nullable newLikedGenre, NSError *_Nullable error){
         XCTAssert(error == nil);
         if (newLikedGenre) {
-            [LikedGenre deleteLikedGenre:newLikedGenre withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+            [LikedGenre deleteLikedGenre:newLikedGenre completion:^(BOOL succeeded, NSError *_Nullable error){
                 XCTAssert(succeeded);
                 XCTAssert(error == nil);
                 [expectation fulfill];
@@ -120,7 +120,7 @@
 - (void)testPostLike {
     XCTestExpectation *postLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [Like postLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+    [Like postLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [postLikeExpectation fulfill];
@@ -132,7 +132,7 @@
 - (void)testRemoveLike {
     XCTestExpectation *removeLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [Like removeLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+    [Like removeLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [removeLikeExpectation fulfill];
@@ -144,7 +144,7 @@
 - (void)testPostUnlike {
     XCTestExpectation *postUnLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [UnLike postUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+    [UnLike postUnLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [postUnLikeExpectation fulfill];
@@ -156,7 +156,7 @@
 - (void)testRemoveUnLike {
     XCTestExpectation *removeUnLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [UnLike removeUnLikeFrom:currentUser to:currentUser withCompletion:^(BOOL succeeded, NSError * _Nullable error){
+    [UnLike removeUnLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError * _Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [removeUnLikeExpectation fulfill];
@@ -168,7 +168,7 @@
 - (void)testPostMatch {
     XCTestExpectation *postMatchExpectation = [self expectationWithDescription:@"Post Match expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [Match postMatchBetween:currentUser andUser:currentUser withCompletion:^(BOOL succeeded, NSError *_Nullable error){
+    [Match postMatchBetween:currentUser andUser:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
         [postMatchExpectation fulfill];

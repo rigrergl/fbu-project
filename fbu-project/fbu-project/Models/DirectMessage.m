@@ -6,16 +6,17 @@
 //
 
 #import "DirectMessage.h"
+#import "DictionaryConstants.h"
 
 @implementation DirectMessage
 
 + (nonnull NSString *)parseClassName {
-    return @"DirectMessage";
+    return DIRECT_MESSAGE_CLASS_NAME;
 }
 
 + (void)postMessageWithContent:(NSString *)content
                        inMatch: (Match *_Nonnull)match
-                withCompletion:(void(^)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error))completion {
+                    completion:(DirectMessageReturnBlock _Nullable)completion {
     DirectMessage *newMessage = [DirectMessage new];
     newMessage.author = [PFUser currentUser];
     newMessage.match = match;

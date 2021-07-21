@@ -9,6 +9,8 @@
 #import "DirectMessage.h"
 #import "DictionaryConstants.h"
 
+static float LATEST_MESSAGE_UPDATE_ANIMATION_DURATION = 0.1;
+
 @implementation ConversationCollectionViewCell
 
 - (void)awakeFromNib {
@@ -36,7 +38,8 @@
     fetchLatestMessageInMatch(match, ^(DirectMessage *_Nullable latestMessage, NSError *_Nullable error){
         if (latestMessage) {
             self.latestMessageLabel.text = latestMessage.content;
-            [UIView animateWithDuration:0.1 animations:^{
+            [UIView animateWithDuration:LATEST_MESSAGE_UPDATE_ANIMATION_DURATION
+                             animations:^{
                 self.latestMessageLabel.alpha = 1;
             }];
         }
@@ -45,9 +48,9 @@
 
 void fetchLatestMessageInMatch( Match *match,
                                void (^completion)(DirectMessage *_Nullable latestMessage, NSError *error) ){
-    PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
-    [messageQuery whereKey:@"match" equalTo:match];
-    [messageQuery orderByDescending:@"createdAt"];
+    PFQuery *messageQuery = [PFQuery queryWithClassName:[DirectMessage parseClassName]];
+    [messageQuery whereKey:DIRECT_MESSAGE_MATCH_KEY equalTo:match];
+    [messageQuery orderByDescending:CREATED_AT_KEY];
     messageQuery.limit = 1;
     
     [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){

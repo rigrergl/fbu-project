@@ -22,12 +22,12 @@
 }
 
 - (void)styleForSentMessage {
-    self.mainView.backgroundColor = SENT_MESSAGE_BACKGROUND;
+    self.mainView.backgroundColor = SENT_MESSAGE_BACKGROUND_COLOR;
     //TODO: FURTHER STYLING
 }
 
 - (void)styleForReceivedMessage {
-    self.mainView.backgroundColor = RECEIVED_MESSAGE_BACKGROUND;
+    self.mainView.backgroundColor = RECEIVED_MESSAGE_BACKGROUND_COLOR;
     //TODO: FURTHER STYLING
 }
 

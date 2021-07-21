@@ -28,6 +28,8 @@
 
 @implementation MatchesViewController
 
+static NSString * const MATCH_TO_CHAT_SEGUE_IDENTIFIER = @"matchToChat";
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self loadMatches];
@@ -60,9 +62,9 @@
     for (int i = 0; i < self.matches.count; i++) {
         Match *match = self.matches[i];
         if (match.hasConversationStarted) {
-            [self.conversedMatchIndexes addObject: [NSNumber numberWithInt:i]];
+            [self.conversedMatchIndexes addObject: @(i)];
         } else {
-            [self.unconversedMatchesIndexes addObject:[NSNumber numberWithInt:i]];
+            [self.unconversedMatchesIndexes addObject:@(i)];
         }
     }
 }
@@ -71,15 +73,18 @@
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    static NSString * const MATCH_CELL_IDENTIFIER = @"MatchCollectionViewCell";
+    static NSString * const CONVERSATION_CELL_IDENTIFIER = @"ConversationCollectionViewCell";
+    
     if (collectionView == self.matchesCollectionView) {
-        MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MatchCollectionViewCell" forIndexPath:indexPath];
+        MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MATCH_CELL_IDENTIFIER forIndexPath:indexPath];
         
         int indexInFullArray = [self.unconversedMatchesIndexes[indexPath.item] intValue];
         [cell setCellWithUser:self.matchedUsers[indexInFullArray]];
         
         return cell;
     } else {
-        ConversationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ConversationCollectionViewCell" forIndexPath:indexPath];
+        ConversationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CONVERSATION_CELL_IDENTIFIER forIndexPath:indexPath];
         
         int indexInFullArray = [self.conversedMatchIndexes[indexPath.item] intValue];
         Match *match = self.matches[indexInFullArray];
@@ -109,7 +114,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         indexOfMatch = [self.unconversedMatchesIndexes[indexPath.item] intValue];
     }
     
-    [self performSegueWithIdentifier:@"matchToChat" sender:self.matches[indexOfMatch]];
+    [self performSegueWithIdentifier:MATCH_TO_CHAT_SEGUE_IDENTIFIER sender:self.matches[indexOfMatch]];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -126,7 +131,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"matchToChat"]) {
+    if ([segue.identifier isEqualToString:MATCH_TO_CHAT_SEGUE_IDENTIFIER]) {
         
         Match *user = (Match *) sender;
         ChatViewController *destinationController = [segue destinationViewController];

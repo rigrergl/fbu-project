@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)postMatchBetween:(PFUser *)user1
                  andUser:(PFUser *)user2
-          withCompletion:(PFBooleanResultBlock _Nullable)completion;
+              completion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

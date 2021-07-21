@@ -17,6 +17,11 @@
 
 @implementation AuthenticationViewController
 
+static NSString * const ERROR_ALERT_TITLE = @"Error";
+static NSString * const EMPTY_FIELDS_ERROR_MESSAGE = @"Empty fields";
+static NSString * const OK_ALERT_ACTION_TITLE = @"OK";
+static NSString * const LOGIN_SEGUE_TITLE = @"loginSegue";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupGestures];
@@ -33,11 +38,11 @@
 }
 
 - (UIAlertController *)createAlert {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                   message:@"Empty fields"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ERROR_ALERT_TITLE
+                                                                   message:EMPTY_FIELDS_ERROR_MESSAGE
                                                             preferredStyle:(UIAlertControllerStyleAlert)];
     // create an OK action
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:OK_ALERT_ACTION_TITLE
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
         // handle response here.
@@ -67,10 +72,10 @@
     // call sign up function on the object
     [newUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (error != nil) {
-            [self presentAlertWithTitle:@"Error" andMessage:[NSString stringWithFormat:@"%@",error.localizedDescription]];
+            [self presentAlertWithTitle:ERROR_ALERT_TITLE andMessage:[NSString stringWithFormat:@"%@",error.localizedDescription]];
         } else {
             // manually segue to logged in view
-            [self performSegueWithIdentifier:@"loginSegue" sender:self];
+            [self performSegueWithIdentifier:LOGIN_SEGUE_TITLE sender:self];
         }
     }];
 }
@@ -81,10 +86,10 @@
     
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
-            [self presentAlertWithTitle:@"Error" andMessage:[NSString stringWithFormat:@"%@",error.localizedDescription]];
+            [self presentAlertWithTitle:ERROR_ALERT_TITLE andMessage:[NSString stringWithFormat:@"%@",error.localizedDescription]];
         } else {
             // display view controller that needs to shown after successful login
-            [self performSegueWithIdentifier:@"loginSegue" sender:self];
+            [self performSegueWithIdentifier:LOGIN_SEGUE_TITLE sender:self];
         }
     }];
 }
@@ -92,7 +97,7 @@
     if(self.usernameField.text.length > 0 && self.passwordField.text.length > 0){
         [self loginUser];
     } else {
-        [self presentAlertWithTitle:@"Error" andMessage:@"Empty fields"];
+        [self presentAlertWithTitle:ERROR_ALERT_TITLE andMessage:EMPTY_FIELDS_ERROR_MESSAGE];
     }
 }
 
@@ -101,7 +106,7 @@
         [self registerUser];
     }
     else {
-        [self presentAlertWithTitle:@"Error" andMessage:@"Empty fields"];
+        [self presentAlertWithTitle:ERROR_ALERT_TITLE andMessage:EMPTY_FIELDS_ERROR_MESSAGE];
     }
 }
 

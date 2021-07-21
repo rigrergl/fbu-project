@@ -14,6 +14,9 @@
 
 @implementation SceneDelegate
 
+static NSString * const MAIN_STORYBOARD_NAME = @"Main";
+static NSString * const TAB_BAR_CONTROLLER_IDENTIFIER = @"TabBarController";
+
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -21,9 +24,9 @@
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     
     if (PFUser.currentUser) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:MAIN_STORYBOARD_NAME bundle:nil];
         
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:TAB_BAR_CONTROLLER_IDENTIFIER];
     }
 
 }

@@ -11,6 +11,7 @@
 #import <Parse/Parse.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "UserSorter.h"
+#import "DictionaryConstants.h"
 
 @interface CardsViewController () <AVAudioPlayerDelegate, CLLocationManagerDelegate>
 
@@ -51,6 +52,8 @@
 
 
 - (void)insertDraggableView:(NSArray *)users {
+    static float CARDS_ENTRY_ANIMATION_DURATION = 0.5;
+    
     CGFloat topBarHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat bottomBarHeight = self.tabBarController.tabBar.frame.size.height;
     
@@ -63,7 +66,8 @@
     [self.view addSubview:draggableBackground];
 
     //animate down and in
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:CARDS_ENTRY_ANIMATION_DURATION
+                     animations:^{
         draggableBackground.center = self.view.center;
         draggableBackground.alpha = 1;
     }];
@@ -92,10 +96,10 @@
 
 - (void)updateLatestLocationForCurrentUser:(CLLocation *)latestLocation {
     PFUser *currentUser = [PFUser currentUser];
-    NSNumber *latitude = [NSNumber numberWithDouble:latestLocation.coordinate.latitude];
-    NSNumber *longitude = [NSNumber numberWithDouble:latestLocation.coordinate.longitude];
-    currentUser[@"latestLatitude"] = latitude;
-    currentUser[@"latestLongitude"] = longitude;
+    NSNumber *latitude = @(latestLocation.coordinate.latitude);
+    NSNumber *longitude = @(latestLocation.coordinate.longitude);
+    currentUser[LATITUDE_KEY] = latitude;
+    currentUser[LONGITUDE_KEY] = longitude;
     
     [[PFUser currentUser] saveInBackground];
 }

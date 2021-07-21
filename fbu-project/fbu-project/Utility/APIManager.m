@@ -9,6 +9,19 @@
 
 @implementation APIManager
 
+static NSString * const KEYS_PATH = @"Keys";
+static NSString * const KEYS_PATH_FILE_TYPE = @"plist";
+static NSString * const SPOTIFY_CLIENT_ID_KEY = @"spotify_client_id";
+static NSString * const SPOTIFY_CLIENT_SECRET_KEY = @"spotify_client_secret";
+
+static NSString * const SPOTIFY_ACCOUNTS_URL_STRING = @"https://accounts.spotify.com/api/token?grant_type=client_credentials";
+static NSString * const SPOTIFY_TOKEN_REQUEST_CONTENT_TYPE = @"application/x-www-form-urlencoded";
+static NSString * const SPOTIFY_ACCESS_TOKEN_KEY = @"access_token";
+static NSString * const SPOTIFY_GENRE_SEEDS_URL_STRING = @"https://api.spotify.com/v1/recommendations/available-genre-seeds";
+static NSString * const SPOTIFY_GENRES_KEY = @"genres";
+
+static NSString * const THE_AUDIO_DB_JSON_URL_STRING = @"https://theaudiodb.com/api/v1/json/1/search.php?s=%@";
+
 + (NSString *)base64URLSafeEncode:(NSString *)originalString {
     NSData *originalData = [originalString dataUsingEncoding:NSUTF8StringEncoding];
     NSString *base64String = [originalData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
@@ -20,21 +33,21 @@
 }
 
 + (void)generateSpotifyToken:(void(^)(NSString *_Nullable spotifyToken, NSError *_Nullable error))completion {
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"Keys" ofType: @"plist"];
+    NSString *path = [[NSBundle mainBundle] pathForResource: KEYS_PATH ofType: KEYS_PATH_FILE_TYPE];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
-    NSString *clientId = [dict objectForKey: @"spotify_client_id"];
-    NSString *clientSecret = [dict objectForKey: @"spotify_client_secret"];
+    NSString *clientId = [dict objectForKey: SPOTIFY_CLIENT_ID_KEY];
+    NSString *clientSecret = [dict objectForKey: SPOTIFY_CLIENT_SECRET_KEY];
     
     NSString *originalAuth = [NSString stringWithFormat:@"%@:%@", clientId, clientSecret];
     NSString *base64Auth = [APIManager base64URLSafeEncode:originalAuth];
     NSString *authHeader = [NSString stringWithFormat:@"Basic %@", base64Auth];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://accounts.spotify.com/api/token?grant_type=client_credentials"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:SPOTIFY_ACCOUNTS_URL_STRING]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     NSDictionary *headers = @{
         @"Authorization": authHeader,
-        @"Content-Type": @"application/x-www-form-urlencoded"
+        @"Content-Type": SPOTIFY_TOKEN_REQUEST_CONTENT_TYPE
     };
     
     [request setAllHTTPHeaderFields:headers];
@@ -49,7 +62,7 @@
         } else {
             NSError *parseError = nil;
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-            NSString *accessToken = responseDictionary[@"access_token"];
+            NSString *accessToken = responseDictionary[SPOTIFY_ACCESS_TOKEN_KEY];
             completion(accessToken, nil);
         }
     }];
@@ -59,14 +72,14 @@
 + (void)fetchGenres:(void(^)(NSArray *_Nullable genres, NSError *_Nullable error))completion {
     [APIManager generateSpotifyToken:^(NSString *_Nullable spotifyToken, NSError *error){
         if (spotifyToken) {
-            NSURL *url = [NSURL URLWithString:@"https://api.spotify.com/v1/recommendations/available-genre-seeds"];
+            NSURL *url = [NSURL URLWithString: SPOTIFY_GENRE_SEEDS_URL_STRING];
             
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                timeoutInterval:10.0];
             
             
-            NSString *authHeader = [NSString stringWithFormat:@"Bearer %@", spotifyToken];
+            NSString *authHeader = [NSString stringWithFormat: @"Bearer %@", spotifyToken];
             NSDictionary *headers = @{
                 @"Authorization": authHeader
             };
@@ -87,7 +100,7 @@
                     NSError *parseError = nil;
                     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
                     
-                    NSArray *genresArray = responseDictionary[@"genres"];
+                    NSArray *genresArray = responseDictionary[ SPOTIFY_GENRES_KEY ];
                     dispatch_async(dispatch_get_main_queue(), ^() {
                         // call completion block on main
                         completion(genresArray, nil);
@@ -97,53 +110,6 @@
             [dataTask resume];
         }
     }];
-}
-
-+ (void)fetchArtist:(NSString *)artistId
-     withCompletion:(void(^)(NSDictionary *_Nullable responseDictionary,NSError *_Nullable error))completion {
-    NSString *urlString = [NSString stringWithFormat:@"https://theaudiodb.com/api/v1/json/1/search.php?s=%@", artistId];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (!error) {
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            dispatch_async(dispatch_get_main_queue(), ^() {
-                // call completion block on main
-                completion(responseDictionary, nil);
-            });
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^() {
-                // call completion block on main
-                completion(nil, error);
-            });
-        }
-    }];
-    [task resume];
-}
-
-+ (NSString *)formatArtistName:(NSString *)artistName {
-    NSString *lowercaseString = [artistName lowercaseString];
-    NSArray *words = [lowercaseString componentsSeparatedByString: @" "];
-    
-    
-    NSString *formattedString = @"";
-    BOOL insertedFirstWord = NO;
-    for (NSString *word in words) {
-        if ([word length] > 0) {
-            NSString *newWord;
-            if (insertedFirstWord) {
-                newWord = [NSString stringWithFormat:@"_%@", word];
-            } else {
-                newWord = word;
-                insertedFirstWord = YES;
-            }
-            formattedString = [formattedString stringByAppendingString:newWord];
-        }
-    }
-    
-    return formattedString;
 }
 
 @end

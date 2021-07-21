@@ -15,12 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFUser *_Nonnull destinationUser;
 
 + (void)postUnLikeFrom:(PFUser *_Nonnull)originUser
-                  to:(PFUser *_Nonnull)destinationUser
-      withCompletion:(PFBooleanResultBlock  _Nullable)completion;
+                    to:(PFUser *_Nonnull)destinationUser
+            completion:(PFBooleanResultBlock  _Nullable)completion;
 
 + (void)removeUnLikeFrom:(PFUser *_Nonnull)originUser
                       to:(PFUser *_Nonnull)destinationUser
-          withCompletion:(PFBooleanResultBlock _Nullable)completion;
+              completion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

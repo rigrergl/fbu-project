@@ -20,6 +20,9 @@
 
 @implementation MediaPlayBackView
 
+static NSString * const PLAY_IMAGE_NAME = @"play";
+static NSString * const STOP_IMAGE_NAME = @"stop";
+
 - (id)initWithFrame:(CGRect)frame
             andData:(NSData *_Nonnull)data {
     self = [super initWithFrame:frame];
@@ -38,8 +41,8 @@
     CGFloat buttonWidth = 50;
     self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth/2, 0, buttonWidth, buttonWidth)];
     [self.playButton setTitle:@"" forState:UIControlStateNormal];
-    [self.playButton setBackgroundImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateNormal];
-    [self.playButton setBackgroundImage:[UIImage systemImageNamed:@"stop"] forState:UIControlStateSelected];
+    [self.playButton setBackgroundImage:[UIImage systemImageNamed:PLAY_IMAGE_NAME] forState:UIControlStateNormal];
+    [self.playButton setBackgroundImage:[UIImage systemImageNamed:STOP_IMAGE_NAME] forState:UIControlStateSelected];
     [self.playButton addTarget:self action:@selector(didTapPlayButton) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.playButton];
@@ -87,18 +90,29 @@
 }
 
 - (void)showProgressView {
+    static float PROGRESS_VIEW_APPEARANCE_ANIMATION_DURATION = 0.5;
+    static int PROGRESS_VIEW_Y = 70;
+    static int PROGRESS_VIEW_HEIGHT = 50;
+    static float PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
+    
     CGFloat barWidth = self.frame.size.width;
-    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - barWidth/2, 70, barWidth, 50)];
-    self.progressView.progress = 0.5;
- 
+    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - barWidth/2,
+                                                                         PROGRESS_VIEW_Y,
+                                                                         barWidth,
+                                                                         PROGRESS_VIEW_HEIGHT)];
     [self addSubview:self.progressView];
     
     self.progressView.alpha = 0;
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:PROGRESS_VIEW_APPEARANCE_ANIMATION_DURATION
+                     animations:^{
         self.progressView.alpha = 1;
     }];
     
-    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(updatePlaybackSlider:) userInfo:nil repeats:YES];
+    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:PROGRESS_VIEW_UPDATE_INTERVAL
+                                                          target:self
+                                                        selector:@selector(updatePlaybackSlider:)
+                                                        userInfo:nil
+                                                         repeats:YES];
 }
 
 - (void)updatePlaybackSlider:(NSTimer *)timer {
@@ -125,6 +139,5 @@
         [self stopPlaying];
     }
 }
-
 
 @end

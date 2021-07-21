@@ -7,9 +7,13 @@
 
 #import "ChatViewController.h"
 #import "MessageCollectionViewCell.h"
-#import <LoremIpsum/LoremIpsum.h>
 #import "DirectMessage.h"
+#import "DictionaryConstants.h"
 #import <Parse/Parse.h>
+
+static int INPUT_VIEW_BORDER_WIDTH = 1;
+static float INPUT_VIEW_CORNER_RADIUS = 10.0f;
+static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
 
 @interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull collectionView;
@@ -48,8 +52,8 @@
 }
 
 - (void)fetchMatchMessages {
-    PFQuery *messageQuery = [PFQuery queryWithClassName:@"DirectMessage"];
-    [messageQuery whereKey:@"match" equalTo:self.match];
+    PFQuery *messageQuery = [PFQuery queryWithClassName:[DirectMessage parseClassName]];
+    [messageQuery whereKey:DIRECT_MESSAGE_MATCH_KEY equalTo:self.match];
     
     [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
         if (!error) {
@@ -83,8 +87,8 @@
 
 - (void)styleInputTextView {
     self.inputTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.inputTextView.layer.borderWidth = 1;
-    self.inputTextView.layer.cornerRadius = 10.0f;
+    self.inputTextView.layer.borderWidth = INPUT_VIEW_BORDER_WIDTH;
+    self.inputTextView.layer.cornerRadius = INPUT_VIEW_CORNER_RADIUS;
 }
 
 - (void)setupGestures {
@@ -101,7 +105,7 @@
     if (self.match) {
         [DirectMessage postMessageWithContent:self.inputTextView.text
                                       inMatch:self.match
-                               withCompletion:^(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error){
+                                   completion:^(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error){
            if (newMessage) {
                 [self.messages addObject:newMessage];
                 [self reloadCollectionViewAndScrollToBottom];
@@ -120,9 +124,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.tabBarController.tabBar.hidden = false;
 }
 
@@ -130,7 +132,9 @@
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatCell" forIndexPath:indexPath];
+    static NSString * const CHAT_CELL_IDENTIFIER = @"chatCell";
+    
+    MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CHAT_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
         DirectMessage *message = (DirectMessage *) self.messages[indexPath.item];
@@ -145,9 +149,9 @@
      numberOfItemsInSection:(NSInteger)section {
     if (self.messages) {
         return self.messages.count;
-    } else {
-        return 0;
     }
+    
+    return 0;
 }
 
 #pragma mark - keyboard movements
@@ -159,7 +163,8 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:KEYBOARD_MOVEMENT_ANIMATION_DURATION
+                     animations:^{
         CGRect f = self.view.frame;
         f.origin.y = -keyboardSize.height;
         self.view.frame = f;
@@ -167,7 +172,8 @@
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:KEYBOARD_MOVEMENT_ANIMATION_DURATION
+                     animations:^{
         CGRect f = self.view.frame;
         f.origin.y = 0.0f;
         self.view.frame = f;

@@ -2,27 +2,46 @@
 //  DictionaryConstants.h
 //  fbu-project
 //
-//  Created by Rigre Reinier Garciandia Larquin on 7/19/21.
+//  Created by Rigre Reinier Garciandia Larquin on 7/20/21.
 //
 
-#ifndef DictionaryConstants_h
-#define DictionaryConstants_h
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface DictionaryConstants : NSObject
 
 //General
-static NSString * const OBJECT_ID_KEY = @"objectId";
+extern NSString * const OBJECT_ID_KEY;
+extern NSString * const CREATED_AT_KEY;
 
 //User
-static NSString * const RECORDING_KEY = @"recording";
-static NSString * const LATITUDE_KEY = @"latestLatitude";
-static NSString * const LONGITUDE_KEY = @"latestLongitude";
-static NSString * const PROFILE_IMAGE_KEY = @"profileImage";
+extern NSString * const RECORDING_KEY;
+extern NSString * const LATITUDE_KEY;
+extern NSString * const LONGITUDE_KEY;
+extern NSString * const PROFILE_IMAGE_KEY;
 
 //Like
-static NSString * const ORIGIN_USER_KEY = @"originUser";
-static NSString * const DESTINATION_USER_KEY = @"destinationUser";
+extern NSString * const LIKE_CLASS_NAME;
+extern NSString * const ORIGIN_USER_KEY;
+extern NSString * const DESTINATION_USER_KEY;
+
+//UnLike
+extern NSString * const UNLIKE_CLASS_NAME;
 
 //LikedGenre
-static NSString * const LIKED_GENRE_USER_KEY = @"user";
-static NSString * const GENRE_TITLE_KEY = @"title";
+extern NSString * const LIKED_GENRE_CLASS_NAME;
+extern NSString * const LIKED_GENRE_USER_KEY;
+extern NSString * const GENRE_TITLE_KEY;
 
-#endif /* DictionaryConstants_h */
+//Match
+extern NSString * const MATCH_CLASS_NAME;
+extern NSString * const MATCH_USERS_KEY;
+
+//DirectMessage
+extern NSString * const DIRECT_MESSAGE_CLASS_NAME;
+extern NSString * const DIRECT_MESSAGE_MATCH_KEY;
+
+@end
+
+NS_ASSUME_NONNULL_END

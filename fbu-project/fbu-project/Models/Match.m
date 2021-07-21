@@ -6,16 +6,17 @@
 //
 
 #import "Match.h"
+#import "DictionaryConstants.h"
 
 @implementation Match
 
 + (NSString *)parseClassName {
-    return @"Match";
+    return MATCH_CLASS_NAME;
 }
 
 + (void)postMatchBetween:(PFUser *)user1
                  andUser:(PFUser *)user2
-          withCompletion:(PFBooleanResultBlock _Nullable)completion {
+              completion:(PFBooleanResultBlock _Nullable)completion {
     
     Match *newMatch = [Match new];
     NSArray *users = @[user1, user2];

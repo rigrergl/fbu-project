@@ -13,6 +13,8 @@
 static const int BUTTON_SECTION_HEIGHT = 120;
 static const int MAX_BUFFER_SIZE = 5;
 
+static NSString * const X_BUTTON_IMAGE_NAME = @"xButton";
+static NSString * const CHECK_BUTTON_IMAGE_NAME = @"checkButton";
 
 - (id)initWithFrame:(CGRect)frame
            andUsers:(NSArray *)users {
@@ -34,10 +36,10 @@ static const int MAX_BUFFER_SIZE = 5;
     
     self.backgroundColor = [UIColor colorWithRed:.92 green:.93 blue:.95 alpha:1]; //the gray background colors
     super.xButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 - buttonWidth - 15, self.frame.size.height - BUTTON_SECTION_HEIGHT - 10, buttonWidth, buttonWidth)];
-    [super.xButton setImage:[UIImage imageNamed:@"xButton"] forState:UIControlStateNormal];
+    [super.xButton setImage:[UIImage imageNamed:X_BUTTON_IMAGE_NAME] forState:UIControlStateNormal];
     [super.xButton addTarget:self action:@selector(swipeLeft) forControlEvents:UIControlEventTouchUpInside];
     super.checkButton = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width/2 + 15, self.frame.size.height - BUTTON_SECTION_HEIGHT - 10, buttonWidth, buttonWidth)];
-    [super.checkButton setImage:[UIImage imageNamed:@"checkButton"] forState:UIControlStateNormal];
+    [super.checkButton setImage:[UIImage imageNamed:CHECK_BUTTON_IMAGE_NAME] forState:UIControlStateNormal];
     [super.checkButton addTarget:self action:@selector(swipeRight) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:super.xButton];
     [self addSubview:super.checkButton];

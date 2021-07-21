@@ -41,13 +41,12 @@
 		3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12705269CF2A4006444E4 /* AuthenticationViewController.m */; };
 		3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12708269CFD12006444E4 /* ProfileViewController.m */; };
 		3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */; };
-		3BB3B66226A2305600D06528 /* AddArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3B66126A2305600D06528 /* AddArtistViewController.m */; };
 		3BB3B66526A2334D00D06528 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3B66426A2334D00D06528 /* APIManager.m */; };
-		3BB3B66B26A24F5000D06528 /* FavoriteArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3B66A26A24F5000D06528 /* FavoriteArtist.m */; };
 		3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */; };
 		3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */; };
 		3BCC85A6269E551D0083F1F1 /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A5269E551D0083F1F1 /* Like.m */; };
 		3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A8269E61450083F1F1 /* UnLike.m */; };
+		3BE73A7826A789C000354631 /* DictionaryConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE73A7726A789C000354631 /* DictionaryConstants.m */; };
 		4ED1297FBAF7783CF2DE63E4 /* Pods_fbu_projectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43F2627CFA3486FC348D61 /* Pods_fbu_projectTests.framework */; };
 		AB9A5B5E194CF3EE5B1C4E05 /* Pods_fbu_project_fbu_projectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE775FC19EF719FF43016137 /* Pods_fbu_project_fbu_projectUITests.framework */; };
 /* End PBXBuildFile section */
@@ -105,7 +104,6 @@
 		3B4BB2A0269CC98800E5F692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B6100A726A5D86E00325CF2 /* UserSorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSorter.h; sourceTree = "<group>"; };
 		3B6100A826A5D86E00325CF2 /* UserSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserSorter.m; sourceTree = "<group>"; };
-		3B6100AC26A618FE00325CF2 /* DictionaryConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionaryConstants.h; sourceTree = "<group>"; };
 		3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationCollectionViewCell.h; sourceTree = "<group>"; };
 		3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationCollectionViewCell.m; sourceTree = "<group>"; };
 		3B66F68526A0DAC80086BEDE /* StylingConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StylingConstants.h; sourceTree = "<group>"; };
@@ -138,12 +136,8 @@
 		3BB12708269CFD12006444E4 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3BB1270A269D008B006444E4 /* AudioRecorderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioRecorderViewController.h; sourceTree = "<group>"; };
 		3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderViewController.m; sourceTree = "<group>"; };
-		3BB3B66026A2305600D06528 /* AddArtistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddArtistViewController.h; sourceTree = "<group>"; };
-		3BB3B66126A2305600D06528 /* AddArtistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddArtistViewController.m; sourceTree = "<group>"; };
 		3BB3B66326A2334D00D06528 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		3BB3B66426A2334D00D06528 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
-		3BB3B66926A24F5000D06528 /* FavoriteArtist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteArtist.h; sourceTree = "<group>"; };
-		3BB3B66A26A24F5000D06528 /* FavoriteArtist.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoriteArtist.m; sourceTree = "<group>"; };
 		3BCC859E269E41D60083F1F1 /* CustomDraggableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableView.h; sourceTree = "<group>"; };
 		3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDraggableView.m; sourceTree = "<group>"; };
 		3BCC85A1269E42190083F1F1 /* CustomDraggableViewBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableViewBackground.h; sourceTree = "<group>"; };
@@ -152,6 +146,8 @@
 		3BCC85A5269E551D0083F1F1 /* Like.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Like.m; sourceTree = "<group>"; };
 		3BCC85A7269E61450083F1F1 /* UnLike.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnLike.h; sourceTree = "<group>"; };
 		3BCC85A8269E61450083F1F1 /* UnLike.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnLike.m; sourceTree = "<group>"; };
+		3BE73A7626A789C000354631 /* DictionaryConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DictionaryConstants.h; sourceTree = "<group>"; };
+		3BE73A7726A789C000354631 /* DictionaryConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DictionaryConstants.m; sourceTree = "<group>"; };
 		4DFFBC7BA6E690BD2E32EA74 /* Pods-fbu-project-fbu-projectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5201BAA0F905BCB14125320F /* Pods-fbu-projectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.debug.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		80B327F9D8CE82AEFACEDF74 /* Pods-fbu-projectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-projectTests.release.xcconfig"; path = "Target Support Files/Pods-fbu-projectTests/Pods-fbu-projectTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -265,8 +261,6 @@
 				3B2F774A269F9F3500BB7F4B /* Match.m */,
 				3B3086D226A0904000AA7894 /* DirectMessage.h */,
 				3B3086D326A0904000AA7894 /* DirectMessage.m */,
-				3BB3B66926A24F5000D06528 /* FavoriteArtist.h */,
-				3BB3B66A26A24F5000D06528 /* FavoriteArtist.m */,
 				3BA93F1826A4C74C00CA9E01 /* LikedGenre.h */,
 				3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */,
 			);
@@ -288,8 +282,6 @@
 				3B2F7735269F441600BB7F4B /* ChatViewController.m */,
 				3B2F773D269F76DB00BB7F4B /* MatchesViewController.h */,
 				3B2F773E269F76DB00BB7F4B /* MatchesViewController.m */,
-				3BB3B66026A2305600D06528 /* AddArtistViewController.h */,
-				3BB3B66126A2305600D06528 /* AddArtistViewController.m */,
 				3BA93F1B26A4CEA900CA9E01 /* AddLikedGenreViewController.h */,
 				3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */,
 			);
@@ -331,7 +323,8 @@
 				3BB3B66426A2334D00D06528 /* APIManager.m */,
 				3B6100A726A5D86E00325CF2 /* UserSorter.h */,
 				3B6100A826A5D86E00325CF2 /* UserSorter.m */,
-				3B6100AC26A618FE00325CF2 /* DictionaryConstants.h */,
+				3BE73A7626A789C000354631 /* DictionaryConstants.h */,
+				3BE73A7726A789C000354631 /* DictionaryConstants.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -627,15 +620,14 @@
 				3B2F7748269F7DD500BB7F4B /* CommonQueries.m in Sources */,
 				3B2F774E269FAE9200BB7F4B /* MatchCollectionViewCell.m in Sources */,
 				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
-				3BB3B66226A2305600D06528 /* AddArtistViewController.m in Sources */,
 				3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */,
 				3B2F774B269F9F3500BB7F4B /* Match.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
 				3BCC85A6269E551D0083F1F1 /* Like.m in Sources */,
+				3BE73A7826A789C000354631 /* DictionaryConstants.m in Sources */,
 				3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */,
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
 				3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */,
-				3BB3B66B26A24F5000D06528 /* FavoriteArtist.m in Sources */,
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
 				3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */,

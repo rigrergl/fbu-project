@@ -15,6 +15,9 @@
 #import "AddLikedGenreViewController.h"
 #import "DictionaryConstants.h"
 
+static int SAVED_PROFILE_IMAGE_DIMENSIONS = 500; //limit the size of images being saved in database
+static int GENRE_CELL_HEIGHT = 50;
+
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *_Nonnull playbackContainerView;
@@ -29,6 +32,8 @@
 @end
 
 @implementation ProfileViewController
+
+static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGenre";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,7 +59,7 @@
 
 - (void)fetchUserData {
     //fetch user profile image
-    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
+    PFQuery *userQuery = [PFQuery queryWithClassName:[PFUser parseClassName]];
     NSString *userId = self.targetUser.objectId;
     [userQuery getObjectInBackgroundWithId:userId
                                  block:^(PFObject *object, NSError *error) {
@@ -92,7 +97,7 @@
 
 - (void)fetchLikedGenres {
     PFQuery *likedGenreQuery = [PFQuery queryWithClassName:[LikedGenre parseClassName]];
-    [likedGenreQuery whereKey:@"user" equalTo:self.targetUser];
+    [likedGenreQuery whereKey:LIKED_GENRE_USER_KEY equalTo:self.targetUser];
     
     [likedGenreQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likedGenres, NSError *error){
         if (!error && likedGenres) {
@@ -103,15 +108,15 @@
 }
 
 - (void)fetchRecording {
-    PFQuery *userQuery = [PFQuery queryWithClassName:@"_User"];
-    [userQuery includeKey:@"recording"];
+    PFQuery *userQuery = [PFQuery queryWithClassName:[PFUser parseClassName]];
+    [userQuery includeKey:RECORDING_KEY];
     
     [userQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
 
         if (object) {
             self.targetUser = (PFUser *)object;
 
-            PFFileObject *recordingFile = self.targetUser[@"recording"];
+            PFFileObject *recordingFile = self.targetUser[RECORDING_KEY];
             if(recordingFile == nil) {
                 return;
             }
@@ -123,7 +128,7 @@
 }
 
 - (void)addPlaybackView {
-    PFFileObject *recordingFile = self.targetUser[@"recording"];
+    PFFileObject *recordingFile = self.targetUser[RECORDING_KEY];
     if(recordingFile == nil) {
         return;
     }
@@ -141,10 +146,13 @@
 }
 
 - (IBAction)didTapLogout:(UIBarButtonItem *)sender {
+    static NSString * const MAIN_STORYBOARD_NAME = @"Main";
+    static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationViewController";
+    
     SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].connectedScenes.allObjects[0].delegate;
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    AuthenticationViewController *userAuthenticationViewController = [storyboard instantiateViewControllerWithIdentifier:@"AuthenticationViewController"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:MAIN_STORYBOARD_NAME bundle:nil];
+    AuthenticationViewController *userAuthenticationViewController = [storyboard instantiateViewControllerWithIdentifier:ATHENTICATION_VIEW_CONTROLLER_NAME];
     sceneDelegate.window.rootViewController = userAuthenticationViewController;
     
     [PFUser logOutInBackground];
@@ -153,7 +161,9 @@
 #pragma mark - CollectionView methods
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LikedGenreCollectionViewCell" forIndexPath:indexPath];
+    static NSString * const LIKED_GENRE_CELL_IDENTIFIER = @"LikedGenreCollectionViewCell";
+    
+    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LIKED_GENRE_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
         LikedGenre *genre = self.likedGenres[indexPath.item];
@@ -169,7 +179,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.likedGenresCollectionView.frame.size.width, 50);
+    return CGSizeMake(self.likedGenresCollectionView.frame.size.width, GENRE_CELL_HEIGHT);
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -177,7 +187,7 @@
 }
 
 - (IBAction)addLikedGenre:(UIButton *)sender {
-    [self performSegueWithIdentifier:@"profileToAddLikedGenre" sender:nil];
+    [self performSegueWithIdentifier:PROFILE_TO_ADD_GENRE_SEGUE_TITLE sender:nil];
 }
 
 - (void)removeLikedGenre:(LikedGenreCollectionViewCell *_Nonnull)cell {
@@ -185,7 +195,7 @@
     LikedGenre *genreToRemove = self.likedGenres[indexToRemove];
     
     //remove corresponding genre from the database
-    [LikedGenre deleteLikedGenre:genreToRemove withCompletion:^(BOOL succeeded, NSError *_Nullable error){}];
+    [LikedGenre deleteLikedGenre:genreToRemove completion:^(BOOL succeeded, NSError *_Nullable error){}];
     
     //remove the cell from the local collection view
     [self.likedGenres removeObjectAtIndex:indexToRemove];
@@ -196,7 +206,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([segue.identifier isEqualToString:@"profileToAddLikedGenre"]) {
+    if ([segue.identifier isEqualToString:PROFILE_TO_ADD_GENRE_SEGUE_TITLE]) {
         AddLikedGenreViewController *destinationViewController = [segue destinationViewController];
         destinationViewController.didAddLikedGenre = ^(LikedGenre *newLikedGenre){
             if (newLikedGenre != nil) {
@@ -210,23 +220,27 @@
 #pragma mark - Editing profile
 
 - (IBAction)didTapChangeProfileImage:(UIButton *)sender {
+    static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
+    static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
+    static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
+    
     UIAlertController *photoAlert = [UIAlertController alertControllerWithTitle:nil
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *chooseAction = [UIAlertAction actionWithTitle:@"Choose From Photos" style:UIAlertActionStyleDefault
+    UIAlertAction *chooseAction = [UIAlertAction actionWithTitle:CHOOSE_ACTION_TITLE style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction * action) {
         //choose from photos
         [self launchImagePicker:NO];
     }];
     
-    UIAlertAction *takeAction = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault
+    UIAlertAction *takeAction = [UIAlertAction actionWithTitle:TAKE_ACTION_TITLE style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * action) {
         //take a photo
         [self launchImagePicker:YES];
     }];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(CANCEL_ACTION_TITLE, nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     
@@ -266,7 +280,9 @@
         return;
     }
     
-    newProfileImage = [ProfileViewController resizeImage:newProfileImage withSize:CGSizeMake(500, 500)];
+    newProfileImage = [ProfileViewController resizeImage:newProfileImage
+                                                withSize:CGSizeMake(SAVED_PROFILE_IMAGE_DIMENSIONS,
+                                                                    SAVED_PROFILE_IMAGE_DIMENSIONS)];
     self.profileImageView.image = newProfileImage;
     
     PFFileObject *pfImage = [ProfileViewController getPFFileFromImage:newProfileImage];
@@ -278,6 +294,8 @@
 }
 
 + (PFFileObject *)getPFFileFromImage:(UIImage * _Nullable)image {
+    static NSString * const IMAGE_NAME = @"image.png";
+    
     // check if image is not nil
     if (!image) {
         return nil;
@@ -289,7 +307,7 @@
         return nil;
     }
     
-    return [PFFileObject fileObjectWithName:@"image.png" data:imageData];
+    return [PFFileObject fileObjectWithName:IMAGE_NAME data:imageData];
 }
 
 + (UIImage *)resizeImage:(UIImage *)image
