@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LikedGenre : PFObject<PFSubclassing>
 
-@property (nonatomic, strong) PFUser *user;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) PFUser *_Nonnull user;
+@property (nonatomic, copy) NSString *_Nonnull title;
 
 typedef void(^LikedGenreReturnBlock)(LikedGenre *_Nullable newLikedGenre, NSError *_Nullable error);
 

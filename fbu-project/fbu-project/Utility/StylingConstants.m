@@ -7,4 +7,4 @@
 
 #import "StylingConstants.h"
 
-
+NSString * const DEFAULT_PROFILE_IMAGE_NAME = @"blank-profile-picture";

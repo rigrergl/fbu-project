@@ -8,6 +8,7 @@
 #import "ConversationCollectionViewCell.h"
 #import "DirectMessage.h"
 #import "DictionaryConstants.h"
+#import "StylingConstants.h"
 
 static float LATEST_MESSAGE_UPDATE_ANIMATION_DURATION = 0.1;
 
@@ -27,6 +28,7 @@ static float LATEST_MESSAGE_UPDATE_ANIMATION_DURATION = 0.1;
 - (void)setCellWithUser:(PFUser *)user
                andMatch:(Match *)match {
     self.usernameLabel.text = user.username;
+    self.profileImageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
     
     [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
         if (!error) {

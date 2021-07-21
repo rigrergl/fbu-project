@@ -7,6 +7,7 @@
 
 #import "MatchCollectionViewCell.h"
 #import "DictionaryConstants.h"
+#import "StylingConstants.h"
 
 @implementation MatchCollectionViewCell
 
@@ -23,6 +24,7 @@
 }
 
 - (void)setCellWithUser:(PFUser *)user {
+    self.profileImageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
     [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
         if (!error) {
             self.profileImageView.image = [UIImage imageWithData:data];

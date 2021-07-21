@@ -120,10 +120,13 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static const int MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS = 60;
+    static const int CONVERSATIONS_COLLECTION_CELL_HEIGHT = 76;
+    
     if (collectionView == self.matchesCollectionView) {
-        return CGSizeMake(60, 60);
+        return CGSizeMake(MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS, MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS);
     } else {
-        return CGSizeMake(self.view.frame.size.width, 76);
+        return CGSizeMake(self.view.frame.size.width, CONVERSATIONS_COLLECTION_CELL_HEIGHT);
     }
 }
 

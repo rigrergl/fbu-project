@@ -7,14 +7,16 @@
 
 #import <Parse/Parse.h>
 #import "Match.h"
+#import "Event.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DirectMessage : PFObject<PFSubclassing>
 
-@property (strong, nonatomic) PFUser *author;
-@property (strong, nonatomic) Match *match;
-@property (copy, nonatomic) NSString *content;
+@property (strong, nonatomic) PFUser *_Nonnull author;
+@property (strong, nonatomic) Match *_Nullable match;
+@property (strong, nonatomic) Event *_Nullable event;
+@property (copy, nonatomic) NSString *_Nonnull content;
 
 typedef void(^DirectMessageReturnBlock)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error);
 

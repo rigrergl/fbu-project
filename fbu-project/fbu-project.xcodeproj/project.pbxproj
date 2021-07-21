@@ -31,6 +31,13 @@
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
 		3B7D640726A8BC03002BE4CB /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D640626A8BC03002BE4CB /* Event.m */; };
 		3B7D640A26A8C6D5002BE4CB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D640926A8C6D5002BE4CB /* SettingsViewController.m */; };
+		3B7D640D26A8CD1E002BE4CB /* EventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D640C26A8CD1E002BE4CB /* EventCollectionViewCell.m */; };
+		3B7D641026A8CD8E002BE4CB /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D640F26A8CD8E002BE4CB /* EventsViewController.m */; };
+		3B7D641326A8E1C6002BE4CB /* NewEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D641226A8E1C6002BE4CB /* NewEventViewController.m */; };
+		3B7D641626A8EF17002BE4CB /* AddInviteeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D641526A8EF17002BE4CB /* AddInviteeViewController.m */; };
+		3B7D641926A8F268002BE4CB /* InviteeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D641826A8F268002BE4CB /* InviteeCollectionViewCell.m */; };
+		3B7D641C26A8F717002BE4CB /* AddInviteeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D641B26A8F717002BE4CB /* AddInviteeCollectionViewCell.m */; };
+		3B7D641F26A9257C002BE4CB /* CommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D641E26A9257C002BE4CB /* CommonFunctions.m */; };
 		3B9A4CB426A5242E00B38190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9A4CB326A5242E00B38190 /* CoreLocation.framework */; };
 		3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */; };
 		3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */; };
@@ -119,6 +126,20 @@
 		3B7D640626A8BC03002BE4CB /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		3B7D640826A8C6D5002BE4CB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		3B7D640926A8C6D5002BE4CB /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		3B7D640B26A8CD1E002BE4CB /* EventCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCollectionViewCell.h; sourceTree = "<group>"; };
+		3B7D640C26A8CD1E002BE4CB /* EventCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCollectionViewCell.m; sourceTree = "<group>"; };
+		3B7D640E26A8CD8E002BE4CB /* EventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		3B7D640F26A8CD8E002BE4CB /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		3B7D641126A8E1C6002BE4CB /* NewEventViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewEventViewController.h; sourceTree = "<group>"; };
+		3B7D641226A8E1C6002BE4CB /* NewEventViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewEventViewController.m; sourceTree = "<group>"; };
+		3B7D641426A8EF17002BE4CB /* AddInviteeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddInviteeViewController.h; sourceTree = "<group>"; };
+		3B7D641526A8EF17002BE4CB /* AddInviteeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddInviteeViewController.m; sourceTree = "<group>"; };
+		3B7D641726A8F268002BE4CB /* InviteeCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InviteeCollectionViewCell.h; sourceTree = "<group>"; };
+		3B7D641826A8F268002BE4CB /* InviteeCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InviteeCollectionViewCell.m; sourceTree = "<group>"; };
+		3B7D641A26A8F717002BE4CB /* AddInviteeCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddInviteeCollectionViewCell.h; sourceTree = "<group>"; };
+		3B7D641B26A8F717002BE4CB /* AddInviteeCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddInviteeCollectionViewCell.m; sourceTree = "<group>"; };
+		3B7D641D26A9257C002BE4CB /* CommonFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonFunctions.h; sourceTree = "<group>"; };
+		3B7D641E26A9257C002BE4CB /* CommonFunctions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonFunctions.m; sourceTree = "<group>"; };
 		3B9A4CB326A5242E00B38190 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3BA93F1426A4B98E00CA9E01 /* APIManager+Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APIManager+Tests.h"; sourceTree = "<group>"; };
 		3BA93F1526A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LikedGenreCollectionViewCell.h; sourceTree = "<group>"; };
@@ -297,6 +318,12 @@
 				3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */,
 				3B7D640826A8C6D5002BE4CB /* SettingsViewController.h */,
 				3B7D640926A8C6D5002BE4CB /* SettingsViewController.m */,
+				3B7D640E26A8CD8E002BE4CB /* EventsViewController.h */,
+				3B7D640F26A8CD8E002BE4CB /* EventsViewController.m */,
+				3B7D641126A8E1C6002BE4CB /* NewEventViewController.h */,
+				3B7D641226A8E1C6002BE4CB /* NewEventViewController.m */,
+				3B7D641426A8EF17002BE4CB /* AddInviteeViewController.h */,
+				3B7D641526A8EF17002BE4CB /* AddInviteeViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -321,6 +348,12 @@
 				3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */,
 				3BA93F1E26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.h */,
 				3BA93F1F26A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m */,
+				3B7D640B26A8CD1E002BE4CB /* EventCollectionViewCell.h */,
+				3B7D640C26A8CD1E002BE4CB /* EventCollectionViewCell.m */,
+				3B7D641726A8F268002BE4CB /* InviteeCollectionViewCell.h */,
+				3B7D641826A8F268002BE4CB /* InviteeCollectionViewCell.m */,
+				3B7D641A26A8F717002BE4CB /* AddInviteeCollectionViewCell.h */,
+				3B7D641B26A8F717002BE4CB /* AddInviteeCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -340,6 +373,8 @@
 				3BE73A7726A789C000354631 /* DictionaryConstants.m */,
 				3B6328D026A8975800C009FA /* MessagePoller.h */,
 				3B6328D126A8975800C009FA /* MessagePoller.m */,
+				3B7D641D26A9257C002BE4CB /* CommonFunctions.h */,
+				3B7D641E26A9257C002BE4CB /* CommonFunctions.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -621,15 +656,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B7D640D26A8CD1E002BE4CB /* EventCollectionViewCell.m in Sources */,
 				3B7D640726A8BC03002BE4CB /* Event.m in Sources */,
 				3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */,
 				3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */,
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
+				3B7D641C26A8F717002BE4CB /* AddInviteeCollectionViewCell.m in Sources */,
 				3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */,
 				3B2F773F269F76DB00BB7F4B /* MatchesViewController.m in Sources */,
 				3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */,
 				3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
+				3B7D641926A8F268002BE4CB /* InviteeCollectionViewCell.m in Sources */,
 				3B7D640A26A8C6D5002BE4CB /* SettingsViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
 				3BA93F1D26A4CEA900CA9E01 /* AddLikedGenreViewController.m in Sources */,
@@ -639,12 +677,15 @@
 				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
 				3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */,
 				3B2F774B269F9F3500BB7F4B /* Match.m in Sources */,
+				3B7D641326A8E1C6002BE4CB /* NewEventViewController.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
 				3BCC85A6269E551D0083F1F1 /* Like.m in Sources */,
 				3BE73A7826A789C000354631 /* DictionaryConstants.m in Sources */,
 				3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */,
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
+				3B7D641626A8EF17002BE4CB /* AddInviteeViewController.m in Sources */,
 				3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */,
+				3B7D641026A8CD8E002BE4CB /* EventsViewController.m in Sources */,
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
 				3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */,
@@ -653,6 +694,7 @@
 				3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
 				3B6328D226A8975800C009FA /* MessagePoller.m in Sources */,
+				3B7D641F26A9257C002BE4CB /* CommonFunctions.m in Sources */,
 				3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
 			);

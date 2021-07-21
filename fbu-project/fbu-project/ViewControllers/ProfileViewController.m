@@ -14,6 +14,7 @@
 #import "LikedGenre.h"
 #import "AddLikedGenreViewController.h"
 #import "DictionaryConstants.h"
+#import "CommonFunctions.h"
 
 static int SAVED_PROFILE_IMAGE_DIMENSIONS = 500; //limit the size of images being saved in database
 static int GENRE_CELL_HEIGHT = 50;
@@ -160,7 +161,7 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
 
 #pragma mark - CollectionView methods
 
-- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString * const LIKED_GENRE_CELL_IDENTIFIER = @"LikedGenreCollectionViewCell";
     
     LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LIKED_GENRE_CELL_IDENTIFIER forIndexPath:indexPath];
@@ -280,49 +281,18 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
         return;
     }
     
-    newProfileImage = [ProfileViewController resizeImage:newProfileImage
-                                                withSize:CGSizeMake(SAVED_PROFILE_IMAGE_DIMENSIONS,
-                                                                    SAVED_PROFILE_IMAGE_DIMENSIONS)];
+    newProfileImage = resizeImage(newProfileImage,
+                                  CGSizeMake(SAVED_PROFILE_IMAGE_DIMENSIONS,
+                                             SAVED_PROFILE_IMAGE_DIMENSIONS));
+
     self.profileImageView.image = newProfileImage;
     
-    PFFileObject *pfImage = [ProfileViewController getPFFileFromImage:newProfileImage];
+    PFFileObject *pfImage = getFileFromImage(newProfileImage);
     
     if (pfImage != nil) {
         [PFUser currentUser][PROFILE_IMAGE_KEY] = pfImage;
         [[PFUser currentUser] saveInBackground];
     }
-}
-
-+ (PFFileObject *)getPFFileFromImage:(UIImage * _Nullable)image {
-    static NSString * const IMAGE_NAME = @"image.png";
-    
-    // check if image is not nil
-    if (!image) {
-        return nil;
-    }
-    
-    NSData *imageData = UIImagePNGRepresentation(image);
-    // get image data and check if that is not nil
-    if (!imageData) {
-        return nil;
-    }
-    
-    return [PFFileObject fileObjectWithName:IMAGE_NAME data:imageData];
-}
-
-+ (UIImage *)resizeImage:(UIImage *)image
-                withSize:(CGSize)size {
-    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    
-    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
-    resizeImageView.image = image;
-    
-    UIGraphicsBeginImageContext(size);
-    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
 }
 
 @end

@@ -80,12 +80,12 @@ static const float POLL_INTERVAL_SEC = 5;
         [directMessageQuery whereKey:DIRECT_MESSAGE_MATCH_KEY equalTo:self.match];
         
         [directMessageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
-            if (messages) {
+            if (messages && messages.count >= 1) {
                 DirectMessage *latestMessage = (DirectMessage *)messages[messages.count - 1];
                 if ([self isLaterThanLatestMessageDate:latestMessage.createdAt]) {
                     //new message detected
                     [[NSNotificationCenter defaultCenter]
-                     postNotificationName:NEW_MESSAGE_NOTIFICATION_NAME 
+                     postNotificationName:NEW_MESSAGE_NOTIFICATION_NAME
                      object:messages];
                 }
             }
