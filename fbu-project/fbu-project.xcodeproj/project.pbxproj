@@ -25,9 +25,12 @@
 		3B4BB294269CC98800E5F692 /* fbu_projectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB293269CC98800E5F692 /* fbu_projectTests.m */; };
 		3B4BB29F269CC98800E5F692 /* fbu_projectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */; };
 		3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6100A826A5D86E00325CF2 /* UserSorter.m */; };
+		3B6328D226A8975800C009FA /* MessagePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6328D126A8975800C009FA /* MessagePoller.m */; };
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68626A0DAC80086BEDE /* StylingConstants.m */; };
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
+		3B7D640726A8BC03002BE4CB /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D640626A8BC03002BE4CB /* Event.m */; };
+		3B7D640A26A8C6D5002BE4CB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D640926A8C6D5002BE4CB /* SettingsViewController.m */; };
 		3B9A4CB426A5242E00B38190 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9A4CB326A5242E00B38190 /* CoreLocation.framework */; };
 		3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1626A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m */; };
 		3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */; };
@@ -104,12 +107,18 @@
 		3B4BB2A0269CC98800E5F692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B6100A726A5D86E00325CF2 /* UserSorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSorter.h; sourceTree = "<group>"; };
 		3B6100A826A5D86E00325CF2 /* UserSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserSorter.m; sourceTree = "<group>"; };
+		3B6328D026A8975800C009FA /* MessagePoller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePoller.h; sourceTree = "<group>"; };
+		3B6328D126A8975800C009FA /* MessagePoller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessagePoller.m; sourceTree = "<group>"; };
 		3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationCollectionViewCell.h; sourceTree = "<group>"; };
 		3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationCollectionViewCell.m; sourceTree = "<group>"; };
 		3B66F68526A0DAC80086BEDE /* StylingConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StylingConstants.h; sourceTree = "<group>"; };
 		3B66F68626A0DAC80086BEDE /* StylingConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StylingConstants.m; sourceTree = "<group>"; };
 		3B66F69226A0E5E90086BEDE /* MediaPlayBackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaPlayBackView.h; sourceTree = "<group>"; };
 		3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaPlayBackView.m; sourceTree = "<group>"; };
+		3B7D640526A8BC03002BE4CB /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		3B7D640626A8BC03002BE4CB /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		3B7D640826A8C6D5002BE4CB /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		3B7D640926A8C6D5002BE4CB /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3B9A4CB326A5242E00B38190 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3BA93F1426A4B98E00CA9E01 /* APIManager+Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APIManager+Tests.h"; sourceTree = "<group>"; };
 		3BA93F1526A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LikedGenreCollectionViewCell.h; sourceTree = "<group>"; };
@@ -263,6 +272,8 @@
 				3B3086D326A0904000AA7894 /* DirectMessage.m */,
 				3BA93F1826A4C74C00CA9E01 /* LikedGenre.h */,
 				3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */,
+				3B7D640526A8BC03002BE4CB /* Event.h */,
+				3B7D640626A8BC03002BE4CB /* Event.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,6 +295,8 @@
 				3B2F773E269F76DB00BB7F4B /* MatchesViewController.m */,
 				3BA93F1B26A4CEA900CA9E01 /* AddLikedGenreViewController.h */,
 				3BA93F1C26A4CEA900CA9E01 /* AddLikedGenreViewController.m */,
+				3B7D640826A8C6D5002BE4CB /* SettingsViewController.h */,
+				3B7D640926A8C6D5002BE4CB /* SettingsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -325,6 +338,8 @@
 				3B6100A826A5D86E00325CF2 /* UserSorter.m */,
 				3BE73A7626A789C000354631 /* DictionaryConstants.h */,
 				3BE73A7726A789C000354631 /* DictionaryConstants.m */,
+				3B6328D026A8975800C009FA /* MessagePoller.h */,
+				3B6328D126A8975800C009FA /* MessagePoller.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -606,6 +621,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B7D640726A8BC03002BE4CB /* Event.m in Sources */,
 				3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */,
 				3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */,
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
@@ -614,6 +630,7 @@
 				3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */,
 				3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
+				3B7D640A26A8C6D5002BE4CB /* SettingsViewController.m in Sources */,
 				3B4BB279269CC98700E5F692 /* AppDelegate.m in Sources */,
 				3BA93F1D26A4CEA900CA9E01 /* AddLikedGenreViewController.m in Sources */,
 				3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */,
@@ -635,6 +652,7 @@
 				3BB3B66526A2334D00D06528 /* APIManager.m in Sources */,
 				3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
+				3B6328D226A8975800C009FA /* MessagePoller.m in Sources */,
 				3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
 			);

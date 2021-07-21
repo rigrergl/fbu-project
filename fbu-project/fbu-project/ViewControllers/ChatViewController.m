@@ -9,6 +9,7 @@
 #import "MessageCollectionViewCell.h"
 #import "DirectMessage.h"
 #import "DictionaryConstants.h"
+#import "MessagePoller.h"
 #import <Parse/Parse.h>
 
 static int INPUT_VIEW_BORDER_WIDTH = 1;
@@ -120,12 +121,38 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     self.tabBarController.tabBar.hidden = true;
+    
+    [self startPollingMessages];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.tabBarController.tabBar.hidden = false;
+    
+    [self stopPollingMessages];
+}
+
+#pragma mark - Message Notifications (Polling)
+
+- (void)startPollingMessages {
+    [[MessagePoller shared] startPollingMatch:self.match];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNewMessageNotification:)
+                                                 name:NEW_MESSAGE_NOTIFICATION_NAME
+                                               object:nil];
+}
+
+- (void)receiveNewMessageNotification:(NSNotification *)notification {
+    if ([[notification name] isEqualToString:NEW_MESSAGE_NOTIFICATION_NAME]) {
+        self.messages = notification.object;
+        [self reloadCollectionViewAndScrollToBottom];
+    }
+}
+
+- (void)stopPollingMessages {
+    [[MessagePoller shared] stopPolling];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Collection View methods

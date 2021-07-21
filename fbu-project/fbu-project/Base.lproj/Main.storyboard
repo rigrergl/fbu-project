@@ -3,6 +3,8 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -579,6 +581,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UsD-37-OOc">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="eTL-HU-r6n">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="VER-7e-aAf">
+                                <rect key="frame" x="20" y="9" width="27" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="gear" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <segue destination="AX7-Qw-i4D" kind="show" id="HFt-KW-m3W"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="5ca-dS-55Z">
                             <connections>
                                 <action selector="didTapLogout:" destination="1JA-tM-tXk" id="K1r-hd-e1m"/>
@@ -597,6 +611,43 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jjd-q9-rfs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4579.7101449275369" y="1556.9196428571429"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="zto-6l-m85">
+            <objects>
+                <viewController id="AX7-Qw-i4D" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MWD-91-Vhm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MOr-AO-gRT">
+                                <rect key="frame" x="272" y="432.5" width="51" height="31"/>
+                                <color key="onTintColor" name="AccentColor"/>
+                                <connections>
+                                    <action selector="pollLockSwitchValueChanged:" destination="AX7-Qw-i4D" eventType="valueChanged" id="qH9-Gj-S0c"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Polling Lock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpw-xp-f62">
+                                <rect key="frame" x="161" y="437.5" width="92" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0do-9S-Pbk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MOr-AO-gRT" firstAttribute="leading" secondItem="Dpw-xp-f62" secondAttribute="trailing" constant="19" id="AxI-dO-CCi"/>
+                            <constraint firstItem="Dpw-xp-f62" firstAttribute="centerX" secondItem="MWD-91-Vhm" secondAttribute="centerX" id="R0R-cy-BMM"/>
+                            <constraint firstItem="Dpw-xp-f62" firstAttribute="centerY" secondItem="MWD-91-Vhm" secondAttribute="centerY" id="Rec-ze-atV"/>
+                            <constraint firstItem="MOr-AO-gRT" firstAttribute="centerY" secondItem="Dpw-xp-f62" secondAttribute="centerY" id="qh2-LY-MUL"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="dA7-oQ-rHT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pkb-DT-xjT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3687" y="2338"/>
         </scene>
         <!--Add Liked Genre View Controller-->
         <scene sceneID="BbV-zt-Qnq">
@@ -786,12 +837,16 @@
     <resources>
         <image name="blank-profile-picture" width="600" height="600"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="music.note.house" catalog="system" width="128" height="106"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="trash" catalog="system" width="121" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
