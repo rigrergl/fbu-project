@@ -150,19 +150,11 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | objectId    | String      |unique id for the user (default field)
 | createdAt   | DateTime    |date when like is created (default field)
 | author      | Pointer to User    |user that sent the message
-| match | Pointer to Match   |match this message belongs to
+| match | Pointer to Match   |match this message belongs to (null = this is an Event message)
+| Event | Pointer to Event   |event this message belongs to (null = this is a Match message)
 | content     | Strings    |contents of the message
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
-#### GroupchatMessage
-| Property    | Type        | Description |
-| ----------- | ----------- |-------------|
-| objectId    | String      |unique id for the user (default field)
-| createdAt   | DateTime    |date when like is created (default field)
-| sender   | Pointer to User    |user that sent the message
-| event   | Pointer to Event    |event that this message was sent to
-| content   | Strings    |contents of the message
-| updatedAt   | DateTime    |date when like is last updated (default field)
 
 
 
