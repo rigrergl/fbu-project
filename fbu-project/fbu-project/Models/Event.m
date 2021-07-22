@@ -6,6 +6,7 @@
 //
 
 #import "Event.h"
+#import "DictionaryConstants.h"
 
 @implementation Event
 
@@ -13,13 +14,13 @@
     return @"Event";
 }
 
-+ (void)postEvent:(PFUser *)organizer
-             date:(NSDate *)date
-         location:(NSString *)location
-            title:(NSString *)title
-            image:(UIImage *)image
-          invited:(NSArray<PFUser *> *)invited
-         accepted:(NSArray<PFUser *> *)accepted {
++ (void)postEvent:(PFUser *_Nonnull)organizer
+             date:(NSDate *_Nonnull)date
+         location:(NSString *_Nonnull)location
+            title:(NSString *_Nonnull)title
+            image:(PFFileObject *_Nullable)image
+          invited:(NSMutableArray<PFUser *> *_Nullable)invited
+         accepted:(NSMutableArray<PFUser *> *_Nullable)accepted {
     
     Event *newEvent = [Event new];
     newEvent.organizer = organizer;
@@ -31,6 +32,30 @@
     newEvent.accepted = accepted;
     
     [newEvent saveInBackground];
+}
+
+- (void)moveUserToAccepted:(PFUser *)user {
+    if (self.accepted == nil) {
+        self.accepted = [[NSMutableArray alloc] init];
+    }
+    
+    
+    NSMutableSet<PFUser *> *acceptedSet = [[NSMutableSet alloc] initWithArray:self.accepted];
+    [acceptedSet addObject:[PFUser currentUser]];
+    
+    self.accepted = (NSMutableArray *)[acceptedSet allObjects];
+   
+    int indexOfCurrentUserInInvited = 0;
+    while (indexOfCurrentUserInInvited < self.invited.count) {
+        if ([self.invited[indexOfCurrentUserInInvited].objectId isEqualToString:[PFUser currentUser].objectId]) {
+            [self.invited removeObjectAtIndex:indexOfCurrentUserInInvited];
+            break;
+        }
+        indexOfCurrentUserInInvited++;
+    }
+    
+    [self setObject:self.invited forKey:EVENT_INVITED_KEY];
+    [self saveInBackground];
 }
 
 @end

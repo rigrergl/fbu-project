@@ -14,12 +14,17 @@
 
 @interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UIButton *addInviteeButton;
+@property (weak, nonatomic) IBOutlet UIButton *changeImageButton;
 @property (weak, nonatomic) IBOutlet UIImageView *eventPictureView;
 @property (weak, nonatomic) IBOutlet UICollectionView *inviteesCollectionView;
 @property (strong, nonatomic) NSMutableArray<PFUser *> *_Nonnull invitees;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIView *closeIndicator;
+@property (assign, nonatomic) BOOL canEdit;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @end
 
@@ -31,24 +36,111 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
     [super viewDidLoad];
     [self styleScreen];
     [self setupCollectionView];
-    self.invitees = [[NSMutableArray alloc] init];
+    
+    if (self.event) {
+        [self setEvent:self.event];
+    } else {
+        self.invitees = [[NSMutableArray alloc] init];
+    }
+}
+
+- (void)setEvent:(Event *)event {
+    _event = event;
+    self.canEdit = [event.organizer.objectId isEqualToString:[PFUser currentUser].objectId];
+    self.invitees = event.invited;
+    self.titleField.text = event.title;
+    self.locationField.text = event.location;
+    self.datePicker.date = event.date;
+    [self fetchInvitees];
+
+    [self setEditingRights];
+}
+
+- (void)fetchInvitees {
+    NSMutableArray<NSString *> *userIds = [[NSMutableArray alloc] initWithCapacity:self.invitees.count];
+    
+    for (PFUser *user in self.invitees) {
+        [userIds addObject:user.objectId];
+    }
+    
+    PFQuery *inviteesQuery = [PFQuery queryWithClassName:[PFUser parseClassName]];
+    [inviteesQuery whereKey:OBJECT_ID_KEY containedIn:userIds];
+    [inviteesQuery includeKey:PROFILE_IMAGE_KEY];
+    
+    [inviteesQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable invitees, NSError *_Nullable error){
+        if (invitees) {
+            self.invitees = invitees;
+            [self.inviteesCollectionView reloadData];
+        }
+    }];
+}
+
+- (void)setEditingRights {
+    if (!self.canEdit) {
+        self.saveButton.enabled = NO;
+        self.saveButton.alpha = 0;
+        self.addInviteeButton.enabled = NO;
+        self.addInviteeButton.alpha = 0;
+        self.changeImageButton.enabled = NO;
+        self.changeImageButton.alpha = 0;
+        
+        self.titleField.enabled = NO;
+        self.locationField.enabled = NO;
+        self.datePicker.enabled = NO;
+    }
 }
 
 - (void)styleScreen {
     static const float EVENT_PICTURE_CORNER_RADIUS = 14;
+    static const float CLOSE_INDICATOR_CORNER_RADIUS = 4;
+    
     self.eventPictureView.layer.cornerRadius = EVENT_PICTURE_CORNER_RADIUS;
     self.eventPictureView.layer.masksToBounds = YES;
+    
+    self.closeIndicator.layer.cornerRadius = CLOSE_INDICATOR_CORNER_RADIUS;
+    self.closeIndicator.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTapCancel:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)didTapSave:(UIBarButtonItem *)sender {
-    //TODO: check if all required fields are filled in
-    //TODO: upload new event to Parse database
+- (IBAction)didTapSave:(UIButton *)sender {
+    static NSString * const EMPTY_FIELDS_ALERT_TITLE = @"Error";
+    static NSString * const EMPTY_FIELDS_ALERT_MESSAGE = @"Empty Fields";
+    PFFileObject *imageObject = getFileFromImage(self.eventPictureView.image);
+    
+    if ([self isFormValid]) {
+        //update existing event
+        if (self.event) {
+            self.event.date = self.datePicker.date;
+            self.event.location = self.locationField.text;
+            self.event.title = self.titleField.text;
+            self.event.image = imageObject;
+            self.event.invited = self.invitees;
+
+            
+            [self.event saveInBackground];
+        } else {
+            //upload new event to Parse database
+            [Event postEvent:[PFUser currentUser]
+                        date:self.datePicker.date
+                    location:self.locationField.text
+                       title:self.titleField.text
+                       image:imageObject
+                     invited:self.invitees
+                    accepted:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    } else {
+        UIAlertController *alertController = createOkAlert(EMPTY_FIELDS_ALERT_TITLE, EMPTY_FIELDS_ALERT_MESSAGE);
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
+- (BOOL)isFormValid {
+    return self.titleField.text.length > 0 && self.locationField.text.length > 0;
+}
 
 #pragma mark - CollectionView method
 
@@ -63,7 +155,7 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
     InviteeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:INVITEE_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
-        [cell setCell:self.invitees[indexPath.item] canRemove:YES];
+        [cell setCell:self.invitees[indexPath.item] canRemove:self.canEdit];
         cell.removeInvitee = ^(InviteeCollectionViewCell *_Nonnull cell){
             [self removeInvitee:cell];
         };

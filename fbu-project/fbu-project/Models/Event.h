@@ -15,17 +15,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSDate *_Nonnull date;
 @property (nonatomic, copy) NSString *_Nonnull location;
 @property (nonatomic, copy) NSString *_Nonnull title;
-@property (nonatomic, strong) UIImage *_Nullable image;
-@property (nonatomic, strong) NSArray<PFUser *> *_Nonnull invited;
-@property (nonatomic, strong) NSArray<PFUser *> *_Nonnull accepted;
+@property (nonatomic, strong) PFFileObject *_Nullable image;
+@property (nonatomic, strong) NSMutableArray<PFUser *> *_Nullable invited;
+@property (nonatomic, strong) NSMutableArray<PFUser *> *_Nullable accepted;
 
-+ (void)postEvent:(PFUser *)organizer
-             date:(NSDate *)date
-         location:(NSString *)location
-            title:(NSString *)title
-            image:(UIImage *)image
-          invited:(NSArray<PFUser *> *)invited
-         accepted:(NSArray<PFUser *> *)accepted;
++ (void)postEvent:(PFUser *_Nonnull)organizer
+             date:(NSDate *_Nonnull)date
+         location:(NSString *_Nonnull)location
+            title:(NSString *_Nonnull)title
+            image:(PFFileObject *_Nullable)image
+          invited:(NSMutableArray<PFUser *> *_Nullable)invited
+         accepted:(NSMutableArray<PFUser *> *_Nullable)accepted;
+
+- (void)moveUserToAccepted:(PFUser *)user;
 
 @end
 

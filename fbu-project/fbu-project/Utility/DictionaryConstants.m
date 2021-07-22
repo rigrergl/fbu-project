@@ -39,5 +39,15 @@ NSString * const MATCH_USERS_KEY = @"users";
 //DirectMessage
 NSString * const DIRECT_MESSAGE_CLASS_NAME = @"DirectMessage";
 NSString * const DIRECT_MESSAGE_MATCH_KEY = @"match";
+NSString * const DIRECT_MESSAGE_EVENT_KEY = @"event";
+
+//Event
+NSString * const EVENT_DATE_KEY = @"date";
+NSString * const EVENT_ORGANIZER_KEY = @"organizer";
+NSString * const EVENT_LOCATION_KEY = @"location";
+NSString * const EVENT_TITLE_KEY = @"title";
+NSString * const EVENT_IMAGE_KEY = @"image";
+NSString * const EVENT_INVITED_KEY = @"invited";
+NSString * const EVENT_ACCEPTED_KEY = @"accepted";
 
 @end

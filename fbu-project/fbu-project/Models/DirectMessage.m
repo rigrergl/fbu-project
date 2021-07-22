@@ -15,11 +15,13 @@
 }
 
 + (void)postMessageWithContent:(NSString *)content
-                       inMatch: (Match *_Nonnull)match
+                         match: (Match *_Nullable)match
+                         event:(Event *_Nullable)event
                     completion:(DirectMessageReturnBlock _Nullable)completion {
     DirectMessage *newMessage = [DirectMessage new];
     newMessage.author = [PFUser currentUser];
     newMessage.match = match;
+    newMessage.event = event;
     newMessage.content = content;
     
     [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){
@@ -28,8 +30,10 @@
         }
     }];
     
-    match.hasConversationStarted = true;
-    [match saveInBackground];
+    if (match) {
+        match.hasConversationStarted = true;
+        [match saveInBackground];
+    }
 }
 
 

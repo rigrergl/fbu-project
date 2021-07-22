@@ -29,11 +29,17 @@
     }
     
     self.profileImageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
-    [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
-        if (data) {
-            self.profileImageView.image = [UIImage imageWithData:data];
-        } else {
-            self.profileImageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
+    
+    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *_Nullable object, NSError *_Nullable error){
+        if (object) {
+            PFUser *user = (PFUser *)object;
+            [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
+                if (data) {
+                    self.profileImageView.image = [UIImage imageWithData:data];
+                } else {
+                    self.profileImageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
+                }
+            }];
         }
     }];
 }

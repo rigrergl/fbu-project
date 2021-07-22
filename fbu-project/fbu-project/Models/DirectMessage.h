@@ -21,7 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^DirectMessageReturnBlock)(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error);
 
 + (void)postMessageWithContent:(NSString *)content
-                       inMatch: (Match *_Nonnull)match
+                         match: (Match *_Nullable)match
+                         event:(Event *_Nullable)event
                     completion:(DirectMessageReturnBlock _Nullable)completion;
 
 @end

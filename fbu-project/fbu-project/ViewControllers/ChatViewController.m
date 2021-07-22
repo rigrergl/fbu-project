@@ -22,7 +22,8 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
 @property (strong, nonatomic) IBOutlet UITextView *_Nonnull inputTextView;
 @property (strong, nonatomic) IBOutlet UILabel *_Nonnull chatNameLabel;
 @property (nonatomic, strong) NSTimer *_Nullable refreshTimer;
-
+@property (nonatomic, assign) CGFloat originalFrameHeight;
+ 
 @end
 
 @implementation ChatViewController
@@ -37,6 +38,8 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
     
     [self setChatNameLabel];
     [self fetchMessages];
+    
+    self.originalFrameHeight = self.view.frame.size.height;
 }
 
 - (void)setupCollectionView {
@@ -48,8 +51,21 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
 - (void)fetchMessages {
     if (self.match) {
         [self fetchMatchMessages];
+    } else if (self.event) {
+        [self fetchEventMessages];
     }
-    //TODO: ELSE FETCH EVENT MESSAGES
+}
+
+- (void)fetchEventMessages {
+    PFQuery *messageQuery = [PFQuery queryWithClassName:[DirectMessage parseClassName]];
+    [messageQuery whereKey:DIRECT_MESSAGE_EVENT_KEY equalTo:self.event];
+    
+    [messageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
+        if (!error) {
+            self.messages = messages;
+            [self reloadCollectionViewAndScrollToBottom];
+        }
+    }];
 }
 
 - (void)fetchMatchMessages {
@@ -83,6 +99,8 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
         } else {
             self.chatNameLabel.text = user1.username;
         }
+    } else if (self.event) {
+        self.chatNameLabel.text = self.event.title;
     }
 }
 
@@ -103,16 +121,16 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
 }
 
 - (IBAction)didTapSend:(UIButton *)sender {
-    if (self.match) {
-        [DirectMessage postMessageWithContent:self.inputTextView.text
-                                      inMatch:self.match
-                                   completion:^(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error){
-           if (newMessage) {
-                [self.messages addObject:newMessage];
-                [self reloadCollectionViewAndScrollToBottom];
-            }
-        }];
-    }
+    [DirectMessage postMessageWithContent:self.inputTextView.text
+                                    match:self.match
+                                    event: self.event
+                               completion:^(BOOL succeeded, DirectMessage *_Nullable newMessage, NSError *_Nullable error){
+        if (newMessage) {
+            [self.messages addObject:newMessage];
+            [self reloadCollectionViewAndScrollToBottom];
+        }
+    }];
+    self.inputTextView.text = @"";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -189,12 +207,13 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-
+    
     [UIView animateWithDuration:KEYBOARD_MOVEMENT_ANIMATION_DURATION
                      animations:^{
         CGRect f = self.view.frame;
-        f.origin.y = -keyboardSize.height;
+        f.size.height -= keyboardSize.height;
         self.view.frame = f;
+        [self scrollToBottomOfCollectionView];
     }];
 }
 
@@ -202,8 +221,9 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
     [UIView animateWithDuration:KEYBOARD_MOVEMENT_ANIMATION_DURATION
                      animations:^{
         CGRect f = self.view.frame;
-        f.origin.y = 0.0f;
+        f.size.height = self.originalFrameHeight;
         self.view.frame = f;
+        [self scrollToBottomOfCollectionView];
     }];
 }
 

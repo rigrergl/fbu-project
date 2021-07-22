@@ -41,6 +41,16 @@ extern NSString * const MATCH_USERS_KEY;
 //DirectMessage
 extern NSString * const DIRECT_MESSAGE_CLASS_NAME;
 extern NSString * const DIRECT_MESSAGE_MATCH_KEY;
+extern NSString * const DIRECT_MESSAGE_EVENT_KEY;
+
+//Event
+extern NSString * const EVENT_DATE_KEY;
+extern NSString * const EVENT_ORGANIZER_KEY;
+extern NSString * const EVENT_LOCATION_KEY;
+extern NSString * const EVENT_TITLE_KEY;
+extern NSString * const EVENT_IMAGE_KEY;
+extern NSString * const EVENT_INVITED_KEY;
+extern NSString * const EVENT_ACCEPTED_KEY;
 
 @end
 

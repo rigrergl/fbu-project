@@ -6,10 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Event.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NewEventViewController : UIViewController
+
+@property (nonatomic, strong) Event *event;
+- (void)setEvent:(Event * _Nonnull)event;
 
 @end
 
