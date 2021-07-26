@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */; };
+		3B08DF0A26AE7CF900987A62 /* EventsSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */; };
+		3B08DF0B26AE7CF900987A62 /* EventsSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */; };
 		3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2F7732269F43C300BB7F4B /* MessageUI.framework */; };
 		3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7735269F441600BB7F4B /* ChatViewController.m */; };
 		3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7738269F47B900BB7F4B /* MessageCollectionViewCell.m */; };
@@ -81,6 +83,9 @@
 /* Begin PBXFileReference section */
 		024F8DC8150730B04A13C684 /* Pods-fbu-project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project.release.xcconfig"; path = "Target Support Files/Pods-fbu-project/Pods-fbu-project.release.xcconfig"; sourceTree = "<group>"; };
 		16CB7359656FB7EE4CBCEB8C /* Pods-fbu-project-fbu-projectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbu-project-fbu-projectUITests.release.xcconfig"; path = "Target Support Files/Pods-fbu-project-fbu-projectUITests/Pods-fbu-project-fbu-projectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3B08DF0726AE7CF900987A62 /* EventsSectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsSectionHeader.h; sourceTree = "<group>"; };
+		3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsSectionHeader.m; sourceTree = "<group>"; };
+		3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsSectionHeader.xib; sourceTree = "<group>"; };
 		3B2F7732269F43C300BB7F4B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3B2F7734269F441600BB7F4B /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		3B2F7735269F441600BB7F4B /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
@@ -354,6 +359,9 @@
 				3B7D641826A8F268002BE4CB /* InviteeCollectionViewCell.m */,
 				3B7D641A26A8F717002BE4CB /* AddInviteeCollectionViewCell.h */,
 				3B7D641B26A8F717002BE4CB /* AddInviteeCollectionViewCell.m */,
+				3B08DF0726AE7CF900987A62 /* EventsSectionHeader.h */,
+				3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */,
+				3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -526,6 +534,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BB12703269CF119006444E4 /* Keys.plist in Resources */,
+				3B08DF0B26AE7CF900987A62 /* EventsSectionHeader.xib in Resources */,
 				3B4BB287269CC98800E5F692 /* LaunchScreen.storyboard in Resources */,
 				3B4BB284269CC98800E5F692 /* Assets.xcassets in Resources */,
 				3B4BB282269CC98700E5F692 /* Main.storyboard in Resources */,
@@ -677,6 +686,7 @@
 				3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */,
 				3BB12706269CF2A4006444E4 /* AuthenticationViewController.m in Sources */,
 				3B2F774B269F9F3500BB7F4B /* Match.m in Sources */,
+				3B08DF0A26AE7CF900987A62 /* EventsSectionHeader.m in Sources */,
 				3B7D641326A8E1C6002BE4CB /* NewEventViewController.m in Sources */,
 				3B4BB28A269CC98800E5F692 /* main.m in Sources */,
 				3BCC85A6269E551D0083F1F1 /* Like.m in Sources */,

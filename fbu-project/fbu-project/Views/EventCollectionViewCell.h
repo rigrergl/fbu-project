@@ -12,11 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EventCollectionViewCell : UICollectionViewCell
 
+typedef void (^EventCellBlock)(EventCollectionViewCell *_Nonnull cell);
+
+//properties
 @property (copy, nonatomic, nullable) void (^acceptInvite)(EventCollectionViewCell *_Nonnull cell);
 @property (copy, nonatomic, nullable) void (^segueToChat)(EventCollectionViewCell *_Nonnull cell);
 @property (copy, nonatomic, nullable) void (^segueToInfo)(EventCollectionViewCell *_Nonnull cell);
 @property (strong, nonatomic) Event *_Nonnull event;
-- (void)setCell:(Event *_Nonnull)event;
+
+//methods
+- (void)setCellForAttending:(Event *_Nonnull)event
+                segueToChat:(EventCellBlock _Nonnull)segueToChat;
+- (void)setCellForInvited:(Event *_Nonnull)event
+             acceptInvite:(EventCellBlock _Nonnull)acceptInvite;
 
 @end
 
