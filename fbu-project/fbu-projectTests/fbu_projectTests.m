@@ -14,6 +14,8 @@
 #import "APIManager+Tests.h"
 #import "LikedGenre.h"
 #import "UserSorter.h"
+#import "LikedInstrument.h"
+#import "AudioAnalyzer.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -27,6 +29,41 @@
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testInstrumentDisplayName {
+    NSString *pianoDisplayName = [LikedInstrument getDisplayNameForInstrument:PIANO_IDENTIFIER];
+    XCTAssert([pianoDisplayName isEqualToString:PIANO_DISPLAY_NAME]);
+    
+    NSString *celloDisplayName = [LikedInstrument getDisplayNameForInstrument:CELLO_IDENTIFIER];
+    XCTAssert([celloDisplayName isEqualToString:CELLO_DISPLAY_NAME]);
+    
+    NSString *clarinetDisplayName = [LikedInstrument getDisplayNameForInstrument:CLARINET_IDENTIFIER];
+    XCTAssert([clarinetDisplayName isEqualToString:CLARINET_DISPLAY_NAME]);
+    
+    NSString *fluteDisplayName = [LikedInstrument getDisplayNameForInstrument:FLUTE_IDENTIFIER];
+    XCTAssert([fluteDisplayName isEqualToString:FLUTE_DISPLAY_NAME]);
+    
+    NSString *electricGuitarDisplayName = [LikedInstrument getDisplayNameForInstrument:ELECTRIC_GUITAR_IDENTIFIER];
+    XCTAssert([electricGuitarDisplayName isEqualToString:ELECTRIC_GUITAR_DISPLAY_NAME]);
+    
+    NSString *organDisplayName = [LikedInstrument getDisplayNameForInstrument:ORGAN_IDENTIFIER];
+    XCTAssert([organDisplayName isEqualToString:ORGRAN_DISPLAY_NAME]);
+    
+    NSString *acousticGuitarDisplayName = [LikedInstrument getDisplayNameForInstrument:ACOUSTIC_GUITAR_IDENTIFIER];
+    XCTAssert([acousticGuitarDisplayName isEqualToString:ACOUSTIC_GUITAR_DISPLAY_NAME]);
+    
+    NSString *saxophoneDisplayName = [LikedInstrument getDisplayNameForInstrument:SAXOPHONE_IDENTIFIER];
+    XCTAssert([saxophoneDisplayName isEqualToString:SAXOPHONE_DISPLAY_NAME]);
+    
+    NSString *trumpetDisplayName = [LikedInstrument getDisplayNameForInstrument:TRUMPET_IDENTIFIER];
+    XCTAssert([trumpetDisplayName isEqualToString:TRUMPET_DISPLAY_NAME]);
+    
+    NSString *violinDisplayName = [LikedInstrument getDisplayNameForInstrument:VIOLIN_IDENTIFIER];
+    XCTAssert([violinDisplayName isEqualToString:VIOLIN_DISPLAY_NAME]);
+    
+    NSString *voiceDisplayName = [LikedInstrument getDisplayNameForInstrument:HUMAN_SINGING_VOICE_IDENTIFIER];
+    XCTAssert([voiceDisplayName isEqualToString:HUMAN_SINGING_VOICE_DISPLAY_NAME]);
 }
 
 - (void)testLikedGenre {

@@ -18,6 +18,7 @@ NSString * const RECORDING_KEY = @"recording";
 NSString * const LATITUDE_KEY = @"latestLatitude";
 NSString * const LONGITUDE_KEY = @"latestLongitude";
 NSString * const PROFILE_IMAGE_KEY = @"profileImage";
+NSString * const INSTRUMENTS_IN_RECORDING = @"instrumentsInRecording";
 
 //Like
 NSString * const LIKE_CLASS_NAME = @"Like";
@@ -49,5 +50,8 @@ NSString * const EVENT_TITLE_KEY = @"title";
 NSString * const EVENT_IMAGE_KEY = @"image";
 NSString * const EVENT_INVITED_KEY = @"invited";
 NSString * const EVENT_ACCEPTED_KEY = @"accepted";
+
+//LikedInstrument
+NSString * const LIKED_INSTRUMENT_CLASS_NAME = @"LikedInstrument";
 
 @end

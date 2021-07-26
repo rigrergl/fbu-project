@@ -10,6 +10,11 @@
 		28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */; };
 		3B08DF0A26AE7CF900987A62 /* EventsSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */; };
 		3B08DF0B26AE7CF900987A62 /* EventsSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */; };
+		3B2DDF8926AF047000B1C423 /* AudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDF8826AF047000B1C423 /* AudioAnalyzer.m */; };
+		3B2DDF8B26AF104D00B1C423 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2DDF8A26AF104D00B1C423 /* CoreML.framework */; };
+		3B2DDF8D26AF146C00B1C423 /* SoundAnalysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2DDF8C26AF146C00B1C423 /* SoundAnalysis.framework */; };
+		3B2DDF8F26AF184C00B1C423 /* MySoundClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDF8E26AF184C00B1C423 /* MySoundClassifier.mlmodel */; };
+		3B2DDF9226AF648000B1C423 /* LikedInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDF9126AF648000B1C423 /* LikedInstrument.m */; };
 		3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2F7732269F43C300BB7F4B /* MessageUI.framework */; };
 		3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7735269F441600BB7F4B /* ChatViewController.m */; };
 		3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2F7738269F47B900BB7F4B /* MessageCollectionViewCell.m */; };
@@ -86,6 +91,13 @@
 		3B08DF0726AE7CF900987A62 /* EventsSectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsSectionHeader.h; sourceTree = "<group>"; };
 		3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsSectionHeader.m; sourceTree = "<group>"; };
 		3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsSectionHeader.xib; sourceTree = "<group>"; };
+		3B2DDF8726AF047000B1C423 /* AudioAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioAnalyzer.h; sourceTree = "<group>"; };
+		3B2DDF8826AF047000B1C423 /* AudioAnalyzer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioAnalyzer.m; sourceTree = "<group>"; };
+		3B2DDF8A26AF104D00B1C423 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		3B2DDF8C26AF146C00B1C423 /* SoundAnalysis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SoundAnalysis.framework; path = System/Library/Frameworks/SoundAnalysis.framework; sourceTree = SDKROOT; };
+		3B2DDF8E26AF184C00B1C423 /* MySoundClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = MySoundClassifier.mlmodel; path = ../../../../../Downloads/MySoundClassifier.mlmodel; sourceTree = "<group>"; };
+		3B2DDF9026AF648000B1C423 /* LikedInstrument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LikedInstrument.h; sourceTree = "<group>"; };
+		3B2DDF9126AF648000B1C423 /* LikedInstrument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedInstrument.m; sourceTree = "<group>"; };
 		3B2F7732269F43C300BB7F4B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3B2F7734269F441600BB7F4B /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		3B2F7735269F441600BB7F4B /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
@@ -199,6 +211,8 @@
 			files = (
 				3B9A4CB426A5242E00B38190 /* CoreLocation.framework in Frameworks */,
 				3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */,
+				3B2DDF8B26AF104D00B1C423 /* CoreML.framework in Frameworks */,
+				3B2DDF8D26AF146C00B1C423 /* SoundAnalysis.framework in Frameworks */,
 				28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,6 +261,7 @@
 		3B4BB276269CC98700E5F692 /* fbu-project */ = {
 			isa = PBXGroup;
 			children = (
+				3B2DDF8E26AF184C00B1C423 /* MySoundClassifier.mlmodel */,
 				3BCC8597269E03810083F1F1 /* Utility */,
 				3BB126E1269CD483006444E4 /* Views */,
 				3BB126E0269CD474006444E4 /* ViewControllers */,
@@ -300,6 +315,8 @@
 				3BA93F1926A4C74C00CA9E01 /* LikedGenre.m */,
 				3B7D640526A8BC03002BE4CB /* Event.h */,
 				3B7D640626A8BC03002BE4CB /* Event.m */,
+				3B2DDF9026AF648000B1C423 /* LikedInstrument.h */,
+				3B2DDF9126AF648000B1C423 /* LikedInstrument.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -383,6 +400,8 @@
 				3B6328D126A8975800C009FA /* MessagePoller.m */,
 				3B7D641D26A9257C002BE4CB /* CommonFunctions.h */,
 				3B7D641E26A9257C002BE4CB /* CommonFunctions.m */,
+				3B2DDF8726AF047000B1C423 /* AudioAnalyzer.h */,
+				3B2DDF8826AF047000B1C423 /* AudioAnalyzer.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -416,6 +435,8 @@
 		A667211F5783930463835B26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B2DDF8C26AF146C00B1C423 /* SoundAnalysis.framework */,
+				3B2DDF8A26AF104D00B1C423 /* CoreML.framework */,
 				3B9A4CB326A5242E00B38190 /* CoreLocation.framework */,
 				3B2F7732269F43C300BB7F4B /* MessageUI.framework */,
 				EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */,
@@ -702,8 +723,11 @@
 				3BA93F2026A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m in Sources */,
 				3BB3B66526A2334D00D06528 /* APIManager.m in Sources */,
 				3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */,
+				3B2DDF8F26AF184C00B1C423 /* MySoundClassifier.mlmodel in Sources */,
+				3B2DDF9226AF648000B1C423 /* LikedInstrument.m in Sources */,
 				3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */,
 				3B6328D226A8975800C009FA /* MessagePoller.m in Sources */,
+				3B2DDF8926AF047000B1C423 /* AudioAnalyzer.m in Sources */,
 				3B7D641F26A9257C002BE4CB /* CommonFunctions.m in Sources */,
 				3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,

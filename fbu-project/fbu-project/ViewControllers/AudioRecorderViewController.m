@@ -8,25 +8,56 @@
 #import "AudioRecorderViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "DictionaryConstants.h"
+#import "AudioAnalyzer.h"
+#import "MediaPlayBackView.h"
+#import "LikedGenreCollectionViewCell.h"
 #import <Parse/Parse.h>
 
-@interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
+@interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (strong, nonatomic) IBOutlet UIButton *_Nonnull recordButton;
-@property (strong, nonatomic) IBOutlet UIButton *_Nonnull playButton;
 @property (strong, nonatomic) AVAudioSession *_Nonnull recordingSession;
 @property (strong, nonatomic) AVAudioRecorder *_Nullable audioRecorder;
-@property (strong, nonatomic) AVAudioPlayer *_Nullable audioPlayer;
+@property (strong, nonatomic) NSData *_Nullable recordingData;
+@property (strong, nonatomic) NSMutableArray *_Nullable instrumentLabels;
+@property (weak, nonatomic) IBOutlet UIView *_Nullable playbackContainerView;
+@property (strong, nonatomic) UIView *_Nullable playbackView;
+@property (weak, nonatomic) IBOutlet UICollectionView *_Nullable detectedInstrumentsCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *collectionViewTitleLabel;
 
 @end
 
 @implementation AudioRecorderViewController
 
+static NSString * const RECORDING_BUTTON_IDLE_IMAGE_NAME = @"record.circle";
+static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fill";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.playButton.alpha = 0;
-    [self.playButton setEnabled:NO];
+    [self setupRecordButton];
+    [self setupPlaybackView];
+    [self setupCollectionView];
+    self.submitButton.enabled = NO;
+}
+
+- (void)setupCollectionView {
+    self.detectedInstrumentsCollectionView.delegate = self;
+    self.detectedInstrumentsCollectionView.dataSource = self;
+}
+
+- (void)setupPlaybackView {
+    self.playbackContainerView.alpha = 0;
+    self.detectedInstrumentsCollectionView.alpha = 0;
+    self.collectionViewTitleLabel.alpha = 0;
+}
+
+- (void)setupRecordButton {
+    [self.recordButton setBackgroundImage:[UIImage systemImageNamed:RECORDING_BUTTON_ACTIVE_IMAGE_NAME]
+                                 forState:UIControlStateSelected];
+    [self.recordButton setBackgroundImage:[UIImage systemImageNamed:RECORDING_BUTTON_IDLE_IMAGE_NAME]
+                                 forState:UIControlStateNormal];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -34,18 +65,12 @@
 }
 
 - (IBAction)didTapRecord:(UIButton *)sender {
+    self.submitButton.enabled = NO;
+    
     if (self.audioRecorder == nil) {
         [self startRecording];
     } else {
         [self finishRecording:YES];
-    }
-}
-
-- (IBAction)didTapPlay:(UIButton *)sender {
-    if (self.audioPlayer == nil) {
-        [self playRecording];
-    } else {
-        [self stopPlaying];
     }
 }
 
@@ -98,7 +123,7 @@
     self.audioRecorder.delegate = self;
     [self.audioRecorder record];
     
-    [self.recordButton setTitle:@"Tap to Stop" forState:UIControlStateNormal];
+    [self.recordButton setSelected:YES];
 }
 
 + (NSURL *)getRecordingURL {
@@ -117,41 +142,89 @@
     [self.audioRecorder stop];
     self.audioRecorder = nil;
     
-    [self retrieveRecordedFile];
+    [self processRecording];
     
     if (success) {
-        [self.recordButton setTitle:@"Tap to Re-record" forState:UIControlStateNormal];
-        [self showPlayButton];
-    } else {
-        [self.recordButton setTitle:@"Tap to Record" forState:UIControlStateNormal];
+        [self showPlaybackView];
     }
+    
+    [self.recordButton setSelected:NO];
 }
 
-- (void)showPlayButton {
+- (void)showPlaybackView {
     static float SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
     
-    if (!self.playButton.enabled) {
-        [self.playButton setEnabled:YES];
-        
+    if (self.playbackContainerView.alpha != 1 ||
+        self.detectedInstrumentsCollectionView.alpha != 1 ||
+        self.collectionViewTitleLabel.alpha != 1) {
         [UIView animateWithDuration:SHOW_PLAY_BUTTON_ANIMATION_DURATION
                          animations:^{
-            self.playButton.alpha = 1;
+            self.playbackContainerView.alpha = 1;
+            self.detectedInstrumentsCollectionView.alpha = 1;
+            self.collectionViewTitleLabel.alpha = 1;
         }];
     }
 }
 
-- (void)retrieveRecordedFile {
+- (void)addPlaybackView:(NSData *)recordingData {
+    if(recordingData == nil) {
+        return;
+    }
+    
+    [self.playbackView removeFromSuperview];
+    self.playbackView = nil;
+    
+    MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
+                                       initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
+                                       andData:recordingData];
+    
+    self.playbackView = playbackView;
+    [self.playbackContainerView addSubview:playbackView];
+}
+
+- (void)processRecording {
     [self.audioRecorder stop];
     
     NSURL *url = [AudioRecorderViewController getRecordingURL];
-    NSError *error= nil;
-    NSData *audioData = [NSData dataWithContentsOfFile:[url path] options: 0 error:&error];
+    NSError *error = nil;
+    NSData *audioData = [NSData dataWithContentsOfURL:url options:0 error:&error];
+    if (error || !audioData) {
+        self.submitButton.enabled = NO;
+        return;
+    }
     
+    self.recordingData = audioData;
     
-    PFFileObject *recordingFile = [PFFileObject fileObjectWithData:[NSData dataWithContentsOfURL:url]];
+    [self addPlaybackView:audioData];
+    [self analyzeRecording];
+}
+
+- (IBAction)didTapSubmit:(UIButton *)sender {
+    if (self.recordingData == nil) {
+        return;
+    }
+    
+    PFFileObject *recordingFile = [PFFileObject fileObjectWithData:self.recordingData];
     [[PFUser currentUser] setValue:recordingFile forKey:RECORDING_KEY];
+    [[PFUser currentUser] setObject:self.instrumentLabels forKey:INSTRUMENTS_IN_RECORDING];
     
     [[PFUser currentUser] saveInBackground];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (void)analyzeRecording {
+    AudioAnalyzer *analyzer = [[AudioAnalyzer alloc] init];
+    [analyzer analyzeSoundFileWithURL:[AudioRecorderViewController getRecordingURL]
+                           completion:^(NSSet *_Nullable instumentLabels) {
+        self.instrumentLabels = [[instumentLabels allObjects] mutableCopy];
+        
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            [self.detectedInstrumentsCollectionView reloadData];
+            self.submitButton.enabled = YES;
+        });
+    }];
 }
 
 - (void)deleteFile {
@@ -169,37 +242,42 @@
     }
 }
 
+#pragma mark - CollectionView methods
 
-#pragma mark - Playing the recording
-
-- (void)playRecording {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+- (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    static NSString * const DETECTED_INSTRUMENT_CELL_IDENTIFIER = @"DetectedInstrumentCell";
     
-    NSURL *url = [AudioRecorderViewController getRecordingURL];
-    NSError *error = nil;
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-    self.audioPlayer.delegate = self;
-    self.audioPlayer.numberOfLoops = 0;
-    [self.audioPlayer play];
-    
-    [self.playButton setTitle:@"Stop Playing" forState:UIControlStateNormal];
-}
+    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:DETECTED_INSTRUMENT_CELL_IDENTIFIER forIndexPath:indexPath];
 
-- (void)stopPlaying {
-    if (self.audioPlayer) {
-        [self.audioPlayer stop];
-        self.audioPlayer = nil;
+    if (cell) {
+        NSString *instumentTitle = self.instrumentLabels[indexPath.item]; //TODO: translate to full word using a hash map
+        [cell setCellWithTitle:instumentTitle canRemove:YES];
         
-        [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+        cell.removeLikedGenre = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+            [self removeInstrumentLabel:cell];
+        };
     }
+    
+    return cell;
 }
 
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player
-                       successfully:(BOOL)flag {
-    if (flag) {
-        [self stopPlaying];
-    }
+- (void)removeInstrumentLabel:(LikedGenreCollectionViewCell *_Nonnull)cell {
+    NSInteger indexToRemove = [self.detectedInstrumentsCollectionView indexPathForCell:cell].item;
+    
+    [self.instrumentLabels removeObjectAtIndex:indexToRemove];
+    [self.detectedInstrumentsCollectionView reloadData];
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.instrumentLabels.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static const NSInteger INSTRUMENT_CELL_HEIGHT = 50;
+    
+    return CGSizeMake(self.detectedInstrumentsCollectionView.frame.size.width, INSTRUMENT_CELL_HEIGHT);
 }
 
 @end

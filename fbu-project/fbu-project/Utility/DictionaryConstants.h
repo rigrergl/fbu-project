@@ -20,6 +20,7 @@ extern NSString * const RECORDING_KEY;
 extern NSString * const LATITUDE_KEY;
 extern NSString * const LONGITUDE_KEY;
 extern NSString * const PROFILE_IMAGE_KEY;
+extern NSString * const INSTRUMENTS_IN_RECORDING;
 
 //Like
 extern NSString * const LIKE_CLASS_NAME;
@@ -51,6 +52,9 @@ extern NSString * const EVENT_TITLE_KEY;
 extern NSString * const EVENT_IMAGE_KEY;
 extern NSString * const EVENT_INVITED_KEY;
 extern NSString * const EVENT_ACCEPTED_KEY;
+
+//LikedInstrument
+extern NSString * const LIKED_INSTRUMENT_CLASS_NAME;
 
 @end
 
