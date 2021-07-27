@@ -16,19 +16,26 @@
 
 @interface EventsViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 
-@property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, atomic) NSMutableArray<Event *> *_Nonnull attendingEvents;
 @property (strong, nonatomic) NSMutableArray<Event *> *_Nonnull invitedEvents;
 
 @end
 
-@implementation EventsViewController
-
-static const int ATTENDING_SECTION_NUMBER = 0;
-static const int INVITED_SECTION_NUMBER = 1;
+static const NSInteger NUMBER_OF_SECTIONS_IN_COLLECTION_VIEW = 2;
+static const NSInteger ATTENDING_SECTION_NUMBER = 0;
+static const NSInteger INVITED_SECTION_NUMBER = 1;
+static NSInteger EVENT_GROUP_DIMENSIONS = 250;
+static NSInteger EVENT_EDGE_INSETS = 5;
+static NSInteger SECTION_HEADER_HEIGHT = 44;
+static NSString * const SECTION_HEADER_ELEMENT_KIND = @"section-header-element-kind";
+static NSString * ATTENDING_SECTION_TITLE = @"Attending";
+static NSString * INVITED_SECTION_TITLE = @"Invited";
 static NSString * const EVENT_CELL_IDENTIFIER = @"EventCollectionViewCell";
 static NSString * const SEGUE_TO_CHAT_IDENTIFIER = @"eventsToChat";
 static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
+
+@implementation EventsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,8 +49,6 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
 }
 
 - (void)fetchAttendingEvents {
-    //TODO: test that accepted events query works (event acceptance implementation required first)
-    
     self.attendingEvents = [[NSMutableArray alloc] init];
     
     PFQuery *organizerQuery = [PFQuery queryWithClassName:[Event parseClassName]];
@@ -85,10 +90,6 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
 
 # pragma mark  - CollectionView methods
 
-static NSString * const SECTION_HEADER_ELEMENT_KIND = @"section-header-element-kind";
-static NSString * ATTENDING_SECTION_TITLE = @"Attending";
-static NSString * INVITED_SECTION_TITLE = @"Invited";
-
 - (void)setupCollectionViews {
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -99,10 +100,6 @@ static NSString * INVITED_SECTION_TITLE = @"Invited";
 }
 
 - (UICollectionViewLayout *) generateLayout {
-    static int EVENT_GROUP_DIMENSIONS = 250;
-    static int EVENT_EDGE_INSETS = 5;
-    static int SECTION_HEADER_HEIGHT = 44;
-    
     UICollectionViewLayout *layout = [[UICollectionViewCompositionalLayout alloc] initWithSectionProvider:^NSCollectionLayoutSection *_Nullable(NSInteger section, id<NSCollectionLayoutEnvironment> sectionProvider) {
         
         //item
@@ -171,11 +168,10 @@ static NSString * INVITED_SECTION_TITLE = @"Invited";
 
 - (void)acceptInvite:(EventCollectionViewCell *_Nonnull)cell {
     Event *acceptedEvent = cell.event;
-    long indexOfAcceptedEvent = [self.collectionView indexPathForCell:cell].item;
+    NSInteger indexOfAcceptedEvent = [self.collectionView indexPathForCell:cell].item;
     [self.invitedEvents removeObjectAtIndex:indexOfAcceptedEvent];
     [self.attendingEvents insertObject:acceptedEvent atIndex:0];
     
-    [self.collectionView reloadData];
     [self.collectionView reloadData];
     
     [acceptedEvent moveUserToAccepted:[PFUser currentUser]];
@@ -191,7 +187,7 @@ static NSString * INVITED_SECTION_TITLE = @"Invited";
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 2;
+    return NUMBER_OF_SECTIONS_IN_COLLECTION_VIEW;
 }
 
 #pragma mark - Navigation
@@ -199,7 +195,6 @@ static NSString * INVITED_SECTION_TITLE = @"Invited";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue
                  sender:(id)sender {
     if ([segue.identifier isEqualToString:SEGUE_TO_CHAT_IDENTIFIER]) {
-        
         Event *event = (Event *) sender;
         ChatViewController *destinationController = [segue destinationViewController];
         destinationController.event = event;

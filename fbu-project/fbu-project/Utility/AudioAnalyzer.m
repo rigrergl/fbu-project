@@ -16,6 +16,7 @@
 @end
 
 static const NSInteger INTRUMENT_LABELS_SET_INITIAL_CAPACITY = 3;
+static const CGFloat MIN_CONFIDENCE = 0.9;
 NSString * const CELLO_IDENTIFIER = @"cel";
 NSString * const CLARINET_IDENTIFIER = @"cla";
 NSString * const FLUTE_IDENTIFIER = @"flu";
@@ -55,7 +56,6 @@ didProduceResult:(nonnull id<SNResult>)result {
 
 - (void)addInstrumentLabelIfConfident:(NSString *)label
                            confidence:(CGFloat)confidence {
-    static const CGFloat MIN_CONFIDENCE = 0.9;
     if (confidence > MIN_CONFIDENCE) {
         [self.setOfInstrumentLabels addObject:label];
     }

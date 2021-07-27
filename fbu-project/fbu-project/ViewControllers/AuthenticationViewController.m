@@ -10,17 +10,17 @@
 
 @interface AuthenticationViewController ()
 
-@property (strong, nonatomic) IBOutlet UITextField *_Nonnull usernameField;
-@property (strong, nonatomic) IBOutlet UITextField *_Nonnull passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *usernameField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @end
-
-@implementation AuthenticationViewController
 
 static NSString * const ERROR_ALERT_TITLE = @"Error";
 static NSString * const EMPTY_FIELDS_ERROR_MESSAGE = @"Empty fields";
 static NSString * const OK_ALERT_ACTION_TITLE = @"OK";
 static NSString * const LOGIN_SEGUE_TITLE = @"loginSegue";
+
+@implementation AuthenticationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

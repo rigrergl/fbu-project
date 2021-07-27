@@ -18,10 +18,14 @@
 
 @end
 
-@implementation MediaPlayBackView
-
 static NSString * const PLAY_IMAGE_NAME = @"play";
 static NSString * const STOP_IMAGE_NAME = @"stop";
+static CGFloat PROGRESS_VIEW_APPEARANCE_ANIMATION_DURATION = 0.5;
+static NSInteger PROGRESS_VIEW_Y = 70;
+static NSInteger PROGRESS_VIEW_HEIGHT = 50;
+static CGFloat PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
+
+@implementation MediaPlayBackView
 
 - (id)initWithFrame:(CGRect)frame
             andData:(NSData *_Nonnull)data {
@@ -90,11 +94,6 @@ static NSString * const STOP_IMAGE_NAME = @"stop";
 }
 
 - (void)showProgressView {
-    static float PROGRESS_VIEW_APPEARANCE_ANIMATION_DURATION = 0.5;
-    static int PROGRESS_VIEW_Y = 70;
-    static int PROGRESS_VIEW_HEIGHT = 50;
-    static float PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
-    
     CGFloat barWidth = self.frame.size.width;
     self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - barWidth/2,
                                                                          PROGRESS_VIEW_Y,
@@ -120,8 +119,8 @@ static NSString * const STOP_IMAGE_NAME = @"stop";
         return;
     }
     
-    float totalTime = self.audioPlayer.duration;
-    float currentTime = self.audioPlayer.currentTime / totalTime;
+    CGFloat totalTime = self.audioPlayer.duration;
+    CGFloat currentTime = self.audioPlayer.currentTime / totalTime;
     
     self.progressView.progress = currentTime;
 }

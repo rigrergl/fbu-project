@@ -9,13 +9,14 @@
 #import "DraggableViewBackground.h"
 #import <Parse/Parse.h>
 
+static const NSInteger MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any given time, must be greater than 1
+
 @implementation DraggableViewBackground {
     UIButton* menuButton;
     UIButton* messageButton;
 }
 //this makes it so only two cards are loaded at a time to
 //avoid performance and memory costs
-static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any given time, must be greater than 1
 
 @synthesize exampleCardLabels; //%%% all the labels I'm using as example data at the moment //%%% all the labels I'm using as example data at the moment
 @synthesize allCards;//%%% all the cards
@@ -77,7 +78,7 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
         //%%% if the buffer size is greater than the data size, there will be an array error, so this makes sure that doesn't happen
         
         //%%% loops through the exampleCardsLabels array to create a card for each label.  This should be customized by removing "exampleCardLabels" with your own array of data
-        for (int i = 0; i<[exampleCardLabels count]; i++) {
+        for (NSInteger i = 0; i<[exampleCardLabels count]; i++) {
             DraggableView* newCard = [self createDraggableViewWithDataAtIndex:i];
             [allCards addObject:newCard];
             
@@ -89,7 +90,7 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
         
         //%%% displays the small number of loaded cards dictated by MAX_BUFFER_SIZE so that not all the cards
         // are showing at once and clogging a ton of data
-        for (int i = 0; i<[loadedCards count]; i++) {
+        for (NSInteger i = 0; i<[loadedCards count]; i++) {
             if (i>0) {
                 [self insertSubview:[loadedCards objectAtIndex:i] belowSubview:[loadedCards objectAtIndex:i-1]];
             } else {

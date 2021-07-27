@@ -12,11 +12,10 @@
 
 @end
 
-@implementation SceneDelegate
-
 static NSString * const MAIN_STORYBOARD_NAME = @"Main";
 static NSString * const TAB_BAR_CONTROLLER_IDENTIFIER = @"TabBarController";
 
+@implementation SceneDelegate
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.

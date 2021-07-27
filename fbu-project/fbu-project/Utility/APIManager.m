@@ -7,20 +7,18 @@
 
 #import "APIManager.h"
 
-@implementation APIManager
-
 static NSString * const KEYS_PATH = @"Keys";
 static NSString * const KEYS_PATH_FILE_TYPE = @"plist";
 static NSString * const SPOTIFY_CLIENT_ID_KEY = @"spotify_client_id";
 static NSString * const SPOTIFY_CLIENT_SECRET_KEY = @"spotify_client_secret";
-
 static NSString * const SPOTIFY_ACCOUNTS_URL_STRING = @"https://accounts.spotify.com/api/token?grant_type=client_credentials";
 static NSString * const SPOTIFY_TOKEN_REQUEST_CONTENT_TYPE = @"application/x-www-form-urlencoded";
 static NSString * const SPOTIFY_ACCESS_TOKEN_KEY = @"access_token";
 static NSString * const SPOTIFY_GENRE_SEEDS_URL_STRING = @"https://api.spotify.com/v1/recommendations/available-genre-seeds";
 static NSString * const SPOTIFY_GENRES_KEY = @"genres";
-
 static NSString * const THE_AUDIO_DB_JSON_URL_STRING = @"https://theaudiodb.com/api/v1/json/1/search.php?s=%@";
+
+@implementation APIManager
 
 + (NSString *)base64URLSafeEncode:(NSString *)originalString {
     NSData *originalData = [originalString dataUsingEncoding:NSUTF8StringEncoding];

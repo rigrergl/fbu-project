@@ -309,10 +309,10 @@
 }
 
 - (void)testPointsForCommonGenres {
-    int nilPoints = PointsForCommonGenres(nil, nil);
+    NSInteger nilPoints = PointsForCommonGenres(nil, nil);
     XCTAssert(nilPoints == 0);
     
-    int zeroPoints = PointsForCommonGenres([PFUser new], [PFUser new]);
+    NSInteger zeroPoints = PointsForCommonGenres([PFUser new], [PFUser new]);
     XCTAssert(zeroPoints == 0);
 }
 

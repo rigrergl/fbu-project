@@ -18,6 +18,7 @@
                          match: (Match *_Nullable)match
                          event:(Event *_Nullable)event
                     completion:(DirectMessageReturnBlock _Nullable)completion {
+    
     DirectMessage *newMessage = [DirectMessage new];
     newMessage.author = [PFUser currentUser];
     newMessage.match = match;

@@ -39,20 +39,17 @@
         self.accepted = [[NSMutableArray alloc] init];
     }
     
-    
     NSMutableSet<PFUser *> *acceptedSet = [[NSMutableSet alloc] initWithArray:self.accepted];
     [acceptedSet addObject:[PFUser currentUser]];
     
-    self.accepted = (NSMutableArray *)[acceptedSet allObjects];
+    self.accepted = [acceptedSet allObjects];
    
-    int indexOfCurrentUserInInvited = 0;
-    while (indexOfCurrentUserInInvited < self.invited.count) {
-        if ([self.invited[indexOfCurrentUserInInvited].objectId isEqualToString:[PFUser currentUser].objectId]) {
-            [self.invited removeObjectAtIndex:indexOfCurrentUserInInvited];
-            break;
+    [self.invited enumerateObjectsUsingBlock:^(PFUser *_Nonnull user, NSUInteger index, BOOL *_Nonnull stop) {
+        if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
+            [self.invited removeObjectAtIndex:index];
+            *stop = YES;
         }
-        indexOfCurrentUserInInvited++;
-    }
+    }];
     
     [self setObject:self.invited forKey:EVENT_INVITED_KEY];
     [self saveInBackground];

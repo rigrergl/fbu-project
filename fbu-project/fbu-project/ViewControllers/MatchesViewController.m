@@ -15,8 +15,8 @@
 
 @interface MatchesViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
-@property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull matchesCollectionView;
-@property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull conversationsCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *matchesCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *conversationsCollectionView;
 @property (strong, nonatomic) NSArray *_Nullable matchedUsers;
 @property (strong, nonatomic) NSArray *_Nullable matches;
 
@@ -26,9 +26,13 @@
 
 @end
 
-@implementation MatchesViewController
-
 static NSString * const MATCH_TO_CHAT_SEGUE_IDENTIFIER = @"matchToChat";
+static NSString * const MATCH_CELL_IDENTIFIER = @"MatchCollectionViewCell";
+static NSString * const CONVERSATION_CELL_IDENTIFIER = @"ConversationCollectionViewCell";
+static const NSInteger MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS = 60;
+static const NSInteger CONVERSATIONS_COLLECTION_CELL_HEIGHT = 76;
+
+@implementation MatchesViewController
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -59,7 +63,7 @@ static NSString * const MATCH_TO_CHAT_SEGUE_IDENTIFIER = @"matchToChat";
     self.unconversedMatchesIndexes = [[NSMutableArray alloc] init];
     self.conversedMatchIndexes = [[NSMutableArray alloc] init];
     
-    for (int i = 0; i < self.matches.count; i++) {
+    for (NSInteger i = 0; i < self.matches.count; i++) {
         Match *match = self.matches[i];
         if (match.hasConversationStarted) {
             [self.conversedMatchIndexes addObject: @(i)];
@@ -73,20 +77,17 @@ static NSString * const MATCH_TO_CHAT_SEGUE_IDENTIFIER = @"matchToChat";
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString * const MATCH_CELL_IDENTIFIER = @"MatchCollectionViewCell";
-    static NSString * const CONVERSATION_CELL_IDENTIFIER = @"ConversationCollectionViewCell";
-    
     if (collectionView == self.matchesCollectionView) {
         MatchCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MATCH_CELL_IDENTIFIER forIndexPath:indexPath];
         
-        int indexInFullArray = [self.unconversedMatchesIndexes[indexPath.item] intValue];
+        NSInteger indexInFullArray = [self.unconversedMatchesIndexes[indexPath.item] intValue];
         [cell setCellWithUser:self.matchedUsers[indexInFullArray]];
         
         return cell;
     } else {
         ConversationCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CONVERSATION_CELL_IDENTIFIER forIndexPath:indexPath];
         
-        int indexInFullArray = [self.conversedMatchIndexes[indexPath.item] intValue];
+        NSInteger indexInFullArray = [self.conversedMatchIndexes[indexPath.item] intValue];
         Match *match = self.matches[indexInFullArray];
         PFUser *user = self.matchedUsers[indexInFullArray];
         
@@ -107,7 +108,7 @@ static NSString * const MATCH_TO_CHAT_SEGUE_IDENTIFIER = @"matchToChat";
 
 - (void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    int indexOfMatch;
+    NSInteger indexOfMatch;
     if (collectionView == self.conversationsCollectionView) {
         indexOfMatch = [self.conversedMatchIndexes[indexPath.item] intValue];
     } else {
@@ -120,9 +121,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static const int MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS = 60;
-    static const int CONVERSATIONS_COLLECTION_CELL_HEIGHT = 76;
-    
     if (collectionView == self.matchesCollectionView) {
         return CGSizeMake(MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS, MATCHES_COLLECTION_VIEW_CELL_DIMENSIONS);
     } else {

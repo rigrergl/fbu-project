@@ -17,6 +17,8 @@
 
 @end
 
+static const CGFloat CELL_CORNER_RADIUS = 14;
+
 @implementation EventCollectionViewCell
 
 - (void)awakeFromNib {
@@ -68,7 +70,6 @@
 }
 
 -  (void)setRoundedCorners {
-    static const float CELL_CORNER_RADIUS = 14;
     self.layer.cornerRadius = CELL_CORNER_RADIUS;
     self.layer.masksToBounds = YES;
 }

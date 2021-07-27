@@ -12,19 +12,21 @@
 #import "MessagePoller.h"
 #import <Parse/Parse.h>
 
-static int INPUT_VIEW_BORDER_WIDTH = 1;
-static float INPUT_VIEW_CORNER_RADIUS = 10.0f;
-static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
-
 @interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
-@property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull collectionView;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *_Nullable messages;
-@property (strong, nonatomic) IBOutlet UITextView *_Nonnull inputTextView;
-@property (strong, nonatomic) IBOutlet UILabel *_Nonnull chatNameLabel;
+@property (weak, nonatomic) IBOutlet UITextView *inputTextView;
+@property (weak, nonatomic) IBOutlet UILabel *chatNameLabel;
 @property (nonatomic, strong) NSTimer *_Nullable refreshTimer;
 @property (nonatomic, assign) CGFloat originalFrameHeight;
  
 @end
+
+static NSInteger INPUT_VIEW_BORDER_WIDTH = 1;
+static CGFloat INPUT_VIEW_CORNER_RADIUS = 10.0f;
+static CGFloat KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
+static NSString * const CHAT_CELL_IDENTIFIER = @"chatCell";
 
 @implementation ChatViewController
 
@@ -177,8 +179,6 @@ static float KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString * const CHAT_CELL_IDENTIFIER = @"chatCell";
-    
     MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CHAT_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {

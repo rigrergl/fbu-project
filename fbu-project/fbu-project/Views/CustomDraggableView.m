@@ -11,20 +11,20 @@
 #import "UnLike.h"
 #import "DictionaryConstants.h"
 
-static int PLAYBACK_VIEW_X = 20;
-static int PLAYBACK_VIEW_Y = 200;
-static int PLAYBACK_VIEW_HEIGHT = 200;
-
-static int USERNAME_LABEL_X = 0;
-static int USERNAME_LABEL_Y = 50;
-static int USERNAME_LABEL_HEIGHT = 100;
-
 @interface CustomDraggableView ()
 
 @property (nonatomic, strong) PFUser *_Nonnull user;
 @property (nonatomic, strong) MediaPlayBackView *_Nonnull playbackView;
 
 @end
+
+static NSInteger PLAYBACK_VIEW_X = 20;
+static NSInteger PLAYBACK_VIEW_Y = 200;
+static NSInteger PLAYBACK_VIEW_HEIGHT = 200;
+
+static NSInteger USERNAME_LABEL_X = 0;
+static NSInteger USERNAME_LABEL_Y = 50;
+static NSInteger USERNAME_LABEL_HEIGHT = 100;
 
 @implementation CustomDraggableView
 

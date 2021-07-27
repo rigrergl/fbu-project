@@ -12,13 +12,13 @@
 
 @end
 
-@implementation AppDelegate
-
 static NSString * const APP_ID_KEY = @"app_id";
 static NSString * const CLIENT_KEY = @"client_key";
 static NSString * const KEYS_PATH = @"Keys";
 static NSString * const KEYS_PATH_FILE_TYPE = @"plist";
 static NSString * const PARSE_URL_STRING = @"https://parseapi.back4app.com";
+
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *path = [[NSBundle mainBundle] pathForResource: KEYS_PATH ofType: KEYS_PATH_FILE_TYPE];

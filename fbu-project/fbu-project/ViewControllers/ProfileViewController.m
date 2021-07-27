@@ -17,8 +17,23 @@
 #import "CommonFunctions.h"
 #import "LikedInstrument.h"
 
-static int SAVED_PROFILE_IMAGE_DIMENSIONS = 500; //limit the size of images being saved in database
-static int GENRE_CELL_HEIGHT = 50;
+@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *playbackContainerView;
+@property (strong, nonatomic) MediaPlayBackView *_Nullable playbackView;
+@property (weak, nonatomic) IBOutlet UICollectionView *likedGenresCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *likedInstrumentsCollectionView;
+@property (assign, nonatomic) BOOL canEditProfile;
+@property (strong, nonatomic) NSMutableArray<LikedGenre *> *_Nullable likedGenres;
+@property (strong, nonatomic) NSMutableArray<LikedInstrument *> *_Nullable likedInstruments;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *changeProfileImageButton;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
+@end
+
+static NSInteger SAVED_PROFILE_IMAGE_DIMENSIONS = 500; //limit the size of images being saved in database
+static NSInteger GENRE_CELL_HEIGHT = 50;
 
 static NSString * const LIKED_GENRE_CELL_IDENTIFIER = @"LikedGenreCollectionViewCell";
 static NSString * const LIKED_INSTRUMENT_CELL_IDENTIFIER = @"LikedInstrumentCell";
@@ -29,21 +44,6 @@ static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationVie
 static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
 static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
 static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
-
-@interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
-@property (strong, nonatomic) IBOutlet UIView *_Nonnull playbackContainerView;
-@property (strong, nonatomic) MediaPlayBackView *_Nullable playbackView;
-@property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull likedGenresCollectionView;
-@property (weak, nonatomic) IBOutlet UICollectionView *likedInstrumentsCollectionView;
-@property (assign, nonatomic) BOOL canEditProfile;
-@property (strong, nonatomic) NSMutableArray<LikedGenre *> *_Nullable likedGenres;
-@property (strong, nonatomic) NSMutableArray<LikedInstrument *> *_Nullable likedInstruments;
-@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *changeProfileImageButton;
-@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-
-@end
 
 @implementation ProfileViewController
 

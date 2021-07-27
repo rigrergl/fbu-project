@@ -10,7 +10,7 @@
 #import "DictionaryConstants.h"
 #import "StylingConstants.h"
 
-static float LATEST_MESSAGE_UPDATE_ANIMATION_DURATION = 0.1;
+static CGFloat LATEST_MESSAGE_UPDATE_ANIMATION_DURATION = 0.1;
 
 @implementation ConversationCollectionViewCell
 

@@ -11,14 +11,14 @@
 #import "DictionaryConstants.h"
 
 
-static const int POINTS_FOR_VERY_SHORT_DISTANCE = 0; //0-10 miles
-static const int POINTS_FOR_SHORT_DISTANCE = 5; //10-50 miles
-static const int POINTS_FOR_MEDIUM_DISTANCE = 10; //50-100 miles
-static const int POINTS_FOR_LONG_DISTANCE = 20; //100-500 miles
-static const int POINTS_FOR_VERY_LONG_DISTANCE = 40; //500-1000 miles
-static const int POINTS_FOR_MAX_DISTANCE = 60; //1000+ miles
+static const NSInteger POINTS_FOR_VERY_SHORT_DISTANCE = 0; //0-10 miles
+static const NSInteger POINTS_FOR_SHORT_DISTANCE = 5; //10-50 miles
+static const NSInteger POINTS_FOR_MEDIUM_DISTANCE = 10; //50-100 miles
+static const NSInteger POINTS_FOR_LONG_DISTANCE = 20; //100-500 miles
+static const NSInteger POINTS_FOR_VERY_LONG_DISTANCE = 40; //500-1000 miles
+static const NSInteger POINTS_FOR_MAX_DISTANCE = 60; //1000+ miles
 
-static const int POINTS_FOR_COMMON_GENRE = -5;
+static const NSInteger POINTS_FOR_COMMON_GENRE = -5;
 static const NSInteger POINTS_FOR_MATCHING_INSTRUMENT_IN_RECORDING = -5;
 
 NSArray<PFUser *> *_Nullable NotLikedUsers(void) {
@@ -63,7 +63,7 @@ CLLocation * LocationForUser(PFUser *_Nonnull user) {
     }
 }
 
-double DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
+CGFloat DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
     CLLocation *currentUserLocation = LocationForUser(user1);
     CLLocation *otherUserLocation = LocationForUser(user2);
     
@@ -74,7 +74,7 @@ double DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
     }
 }
 
-int PointsForDistance(double distance) {
+NSInteger PointsForDistance(double distance) {
     if (distance < 0) {
         return 0;
     }
@@ -107,7 +107,7 @@ NSSet<NSString *> * SetWithGenreTitles(NSArray<LikedGenre *> *_Nonnull likedGenr
     return genreTitles;
 }
 
-int PointsForCommonGenres(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
+NSInteger PointsForCommonGenres(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
     if (user1 == nil || user2 == nil) {
         return 0;
     }
@@ -128,7 +128,7 @@ int PointsForCommonGenres(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
         return 0;
     }
     
-    int genrePoints = 0;
+    NSInteger genrePoints = 0;
     NSSet<NSString *> *user1GenresTitlesSet = SetWithGenreTitles(user1LikedGenres);
     for (LikedGenre *likedGenre in user2LikedGenres) {
         if ([user1GenresTitlesSet containsObject:likedGenre.title]) {
@@ -180,7 +180,7 @@ NSNumber * RankUserForUser(PFUser *_Nonnull recommendedUser, PFUser *_Nonnull cu
     }
     
     //higher numbers = lower priority
-    int rank = 0;
+    NSInteger rank = 0;
     
     double distance = DistanceBetweenUsers(currentUser, recommendedUser);
     rank += PointsForDistance(distance);

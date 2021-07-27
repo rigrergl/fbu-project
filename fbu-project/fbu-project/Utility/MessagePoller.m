@@ -19,12 +19,12 @@
 
 @end
 
+NSString * const NEW_MESSAGE_NOTIFICATION_NAME = @"NewMessageNotification";
+static const CGFloat POLL_INTERVAL_SEC = 5;
+
 @implementation MessagePoller {
     BOOL continuePolling;
 }
-
-NSString * const NEW_MESSAGE_NOTIFICATION_NAME = @"NewMessageNotification";
-static const float POLL_INTERVAL_SEC = 5;
 
 + (instancetype)shared {
     static MessagePoller *sharedPoller = nil;

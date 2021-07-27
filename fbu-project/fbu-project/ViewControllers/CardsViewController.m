@@ -20,6 +20,8 @@
 
 @end
 
+static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
+
 @implementation CardsViewController
 
 - (void)viewDidLoad {
@@ -52,8 +54,6 @@
 
 
 - (void)insertDraggableView:(NSArray *)users {
-    static float CARDS_ENTRY_ANIMATION_DURATION = 0.5;
-    
     CGFloat topBarHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat bottomBarHeight = self.tabBarController.tabBar.frame.size.height;
     

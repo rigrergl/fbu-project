@@ -28,9 +28,20 @@
 
 @end
 
-@implementation NewEventViewController
-
 static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddInvitee";
+static NSString * const EMPTY_FIELDS_ALERT_TITLE = @"Error";
+static NSString * const EMPTY_FIELDS_ALERT_MESSAGE = @"Empty Fields";
+static NSString * const INVITEE_CELL_IDENTIFIER = @"InviteeCollectionViewCell";
+static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
+static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
+static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
+static NSInteger IMAGE_STANDARD_DIMENSIONS = 500;
+static const CGFloat EVENT_PICTURE_CORNER_RADIUS = 14;
+static const CGFloat CLOSE_INDICATOR_CORNER_RADIUS = 4;
+static const NSInteger INVITEE_CELL_WIDTH = 60;
+
+
+@implementation NewEventViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,9 +102,6 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
 }
 
 - (void)styleScreen {
-    static const float EVENT_PICTURE_CORNER_RADIUS = 14;
-    static const float CLOSE_INDICATOR_CORNER_RADIUS = 4;
-    
     self.eventPictureView.layer.cornerRadius = EVENT_PICTURE_CORNER_RADIUS;
     self.eventPictureView.layer.masksToBounds = YES;
     
@@ -106,8 +114,6 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
 }
 
 - (IBAction)didTapSave:(UIButton *)sender {
-    static NSString * const EMPTY_FIELDS_ALERT_TITLE = @"Error";
-    static NSString * const EMPTY_FIELDS_ALERT_MESSAGE = @"Empty Fields";
     PFFileObject *imageObject = getFileFromImage(self.eventPictureView.image);
     
     if ([self isFormValid]) {
@@ -150,7 +156,6 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
 }
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString * const INVITEE_CELL_IDENTIFIER = @"InviteeCollectionViewCell";
     
     InviteeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:INVITEE_CELL_IDENTIFIER forIndexPath:indexPath];
     
@@ -165,7 +170,7 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
 }
 
 - (void)removeInvitee:(InviteeCollectionViewCell *_Nonnull)cell {
-    long indexToRemove = [self.inviteesCollectionView indexPathForCell:cell].item;
+    CGFloat indexToRemove = [self.inviteesCollectionView indexPathForCell:cell].item;
 
     [self.invitees removeObjectAtIndex:indexToRemove];
     [self.inviteesCollectionView reloadData];
@@ -178,7 +183,6 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static const int INVITEE_CELL_WIDTH = 60;
     return CGSizeMake(INVITEE_CELL_WIDTH, self.inviteesCollectionView.frame.size.height);
 }
 
@@ -197,12 +201,6 @@ static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddIn
 }
 
 #pragma mark - Changing Image
-
-static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
-static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
-static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
-
-static int IMAGE_STANDARD_DIMENSIONS = 500;
 
 - (IBAction)didTapChangeImage:(UIButton *)sender {
     UIAlertController *photoAlert = [UIAlertController alertControllerWithTitle:nil

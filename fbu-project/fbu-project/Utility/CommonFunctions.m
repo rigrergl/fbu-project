@@ -7,6 +7,9 @@
 
 #import "CommonFunctions.h"
 
+static NSString * const IMAGE_NAME = @"image.png";
+static NSString * const OK_ACTION_TITLE = @"OK";
+
 #pragma mark - Images
 
 UIImage * resizeImage(UIImage *_Nonnull image, CGSize size) {
@@ -24,8 +27,6 @@ UIImage * resizeImage(UIImage *_Nonnull image, CGSize size) {
 }
 
 PFFileObject * getFileFromImage(UIImage *_Nullable image) {
-    static NSString * const IMAGE_NAME = @"image.png";
-    
     // check if image is not nil
     if (!image) {
         return nil;
@@ -43,8 +44,6 @@ PFFileObject * getFileFromImage(UIImage *_Nullable image) {
 #pragma mark - Alerts
 
 UIAlertController * createOkAlert(NSString *_Nullable title, NSString *_Nullable message) {
-    static NSString * const OK_ACTION_TITLE = @"OK";
-    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:message
                                                             preferredStyle:(UIAlertControllerStyleAlert)];

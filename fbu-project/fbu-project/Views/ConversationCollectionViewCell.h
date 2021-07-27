@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ConversationCollectionViewCell : UICollectionViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *_Nonnull profileImageView;
-@property (strong, nonatomic) IBOutlet UILabel *_Nonnull usernameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *_Nonnull latestMessageLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *latestMessageLabel;
 
 - (void)setCellWithUser:(PFUser *)user
                andMatch:(Match *)match;

@@ -18,6 +18,9 @@
 
 @end
 
+static NSString * const ADD_INVITEE_CELL_IDENTIFIER = @"AddInviteeCollectionViewCell";
+static const NSInteger ADD_INVITEE_CELL_HEIGHT = 76;
+
 @implementation AddInviteeViewController
 
 - (void)viewDidLoad {
@@ -46,8 +49,6 @@
 }
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString * const ADD_INVITEE_CELL_IDENTIFIER = @"AddInviteeCollectionViewCell";
-    
     AddInviteeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ADD_INVITEE_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
@@ -64,8 +65,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static const int ADD_INVITEE_CELL_HEIGHT = 76;
-    
     return CGSizeMake(self.view.frame.size.width, ADD_INVITEE_CELL_HEIGHT);
 }
 

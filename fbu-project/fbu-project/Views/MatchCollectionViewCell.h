@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MatchCollectionViewCell : UICollectionViewCell
 
-@property (strong, nonatomic) IBOutlet UIImageView *_Nonnull profileImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 
 - (void)setCellWithUser:(PFUser *)user;
 

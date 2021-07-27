@@ -16,7 +16,7 @@
 @interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-@property (strong, nonatomic) IBOutlet UIButton *_Nonnull recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (strong, nonatomic) AVAudioSession *_Nonnull recordingSession;
 @property (strong, nonatomic) AVAudioRecorder *_Nullable audioRecorder;
 @property (strong, nonatomic) NSData *_Nullable recordingData;
@@ -28,10 +28,14 @@
 
 @end
 
-@implementation AudioRecorderViewController
-
 static NSString * const RECORDING_BUTTON_IDLE_IMAGE_NAME = @"record.circle";
 static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fill";
+static NSString * const DETECTED_INSTRUMENT_CELL_IDENTIFIER = @"DetectedInstrumentCell";
+static NSString * const RECORDING_TITLE = @"recording.m4a";
+static const NSInteger INSTRUMENT_CELL_HEIGHT = 50;
+static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
+
+@implementation AudioRecorderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -127,8 +131,6 @@ static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fil
 }
 
 + (NSURL *)getRecordingURL {
-    static NSString * const RECORDING_TITLE = @"recording.m4a";
-    
     NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     
     NSURL *documentsDirectory = paths[0];
@@ -152,8 +154,6 @@ static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fil
 }
 
 - (void)showPlaybackView {
-    static float SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
-    
     if (self.playbackContainerView.alpha != 1 ||
         self.detectedInstrumentsCollectionView.alpha != 1 ||
         self.collectionViewTitleLabel.alpha != 1) {
@@ -245,12 +245,10 @@ static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fil
 #pragma mark - CollectionView methods
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString * const DETECTED_INSTRUMENT_CELL_IDENTIFIER = @"DetectedInstrumentCell";
-    
     LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:DETECTED_INSTRUMENT_CELL_IDENTIFIER forIndexPath:indexPath];
 
     if (cell) {
-        NSString *instumentTitle = self.instrumentLabels[indexPath.item]; //TODO: translate to full word using a hash map
+        NSString *instumentTitle = self.instrumentLabels[indexPath.item];
         [cell setCellWithTitle:instumentTitle canRemove:YES];
         
         cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
@@ -275,8 +273,6 @@ static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fil
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static const NSInteger INSTRUMENT_CELL_HEIGHT = 50;
-    
     return CGSizeMake(self.detectedInstrumentsCollectionView.frame.size.width, INSTRUMENT_CELL_HEIGHT);
 }
 

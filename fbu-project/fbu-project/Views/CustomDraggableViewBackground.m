@@ -8,13 +8,12 @@
 #import "CustomDraggableViewBackground.h"
 #import "CustomDraggableView.h"
 
-@implementation CustomDraggableViewBackground
-
-static const int BUTTON_SECTION_HEIGHT = 120;
-static const int MAX_BUFFER_SIZE = 5;
-
+static const NSInteger BUTTON_SECTION_HEIGHT = 120;
+static const NSInteger MAX_BUFFER_SIZE = 5;
 static NSString * const X_BUTTON_IMAGE_NAME = @"xButton";
 static NSString * const CHECK_BUTTON_IMAGE_NAME = @"checkButton";
+
+@implementation CustomDraggableViewBackground
 
 - (id)initWithFrame:(CGRect)frame
            andUsers:(NSArray *)users {
@@ -61,7 +60,7 @@ static NSString * const CHECK_BUTTON_IMAGE_NAME = @"checkButton";
         //%%% if the buffer size is greater than the data size, there will be an array error, so this makes sure that doesn't happen
         
         //%%% loops through the exampleCardsLabels array to create a card for each label.  This should be customized by removing "exampleCardLabels" with your own array of data
-        for (int i = 0; i<[self.users count]; i++) {
+        for (NSInteger i = 0; i<[self.users count]; i++) {
             DraggableView* newCard = [self createDraggableViewWithDataAtIndex:i];
             [super.allCards addObject:newCard];
             
@@ -73,7 +72,7 @@ static NSString * const CHECK_BUTTON_IMAGE_NAME = @"checkButton";
         
         //%%% displays the small number of loaded cards dictated by MAX_BUFFER_SIZE so that not all the cards
         // are showing at once and clogging a ton of data
-        for (int i = 0; i<[super.loadedCards count]; i++) {
+        for (NSInteger i = 0; i<[super.loadedCards count]; i++) {
             if (i>0) {
                 [self insertSubview:[super.loadedCards objectAtIndex:i] belowSubview:[super.loadedCards objectAtIndex:i-1]];
             } else {
