@@ -55,6 +55,8 @@ extern NSString * const EVENT_ACCEPTED_KEY;
 
 //LikedInstrument
 extern NSString * const LIKED_INSTRUMENT_CLASS_NAME;
+extern NSString * const LIKED_INSTRUMENT_USER_KEY;
+extern NSString * const LIKED_INSTRUMENT_TITLE_KEY;
 
 @end
 

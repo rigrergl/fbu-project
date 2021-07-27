@@ -53,5 +53,7 @@ NSString * const EVENT_ACCEPTED_KEY = @"accepted";
 
 //LikedInstrument
 NSString * const LIKED_INSTRUMENT_CLASS_NAME = @"LikedInstrument";
+NSString * const LIKED_INSTRUMENT_USER_KEY = @"user";
+NSString * const LIKED_INSTRUMENT_TITLE_KEY = @"title";
 
 @end

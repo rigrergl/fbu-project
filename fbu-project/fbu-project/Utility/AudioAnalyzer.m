@@ -15,8 +15,7 @@
 
 @end
 
-@implementation AudioAnalyzer
-
+static const NSInteger INTRUMENT_LABELS_SET_INITIAL_CAPACITY = 3;
 NSString * const CELLO_IDENTIFIER = @"cel";
 NSString * const CLARINET_IDENTIFIER = @"cla";
 NSString * const FLUTE_IDENTIFIER = @"flu";
@@ -29,7 +28,7 @@ NSString * const TRUMPET_IDENTIFIER = @"tru";
 NSString * const VIOLIN_IDENTIFIER = @"vio";
 NSString * const HUMAN_SINGING_VOICE_IDENTIFIER = @"voi";
 
-static const NSInteger INTRUMENT_LABELS_SET_INITIAL_CAPACITY = 3;
+@implementation AudioAnalyzer
 
 + (SNClassifySoundRequest *)makeInstrumentClassifyRequest {
     MLModel *model = [MLModel modelWithContentsOfURL:[MySoundClassifier URLOfModelInThisBundle] error:nil];

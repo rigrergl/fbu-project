@@ -19,6 +19,7 @@ static const int POINTS_FOR_VERY_LONG_DISTANCE = 40; //500-1000 miles
 static const int POINTS_FOR_MAX_DISTANCE = 60; //1000+ miles
 
 static const int POINTS_FOR_COMMON_GENRE = -5;
+static const NSInteger POINTS_FOR_MATCHING_INSTRUMENT_IN_RECORDING = -5;
 
 NSArray<PFUser *> *_Nullable NotLikedUsers(void) {
     if ([PFUser currentUser] == nil) {
@@ -138,6 +139,41 @@ int PointsForCommonGenres(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
     return genrePoints;
 }
 
+NSInteger PointsForMatchingInstrumentsInRecording(PFUser *_Nonnull otherUser) {
+    if ([PFUser currentUser] == nil || otherUser == nil) {
+        return 0;
+    }
+    
+    //fetch current user's liked instruments
+    PFQuery *likedInstrumentsQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
+    [likedInstrumentsQuery includeKey:LIKED_INSTRUMENT_TITLE_KEY];
+    [likedInstrumentsQuery whereKey:LIKED_INSTRUMENT_USER_KEY equalTo:[PFUser currentUser]];
+    NSError *error;
+    NSArray<LikedInstrument *> *currentUserLikedInstrumentsArray = [likedInstrumentsQuery findObjects:&error];
+    if (error || !currentUserLikedInstrumentsArray) {
+        return 0;
+    }
+    
+    NSMutableSet<NSString *> *currentUserLikedInstrumentsSet = [[NSMutableSet alloc] initWithCapacity:currentUserLikedInstrumentsArray.count];
+    for (LikedInstrument *likedInstrument in currentUserLikedInstrumentsArray) {
+        [currentUserLikedInstrumentsSet addObject:likedInstrument.title];
+    }
+    
+    [otherUser fetchIfNeeded];
+    [[PFUser currentUser] fetchIfNeeded];
+    NSArray<NSString *> *recordingTags = otherUser[INSTRUMENTS_IN_RECORDING];
+    
+    
+    NSInteger instrumentPoints = 0;
+    for (NSString *instrument in recordingTags) {
+        if ([currentUserLikedInstrumentsSet containsObject:instrument]) {
+            instrumentPoints += POINTS_FOR_MATCHING_INSTRUMENT_IN_RECORDING;
+        }
+    }
+    
+    return instrumentPoints;
+}
+
 NSNumber * RankUserForUser(PFUser *_Nonnull recommendedUser, PFUser *_Nonnull currentUser) {
     if (recommendedUser == nil || currentUser == nil) {
         return @INT_MAX;
@@ -150,6 +186,7 @@ NSNumber * RankUserForUser(PFUser *_Nonnull recommendedUser, PFUser *_Nonnull cu
     rank += PointsForDistance(distance);
     
     rank += PointsForCommonGenres(recommendedUser, currentUser);
+    rank += PointsForMatchingInstrumentsInRecording(recommendedUser);
     
     return @(rank);
 }

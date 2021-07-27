@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)fetchGenres:(PFArrayResultBlock _Nullable)completion;
 
-+ (NSString *)formatArtistName:(NSString *)artistName;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -35,8 +35,8 @@
 - (IBAction)didTapRemoveButton:(UIButton *)sender {
     if (!self.canRemove) {
         return;
-    } else if (self.removeLikedGenre) {
-        self.removeLikedGenre(self);
+    } else if (self.removeLikedEntity) {
+        self.removeLikedEntity(self);
     }
 }
 

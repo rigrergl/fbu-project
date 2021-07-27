@@ -23,7 +23,20 @@ extern NSString * TRUMPET_DISPLAY_NAME;
 extern NSString * VIOLIN_DISPLAY_NAME;
 extern NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME;
 
+typedef void(^LikedInstrumentReturnBlock)(LikedInstrument *_Nullable newLikedInstrument, NSError *_Nullable error);
+
+@property (nonatomic, strong) NSString *_Nonnull title;
+@property (nonatomic, strong) PFUser *_Nonnull user;
+
 + (NSString *)getDisplayNameForInstrument:(NSString *)shortName;
++ (NSArray<NSString *> *)InstrumentIdentifiers;
+
++ (void)postLikedInstrument:(NSString *)title
+               forUser:(PFUser *)user
+            completion:(LikedInstrumentReturnBlock _Nullable)completion;
+
++ (void)deleteLikedInstrument:(LikedInstrument *)likedInstrument
+              completion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

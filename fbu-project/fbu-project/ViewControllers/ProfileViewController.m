@@ -15,17 +15,30 @@
 #import "AddLikedGenreViewController.h"
 #import "DictionaryConstants.h"
 #import "CommonFunctions.h"
+#import "LikedInstrument.h"
 
 static int SAVED_PROFILE_IMAGE_DIMENSIONS = 500; //limit the size of images being saved in database
 static int GENRE_CELL_HEIGHT = 50;
+
+static NSString * const LIKED_GENRE_CELL_IDENTIFIER = @"LikedGenreCollectionViewCell";
+static NSString * const LIKED_INSTRUMENT_CELL_IDENTIFIER = @"LikedInstrumentCell";
+static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER = @"profileToAddLikedGenre";
+static NSString * const PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER = @"profileToAddLikedInstrument";
+static NSString * const MAIN_STORYBOARD_NAME = @"Main";
+static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationViewController";
+static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
+static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
+static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *_Nonnull playbackContainerView;
 @property (strong, nonatomic) MediaPlayBackView *_Nullable playbackView;
 @property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull likedGenresCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *likedInstrumentsCollectionView;
 @property (assign, nonatomic) BOOL canEditProfile;
-@property (strong, nonatomic) NSMutableArray *_Nullable likedGenres;
+@property (strong, nonatomic) NSMutableArray<LikedGenre *> *_Nullable likedGenres;
+@property (strong, nonatomic) NSMutableArray<LikedInstrument *> *_Nullable likedInstruments;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileImageButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
@@ -33,8 +46,6 @@ static int GENRE_CELL_HEIGHT = 50;
 @end
 
 @implementation ProfileViewController
-
-static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGenre";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +59,7 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
     [self setupEditRights];
     [self setupCollectionView];
     [self fetchLikedGenres];
+    [self fetchLikedInstruments];
     [self fetchUserData];
     [self doStyling];
 }
@@ -88,6 +100,9 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
 - (void)setupCollectionView {
     self.likedGenresCollectionView.delegate = self;
     self.likedGenresCollectionView.dataSource = self;
+    
+    self.likedInstrumentsCollectionView.delegate = self;
+    self.likedInstrumentsCollectionView.dataSource = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -96,11 +111,24 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
     }
 }
 
+- (void)fetchLikedInstruments {
+    //TODO: fetch and reload collection view
+    PFQuery *likedInstrumentsQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
+    [likedInstrumentsQuery whereKey:LIKED_INSTRUMENT_USER_KEY equalTo:self.targetUser];
+    
+    [likedInstrumentsQuery findObjectsInBackgroundWithBlock:^(NSArray<LikedInstrument *> *_Nullable likedInstruments, NSError *_Nullable error) {
+        if (!error && likedInstruments) {
+            self.likedInstruments = likedInstruments;
+            [self.likedInstrumentsCollectionView reloadData];
+        }
+    }];
+}
+
 - (void)fetchLikedGenres {
     PFQuery *likedGenreQuery = [PFQuery queryWithClassName:[LikedGenre parseClassName]];
     [likedGenreQuery whereKey:LIKED_GENRE_USER_KEY equalTo:self.targetUser];
     
-    [likedGenreQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likedGenres, NSError *error){
+    [likedGenreQuery findObjectsInBackgroundWithBlock:^(NSArray<LikedGenre *> *_Nullable likedGenres, NSError *error){
         if (!error && likedGenres) {
             self.likedGenres = likedGenres;
             [self.likedGenresCollectionView reloadData];
@@ -147,9 +175,6 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
 }
 
 - (IBAction)didTapLogout:(UIBarButtonItem *)sender {
-    static NSString * const MAIN_STORYBOARD_NAME = @"Main";
-    static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationViewController";
-    
     SceneDelegate *sceneDelegate = (SceneDelegate *)[UIApplication sharedApplication].connectedScenes.allObjects[0].delegate;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:MAIN_STORYBOARD_NAME bundle:nil];
@@ -162,16 +187,25 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
 #pragma mark - CollectionView methods
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    static NSString * const LIKED_GENRE_CELL_IDENTIFIER = @"LikedGenreCollectionViewCell";
+    NSString *cellIdentifier = collectionView == self.likedGenresCollectionView? LIKED_GENRE_CELL_IDENTIFIER : LIKED_INSTRUMENT_CELL_IDENTIFIER;
     
-    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LIKED_GENRE_CELL_IDENTIFIER forIndexPath:indexPath];
+    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (cell) {
-        LikedGenre *genre = self.likedGenres[indexPath.item];
-        [cell setCellWithTitle:genre.title canRemove:self.canEditProfile];
-        cell.removeLikedGenre = ^(LikedGenreCollectionViewCell *_Nonnull cell){
-            [self removeLikedGenre:cell];
-        };
+        if (collectionView == self.likedGenresCollectionView) {
+            LikedGenre *genre = self.likedGenres[indexPath.item];
+            [cell setCellWithTitle:genre.title canRemove:self.canEditProfile];
+            cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+                [self removeLikedGenre:cell];
+            };
+        } else {
+            LikedInstrument *instrument = self.likedInstruments[indexPath.item];
+            NSString *instrumentDisplayName = [LikedInstrument getDisplayNameForInstrument:instrument.title];
+            [cell setCellWithTitle:instrumentDisplayName canRemove:self.canEditProfile];
+            cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+                [self removeLikedInstrument:cell];
+            };
+        }
     }
     
     return cell;
@@ -184,35 +218,65 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.likedGenres.count;
+    if (collectionView == self.likedGenresCollectionView) {
+        return self.likedGenres.count;
+    } else {
+        return self.likedInstruments.count;
+    }
 }
 
 - (IBAction)addLikedGenre:(UIButton *)sender {
-    [self performSegueWithIdentifier:PROFILE_TO_ADD_GENRE_SEGUE_TITLE sender:nil];
+    [self performSegueWithIdentifier:PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER sender:nil];
+}
+
+- (IBAction)addLikedInstrument:(UIButton *)sender {
+    [self performSegueWithIdentifier:PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER sender:nil];
 }
 
 - (void)removeLikedGenre:(LikedGenreCollectionViewCell *_Nonnull)cell {
-    long indexToRemove = [self.likedGenresCollectionView indexPathForCell:cell].item;
+    NSInteger indexToRemove = [self.likedGenresCollectionView indexPathForCell:cell].item;
     LikedGenre *genreToRemove = self.likedGenres[indexToRemove];
     
     //remove corresponding genre from the database
-    [LikedGenre deleteLikedGenre:genreToRemove completion:^(BOOL succeeded, NSError *_Nullable error){}];
+    [LikedGenre deleteLikedGenre:genreToRemove completion:nil];
     
     //remove the cell from the local collection view
     [self.likedGenres removeObjectAtIndex:indexToRemove];
     [self.likedGenresCollectionView reloadData];
 }
 
+- (void)removeLikedInstrument:(LikedGenreCollectionViewCell *_Nonnull)cell {
+    NSInteger indexToRemove = [self.likedInstrumentsCollectionView indexPathForCell:cell].item;
+    LikedInstrument *instrumentToRemove = self.likedInstruments[indexToRemove];
+    
+    //remove corresponding liked instrument from the database
+    [LikedInstrument deleteLikedInstrument:instrumentToRemove completion:nil];
+    
+    //remove the cell from the local collection view
+    [self.likedInstruments removeObjectAtIndex:indexToRemove];
+    [self.likedInstrumentsCollectionView reloadData];
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if ([segue.identifier isEqualToString:PROFILE_TO_ADD_GENRE_SEGUE_TITLE]) {
+    if ([segue.identifier isEqualToString:PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER]) {
         AddLikedGenreViewController *destinationViewController = [segue destinationViewController];
+        destinationViewController.didAddLikedInstrument = nil;
         destinationViewController.didAddLikedGenre = ^(LikedGenre *newLikedGenre){
             if (newLikedGenre != nil) {
                 [self.likedGenres insertObject:newLikedGenre atIndex:0];
                 [self.likedGenresCollectionView reloadData];
+            }
+        };
+    } else if ([segue.identifier isEqualToString:PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER]) {
+        AddLikedGenreViewController *destinationViewController = [segue destinationViewController];
+        destinationViewController.didAddLikedGenre = nil;
+        destinationViewController.didAddLikedInstrument = ^(LikedInstrument *newLikedInstrument) {
+            if (newLikedInstrument != nil) {
+                [self.likedInstruments insertObject:newLikedInstrument atIndex:0];
+                [self.likedInstrumentsCollectionView reloadData];
             }
         };
     }
@@ -221,10 +285,6 @@ static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_TITLE = @"profileToAddLikedGe
 #pragma mark - Editing profile
 
 - (IBAction)didTapChangeProfileImage:(UIButton *)sender {
-    static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
-    static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
-    static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
-    
     UIAlertController *photoAlert = [UIAlertController alertControllerWithTitle:nil
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];

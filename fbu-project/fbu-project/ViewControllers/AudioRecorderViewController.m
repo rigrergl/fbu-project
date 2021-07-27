@@ -253,7 +253,7 @@ static NSString * const RECORDING_BUTTON_ACTIVE_IMAGE_NAME = @"record.circle.fil
         NSString *instumentTitle = self.instrumentLabels[indexPath.item]; //TODO: translate to full word using a hash map
         [cell setCellWithTitle:instumentTitle canRemove:YES];
         
-        cell.removeLikedGenre = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+        cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
             [self removeInstrumentLabel:cell];
         };
     }

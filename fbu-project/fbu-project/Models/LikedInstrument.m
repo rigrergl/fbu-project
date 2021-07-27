@@ -9,12 +9,6 @@
 #import "DictionaryConstants.h"
 #import "AudioAnalyzer.h"
 
-@implementation LikedInstrument
-
-+ (nonnull NSString *)parseClassName {
-    return LIKED_INSTRUMENT_CLASS_NAME;
-}
-
 NSString * CELLO_DISPLAY_NAME = @"cello";
 NSString * CLARINET_DISPLAY_NAME = @"clarinet";
 NSString * FLUTE_DISPLAY_NAME = @"flute";
@@ -26,6 +20,12 @@ NSString * SAXOPHONE_DISPLAY_NAME = @"saxophone";
 NSString * TRUMPET_DISPLAY_NAME = @"trumpet";
 NSString * VIOLIN_DISPLAY_NAME = @"violin";
 NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME = @"voice";
+
+@implementation LikedInstrument
+
++ (nonnull NSString *)parseClassName {
+    return LIKED_INSTRUMENT_CLASS_NAME;
+}
 
 + (NSDictionary<NSString *, NSString *> *_Nonnull)sharedTranslationDictionary {
     static NSDictionary<NSString *, NSString *> *fullInstrumentNamesDictionary = nil;
@@ -52,10 +52,61 @@ NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME = @"voice";
 }
 
 + (NSString *)getDisplayNameForInstrument:(NSString *)shortName {
-    NSDictionary<NSString *, NSString *> *namesDictionary =  [self sharedTranslationDictionary];
+    if (shortName == nil) {
+        return nil;
+    }
+    
+    NSDictionary<NSString *, NSString *> *namesDictionary =  [LikedInstrument sharedTranslationDictionary];
     NSString *fullName =  [namesDictionary objectForKey:shortName];
     return fullName;
 }
 
++ (NSArray<NSString *> *)InstrumentIdentifiers {
+    NSDictionary<NSString *, NSString *> *namesDictionary = [LikedInstrument sharedTranslationDictionary];
+    NSArray<NSString *> *keys = [namesDictionary allKeys];
+    return keys;
+}
+
++ (void)postLikedInstrument:(NSString *)title
+               forUser:(PFUser *)user
+            completion:(LikedInstrumentReturnBlock _Nullable)completion {
+    
+    LikedInstrument *newLikedInstrument = [LikedInstrument new];
+    newLikedInstrument.title = title;
+    newLikedInstrument.user = user;
+    
+    [LikedInstrument postLikedInstrumentIfNew:newLikedInstrument completion:completion];
+}
+
++ (void)postLikedInstrumentIfNew:(LikedInstrument *)likedInstrument
+                 completion:(LikedInstrumentReturnBlock _Nullable)completion {
+    PFQuery *likedInstrumentQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
+    [likedInstrumentQuery whereKey:LIKED_INSTRUMENT_TITLE_KEY equalTo:likedInstrument.title];
+    [likedInstrumentQuery whereKey:LIKED_INSTRUMENT_USER_KEY equalTo:likedInstrument.user];
+    
+    [likedInstrumentQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable matchingObjects, NSError *_Nullable error){
+        if (!error && matchingObjects && matchingObjects.count == 0) {
+            [likedInstrument saveInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){
+                if (completion) {
+                    completion(likedInstrument, nil);
+                }
+            }];
+        } else if (completion){
+            completion(nil, error);
+        }
+    }];
+}
+
++ (void)deleteLikedInstrument:(LikedInstrument *)likedInstrument
+              completion:(PFBooleanResultBlock _Nullable)completion {
+    PFQuery *likedInstrumentQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
+    [likedInstrumentQuery getObjectInBackgroundWithId:likedInstrument.objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
+        [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){
+            if (completion) {
+                completion(succeeded, error);
+            }
+        }];
+    }];
+}
 
 @end

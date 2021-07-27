@@ -64,6 +64,15 @@
     
     NSString *voiceDisplayName = [LikedInstrument getDisplayNameForInstrument:HUMAN_SINGING_VOICE_IDENTIFIER];
     XCTAssert([voiceDisplayName isEqualToString:HUMAN_SINGING_VOICE_DISPLAY_NAME]);
+    
+    NSString *nilTest = [LikedInstrument getDisplayNameForInstrument:nil];
+    XCTAssert(nilTest == nil);
+    
+    NSString *emptyTest = [LikedInstrument getDisplayNameForInstrument:@""];
+    XCTAssert(emptyTest == nil);
+    
+    NSString *gibberishTest = [LikedInstrument getDisplayNameForInstrument:@"agjlhfg"];
+    XCTAssert(gibberishTest == nil);
 }
 
 - (void)testLikedGenre {
@@ -121,24 +130,6 @@
     }];
     
     [self waitForExpectationsWithTimeout:10 handler:nil];
-}
-
-- (void)testFormatArtistName {
-    NSString *testString = @" joHn   MayeR ";
-    NSString *resultString = [APIManager formatArtistName:testString];
-    NSString *expectedString = @"john_mayer";
-    XCTAssert([resultString isEqualToString:expectedString]);
-    
-    testString = @"THe Beatles ";
-    resultString = [APIManager formatArtistName:testString];
-    expectedString = @"the_beatles";
-    XCTAssert([resultString isEqualToString:expectedString]);
-    
-    testString = @"ColdPlay";
-    resultString = [APIManager formatArtistName:testString];
-    expectedString = @"coldplay";
-    XCTAssert([resultString isEqualToString:expectedString]);
-    
 }
 
 - (void)testMatchingUsers {
@@ -322,6 +313,14 @@
     XCTAssert(nilPoints == 0);
     
     int zeroPoints = PointsForCommonGenres([PFUser new], [PFUser new]);
+    XCTAssert(zeroPoints == 0);
+}
+
+- (void)testPointsForMatchingInstrumentsInRecording {
+    NSInteger nilPoints = PointsForMatchingInstrumentsInRecording(nil);
+    XCTAssert(nilPoints == 0);
+    
+    NSInteger zeroPoints = PointsForMatchingInstrumentsInRecording([PFUser new]);
     XCTAssert(zeroPoints == 0);
 }
 

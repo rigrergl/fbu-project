@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
 @property (assign, nonatomic) BOOL canRemove;
-@property (copy, nonatomic) void (^removeLikedGenre)(LikedGenreCollectionViewCell *_Nonnull cell);
+@property (copy, nonatomic) void (^removeLikedEntity)(LikedGenreCollectionViewCell *_Nonnull cell);
 
 - (void)setCellWithTitle:(NSString *)likedGenreTitle
                canRemove:(BOOL)canRemove;

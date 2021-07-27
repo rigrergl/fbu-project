@@ -13,8 +13,8 @@
 
 @property (strong, nonatomic) IBOutlet UICollectionView *_Nonnull collectionView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
-@property (strong, nonatomic) NSArray *_Nonnull genreTitles;
-@property (strong, nonatomic) NSArray *_Nonnull filteredGenreTitles;
+@property (strong, nonatomic) NSArray<NSString *> *_Nonnull entryTitles;
+@property (strong, nonatomic) NSArray<NSString *> *_Nonnull filteredEntryTitles;
 
 @end
 
@@ -24,7 +24,13 @@ static int CELL_HEIGHT = 50;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fetchGenres];
+    
+    if (self.didAddLikedGenre) {
+        [self fetchGenres];
+    } else {
+        [self fetchInstrumentIdentifiers];
+    }
+    
     [self setupCollectionView];
     self.searchBar.delegate = self;
 }
@@ -34,10 +40,15 @@ static int CELL_HEIGHT = 50;
     self.collectionView.dataSource = self;
 }
 
+- (void)fetchInstrumentIdentifiers {
+    self.entryTitles = self.filteredEntryTitles = [LikedInstrument InstrumentIdentifiers];
+    [self.collectionView reloadData];
+}
+
 - (void)fetchGenres {
     [APIManager fetchGenres:^(NSArray *_Nullable genres, NSError *_Nullable error){
         if (genres) {
-            self.genreTitles = self.filteredGenreTitles = genres;
+            self.entryTitles = self.filteredEntryTitles = genres;
             [self.collectionView reloadData];
         }
     }];
@@ -55,14 +66,18 @@ static int CELL_HEIGHT = 50;
     AddLikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ADD_LIKED_GENRE_CELL_IDENTIFIER
                                                                                       forIndexPath:indexPath];
     if (cell) {
-        cell.titleLabel.text = self.filteredGenreTitles[indexPath.item];
+        if (self.didAddLikedInstrument) {
+            cell.titleLabel.text = [LikedInstrument getDisplayNameForInstrument:self.filteredEntryTitles[indexPath.item]];
+        } else if (self.didAddLikedGenre) {
+            cell.titleLabel.text = self.filteredEntryTitles[indexPath.item];
+        }
     }
     
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.filteredGenreTitles.count;
+    return self.filteredEntryTitles.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -72,12 +87,22 @@ static int CELL_HEIGHT = 50;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *genreTitle = self.filteredGenreTitles[indexPath.item];
-    [LikedGenre postLikedGenre:genreTitle forUser:[PFUser currentUser] completion:^(LikedGenre *newLikedGenre, NSError *error){
-        if (self.didAddLikedGenre) {
+    NSString *selectedEntryTitle = self.filteredEntryTitles[indexPath.item];
+    
+    if (self.didAddLikedGenre) {
+        [LikedGenre postLikedGenre:selectedEntryTitle
+                           forUser:[PFUser currentUser]
+                        completion:^(LikedGenre *_Nullable newLikedGenre, NSError *_Nullable error){
             self.didAddLikedGenre(newLikedGenre);
-        }
-    }];
+        }];
+    } else if (self.didAddLikedInstrument) {
+        [LikedInstrument postLikedInstrument:selectedEntryTitle
+                                     forUser:[PFUser currentUser]
+                                  completion:^(LikedInstrument *_Nullable newLikedInstrument, NSError *_Nullable error) {
+            self.didAddLikedInstrument(newLikedInstrument);
+        }];
+    }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -88,10 +113,10 @@ static int CELL_HEIGHT = 50;
         NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(NSString *genreTitle, NSDictionary *bindings) {
             return [genreTitle localizedCaseInsensitiveContainsString:searchText];
         }];
-        self.filteredGenreTitles = [self.genreTitles filteredArrayUsingPredicate:predicate];
+        self.filteredEntryTitles = [self.entryTitles filteredArrayUsingPredicate:predicate];
     }
     else {
-        self.filteredGenreTitles = self.genreTitles;
+        self.filteredEntryTitles = self.entryTitles;
     }
     
     [self.collectionView reloadData];

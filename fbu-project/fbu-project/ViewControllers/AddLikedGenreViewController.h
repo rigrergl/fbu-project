@@ -7,12 +7,14 @@
 
 #import <UIKit/UIKit.h>
 #import "LikedGenre.h"
+#import "LikedInstrument.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddLikedGenreViewController : UIViewController
 
-@property (copy, nonatomic) void (^didAddLikedGenre)(LikedGenre *newLikedGenre);
+@property (copy, nonatomic) void (^_Nullable didAddLikedGenre)(LikedGenre *_Nullable newLikedGenre);
+@property (copy, nonatomic) void (^_Nullable didAddLikedInstrument)(LikedInstrument *_Nullable newLikedInstrument);
 
 @end
 
