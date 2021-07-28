@@ -38,6 +38,8 @@
         if (!error && likes && likes.count == 0) {
             [newLike saveInBackgroundWithBlock:completion];
             [Like makeMatchIfApplicable:newLike];
+        } else {
+            completion(NO, error);
         }
     }];
 }
@@ -70,6 +72,8 @@
                     completion(succeeded, error);
                 }
             }];
+        } else if (completion) {
+            completion(NO, error);
         }
     }];
 }

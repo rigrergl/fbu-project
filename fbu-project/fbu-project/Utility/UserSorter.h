@@ -15,7 +15,7 @@ extern NSArray *_Nullable Recommended(void);
 
 extern NSArray<PFUser *> *_Nullable NotLikedUsers(void);
 extern CLLocation * LocationForUser(PFUser *_Nonnull user);
-extern CGFloat DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2);
+extern CLLocationDistance DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2);
 extern NSInteger PointsForDistance(double distance);
 extern NSSet<NSString *> * SetWithGenreTitles(NSArray<LikedGenre *> *_Nonnull likedGenres);
 extern NSInteger PointsForCommonGenres(PFUser *_Nonnull user1, PFUser *_Nonnull user2);

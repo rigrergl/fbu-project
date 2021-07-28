@@ -10,6 +10,7 @@
 #import "DictionaryConstants.h"
 #import "AddInviteeViewController.h"
 #import "CommonFunctions.h"
+#import "EventLocationPickerViewController.h"
 #import <Parse/Parse.h>
 
 @interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) NSMutableArray<PFUser *> *_Nonnull invitees;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
+@property (strong, nonatomic) CLLocation *_Nonnull location;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *closeIndicator;
 @property (assign, nonatomic) BOOL canEdit;
@@ -29,6 +31,7 @@
 @end
 
 static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddInvitee";
+static NSString * const NEW_EVENT_TO_MAP_SEGUE_IDENTIFIER = @"newEventToMap";
 static NSString * const EMPTY_FIELDS_ALERT_TITLE = @"Error";
 static NSString * const EMPTY_FIELDS_ALERT_MESSAGE = @"Empty Fields";
 static NSString * const INVITEE_CELL_IDENTIFIER = @"InviteeCollectionViewCell";
@@ -52,6 +55,7 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
         [self setEvent:self.event];
     } else {
         self.invitees = [[NSMutableArray alloc] init];
+        self.canEdit = YES;
     }
 }
 
@@ -270,7 +274,45 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
                 [self addInvitee:user];
             }
         };
+    } else if ([segue.identifier isEqualToString:NEW_EVENT_TO_MAP_SEGUE_IDENTIFIER]) {
+        EventLocationPickerViewController *destinationViewController = [segue destinationViewController];
+        [destinationViewController setViewController:[self inviteesPlusOrganizerArray]
+                              didSelectLocationBlock:^(CLLocation *_Nonnull selectedLocation){
+            [self updateEventLocation:selectedLocation];
+        }];
     }
+}
+
+- (NSArray<PFUser *> *)inviteesPlusOrganizerArray {
+    NSMutableArray<PFUser *> *array = [[NSMutableArray alloc] initWithArray:self.invitees];
+    [array addObject:[PFUser currentUser]];
+    return array;
+}
+
+#pragma mark - Location
+
+- (void)updateEventLocation:(CLLocation *_Nonnull)location {
+    self.location = location;
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
+        if (placemarks && placemarks.count > 0) {
+            CLPlacemark *placemark = placemarks.firstObject;
+            self.locationField.text = [NewEventViewController getAddressStringFromPlacemark:placemark];
+        }
+    }];
+}
+
++ (NSString *)getAddressStringFromPlacemark:(CLPlacemark *_Nonnull)placemark {
+    NSString *city = placemark.locality;
+    NSString *state = placemark.administrativeArea;
+    NSString *zip  = placemark.postalCode;
+    NSString *streetLine1 = placemark.thoroughfare;
+    NSString *streetNumber = placemark.subThoroughfare;
+    
+    NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@, %@, %@", streetNumber, streetLine1, city, state, zip];
+    return formattedAddress;
 }
 
 @end

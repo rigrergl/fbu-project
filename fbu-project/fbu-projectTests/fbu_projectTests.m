@@ -16,6 +16,7 @@
 #import "UserSorter.h"
 #import "LikedInstrument.h"
 #import "AudioAnalyzer.h"
+#import "OptimalLocation.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -260,13 +261,13 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"LocationForUser expectation"];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        double newUsersDistance = DistanceBetweenUsers([PFUser new], [PFUser new]);
-        double nilUsersDistance = DistanceBetweenUsers(nil, nil);
-        double zeroDistance = DistanceBetweenUsers([PFUser currentUser], [PFUser currentUser]);
+        CLLocationDistance newUsersDistance = DistanceBetweenUsers([PFUser new], [PFUser new]);
+        CLLocationDistance nilUsersDistance = DistanceBetweenUsers(nil, nil);
+        CLLocationDistance zeroDistance = DistanceBetweenUsers([PFUser currentUser], [PFUser currentUser]);
         
         dispatch_sync(dispatch_get_main_queue(), ^{
-            XCTAssert(newUsersDistance == CGFLOAT_MAX);
-            XCTAssert(nilUsersDistance == CGFLOAT_MAX);
+            XCTAssert(newUsersDistance == CLLocationDistanceMax);
+            XCTAssert(nilUsersDistance == CLLocationDistanceMax);
             XCTAssert(zeroDistance == 0.0);
             [expectation fulfill];
         });
@@ -324,5 +325,86 @@
     XCTAssert(zeroPoints == 0);
 }
 
+#pragma mark - Testing OptimalLocation
+
+- (void)testComputeOptimalLocationBruteForce {
+    //nil input == nil output
+    MKPointAnnotation *nilInputResult = ComputeOptimalLocationBruteForce(nil);
+    XCTAssert(nilInputResult == nil);
+    
+    //array of 1 annotation should return that annotation
+    MKPointAnnotation *singleAnnotation = [MKPointAnnotation new];
+    NSArray<MKPointAnnotation *> *oneAnnotationArray = @[singleAnnotation];
+    MKPointAnnotation *oneAnnotationArrayResult = ComputeOptimalLocationBruteForce(oneAnnotationArray);
+    XCTAssert([oneAnnotationArrayResult isEqual:singleAnnotation]);
+    
+    //5 coordinates in the US with one clearly in the middle, make sure that one is returned
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:41 longitude:-101];
+    CLLocation *westLocation = [[CLLocation alloc] initWithLatitude:37 longitude:-122];
+    CLLocation *northLocation = [[CLLocation alloc] initWithLatitude:47 longitude:-100];
+    CLLocation *southLocation = [[CLLocation alloc] initWithLatitude:29 longitude:-98];
+    CLLocation *eastLocation = [[CLLocation alloc] initWithLatitude:38 longitude:-75];
+    
+    NSArray<CLLocation *> *locations = @[centerLocation, westLocation, northLocation, southLocation, eastLocation];
+    NSMutableArray<MKPointAnnotation *> *annotations = [[NSMutableArray alloc] initWithCapacity:locations.count];
+    for (CLLocation *location in locations) {
+        MKPointAnnotation *annotation = [MKPointAnnotation new];
+        annotation.coordinate = location.coordinate;
+        [annotations addObject:annotation];
+    }
+    
+    MKPointAnnotation *optimalAnnotation = ComputeOptimalLocationBruteForce(annotations);
+    XCTAssert(optimalAnnotation.coordinate.latitude == centerLocation.coordinate.latitude);
+    XCTAssert(optimalAnnotation.coordinate.longitude == centerLocation.coordinate.longitude);
+}
+
+- (void)testAggregateDistance {
+    //nil input --> CLLocationDistanceMax output
+    CLLocationDistance testNil = AggregateDistance(nil, nil);
+    XCTAssert(testNil == CLLocationDistanceMax);
+    
+    //test with array of some other input type
+    NSArray<NSString *> *nonAnnotationArray = @[@"hello", @"world"];
+    MKPointAnnotation *dummyAnnotation = [MKPointAnnotation new];
+    CLLocationDistance testTypeSafety = AggregateDistance(dummyAnnotation, nonAnnotationArray);
+    XCTAssert(testTypeSafety == CLLocationDistanceMax);
+}
+
+- (void)testDistanceBetweenAnnotations {
+    //test nil inputs --> nil output
+    CLLocationDistance nilInputResult = DistanceBetweenAnnotations(nil, nil);
+    XCTAssert(nilInputResult == CLLocationDistanceMax);
+    
+    //make CLLocation objects, get distance using CLLocation method, create annotations from CLLocations and plug into DistanceBetweenAnnotations, make sure that both results are equal
+    CLLocation *originalLocation1 = [[CLLocation alloc] initWithLatitude:45 longitude:-48];
+    CLLocation *originalLocation2 = [[CLLocation alloc] initWithLatitude:-34 longitude:58];
+    CLLocationDistance expectedDistance =  [originalLocation1 distanceFromLocation:originalLocation2];
+    
+    MKPointAnnotation *annotation1 = [MKPointAnnotation new];
+    annotation1.coordinate = originalLocation1.coordinate;
+    MKPointAnnotation *annotation2 = [MKPointAnnotation new];
+    annotation2.coordinate = originalLocation2.coordinate;
+    CLLocationDistance resultDistance = DistanceBetweenAnnotations(annotation1, annotation2);
+    
+    XCTAssert(resultDistance == expectedDistance);
+}
+
+- (void)testLocationWithCoordinate {
+    //create a CLLocation, plug the location's coordinates into LocationWithCoordiates, make sure output location coordinates are the same as original location coordinates
+    
+    CLLocationCoordinate2D originalCoordinate = CLLocationCoordinate2DMake(67, -9);
+    CLLocation *originalLocation = [[CLLocation alloc] initWithLatitude:originalCoordinate.latitude longitude:originalCoordinate.longitude];
+    
+    CLLocation *resultLocation = LocationWithCoordinate(originalCoordinate);
+    XCTAssert(resultLocation.coordinate.latitude == originalLocation.coordinate.latitude);
+    XCTAssert(resultLocation.coordinate.longitude == originalLocation.coordinate.longitude);
+}
+
+- (void)testOptimalLocationPerformance {
+    //TODO: make sure the improved algorithm is faster than the brute force approach
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+    }];
+}
 
 @end

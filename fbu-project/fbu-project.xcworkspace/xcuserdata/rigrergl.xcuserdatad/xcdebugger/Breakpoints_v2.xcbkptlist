@@ -31,7 +31,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
             uuid = "A70F6407-33AB-464A-9D9C-5E31BCCBCC57"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             symbolName = "warnBlockingOperationOnMainThread"
@@ -47,7 +47,7 @@
             <Locations>
                <Location
                   uuid = "A70F6407-33AB-464A-9D9C-5E31BCCBCC57 - a63f593de8e1ee0f"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "warnBlockingOperationOnMainThread"

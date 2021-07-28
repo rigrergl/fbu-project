@@ -31,6 +31,9 @@
 		3B4BB28A269CC98800E5F692 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB289269CC98800E5F692 /* main.m */; };
 		3B4BB294269CC98800E5F692 /* fbu_projectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB293269CC98800E5F692 /* fbu_projectTests.m */; };
 		3B4BB29F269CC98800E5F692 /* fbu_projectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */; };
+		3B5FBF1426B0DB3A00B0424F /* EventLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBF1326B0DB3A00B0424F /* EventLocationPickerViewController.m */; };
+		3B5FBF1626B0DD1700B0424F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B5FBF1526B0DD1700B0424F /* MapKit.framework */; };
+		3B5FBF1926B1166D00B0424F /* OptimalLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBF1826B1166D00B0424F /* OptimalLocation.m */; };
 		3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6100A826A5D86E00325CF2 /* UserSorter.m */; };
 		3B6328D226A8975800C009FA /* MessagePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6328D126A8975800C009FA /* MessagePoller.m */; };
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
@@ -129,6 +132,11 @@
 		3B4BB29A269CC98800E5F692 /* fbu-projectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fbu-projectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4BB29E269CC98800E5F692 /* fbu_projectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fbu_projectUITests.m; sourceTree = "<group>"; };
 		3B4BB2A0269CC98800E5F692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B5FBF1226B0DB3A00B0424F /* EventLocationPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventLocationPickerViewController.h; sourceTree = "<group>"; };
+		3B5FBF1326B0DB3A00B0424F /* EventLocationPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventLocationPickerViewController.m; sourceTree = "<group>"; };
+		3B5FBF1526B0DD1700B0424F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3B5FBF1726B1166D00B0424F /* OptimalLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptimalLocation.h; sourceTree = "<group>"; };
+		3B5FBF1826B1166D00B0424F /* OptimalLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OptimalLocation.m; sourceTree = "<group>"; };
 		3B6100A726A5D86E00325CF2 /* UserSorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSorter.h; sourceTree = "<group>"; };
 		3B6100A826A5D86E00325CF2 /* UserSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserSorter.m; sourceTree = "<group>"; };
 		3B6328D026A8975800C009FA /* MessagePoller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePoller.h; sourceTree = "<group>"; };
@@ -213,6 +221,7 @@
 				3B2F7733269F43C300BB7F4B /* MessageUI.framework in Frameworks */,
 				3B2DDF8B26AF104D00B1C423 /* CoreML.framework in Frameworks */,
 				3B2DDF8D26AF146C00B1C423 /* SoundAnalysis.framework in Frameworks */,
+				3B5FBF1626B0DD1700B0424F /* MapKit.framework in Frameworks */,
 				28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +355,8 @@
 				3B7D641226A8E1C6002BE4CB /* NewEventViewController.m */,
 				3B7D641426A8EF17002BE4CB /* AddInviteeViewController.h */,
 				3B7D641526A8EF17002BE4CB /* AddInviteeViewController.m */,
+				3B5FBF1226B0DB3A00B0424F /* EventLocationPickerViewController.h */,
+				3B5FBF1326B0DB3A00B0424F /* EventLocationPickerViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -402,6 +413,8 @@
 				3B7D641E26A9257C002BE4CB /* CommonFunctions.m */,
 				3B2DDF8726AF047000B1C423 /* AudioAnalyzer.h */,
 				3B2DDF8826AF047000B1C423 /* AudioAnalyzer.m */,
+				3B5FBF1726B1166D00B0424F /* OptimalLocation.h */,
+				3B5FBF1826B1166D00B0424F /* OptimalLocation.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -435,6 +448,7 @@
 		A667211F5783930463835B26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B5FBF1526B0DD1700B0424F /* MapKit.framework */,
 				3B2DDF8C26AF146C00B1C423 /* SoundAnalysis.framework */,
 				3B2DDF8A26AF104D00B1C423 /* CoreML.framework */,
 				3B9A4CB326A5242E00B38190 /* CoreLocation.framework */,
@@ -690,6 +704,7 @@
 				3B7D640726A8BC03002BE4CB /* Event.m in Sources */,
 				3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */,
 				3BB126FC269CEA7E006444E4 /* DraggableView.m in Sources */,
+				3B5FBF1426B0DB3A00B0424F /* EventLocationPickerViewController.m in Sources */,
 				3BB126F9269CEA6B006444E4 /* DraggableViewBackground.m in Sources */,
 				3B7D641C26A8F717002BE4CB /* AddInviteeCollectionViewCell.m in Sources */,
 				3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */,
@@ -730,6 +745,7 @@
 				3B2DDF8926AF047000B1C423 /* AudioAnalyzer.m in Sources */,
 				3B7D641F26A9257C002BE4CB /* CommonFunctions.m in Sources */,
 				3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */,
+				3B5FBF1926B1166D00B0424F /* OptimalLocation.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

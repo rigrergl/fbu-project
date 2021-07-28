@@ -63,12 +63,12 @@ CLLocation * LocationForUser(PFUser *_Nonnull user) {
     }
 }
 
-CGFloat DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
+CLLocationDistance DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
     CLLocation *currentUserLocation = LocationForUser(user1);
     CLLocation *otherUserLocation = LocationForUser(user2);
     
     if (currentUserLocation == nil || otherUserLocation == nil) {
-        return CGFLOAT_MAX;
+        return CLLocationDistanceMax;
     } else {
         return [currentUserLocation distanceFromLocation:otherUserLocation];
     }

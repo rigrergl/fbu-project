@@ -647,6 +647,15 @@
                                                     <constraint firstAttribute="height" constant="8" id="eyR-7C-Z4n"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wx8-Au-aBy">
+                                                <rect key="frame" x="315" y="301.5" width="26" height="23"/>
+                                                <state key="normal">
+                                                    <imageReference key="image" image="map" catalog="system" symbolScale="large"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="sJc-6L-hyi" kind="presentation" identifier="newEventToMap" id="cSx-33-zmh"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -662,6 +671,7 @@
                                             <constraint firstItem="59Z-nK-qCo" firstAttribute="top" secondItem="kD3-ac-Wu0" secondAttribute="bottom" constant="20" id="HZG-L7-3fj"/>
                                             <constraint firstItem="aq8-kE-osk" firstAttribute="bottom" secondItem="2LK-a9-sE4" secondAttribute="bottom" constant="-8" id="J50-5D-Q6a"/>
                                             <constraint firstItem="ukX-6I-X1m" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Z68-Cu-C5e" secondAttribute="trailing" constant="8" id="Osr-oZ-lWQ"/>
+                                            <constraint firstItem="Wx8-Au-aBy" firstAttribute="leading" secondItem="xlP-ab-ODg" secondAttribute="trailing" constant="8" id="QnH-49-YoJ"/>
                                             <constraint firstItem="eh7-dD-jAt" firstAttribute="centerY" secondItem="59Z-nK-qCo" secondAttribute="centerY" id="SlD-Ed-TVC"/>
                                             <constraint firstItem="cnQ-KK-oof" firstAttribute="leading" secondItem="FJt-4H-g8L" secondAttribute="leading" id="WtW-UR-YE6"/>
                                             <constraint firstItem="aq8-kE-osk" firstAttribute="trailing" secondItem="2LK-a9-sE4" secondAttribute="trailing" constant="-8" id="YEB-h1-214"/>
@@ -673,6 +683,7 @@
                                             <constraint firstItem="xlP-ab-ODg" firstAttribute="trailing" secondItem="aZO-na-L8b" secondAttribute="trailing" id="nvB-Ih-1iD"/>
                                             <constraint firstItem="kD3-ac-Wu0" firstAttribute="top" secondItem="xlP-ab-ODg" secondAttribute="bottom" constant="8" symbolic="YES" id="oQh-s0-4RF"/>
                                             <constraint firstAttribute="bottom" secondItem="cnQ-KK-oof" secondAttribute="bottom" constant="20" symbolic="YES" id="rp9-5e-j1r"/>
+                                            <constraint firstItem="Wx8-Au-aBy" firstAttribute="centerY" secondItem="xlP-ab-ODg" secondAttribute="centerY" id="sYC-7s-UAg"/>
                                             <constraint firstItem="xlP-ab-ODg" firstAttribute="top" secondItem="aZO-na-L8b" secondAttribute="bottom" constant="8" symbolic="YES" id="v1A-U0-KJM"/>
                                             <constraint firstItem="aZO-na-L8b" firstAttribute="top" secondItem="2LK-a9-sE4" secondAttribute="bottom" constant="8" symbolic="YES" id="vIQ-7G-Kzo"/>
                                         </constraints>
@@ -714,6 +725,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qlu-nQ-Sfi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4207.2463768115949" y="3132.5892857142858"/>
+        </scene>
+        <!--Event Location Picker View Controller-->
+        <scene sceneID="Hyp-JH-1WE">
+            <objects>
+                <viewController id="sJc-6L-hyi" customClass="EventLocationPickerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nv7-Fg-dnR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kng-4G-w5u">
+                                <rect key="frame" x="0.0" y="50" width="414" height="758"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQE-BU-T8X">
+                                <rect key="frame" x="20" y="12" width="48" height="30"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" systemColor="systemRedColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapCancel:" destination="sJc-6L-hyi" eventType="touchUpInside" id="RP0-0t-4u9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qhc-Pe-EvN">
+                                <rect key="frame" x="360" y="12" width="34" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="didTapSave:" destination="sJc-6L-hyi" eventType="touchUpInside" id="ndL-VA-8aP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4et-88-hLm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Qhc-Pe-EvN" firstAttribute="top" secondItem="4et-88-hLm" secondAttribute="top" constant="12" id="9gg-hP-txK"/>
+                            <constraint firstItem="mQE-BU-T8X" firstAttribute="top" secondItem="4et-88-hLm" secondAttribute="top" constant="12" id="FXM-Nx-45p"/>
+                            <constraint firstItem="mQE-BU-T8X" firstAttribute="leading" secondItem="4et-88-hLm" secondAttribute="leading" constant="20" id="Hrl-dh-rnQ"/>
+                            <constraint firstItem="4et-88-hLm" firstAttribute="trailing" secondItem="Qhc-Pe-EvN" secondAttribute="trailing" constant="20" id="OVO-wB-b4t"/>
+                            <constraint firstItem="kng-4G-w5u" firstAttribute="leading" secondItem="4et-88-hLm" secondAttribute="leading" id="Z5E-h6-ntG"/>
+                            <constraint firstItem="4et-88-hLm" firstAttribute="trailing" secondItem="kng-4G-w5u" secondAttribute="trailing" id="bXT-4E-KYU"/>
+                            <constraint firstItem="kng-4G-w5u" firstAttribute="top" secondItem="mQE-BU-T8X" secondAttribute="bottom" constant="8" symbolic="YES" id="idz-gH-6PG"/>
+                            <constraint firstItem="4et-88-hLm" firstAttribute="bottom" secondItem="kng-4G-w5u" secondAttribute="bottom" id="sIi-o9-8fO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="kng-4G-w5u" id="roV-1Z-r6i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gIk-66-QZG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5011.594202898551" y="3132.5892857142858"/>
         </scene>
         <!--Add Invitee View Controller-->
         <scene sceneID="h4z-5r-cXi">
@@ -1408,6 +1468,7 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="map" catalog="system" width="128" height="110"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="music.note.house" catalog="system" width="128" height="106"/>
