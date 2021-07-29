@@ -11,6 +11,23 @@
 
 @implementation InviteeCollectionViewCell
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    [self setupGestures];
+}
+
+- (void)setupGestures {
+    UITapGestureRecognizer *profileImageTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapProfileImage:)];
+    [self.profileImageView addGestureRecognizer:profileImageTapGestureRecognizer];
+    [self.profileImageView setUserInteractionEnabled:YES];
+}
+
+- (void)didTapProfileImage:(UITapGestureRecognizer *_Nonnull)sender {
+    if (self.didTapProfileImage) {
+        self.didTapProfileImage(self);
+    }
+}
+
 - (IBAction)didTapDelete:(UIButton *)sender {
     if (!self.canRemove) {
         return;
@@ -21,6 +38,11 @@
 
 - (void)setCell:(PFUser *_Nonnull)user
       canRemove:(BOOL)canRemove {
+    if (!user) {
+        return;
+    }
+    self.user = user;
+    
     self.canRemove = canRemove;
     if (canRemove) {
         [self enableRemoveButton];

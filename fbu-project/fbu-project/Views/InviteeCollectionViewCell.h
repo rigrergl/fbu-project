@@ -14,8 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (copy, nonatomic) void (^removeInvitee)(InviteeCollectionViewCell *_Nonnull cell);
+@property (copy, nonatomic, nonnull) void (^didTapProfileImage)(InviteeCollectionViewCell *_Nonnull cell);
 @property (assign, nonatomic) BOOL canRemove;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
+@property (strong, nonatomic) PFUser *user;
 
 - (void)setCell:(PFUser *_Nonnull)user
       canRemove:(BOOL)canRemove;

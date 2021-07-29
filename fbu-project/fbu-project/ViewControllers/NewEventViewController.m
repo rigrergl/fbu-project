@@ -11,6 +11,7 @@
 #import "AddInviteeViewController.h"
 #import "CommonFunctions.h"
 #import "EventLocationPickerViewController.h"
+#import "ProfileViewController.h"
 #import <Parse/Parse.h>
 
 @interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -31,6 +32,7 @@
 @end
 
 static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddInvitee";
+static NSString * const NEW_EVENT_TO_PROFILE_SEGUE_IDENTIFIER = @"eventToProfile";
 static NSString * const NEW_EVENT_TO_MAP_SEGUE_IDENTIFIER = @"newEventToMap";
 static NSString * const EMPTY_FIELDS_ALERT_TITLE = @"Error";
 static NSString * const EMPTY_FIELDS_ALERT_MESSAGE = @"Empty Fields";
@@ -168,6 +170,9 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
         cell.removeInvitee = ^(InviteeCollectionViewCell *_Nonnull cell){
             [self removeInvitee:cell];
         };
+        cell.didTapProfileImage = ^(InviteeCollectionViewCell *_Nonnull cell){
+            [self performSegueWithIdentifier:NEW_EVENT_TO_PROFILE_SEGUE_IDENTIFIER sender:cell.user];
+        };
     }
     
     return cell;
@@ -280,6 +285,10 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
                               didSelectLocationBlock:^(CLLocation *_Nonnull selectedLocation){
             [self updateEventLocation:selectedLocation];
         }];
+    } else if ([segue.identifier isEqualToString:NEW_EVENT_TO_PROFILE_SEGUE_IDENTIFIER]) {
+        ProfileViewController *destinationViewController = [segue destinationViewController];
+        PFUser *user = (PFUser *)sender;
+        destinationViewController.targetUser = user;
     }
 }
 
