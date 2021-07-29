@@ -41,8 +41,8 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 
 - (void)setOptimalAnnotationAsSelected {
     NSArray<MKPointAnnotation *> *annotations = (NSArray<MKPointAnnotation *> *)self.mapView.annotations;
-    
-    MKPointAnnotation *optimalAnnotation = ComputeOptimalLocationBruteForce(annotations);
+
+    MKPointAnnotation *optimalAnnotation = ComputeOptimalLocationUsingAveregeLocation(annotations);
     
     if (optimalAnnotation) {
         [self.mapView setSelectedAnnotations:@[optimalAnnotation]];

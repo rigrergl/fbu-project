@@ -61,11 +61,11 @@
 + (void)removeLikeFrom:(PFUser *_Nonnull)originUser
                     to:(PFUser *_Nonnull)destinationUser
             completion:(PFBooleanResultBlock _Nullable)completion {
-    PFQuery *Like = [PFQuery queryWithClassName:[Like parseClassName]];
-    [Like whereKey:ORIGIN_USER_KEY equalTo:originUser];
-    [Like whereKey:DESTINATION_USER_KEY equalTo:destinationUser];
+    PFQuery *likeQuery = [PFQuery queryWithClassName:[Like parseClassName]];
+    [likeQuery whereKey:ORIGIN_USER_KEY equalTo:originUser];
+    [likeQuery whereKey:DESTINATION_USER_KEY equalTo:destinationUser];
     
-    [Like findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
+    [likeQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable likes, NSError *_Nullable error){
         if (likes) {
             [PFObject deleteAllInBackground:likes block:^(BOOL succeeded, NSError *_Nullable error){
                 if (completion) {

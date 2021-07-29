@@ -17,6 +17,7 @@
 #import "LikedInstrument.h"
 #import "AudioAnalyzer.h"
 #import "OptimalLocation.h"
+#import "Vector3D.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -146,25 +147,19 @@
     [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
-- (void)testPostLike {
-    XCTestExpectation *postLikeExpectation = [self expectationWithDescription:@"Post Like expectation"];
+- (void)testPostAndRemoveLike {
+    XCTestExpectation *postAndRemoveExpectation = [self expectationWithDescription:@"Post Like expectation"];
     PFUser *currentUser = [PFUser currentUser];
-    [Like postLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
-        BOOL flag = (error == nil && succeeded);
-        XCTAssert(flag);
-        [postLikeExpectation fulfill];
-    }];
     
-    [self waitForExpectationsWithTimeout:10 handler:nil];
-}
-
-- (void)testRemoveLike {
-    XCTestExpectation *removeLikeExpectation = [self expectationWithDescription:@"Remove Like expectation"];
-    PFUser *currentUser = [PFUser currentUser];
     [Like removeLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
         BOOL flag = (error == nil && succeeded);
         XCTAssert(flag);
-        [removeLikeExpectation fulfill];
+        
+        [Like postLikeFrom:currentUser to:currentUser completion:^(BOOL succeeded, NSError *_Nullable error){
+            BOOL flag = (error == nil && succeeded);
+            XCTAssert(flag);
+            [postAndRemoveExpectation fulfill];
+        }];
     }];
     
     [self waitForExpectationsWithTimeout:10 handler:nil];
@@ -327,6 +322,40 @@
 
 #pragma mark - Testing OptimalLocation
 
+- (void)testComputeOptimalLocationUsingAveregeLocation {
+    //nil input == nil output
+    MKPointAnnotation *nilInputResult = ComputeOptimalLocationUsingAveregeLocation(nil);
+    XCTAssert(nilInputResult == nil);
+    
+    //array of 1 annotation should return that annotation
+    MKPointAnnotation *singleAnnotation = [MKPointAnnotation new];
+    NSArray<MKPointAnnotation *> *oneAnnotationArray = @[singleAnnotation];
+    MKPointAnnotation *oneAnnotationArrayResult = ComputeOptimalLocationUsingAveregeLocation(oneAnnotationArray);
+    XCTAssert([oneAnnotationArrayResult isEqual:singleAnnotation]);
+    
+    //5 coordinates in the US with one clearly in the middle, make sure that one is returned
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:33.162941 longitude:-96.673237];
+    CLLocation *westLocation = [[CLLocation alloc] initWithLatitude:33.162941 longitude:-96.685941];
+    CLLocation *northLocation = [[CLLocation alloc] initWithLatitude:33.175620 longitude:-96.672260];
+    CLLocation *southLocation = [[CLLocation alloc] initWithLatitude:33.155169 longitude:-96.673074];
+    CLLocation *eastLocation = [[CLLocation alloc] initWithLatitude:33.163487 longitude:-96.655484];
+    
+    NSArray<CLLocation *> *locations = @[centerLocation, westLocation, northLocation, southLocation, eastLocation];
+    NSMutableArray<MKPointAnnotation *> *annotations = [[NSMutableArray alloc] initWithCapacity:locations.count];
+    for (CLLocation *location in locations) {
+        MKPointAnnotation *annotation = [MKPointAnnotation new];
+        annotation.coordinate = location.coordinate;
+        [annotations addObject:annotation];
+    }
+    
+    __block MKPointAnnotation *optimalAnnotation;
+    [self measureBlock:^{
+        optimalAnnotation = ComputeOptimalLocationUsingAveregeLocation(annotations);
+    }];
+    XCTAssert(optimalAnnotation.coordinate.latitude == centerLocation.coordinate.latitude);
+    XCTAssert(optimalAnnotation.coordinate.longitude == centerLocation.coordinate.longitude);
+}
+
 - (void)testComputeOptimalLocationBruteForce {
     //nil input == nil output
     MKPointAnnotation *nilInputResult = ComputeOptimalLocationBruteForce(nil);
@@ -339,11 +368,11 @@
     XCTAssert([oneAnnotationArrayResult isEqual:singleAnnotation]);
     
     //5 coordinates in the US with one clearly in the middle, make sure that one is returned
-    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:41 longitude:-101];
-    CLLocation *westLocation = [[CLLocation alloc] initWithLatitude:37 longitude:-122];
-    CLLocation *northLocation = [[CLLocation alloc] initWithLatitude:47 longitude:-100];
-    CLLocation *southLocation = [[CLLocation alloc] initWithLatitude:29 longitude:-98];
-    CLLocation *eastLocation = [[CLLocation alloc] initWithLatitude:38 longitude:-75];
+    CLLocation *centerLocation = [[CLLocation alloc] initWithLatitude:33.162941 longitude:-96.673237];
+    CLLocation *westLocation = [[CLLocation alloc] initWithLatitude:33.162941 longitude:-96.685941];
+    CLLocation *northLocation = [[CLLocation alloc] initWithLatitude:33.175620 longitude:-96.672260];
+    CLLocation *southLocation = [[CLLocation alloc] initWithLatitude:33.155169 longitude:-96.673074];
+    CLLocation *eastLocation = [[CLLocation alloc] initWithLatitude:33.163487 longitude:-96.655484];
     
     NSArray<CLLocation *> *locations = @[centerLocation, westLocation, northLocation, southLocation, eastLocation];
     NSMutableArray<MKPointAnnotation *> *annotations = [[NSMutableArray alloc] initWithCapacity:locations.count];
@@ -353,7 +382,10 @@
         [annotations addObject:annotation];
     }
     
-    MKPointAnnotation *optimalAnnotation = ComputeOptimalLocationBruteForce(annotations);
+    __block MKPointAnnotation *optimalAnnotation;
+    [self measureBlock:^{
+        optimalAnnotation = ComputeOptimalLocationBruteForce(annotations);
+    }];
     XCTAssert(optimalAnnotation.coordinate.latitude == centerLocation.coordinate.latitude);
     XCTAssert(optimalAnnotation.coordinate.longitude == centerLocation.coordinate.longitude);
 }
@@ -400,11 +432,51 @@
     XCTAssert(resultLocation.coordinate.longitude == originalLocation.coordinate.longitude);
 }
 
-- (void)testOptimalLocationPerformance {
-    //TODO: make sure the improved algorithm is faster than the brute force approach
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+#pragma mark - Testing Vector3D
+
+- (void)testMeanVector {
+    NSMutableArray<Vector3D *> *test = nil;
+    XCTAssert([Vector3D MeanVector:test] == nil);
+    
+    test = [[NSMutableArray alloc] init];
+    [test addObject:[[Vector3D alloc] init:0 y:0 z:0]];
+    [test addObject:[[Vector3D alloc] init:0 y:0 z:0]];
+    [test addObject:[[Vector3D alloc] init:0 y:0 z:0]];
+    
+    Vector3D *result = [Vector3D MeanVector:test];
+    XCTAssert([result isEqual:test[0]]);
+}
+
+- (void)testVectorFromCoordinate {
+    //test back and forth conversion
+    CLLocationCoordinate2D testCoordinate = CLLocationCoordinate2DMake(34, 98);
+    Vector3D *resultVector = [Vector3D VectorFromCoordinate:testCoordinate];
+    CLLocationCoordinate2D resultCoordinate = [Vector3D CoordinateFromVector:resultVector];
+    
+    XCTAssert(testCoordinate.latitude == resultCoordinate.latitude);
+    XCTAssert(testCoordinate.longitude == resultCoordinate.longitude);
+}
+
+- (void)testCoordinateFromVector {
+    Vector3D *testVector = [[Vector3D alloc] init:.73 y:.55 z:.23];
+    CLLocationCoordinate2D resultCoordinate = [Vector3D CoordinateFromVector:testVector];
+    Vector3D *resultVector = [Vector3D VectorFromCoordinate:resultCoordinate];
+    
+    CGFloat vectorAccuracy = 0.05;
+    XCTAssertEqualWithAccuracy(resultVector.x, testVector.x, vectorAccuracy);
+    XCTAssertEqualWithAccuracy(resultVector.y, testVector.y, vectorAccuracy);
+    XCTAssertEqualWithAccuracy(resultVector.z, testVector.z, vectorAccuracy);
+}
+
+- (void)testVector3DEqual {
+    Vector3D *test1 = [[Vector3D alloc] init:5 y:-9 z:7.9];
+    Vector3D *test2 = [[Vector3D alloc] init:5 y:-9 z:7.9];
+    Vector3D *test3 = [[Vector3D alloc] init:5 y:-9 z:7.8];
+    
+    XCTAssert([test1 isEqual:test2]);
+    XCTAssert([test1 isEqual:test1]);
+    XCTAssert(![test1 isEqual:nil]);
+    XCTAssert(![test1 isEqual:test3]);
 }
 
 @end

@@ -60,3 +60,67 @@ MKPointAnnotation *_Nullable ComputeOptimalLocationBruteForce(NSArray<MKPointAnn
     }];
     return optimalAnnotation;
 }
+
+CLLocation * CentroidOfPointsOnSphere(NSArray<CLLocation *> *_Nonnull locations) {
+    if (!locations) {
+        return nil;
+    }
+    
+    //transform each coordinate into a 3D vecotor (get the xyz) (can be on a unit sphere)
+    NSMutableArray<Vector3D *> *vectors = [[NSMutableArray alloc] initWithCapacity:locations.count];
+    for (CLLocation *location in locations) {
+        Vector3D *vector = [Vector3D VectorFromCoordinate:location.coordinate];
+        [vectors addObject:vector];
+    }
+    
+    //calculate the mean vector
+    Vector3D *meanVector = [Vector3D MeanVector:vectors];
+    
+    //return the lat long of the enpoint of the average vector
+    CLLocationCoordinate2D centroidCoordinate = [Vector3D CoordinateFromVector:meanVector];
+    CLLocation *centroidLocation = [[CLLocation alloc] initWithLatitude:centroidCoordinate.latitude
+                                                              longitude:centroidCoordinate.longitude];
+    
+    return centroidLocation;
+}
+
+MKPointAnnotation * AnnotationClosestToLocation(NSArray<MKPointAnnotation *> *_Nonnull annotations, CLLocation *_Nonnull location) {
+    if (!annotations || !location || annotations.count == 0) {
+        return nil;
+    }
+    
+    MKPointAnnotation *closestAnnotation;
+    CLLocationDistance smallestDistance = CLLocationDistanceMax;
+    
+    for (MKPointAnnotation *annotation in annotations) {
+        CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude
+                                                                 longitude:annotation.coordinate.longitude];
+        CLLocationDistance currentDistance = [currentLocation distanceFromLocation:location];
+        if (currentDistance < smallestDistance) {
+            smallestDistance = currentDistance;
+            closestAnnotation = annotation;
+        }
+    }
+    
+    return closestAnnotation;
+}
+
+MKPointAnnotation *_Nullable ComputeOptimalLocationUsingAveregeLocation(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations) {
+    if (!userAnnotations) {
+        return nil;
+    }
+    
+    NSMutableArray<CLLocation *> *locations = [[NSMutableArray alloc] initWithCapacity:userAnnotations.count];
+    for (MKPointAnnotation *annotation in userAnnotations) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude
+                                                          longitude:annotation.coordinate.longitude];
+        
+        [locations addObject:location];
+    }
+    
+    //calculate average location
+    CLLocation *averageLocation = CentroidOfPointsOnSphere(locations);
+    
+    //return the point that is closest to the average
+    return AnnotationClosestToLocation(userAnnotations, averageLocation);
+}
