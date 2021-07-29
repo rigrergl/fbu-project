@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) AVAudioPlayer *_Nonnull audioPlayer;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CustomDraggableViewBackground *_Nonnull draggableViewBackground;
+@property (nonatomic, strong) NSArray<PFUser *> *_Nullable users;
 
 @end
 
@@ -28,6 +30,18 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
     [super viewDidLoad];
     [self fetchRecommendedUsers];
     [self updateLocation];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceRotated)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)deviceRotated {
+    if (self.users) {
+        [self.draggableViewBackground removeFromSuperview];
+        [self insertDraggableView:self.users];
+    }
 }
 
 - (void)fetchRecommendedUsers {
@@ -42,16 +56,14 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
     });
 }
 
-
 - (void)finishedFetchingRecommended:(NSArray *_Nullable)users {    
     if (users) {
+        self.users = users;
         [self insertDraggableView:users];
     }
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
-
-
 
 - (void)insertDraggableView:(NSArray *)users {
     CGFloat topBarHeight = self.navigationController.navigationBar.frame.size.height;
@@ -63,6 +75,7 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
     CustomDraggableViewBackground *draggableBackground = [[CustomDraggableViewBackground alloc]initWithFrame:frame andUsers:users];
     draggableBackground.alpha = 0; //making the view fade in
 
+    self.draggableViewBackground = draggableBackground;
     [self.view addSubview:draggableBackground];
 
     //animate down and in

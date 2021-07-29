@@ -20,11 +20,9 @@
 
 static NSInteger PLAYBACK_VIEW_X = 20;
 static NSInteger PLAYBACK_VIEW_Y = 200;
-static NSInteger PLAYBACK_VIEW_HEIGHT = 200;
 
 static NSInteger USERNAME_LABEL_X = 0;
-static NSInteger USERNAME_LABEL_Y = 50;
-static NSInteger USERNAME_LABEL_HEIGHT = 100;
+static NSInteger USERNAME_LABEL_HEIGHT = 20;
 
 @implementation CustomDraggableView
 
@@ -35,7 +33,6 @@ static NSInteger USERNAME_LABEL_HEIGHT = 100;
     if (self) {
         self.user = user;
         [self setupUsernameLabel];
-        
         [self setupPlaybackSubview];
     }
     return self;
@@ -48,17 +45,15 @@ static NSInteger USERNAME_LABEL_HEIGHT = 100;
     if(recordingFile == nil) {
         return;
     }
-    
     [self.playButton setSelected:YES];
     
     [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
         if (!error) {
-            
             MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
                                                initWithFrame:CGRectMake(PLAYBACK_VIEW_X,
-                                                                        PLAYBACK_VIEW_Y,
+                                                                        self.frame.size.height/2,
                                                                         self.frame.size.width - (PLAYBACK_VIEW_X * 2),
-                                                                        PLAYBACK_VIEW_HEIGHT)
+                                                                        self.frame.size.height/2)
                                                andData:data];
             self.playbackView = playbackView;
             [self addSubview:playbackView];
@@ -67,8 +62,10 @@ static NSInteger USERNAME_LABEL_HEIGHT = 100;
 }
 
 - (void)setupUsernameLabel {
+    NSInteger usernameLabelY = self.frame.size.height / 4;
+    
     self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(USERNAME_LABEL_X,
-                                                                   USERNAME_LABEL_Y,
+                                                                   usernameLabelY,
                                                                    self.frame.size.width,
                                                                    USERNAME_LABEL_HEIGHT)];
     self.usernameLabel.text = self.user.username;
