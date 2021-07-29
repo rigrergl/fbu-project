@@ -48,6 +48,7 @@ static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationVie
 static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
 static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
 static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
+static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 
 @implementation ProfileViewController
 
@@ -82,7 +83,14 @@ static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
                                  block:^(PFObject *object, NSError *error) {
         PFUser *user = (PFUser *)object;
         self.usernameLabel.text = user.username;
-        self.bioLabel.text = user[BIO_KEY];
+        
+        NSString *userBio = user[BIO_KEY];
+        if (userBio && userBio.length > 0) {
+            self.bioLabel.text = user[BIO_KEY];
+        } else {
+            self.bioLabel.text = DEFAULT_BIO_STRING;
+        }
+        
         [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
             if (!error) {
                 self.profileImageView.image = [UIImage imageWithData:data];
