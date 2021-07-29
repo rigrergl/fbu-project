@@ -16,6 +16,7 @@
 #import "DictionaryConstants.h"
 #import "CommonFunctions.h"
 #import "LikedInstrument.h"
+#import "ComposeBioViewController.h"
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -29,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *changeProfileImageButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *bioLabel;
+@property (weak, nonatomic) IBOutlet UIButton *editBioButton;
 
 @end
 
@@ -39,6 +42,7 @@ static NSString * const LIKED_GENRE_CELL_IDENTIFIER = @"LikedGenreCollectionView
 static NSString * const LIKED_INSTRUMENT_CELL_IDENTIFIER = @"LikedInstrumentCell";
 static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER = @"profileToAddLikedGenre";
 static NSString * const PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER = @"profileToAddLikedInstrument";
+static NSString * const PROFILE_TO_COMPOSE_BIO_SEGUE_IDENTIFIER = @"profileToComposeBio";
 static NSString * const MAIN_STORYBOARD_NAME = @"Main";
 static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationViewController";
 static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
@@ -78,6 +82,7 @@ static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
                                  block:^(PFObject *object, NSError *error) {
         PFUser *user = (PFUser *)object;
         self.usernameLabel.text = user.username;
+        self.bioLabel.text = user[BIO_KEY];
         [user[PROFILE_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error) {
             if (!error) {
                 self.profileImageView.image = [UIImage imageWithData:data];
@@ -91,9 +96,15 @@ static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
         self.changeProfileImageButton.alpha = 1;
         self.changeProfileImageButton.enabled = YES;
         
+        self.editBioButton.alpha = 1;
+        self.editBioButton.enabled = YES;
     } else {
         self.changeProfileImageButton.alpha = 0;
         self.changeProfileImageButton.enabled = NO;
+        
+        self.editBioButton.alpha = 0;
+        self.editBioButton.enabled = NO;
+
     }
 }
 
@@ -279,10 +290,20 @@ static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
                 [self.likedInstrumentsCollectionView reloadData];
             }
         };
+    } else if ([segue.identifier isEqualToString:PROFILE_TO_COMPOSE_BIO_SEGUE_IDENTIFIER]) {
+        ComposeBioViewController *destinationViewController = [segue destinationViewController];
+        destinationViewController.didChangeBio = ^(NSString *_Nonnull newBio){
+            self.bioLabel.text = newBio;
+        };
     }
 }
 
 #pragma mark - Editing profile
+
+- (IBAction)didTapEditBio:(UIButton *)sender {
+    [self performSegueWithIdentifier:PROFILE_TO_COMPOSE_BIO_SEGUE_IDENTIFIER sender:nil];
+}
+
 
 - (IBAction)didTapChangeProfileImage:(UIButton *)sender {
     UIAlertController *photoAlert = [UIAlertController alertControllerWithTitle:nil

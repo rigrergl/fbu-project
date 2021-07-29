@@ -37,6 +37,7 @@
 		3B5FBF1926B1166D00B0424F /* OptimalLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5FBF1826B1166D00B0424F /* OptimalLocation.m */; };
 		3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6100A826A5D86E00325CF2 /* UserSorter.m */; };
 		3B6328D226A8975800C009FA /* MessagePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6328D126A8975800C009FA /* MessagePoller.m */; };
+		3B6335D126B30F5A00B31427 /* ComposeBioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6335D026B30F5A00B31427 /* ComposeBioViewController.m */; };
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68626A0DAC80086BEDE /* StylingConstants.m */; };
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
@@ -144,6 +145,8 @@
 		3B6100A826A5D86E00325CF2 /* UserSorter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserSorter.m; sourceTree = "<group>"; };
 		3B6328D026A8975800C009FA /* MessagePoller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagePoller.h; sourceTree = "<group>"; };
 		3B6328D126A8975800C009FA /* MessagePoller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessagePoller.m; sourceTree = "<group>"; };
+		3B6335CF26B30F5A00B31427 /* ComposeBioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeBioViewController.h; sourceTree = "<group>"; };
+		3B6335D026B30F5A00B31427 /* ComposeBioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeBioViewController.m; sourceTree = "<group>"; };
 		3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationCollectionViewCell.h; sourceTree = "<group>"; };
 		3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationCollectionViewCell.m; sourceTree = "<group>"; };
 		3B66F68526A0DAC80086BEDE /* StylingConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StylingConstants.h; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 				3B7D641526A8EF17002BE4CB /* AddInviteeViewController.m */,
 				3B5FBF1226B0DB3A00B0424F /* EventLocationPickerViewController.h */,
 				3B5FBF1326B0DB3A00B0424F /* EventLocationPickerViewController.m */,
+				3B6335CF26B30F5A00B31427 /* ComposeBioViewController.h */,
+				3B6335D026B30F5A00B31427 /* ComposeBioViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -749,6 +754,7 @@
 				3B6328D226A8975800C009FA /* MessagePoller.m in Sources */,
 				3B2DDF8926AF047000B1C423 /* AudioAnalyzer.m in Sources */,
 				3B7D641F26A9257C002BE4CB /* CommonFunctions.m in Sources */,
+				3B6335D126B30F5A00B31427 /* ComposeBioViewController.m in Sources */,
 				3BA93F1726A4BE2F00CA9E01 /* LikedGenreCollectionViewCell.m in Sources */,
 				3B5FBF1926B1166D00B0424F /* OptimalLocation.m in Sources */,
 				3BCC85A9269E61450083F1F1 /* UnLike.m in Sources */,

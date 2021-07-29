@@ -19,6 +19,7 @@ NSString * const LATITUDE_KEY = @"latestLatitude";
 NSString * const LONGITUDE_KEY = @"latestLongitude";
 NSString * const PROFILE_IMAGE_KEY = @"profileImage";
 NSString * const INSTRUMENTS_IN_RECORDING = @"instrumentsInRecording";
+NSString * const BIO_KEY = @"bio";
 
 //Like
 NSString * const LIKE_CLASS_NAME = @"Like";

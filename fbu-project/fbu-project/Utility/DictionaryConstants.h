@@ -21,6 +21,7 @@ extern NSString * const LATITUDE_KEY;
 extern NSString * const LONGITUDE_KEY;
 extern NSString * const PROFILE_IMAGE_KEY;
 extern NSString * const INSTRUMENTS_IN_RECORDING;
+extern NSString * const BIO_KEY;
 
 //Like
 extern NSString * const LIKE_CLASS_NAME;
