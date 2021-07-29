@@ -9,18 +9,22 @@
 #import "UserSorter.h"
 #import "OptimalLocation.h"
 #import "StylingConstants.h"
+#import "DictionaryConstants.h"
+#import "CommonFunctions.h"
 
 @interface EventLocationPickerViewController () <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) NSArray<CLLocation *> *_Nonnull locationOptions;
 @property (strong, nonatomic) NSArray<PFUser *> *_Nonnull usersInEvent;
+@property (strong, nonatomic) NSDictionary<NSString *, UIImage *> *_Nonnull userImagesDictionary;
 @property (strong, nonatomic) MKPointAnnotation *_Nullable selectedAnnotation;
 @property (copy, nonatomic, nonnull) void (^didSelectLocationBlock)(CLLocation *_Nonnull location);
 
 @end
 
 static NSString * const ANNOTATION_IDENTIFIER = @"Pin";
+static NSString * const OPTIMAL_LOCATION_SUBTITLE = @"optimal location";
 static CLLocationDegrees REGION_DELTA = 0.2;
 static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 
@@ -41,12 +45,13 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 
 - (void)setOptimalAnnotationAsSelected {
     NSArray<MKPointAnnotation *> *annotations = (NSArray<MKPointAnnotation *> *)self.mapView.annotations;
-
+    
     MKPointAnnotation *optimalAnnotation = ComputeOptimalLocationUsingAveregeLocation(annotations);
     
     if (optimalAnnotation) {
         [self.mapView setSelectedAnnotations:@[optimalAnnotation]];
         [self centerOnLocation:optimalAnnotation.coordinate];
+        optimalAnnotation.subtitle = OPTIMAL_LOCATION_SUBTITLE;
     }
 }
 
@@ -55,7 +60,7 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
     mapRegion.center = coordinate;
     mapRegion.span.latitudeDelta = REGION_DELTA;
     mapRegion.span.longitudeDelta = REGION_DELTA;
-
+    
     [self.mapView setRegion:mapRegion animated: YES];
 }
 
@@ -77,6 +82,29 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
     self.usersInEvent = eventUsers;
     self.locationOptions = [EventLocationPickerViewController userLocations:eventUsers];
     self.didSelectLocationBlock = didSelectLocationBlock;
+    [self generateImagesDictionary];
+}
+
+- (void)generateImagesDictionary {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        //async thread
+        NSMutableArray<NSString *> *usernames = [[NSMutableArray alloc] initWithCapacity:self.usersInEvent.count];
+        NSMutableArray<UIImage *> *userImages = [[NSMutableArray alloc] initWithCapacity:self.usersInEvent.count];
+        for (PFUser *user in self.usersInEvent) {
+            UIImage *userImage = DownloadUserProfileImage(user);
+            if (userImage) {
+                [usernames addObject:user.username];
+                [userImages addObject:userImage];
+            }
+        }
+        
+        self.userImagesDictionary = [[NSDictionary alloc] initWithObjects:userImages forKeys:usernames];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            // This will be called on the main thread, so that UI  can be updated
+            [self.mapView reloadInputViews];
+        });
+    });
 }
 
 + (NSArray<CLLocation *> *)userLocations:(NSArray<PFUser *> *_Nonnull)users {
@@ -85,7 +113,7 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
         CLLocation *location = LocationForUser(user);
         [locations addObject:location];
     }
-
+    
     return locations;
 }
 
@@ -100,10 +128,15 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
     } else {
         annotationView.annotation = annotation;
     }
-
+    
     UIImageView *imageView = (UIImageView*)annotationView.leftCalloutAccessoryView;
-    imageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
-
+    UIImage *userProfileImage = [self.userImagesDictionary objectForKey:annotation.title];
+    if (userProfileImage) {
+        imageView.image = userProfileImage;
+    } else {
+        imageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
+    }
+    
     return annotationView;
 }
 

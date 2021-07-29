@@ -6,6 +6,7 @@
 //
 
 #import "CommonFunctions.h"
+#import "DictionaryConstants.h"
 
 static NSString * const IMAGE_NAME = @"image.png";
 static NSString * const OK_ACTION_TITLE = @"OK";
@@ -39,6 +40,19 @@ PFFileObject * getFileFromImage(UIImage *_Nullable image) {
     }
     
     return [PFFileObject fileObjectWithName:IMAGE_NAME data:imageData];
+}
+
+UIImage *_Nullable DownloadUserProfileImage(PFUser *_Nonnull user) {
+    if (!user) {
+        return nil;
+    }
+    
+    NSData *imageData = [user[PROFILE_IMAGE_KEY] getData];
+    if (!imageData) {
+        return nil;
+    }
+    
+    return [UIImage imageWithData:imageData];
 }
 
 #pragma mark - Alerts
