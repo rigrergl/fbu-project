@@ -15,7 +15,9 @@ void MatchingUsers(MatchingUsersReturnBlock _Nullable completion){
         NSError *error = [NSError errorWithDomain:@""
                                              code:200
                                          userInfo:@{@"Error reason": @"Invalid Input"}];
-        completion(nil, nil, error);
+        if (completion) {
+            completion(nil, nil, error);
+        }
         return;
     }
     

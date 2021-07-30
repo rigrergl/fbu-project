@@ -17,6 +17,7 @@ static NSString * const CLIENT_KEY = @"client_key";
 static NSString * const KEYS_PATH = @"Keys";
 static NSString * const KEYS_PATH_FILE_TYPE = @"plist";
 static NSString * const PARSE_URL_STRING = @"https://parseapi.back4app.com";
+static NSString * const DEFAULT_SCENE_CONFIGURATION = @"Default Configuration";
 
 @implementation AppDelegate
 
@@ -43,7 +44,7 @@ static NSString * const PARSE_URL_STRING = @"https://parseapi.back4app.com";
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
     // Called when a new scene session is being created.
     // Use this method to select a configuration to create the new scene with.
-    return [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
+    return [[UISceneConfiguration alloc] initWithName:DEFAULT_SCENE_CONFIGURATION sessionRole:connectingSceneSession.role];
 }
 
 

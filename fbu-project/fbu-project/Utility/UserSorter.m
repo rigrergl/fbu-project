@@ -10,7 +10,6 @@
 #import "Like.h"
 #import "DictionaryConstants.h"
 
-
 static const NSInteger POINTS_FOR_VERY_SHORT_DISTANCE = 0; //0-10 miles
 static const NSInteger POINTS_FOR_SHORT_DISTANCE = 5; //10-50 miles
 static const NSInteger POINTS_FOR_MEDIUM_DISTANCE = 10; //50-100 miles
@@ -58,9 +57,8 @@ CLLocation * LocationForUser(PFUser *_Nonnull user) {
         CLLocationDegrees longitude = [user[LONGITUDE_KEY] doubleValue];
         
         return [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    } else {
-        return nil;
     }
+    return nil;
 }
 
 CLLocationDistance DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull user2) {
@@ -69,9 +67,9 @@ CLLocationDistance DistanceBetweenUsers(PFUser *_Nonnull user1, PFUser *_Nonnull
     
     if (currentUserLocation == nil || otherUserLocation == nil) {
         return CLLocationDistanceMax;
-    } else {
-        return [currentUserLocation distanceFromLocation:otherUserLocation];
     }
+    
+    return [currentUserLocation distanceFromLocation:otherUserLocation];
 }
 
 NSInteger PointsForDistance(double distance) {

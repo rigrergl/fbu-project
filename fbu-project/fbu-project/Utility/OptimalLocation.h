@@ -10,6 +10,8 @@
 #import "Vector3D.h"
 #import "VenueAnnotation.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef void(^OptimalLocationReturnBlock)(MKPointAnnotation *_Nullable optimalUserAnnotation,
                                           VenueAnnotation *_Nullable optimalVenueAnnotation,
                                           NSArray<VenueAnnotation *> *_Nullable venueAnnotations);
@@ -20,3 +22,5 @@ extern MKPointAnnotation *_Nullable ComputeOptimalLocationBruteForce(NSArray<MKP
 extern CLLocationDistance AggregateDistance(MKPointAnnotation *_Nonnull targetAnnotation, NSArray<MKPointAnnotation *> *_Nonnull annotations);
 extern CLLocationDistance DistanceBetweenAnnotations(MKPointAnnotation *_Nonnull annotation1, MKPointAnnotation *_Nonnull annotation2);
 extern CLLocation *_Nonnull LocationWithCoordinate(CLLocationCoordinate2D coordinate);
+
+NS_ASSUME_NONNULL_END
