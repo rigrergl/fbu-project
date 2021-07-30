@@ -13,8 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MessageCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *wrappingViewWidth;
-@property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIView *bubbleView;
 
 - (void)setCellWithDirectMessage:(DirectMessage *)message;
 

@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //messages
-#define SENT_MESSAGE_BACKGROUND_COLOR [UIColor colorWithRed:0.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0]
-#define RECEIVED_MESSAGE_BACKGROUND_COLOR [UIColor colorWithRed:255.0/255.0 green:0.0/255.0 blue:255.0/255.0 alpha:1.0]
+#define SENT_MESSAGE_BACKGROUND_COLOR [UIColor colorWithRed:25.0/255.0 green:133.0/255.0 blue:255.0/255.0 alpha:1.0]
+#define RECEIVED_MESSAGE_BACKGROUND_COLOR [UIColor colorWithRed:242.0/255.0 green:242.0/255.0 blue:242.0/255.0 alpha:0.95]
 
 //map
 #define OPTIMAL_USER_PIN_COLOR [UIColor colorWithRed:255.0/255.0 green:215.0/255.0 blue:0.0/255.0 alpha:1.0]

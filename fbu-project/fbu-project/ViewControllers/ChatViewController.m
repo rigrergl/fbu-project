@@ -29,7 +29,8 @@
 static NSInteger INPUT_VIEW_BORDER_WIDTH = 1;
 static CGFloat INPUT_VIEW_CORNER_RADIUS = 10.0f;
 static CGFloat KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
-static NSString * const CHAT_CELL_IDENTIFIER = @"chatCell";
+static NSString * const LEFT_CHAT_CELL_IDENTIFIER = @"leftChatCell";
+static NSString * const RIGHT_CHAT_CELL_IDENTIFIER = @"rightChatCell";
 static NSString * const CHAT_TO_PROFILE_SEGUE_IDENTIFIER = @"chatToProfile";
 static NSString * const CHAT_TO_EVENT_INFO_SEGUE_IDENTIFIER = @"chatToEventInfo";
 
@@ -192,15 +193,31 @@ static NSString * const CHAT_TO_EVENT_INFO_SEGUE_IDENTIFIER = @"chatToEventInfo"
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
                           cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CHAT_CELL_IDENTIFIER forIndexPath:indexPath];
+    MessageCollectionViewCell *cell;
+    
+    DirectMessage *message = (DirectMessage *) self.messages[indexPath.item];
+    if (!message) {
+        return nil;
+    }
+    
+    NSString *authorId = message.author.objectId;
+    if ([authorId isEqualToString:[PFUser currentUser].objectId]) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:RIGHT_CHAT_CELL_IDENTIFIER forIndexPath:indexPath];
+    } else {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:LEFT_CHAT_CELL_IDENTIFIER forIndexPath:indexPath];
+    }
     
     if (cell) {
-        DirectMessage *message = (DirectMessage *) self.messages[indexPath.item];
         [cell setCellWithDirectMessage:message];
-        cell.wrappingViewWidth.constant = self.view.frame.size.width;
     }
     
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(self.collectionView.frame.size.width, 500);
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView
