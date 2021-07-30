@@ -18,6 +18,7 @@
 #import "AudioAnalyzer.h"
 #import "OptimalLocation.h"
 #import "Vector3D.h"
+#import "FoursquareVenue.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -324,13 +325,13 @@
 
 - (void)testComputeOptimalLocationUsingAveregeLocation {
     //nil input == nil output
-    MKPointAnnotation *nilInputResult = ComputeOptimalLocationUsingAveregeLocation(nil);
+    MKPointAnnotation *nilInputResult = ComputeOptimalLocationUsingAveregeLocationIsolatedForTesting(nil);
     XCTAssert(nilInputResult == nil);
     
     //array of 1 annotation should return that annotation
     MKPointAnnotation *singleAnnotation = [MKPointAnnotation new];
     NSArray<MKPointAnnotation *> *oneAnnotationArray = @[singleAnnotation];
-    MKPointAnnotation *oneAnnotationArrayResult = ComputeOptimalLocationUsingAveregeLocation(oneAnnotationArray);
+    MKPointAnnotation *oneAnnotationArrayResult = ComputeOptimalLocationUsingAveregeLocationIsolatedForTesting(oneAnnotationArray);
     XCTAssert([oneAnnotationArrayResult isEqual:singleAnnotation]);
     
     //5 coordinates in the US with one clearly in the middle, make sure that one is returned
@@ -350,7 +351,7 @@
     
     __block MKPointAnnotation *optimalAnnotation;
     [self measureBlock:^{
-        optimalAnnotation = ComputeOptimalLocationUsingAveregeLocation(annotations);
+        optimalAnnotation = ComputeOptimalLocationUsingAveregeLocationIsolatedForTesting(annotations);
     }];
     XCTAssert(optimalAnnotation.coordinate.latitude == centerLocation.coordinate.latitude);
     XCTAssert(optimalAnnotation.coordinate.longitude == centerLocation.coordinate.longitude);
@@ -477,6 +478,32 @@
     XCTAssert([test1 isEqual:test1]);
     XCTAssert(![test1 isEqual:nil]);
     XCTAssert(![test1 isEqual:test3]);
+}
+
+#pragma mark - Testing Foursquare api
+
+- (void)testStringFromCoordinate {
+    CLLocationCoordinate2D testCoordinate = CLLocationCoordinate2DMake(1.283644, 103.860753);
+    NSString *exptectedString = @"1.283644,103.860753";
+    NSString *actualString = [APIManager stringFromCoordinate:testCoordinate];
+    XCTAssert([exptectedString isEqualToString:actualString]);
+    
+    CLLocationCoordinate2D negativeCoordinate = CLLocationCoordinate2DMake(-1.283644, -103.860753);
+    exptectedString = @"-1.283644,-103.860753";
+    actualString = [APIManager stringFromCoordinate:negativeCoordinate];
+    XCTAssert([exptectedString isEqualToString:actualString]);
+}
+
+- (void)testFoursquareAPI {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Fetch venues expectation"];
+    CLLocationCoordinate2D singaporeCoordinate = CLLocationCoordinate2DMake(1.283644, 103.860753);
+    
+    [APIManager VenuesNear:singaporeCoordinate query:@"park" completion:^(NSArray<FoursquareVenue *> *_Nullable venues){
+        XCTAssert(venues);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 @end

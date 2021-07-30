@@ -25,7 +25,7 @@ extern NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME;
 
 typedef void(^LikedInstrumentReturnBlock)(LikedInstrument *_Nullable newLikedInstrument, NSError *_Nullable error);
 
-@property (nonatomic, strong) NSString *_Nonnull title;
+@property (nonatomic, copy) NSString *_Nonnull title;
 @property (nonatomic, strong) PFUser *_Nonnull user;
 
 + (NSString *)getDisplayNameForInstrument:(NSString *)shortName;

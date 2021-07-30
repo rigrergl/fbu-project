@@ -38,6 +38,7 @@
 		3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6100A826A5D86E00325CF2 /* UserSorter.m */; };
 		3B6328D226A8975800C009FA /* MessagePoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6328D126A8975800C009FA /* MessagePoller.m */; };
 		3B6335D126B30F5A00B31427 /* ComposeBioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6335D026B30F5A00B31427 /* ComposeBioViewController.m */; };
+		3B6335D726B3742900B31427 /* FoursquareVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6335D626B3742900B31427 /* FoursquareVenue.m */; };
 		3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */; };
 		3B66F68726A0DAC80086BEDE /* StylingConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F68626A0DAC80086BEDE /* StylingConstants.m */; };
 		3B66F69426A0E5E90086BEDE /* MediaPlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B66F69326A0E5E90086BEDE /* MediaPlayBackView.m */; };
@@ -64,6 +65,7 @@
 		3BB12709269CFD12006444E4 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB12708269CFD12006444E4 /* ProfileViewController.m */; };
 		3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */; };
 		3BB3B66526A2334D00D06528 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB3B66426A2334D00D06528 /* APIManager.m */; };
+		3BBC585C26B4051F0014E6DB /* VenueAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBC585B26B4051F0014E6DB /* VenueAnnotation.m */; };
 		3BCC85A0269E41D60083F1F1 /* CustomDraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */; };
 		3BCC85A3269E42190083F1F1 /* CustomDraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A2269E42190083F1F1 /* CustomDraggableViewBackground.m */; };
 		3BCC85A6269E551D0083F1F1 /* Like.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCC85A5269E551D0083F1F1 /* Like.m */; };
@@ -147,6 +149,8 @@
 		3B6328D126A8975800C009FA /* MessagePoller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessagePoller.m; sourceTree = "<group>"; };
 		3B6335CF26B30F5A00B31427 /* ComposeBioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeBioViewController.h; sourceTree = "<group>"; };
 		3B6335D026B30F5A00B31427 /* ComposeBioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeBioViewController.m; sourceTree = "<group>"; };
+		3B6335D526B3742900B31427 /* FoursquareVenue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoursquareVenue.h; sourceTree = "<group>"; };
+		3B6335D626B3742900B31427 /* FoursquareVenue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoursquareVenue.m; sourceTree = "<group>"; };
 		3B66F68226A0A9100086BEDE /* ConversationCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationCollectionViewCell.h; sourceTree = "<group>"; };
 		3B66F68326A0A9100086BEDE /* ConversationCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationCollectionViewCell.m; sourceTree = "<group>"; };
 		3B66F68526A0DAC80086BEDE /* StylingConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StylingConstants.h; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 		3BB1270B269D008B006444E4 /* AudioRecorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioRecorderViewController.m; sourceTree = "<group>"; };
 		3BB3B66326A2334D00D06528 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		3BB3B66426A2334D00D06528 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		3BBC585A26B4051F0014E6DB /* VenueAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VenueAnnotation.h; sourceTree = "<group>"; };
+		3BBC585B26B4051F0014E6DB /* VenueAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VenueAnnotation.m; sourceTree = "<group>"; };
 		3BCC859E269E41D60083F1F1 /* CustomDraggableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableView.h; sourceTree = "<group>"; };
 		3BCC859F269E41D60083F1F1 /* CustomDraggableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomDraggableView.m; sourceTree = "<group>"; };
 		3BCC85A1269E42190083F1F1 /* CustomDraggableViewBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomDraggableViewBackground.h; sourceTree = "<group>"; };
@@ -332,6 +338,10 @@
 				3B7D640626A8BC03002BE4CB /* Event.m */,
 				3B2DDF9026AF648000B1C423 /* LikedInstrument.h */,
 				3B2DDF9126AF648000B1C423 /* LikedInstrument.m */,
+				3B6335D526B3742900B31427 /* FoursquareVenue.h */,
+				3B6335D626B3742900B31427 /* FoursquareVenue.m */,
+				3BBC585A26B4051F0014E6DB /* VenueAnnotation.h */,
+				3BBC585B26B4051F0014E6DB /* VenueAnnotation.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -740,10 +750,12 @@
 				3BB126FF269CEA8E006444E4 /* OverlayView.m in Sources */,
 				3B4BB27C269CC98700E5F692 /* SceneDelegate.m in Sources */,
 				3B7D641626A8EF17002BE4CB /* AddInviteeViewController.m in Sources */,
+				3B6335D726B3742900B31427 /* FoursquareVenue.m in Sources */,
 				3BA93F1A26A4C74C00CA9E01 /* LikedGenre.m in Sources */,
 				3B7D641026A8CD8E002BE4CB /* EventsViewController.m in Sources */,
 				3BB126F6269CEA3F006444E4 /* CardsViewController.m in Sources */,
 				3BB1270C269D008B006444E4 /* AudioRecorderViewController.m in Sources */,
+				3BBC585C26B4051F0014E6DB /* VenueAnnotation.m in Sources */,
 				3B3086D426A0904000AA7894 /* DirectMessage.m in Sources */,
 				3BA93F2026A4D12000CA9E01 /* AddLikedGenreCollectionViewCell.m in Sources */,
 				3BB3B66526A2334D00D06528 /* APIManager.m in Sources */,

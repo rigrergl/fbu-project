@@ -53,6 +53,15 @@ extern NSString * const EVENT_TITLE_KEY;
 extern NSString * const EVENT_IMAGE_KEY;
 extern NSString * const EVENT_INVITED_KEY;
 extern NSString * const EVENT_ACCEPTED_KEY;
+extern NSString * const EVENT_VENUE_KEY;
+
+//FoursquareVenue
+extern NSString * const FOURSUQARE_VENUE_PARSE_CLASS_NAME;
+extern NSString * const FOURSUQARE_VENUE_NAME_KEY;
+extern NSString * const FOURSUQARE_VENUE_API_ID_KEY;
+extern NSString * const FOURSUQARE_VENUE_LATITUDE_KEY;
+extern NSString * const FOURSUQARE_VENUE_LONGITUDE_KEY;
+extern NSString * const FOURSQUARE_VENUE_EVENT_ID_KEY;
 
 //LikedInstrument
 extern NSString * const LIKED_INSTRUMENT_CLASS_NAME;

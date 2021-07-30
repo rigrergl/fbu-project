@@ -11,6 +11,10 @@
 #import "StylingConstants.h"
 #import "DictionaryConstants.h"
 #import "CommonFunctions.h"
+#import "APIManager.h"
+#import "VenueAnnotation.h"
+#import "FoursquareVenue.h"
+#import "StylingConstants.h"
 
 @interface EventLocationPickerViewController () <MKMapViewDelegate>
 
@@ -19,12 +23,17 @@
 @property (strong, nonatomic) NSArray<PFUser *> *_Nonnull usersInEvent;
 @property (strong, nonatomic) NSDictionary<NSString *, UIImage *> *_Nonnull userImagesDictionary;
 @property (strong, nonatomic) MKPointAnnotation *_Nullable selectedAnnotation;
-@property (copy, nonatomic, nonnull) void (^didSelectLocationBlock)(CLLocation *_Nonnull location);
+@property (strong, nonatomic) MKPointAnnotation *_Nullable optimalUserAnnotation;
+@property (strong, nonatomic) VenueAnnotation *_Nullable optimalVenueAnnotation;
+@property (strong, nonatomic) MKMapItem *_Nullable selectedMapItem;
+@property (strong, nonatomic) FoursquareVenue *_Nullable selectedVenue;
+@property (copy, nonatomic, nonnull) void (^didSelectLocationBlock)(FoursquareVenue *_Nullable selectedVenue);
 
 @end
 
-static NSString * const ANNOTATION_IDENTIFIER = @"Pin";
-static NSString * const OPTIMAL_LOCATION_SUBTITLE = @"optimal location";
+static NSString * const PIN_ANNOTATION_IDENTIFIER = @"Pin";
+static NSString * const OPTIMAL_USER_ANNOTATION_SUBTITLE = @"optimal user location";
+static NSString * const OPTIMAL_VENUE_ANNOTATION_SUBTITLE = @"optimal venue location";
 static CLLocationDegrees REGION_DELTA = 0.2;
 static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 
@@ -38,21 +47,38 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 - (void)setupMapView {
     //set populate map annotations
     self.mapView.delegate = self;
-    [self putLocationOptionsOnMap];
+    [self putUserLocationOptionsOnMap];
     
     [self setOptimalAnnotationAsSelected];
 }
 
 - (void)setOptimalAnnotationAsSelected {
-    NSArray<MKPointAnnotation *> *annotations = (NSArray<MKPointAnnotation *> *)self.mapView.annotations;
+    NSArray<MKPointAnnotation *> *userAnnotations = (NSArray<MKPointAnnotation *> *)self.mapView.annotations;
     
-    MKPointAnnotation *optimalAnnotation = ComputeOptimalLocationUsingAveregeLocation(annotations);
-    
-    if (optimalAnnotation) {
-        [self.mapView setSelectedAnnotations:@[optimalAnnotation]];
-        [self centerOnLocation:optimalAnnotation.coordinate];
-        optimalAnnotation.subtitle = OPTIMAL_LOCATION_SUBTITLE;
-    }
+    ComputeOptimalLocationUsingAveregeLocation(userAnnotations, ^(MKPointAnnotation *_Nullable optimalUserAnnotation, VenueAnnotation *_Nullable optimalVenueAnnotation, NSArray<VenueAnnotation *> *_Nullable venueAnnotations) {
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            if (venueAnnotations) {
+                [self.mapView addAnnotations:venueAnnotations];
+            }
+            
+            if (optimalUserAnnotation) {
+                self.optimalUserAnnotation = optimalUserAnnotation;
+                [self.mapView removeAnnotation:optimalUserAnnotation];
+                [self.mapView addAnnotation:optimalUserAnnotation];
+                optimalUserAnnotation.subtitle = OPTIMAL_USER_ANNOTATION_SUBTITLE;
+                [self.mapView setSelectedAnnotations:@[optimalUserAnnotation]];
+                [self centerOnLocation:optimalUserAnnotation.coordinate];
+            }
+            if (optimalVenueAnnotation) {
+                self.optimalVenueAnnotation = optimalVenueAnnotation;
+                [self.mapView removeAnnotation:optimalVenueAnnotation];
+                [self.mapView addAnnotation:optimalVenueAnnotation];
+                optimalVenueAnnotation.subtitle = OPTIMAL_VENUE_ANNOTATION_SUBTITLE;
+                [self.mapView setSelectedAnnotations:@[optimalVenueAnnotation]];
+                [self centerOnLocation:optimalVenueAnnotation.coordinate];
+            }
+        });
+    });
 }
 
 - (void)centerOnLocation:(CLLocationCoordinate2D)coordinate {
@@ -64,7 +90,7 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
     [self.mapView setRegion:mapRegion animated: YES];
 }
 
-- (void)putLocationOptionsOnMap {
+- (void)putUserLocationOptionsOnMap {
     [self.locationOptions enumerateObjectsUsingBlock:^(CLLocation *_Nonnull location, NSUInteger index, BOOL *_Nonnull stop) {
         MKPointAnnotation *annotation = [MKPointAnnotation new];
         annotation.coordinate = location.coordinate;
@@ -72,9 +98,7 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
         [self.mapView addAnnotation:annotation];
     }];
     
-    
     [self.mapView becomeFirstResponder];
-    [self.mapView reloadInputViews];
 }
 
 - (void)setViewController:(NSArray<PFUser *> *)eventUsers
@@ -120,28 +144,67 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 #pragma mark - MKMapView delegate methods
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:ANNOTATION_IDENTIFIER];
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:PIN_ANNOTATION_IDENTIFIER];
     if (annotationView == nil) {
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:ANNOTATION_IDENTIFIER];
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:PIN_ANNOTATION_IDENTIFIER];
         annotationView.canShowCallout = true;
-        annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, ANNOTATION_ACCESSORY_VIEW_DIMENSION, ANNOTATION_ACCESSORY_VIEW_DIMENSION)];
+        
+        if(![annotation isKindOfClass:[VenueAnnotation class]]) {
+            annotationView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, ANNOTATION_ACCESSORY_VIEW_DIMENSION, ANNOTATION_ACCESSORY_VIEW_DIMENSION)];
+            
+            UIImageView *imageView = (UIImageView*)annotationView.leftCalloutAccessoryView;
+            UIImage *userProfileImage = [self.userImagesDictionary objectForKey:annotation.title];
+            if (userProfileImage) {
+                imageView.image = userProfileImage;
+            } else {
+                imageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
+            }
+            
+            annotationView.pinTintColor = USER_PIN_COLOR;
+        } else {
+            annotationView.pinTintColor = [MKPinAnnotationView greenPinColor];//VENUE_PIN_COLOR;
+        }
+        
+        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     } else {
         annotationView.annotation = annotation;
     }
     
-    UIImageView *imageView = (UIImageView*)annotationView.leftCalloutAccessoryView;
-    UIImage *userProfileImage = [self.userImagesDictionary objectForKey:annotation.title];
-    if (userProfileImage) {
-        imageView.image = userProfileImage;
-    } else {
-        imageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
+    if ([annotation.title isEqualToString:self.optimalUserAnnotation.title]) {
+        annotationView.pinTintColor = OPTIMAL_USER_PIN_COLOR;
+    } else if ([annotation.title isEqualToString:self.optimalVenueAnnotation.title]) {
+        annotationView.pinTintColor = OPTIMAL_VENUE_PIN_COLOR;
     }
-    
+
     return annotationView;
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    if (view.annotation == nil) {
+        return;
+    }
+    
     self.selectedAnnotation = (MKPointAnnotation *)view.annotation;
+    
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate];
+    self.selectedMapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+    
+    if ([view.annotation isKindOfClass:[VenueAnnotation class]]) {
+        VenueAnnotation *venueAnnotation = (VenueAnnotation *)view.annotation;
+        self.selectedVenue = venueAnnotation.venue;
+    } else {
+        self.selectedVenue = [[FoursquareVenue alloc] init];
+        self.selectedVenue.latitude = view.annotation.coordinate.latitude;
+        self.selectedVenue.longitude = view.annotation.coordinate.longitude;
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    NSDictionary *launchOptions = @{
+        MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
+    };
+    
+    [self.selectedMapItem openInMapsWithLaunchOptions:launchOptions];
 }
 
 #pragma mark - Button actions
@@ -151,13 +214,8 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
 }
 
 - (IBAction)didTapSave:(UIButton *)sender {
-    if (self.didSelectLocationBlock) {
-        CLLocationCoordinate2D coordinate =  self.selectedAnnotation.coordinate;
-        CLLocationDegrees latitude = coordinate.latitude;
-        CLLocationDegrees longitude = coordinate.longitude;
-        
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-        self.didSelectLocationBlock(location);
+    if (self.didSelectLocationBlock && self.selectedVenue) {
+        self.didSelectLocationBlock(self.selectedVenue);
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];

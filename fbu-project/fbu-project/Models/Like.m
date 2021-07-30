@@ -38,7 +38,7 @@
         if (!error && likes && likes.count == 0) {
             [newLike saveInBackgroundWithBlock:completion];
             [Like makeMatchIfApplicable:newLike];
-        } else {
+        } else if (completion) {
             completion(NO, error);
         }
     }];

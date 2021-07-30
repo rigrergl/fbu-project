@@ -12,6 +12,7 @@
 #import "CommonFunctions.h"
 #import "EventLocationPickerViewController.h"
 #import "ProfileViewController.h"
+#import "FoursquareVenue.h"
 #import <Parse/Parse.h>
 
 @interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -23,7 +24,7 @@
 @property (strong, nonatomic) NSMutableArray<PFUser *> *_Nonnull invitees;
 @property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
-@property (strong, nonatomic) CLLocation *_Nonnull location;
+@property (strong, nonatomic) FoursquareVenue *_Nullable venue;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIView *closeIndicator;
 @property (assign, nonatomic) BOOL canEdit;
@@ -125,25 +126,26 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     if ([self isFormValid]) {
         //update existing event
         if (self.event) {
+            self.event.venue = self.venue;
             self.event.date = self.datePicker.date;
             self.event.location = self.locationField.text;
             self.event.title = self.titleField.text;
             self.event.image = imageObject;
             self.event.invited = self.invitees;
-
             
             [self.event saveInBackground];
         } else {
             //upload new event to Parse database
             [Event postEvent:[PFUser currentUser]
+                       venue:self.venue
                         date:self.datePicker.date
                     location:self.locationField.text
                        title:self.titleField.text
                        image:imageObject
                      invited:self.invitees
                     accepted:nil];
-            [self dismissViewControllerAnimated:YES completion:nil];
         }
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         UIAlertController *alertController = createOkAlert(EMPTY_FIELDS_ALERT_TITLE, EMPTY_FIELDS_ALERT_MESSAGE);
         [self presentViewController:alertController animated:YES completion:nil];
@@ -267,7 +269,6 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -282,8 +283,8 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     } else if ([segue.identifier isEqualToString:NEW_EVENT_TO_MAP_SEGUE_IDENTIFIER]) {
         EventLocationPickerViewController *destinationViewController = [segue destinationViewController];
         [destinationViewController setViewController:[self inviteesPlusOrganizerArray]
-                              didSelectLocationBlock:^(CLLocation *_Nonnull selectedLocation){
-            [self updateEventLocation:selectedLocation];
+                              didSelectLocationBlock:^(FoursquareVenue *_Nullable selectedVenue){
+            [self updateEventLocation:selectedVenue];
         }];
     } else if ([segue.identifier isEqualToString:NEW_EVENT_TO_PROFILE_SEGUE_IDENTIFIER]) {
         ProfileViewController *destinationViewController = [segue destinationViewController];
@@ -300,17 +301,30 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
 
 #pragma mark - Location
 
-- (void)updateEventLocation:(CLLocation *_Nonnull)location {
-    self.location = location;
+- (void)updateEventLocation:(FoursquareVenue *_Nullable)venue {
+    if (!venue) {
+        self.locationField.text = @"";
+    }
+    if (self.event.venue) {
+        [self.event.venue deleteInBackground];
+    }
     
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    self.venue = venue;
+    self.venue.eventId = self.event.objectId;
+    [self.venue saveInBackground];
     
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
-        if (placemarks && placemarks.count > 0) {
-            CLPlacemark *placemark = placemarks.firstObject;
-            self.locationField.text = [NewEventViewController getAddressStringFromPlacemark:placemark];
-        }
-    }];
+    if (venue.name) {
+        self.locationField.text = venue.name;
+    } else {
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:venue.latitude longitude:venue.longitude];
+        [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
+            if (placemarks && placemarks.count > 0) {
+                CLPlacemark *placemark = placemarks.firstObject;
+                self.locationField.text = [NewEventViewController getAddressStringFromPlacemark:placemark];
+            }
+        }];
+    }
 }
 
 + (NSString *)getAddressStringFromPlacemark:(CLPlacemark *_Nonnull)placemark {

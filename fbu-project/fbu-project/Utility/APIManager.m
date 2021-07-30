@@ -9,6 +9,8 @@
 
 static NSString * const KEYS_PATH = @"Keys";
 static NSString * const KEYS_PATH_FILE_TYPE = @"plist";
+
+//constants for spotify api
 static NSString * const SPOTIFY_CLIENT_ID_KEY = @"spotify_client_id";
 static NSString * const SPOTIFY_CLIENT_SECRET_KEY = @"spotify_client_secret";
 static NSString * const SPOTIFY_ACCOUNTS_URL_STRING = @"https://accounts.spotify.com/api/token?grant_type=client_credentials";
@@ -16,9 +18,22 @@ static NSString * const SPOTIFY_TOKEN_REQUEST_CONTENT_TYPE = @"application/x-www
 static NSString * const SPOTIFY_ACCESS_TOKEN_KEY = @"access_token";
 static NSString * const SPOTIFY_GENRE_SEEDS_URL_STRING = @"https://api.spotify.com/v1/recommendations/available-genre-seeds";
 static NSString * const SPOTIFY_GENRES_KEY = @"genres";
-static NSString * const THE_AUDIO_DB_JSON_URL_STRING = @"https://theaudiodb.com/api/v1/json/1/search.php?s=%@";
+
+//constants for Foursquare api
+static NSString * const FOURSQUARE_CLIENT_ID_KEY = @"foursquare_client_id";
+static NSString * const FOURSQUARE_CLIENT_SECRET_KEY = @"foursquare_client_secret";
+static NSString * const FOURSQUARE_PARKS_URL = @"https://api.foursquare.com/v2/venues/explore?";
+static NSString * const FOURSQUARE_CLIENT_ID_PARAMETER_NAME = @"client_id";
+static NSString * const FOURSQUARE_CLIENT_SECRET_PARAMETER_NAME = @"client_secret";
+static NSString * const FOURSQUARE_VENUES_URL_FORMAT = @"%@%@=%@&%@=%@&v=20190425&ll=%@&query=%@&limit=10";
+static NSString * const FOURSQUARE_VENUES_DICTIONARY_RESPONSE_KEY = @"response";
+static NSString * const FOURSQUARE_VENUES_DICTIONARY_GROUPS_KEY = @"groups";
+static NSString * const FOURSQUARE_VENUES_DICTIONARY_ITEMS_KEY = @"items";
+
 
 @implementation APIManager
+
+#pragma mark - Spotify API
 
 + (NSString *)base64URLSafeEncode:(NSString *)originalString {
     NSData *originalData = [originalString dataUsingEncoding:NSUTF8StringEncoding];
@@ -83,7 +98,6 @@ static NSString * const THE_AUDIO_DB_JSON_URL_STRING = @"https://theaudiodb.com/
             };
             
             [request setAllHTTPHeaderFields:headers];
-            
             [request setHTTPMethod:@"GET"];
             
             NSURLSession *session = [NSURLSession sharedSession];
@@ -108,6 +122,55 @@ static NSString * const THE_AUDIO_DB_JSON_URL_STRING = @"https://theaudiodb.com/
             [dataTask resume];
         }
     }];
+}
+
+#pragma mark - Foursquare API
+
++ (NSString *)stringFromCoordinate:(CLLocationCoordinate2D)coordinate {
+    CLLocationDegrees latitude = coordinate.latitude;
+    CLLocationDegrees longitude = coordinate.longitude;
+    
+    return [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+}
+
++ (void)VenuesNear:(CLLocationCoordinate2D)coordinate
+            query:(NSString *_Nullable)query
+       completion:(void (^_Nonnull)(NSArray<FoursquareVenue *> *_Nullable))completion {
+    NSString *path = [[NSBundle mainBundle] pathForResource: KEYS_PATH ofType: KEYS_PATH_FILE_TYPE];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
+    NSString *clientId = [dict objectForKey: FOURSQUARE_CLIENT_ID_KEY];
+    NSString *clientSecret = [dict objectForKey: FOURSQUARE_CLIENT_SECRET_KEY];
+    
+    NSString *stringCoordinates = [APIManager stringFromCoordinate:coordinate];
+    NSString *urlString = [NSString stringWithFormat:FOURSQUARE_VENUES_URL_FORMAT, FOURSQUARE_PARKS_URL, FOURSQUARE_CLIENT_ID_PARAMETER_NAME, clientId, FOURSQUARE_CLIENT_SECRET_PARAMETER_NAME, clientSecret, stringCoordinates, query];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    
+    [request setHTTPMethod:@"GET"];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (!completion) {
+            return;
+        }
+        if (error) {
+            completion(nil);
+        }
+        
+        NSError *parseError = nil;
+        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+        if (parseError) {
+            completion(nil);
+        }
+        
+        NSArray<NSDictionary *> *venuesDictionaryArray = responseDictionary[FOURSQUARE_VENUES_DICTIONARY_RESPONSE_KEY][FOURSQUARE_VENUES_DICTIONARY_GROUPS_KEY][0][FOURSQUARE_VENUES_DICTIONARY_ITEMS_KEY];
+        NSArray<FoursquareVenue *> *venues = [FoursquareVenue venuesWithArray:venuesDictionaryArray];
+        completion(venues);
+    }];
+    [dataTask resume];
 }
 
 @end

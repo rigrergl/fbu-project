@@ -8,8 +8,14 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 #import "Vector3D.h"
+#import "VenueAnnotation.h"
 
-extern MKPointAnnotation *_Nullable ComputeOptimalLocationUsingAveregeLocation(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations);
+typedef void(^OptimalLocationReturnBlock)(MKPointAnnotation *_Nullable optimalUserAnnotation,
+                                          VenueAnnotation *_Nullable optimalVenueAnnotation,
+                                          NSArray<VenueAnnotation *> *_Nullable venueAnnotations);
+
+extern void ComputeOptimalLocationUsingAveregeLocation(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations, OptimalLocationReturnBlock _Nonnull completion);
+extern MKPointAnnotation *_Nullable ComputeOptimalLocationUsingAveregeLocationIsolatedForTesting(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations);
 extern MKPointAnnotation *_Nullable ComputeOptimalLocationBruteForce(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations);
 extern CLLocationDistance AggregateDistance(MKPointAnnotation *_Nonnull targetAnnotation, NSArray<MKPointAnnotation *> *_Nonnull annotations);
 extern CLLocationDistance DistanceBetweenAnnotations(MKPointAnnotation *_Nonnull annotation1, MKPointAnnotation *_Nonnull annotation2);

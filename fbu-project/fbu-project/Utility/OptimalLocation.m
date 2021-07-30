@@ -6,6 +6,11 @@
 //
 
 #import "OptimalLocation.h"
+#import "FoursquareVenue.h"
+#import "APIManager.h"
+
+static NSString * const PARK_QUERY = @"park";
+static NSString * const PLAZA_QUERY = @"plaza";
 
 CLLocation *_Nonnull LocationWithCoordinate(CLLocationCoordinate2D coordinate) {
     return [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
@@ -21,6 +26,7 @@ CLLocationDistance DistanceBetweenAnnotations(MKPointAnnotation *_Nonnull annota
     
     CLLocation *location1 = LocationWithCoordinate(annotation1.coordinate);
     CLLocation *location2 = LocationWithCoordinate(annotation2.coordinate);
+    
     return [location1 distanceFromLocation:location2];
 }
 
@@ -105,7 +111,63 @@ MKPointAnnotation * AnnotationClosestToLocation(NSArray<MKPointAnnotation *> *_N
     return closestAnnotation;
 }
 
-MKPointAnnotation *_Nullable ComputeOptimalLocationUsingAveregeLocation(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations) {
+VenueAnnotation * AnnotationWithVenue(FoursquareVenue *_Nonnull venue) {
+    if (!venue) {
+        return nil;
+    }
+    
+    VenueAnnotation *venueAnnotation = [VenueAnnotation new];
+    venueAnnotation.coordinate = CLLocationCoordinate2DMake(venue.latitude, venue.longitude);
+    venueAnnotation.title = venue.name;
+    venueAnnotation.venue = venue;
+    
+    return venueAnnotation;
+}
+
+void ComputeOptimalLocationUsingAveregeLocation(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations,
+                                                OptimalLocationReturnBlock _Nonnull completion) {
+    if (!completion) {
+        return;
+    }
+    
+    if (!userAnnotations ) {
+        completion(nil, nil, nil);
+    }
+    
+    NSMutableArray<CLLocation *> *locations = [[NSMutableArray alloc] initWithCapacity:userAnnotations.count];
+    for (MKPointAnnotation *annotation in userAnnotations) {
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude
+                                                          longitude:annotation.coordinate.longitude];
+        
+        [locations addObject:location];
+    }
+    
+    //calculate average location
+    CLLocation *averageLocation = CentroidOfPointsOnSphere(locations);
+    MKPointAnnotation *optimalUserAnnotation = AnnotationClosestToLocation(userAnnotations, averageLocation);
+    
+    //fetch venues near average location
+    [APIManager VenuesNear:averageLocation.coordinate query:PARK_QUERY completion:^(NSArray<FoursquareVenue *> *_Nullable venues){
+        if (!venues) {
+            completion(optimalUserAnnotation, nil, nil);
+        }
+        
+        NSMutableArray *venueAnnotations = [[NSMutableArray alloc] initWithCapacity:venues.count];
+        for (FoursquareVenue *venue in venues) {
+            [venueAnnotations addObject:AnnotationWithVenue(venue)];
+        }
+        
+        VenueAnnotation *optimalVenueAnnotation = AnnotationClosestToLocation(venueAnnotations, averageLocation);
+        
+        if (!optimalVenueAnnotation) {
+            completion(optimalUserAnnotation, nil, venueAnnotations);
+        }
+        
+        completion(optimalUserAnnotation, optimalVenueAnnotation, venueAnnotations);
+    }];
+}
+
+MKPointAnnotation *_Nullable ComputeOptimalLocationUsingAveregeLocationIsolatedForTesting(NSArray<MKPointAnnotation *> *_Nonnull userAnnotations) {
     if (!userAnnotations) {
         return nil;
     }

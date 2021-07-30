@@ -15,6 +15,7 @@
 }
 
 + (void)postEvent:(PFUser *_Nonnull)organizer
+            venue:(FoursquareVenue *_Nullable)venue
              date:(NSDate *_Nonnull)date
          location:(NSString *_Nonnull)location
             title:(NSString *_Nonnull)title
@@ -30,6 +31,7 @@
     newEvent.image = image;
     newEvent.invited = invited;
     newEvent.accepted = accepted;
+    newEvent.venue = venue;
     
     [newEvent saveInBackground];
 }
