@@ -12,7 +12,6 @@
 #import "ChatViewController.h"
 #import <Parse/Parse.h>
 
-
 @interface MatchesViewController () <UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *matchesCollectionView;

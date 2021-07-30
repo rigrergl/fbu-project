@@ -26,7 +26,6 @@ static NSInteger USERNAME_LABEL_HEIGHT = 20;
 
 @implementation CustomDraggableView
 
-
 - (id)initWithFrame:(CGRect)frame
             andUser:(PFUser *)user {
     self = (CustomDraggableView *)[super initWithFrame:frame];

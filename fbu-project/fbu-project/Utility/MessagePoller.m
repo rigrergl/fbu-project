@@ -16,7 +16,6 @@
 @property (nonatomic, weak) Event *_Nullable event;
 @property (nonatomic, copy) NSDate *_Nullable dateOfLastLoadedMessage;
 
-
 @end
 
 NSString * const NEW_MESSAGE_NOTIFICATION_NAME = @"NewMessageNotification";

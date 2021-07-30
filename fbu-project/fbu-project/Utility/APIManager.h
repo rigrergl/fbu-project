@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)fetchGenres:(PFArrayResultBlock _Nullable)completion;
 + (void)VenuesNear:(CLLocationCoordinate2D)coordinate
-            query:(NSString *_Nullable)query
+             query:(NSString *_Nullable)query
         completion:(void (^_Nonnull)(NSArray<FoursquareVenue *> *_Nullable))completion;
 + (NSString *)stringFromCoordinate:(CLLocationCoordinate2D)coordinate;
 

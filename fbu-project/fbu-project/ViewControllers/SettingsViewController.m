@@ -18,5 +18,4 @@
     [MessagePoller shared].pollingLock = sender.on;
 }
 
-
 @end

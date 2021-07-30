@@ -93,6 +93,4 @@ static const NSInteger ADD_INVITEE_CELL_HEIGHT = 76;
     [self.matchesCollectionView reloadData];
 }
 
-
-
 @end

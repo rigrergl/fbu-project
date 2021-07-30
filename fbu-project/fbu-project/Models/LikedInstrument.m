@@ -68,9 +68,8 @@ NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME = @"voice";
 }
 
 + (void)postLikedInstrument:(NSString *)title
-               forUser:(PFUser *)user
-            completion:(LikedInstrumentReturnBlock _Nullable)completion {
-    
+                    forUser:(PFUser *)user
+                 completion:(LikedInstrumentReturnBlock _Nullable)completion {
     LikedInstrument *newLikedInstrument = [LikedInstrument new];
     newLikedInstrument.title = title;
     newLikedInstrument.user = user;
@@ -79,7 +78,7 @@ NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME = @"voice";
 }
 
 + (void)postLikedInstrumentIfNew:(LikedInstrument *)likedInstrument
-                 completion:(LikedInstrumentReturnBlock _Nullable)completion {
+                      completion:(LikedInstrumentReturnBlock _Nullable)completion {
     PFQuery *likedInstrumentQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
     [likedInstrumentQuery whereKey:LIKED_INSTRUMENT_TITLE_KEY equalTo:likedInstrument.title];
     [likedInstrumentQuery whereKey:LIKED_INSTRUMENT_USER_KEY equalTo:likedInstrument.user];
@@ -98,7 +97,7 @@ NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME = @"voice";
 }
 
 + (void)deleteLikedInstrument:(LikedInstrument *)likedInstrument
-              completion:(PFBooleanResultBlock _Nullable)completion {
+                   completion:(PFBooleanResultBlock _Nullable)completion {
     PFQuery *likedInstrumentQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
     [likedInstrumentQuery getObjectInBackgroundWithId:likedInstrument.objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
         [object deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *_Nullable error){

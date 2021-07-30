@@ -18,6 +18,7 @@
 @end
 
 static const CGFloat CELL_CORNER_RADIUS = 14;
+static NSString * const DATE_FORMAT = @"yyyy-MMM-dd";
 
 @implementation EventCollectionViewCell
 
@@ -64,7 +65,7 @@ static const CGFloat CELL_CORNER_RADIUS = 14;
 
 + (NSString *)getDateString:(NSDate *_Nonnull)date {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MMM-dd"];
+    [dateFormatter setDateFormat:DATE_FORMAT];
     
     return [dateFormatter stringFromDate:date];
 }

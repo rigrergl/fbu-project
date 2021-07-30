@@ -92,7 +92,6 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
         return;
     }
     
-    
     NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
     
     [recordSetting setValue :@(kAudioFormatLinearPCM) forKey:AVFormatIDKey];
@@ -139,7 +138,6 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
     return recordingURL;
 }
 
-
 - (void)finishRecording:(BOOL)success {
     [self.audioRecorder stop];
     self.audioRecorder = nil;
@@ -177,7 +175,6 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
     MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
                                        initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
                                        andData:recordingData];
-    
     self.playbackView = playbackView;
     [self.playbackContainerView addSubview:playbackView];
 }
@@ -213,7 +210,6 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
 - (void)analyzeRecording {
     AudioAnalyzer *analyzer = [[AudioAnalyzer alloc] init];
     [analyzer analyzeSoundFileWithURL:[AudioRecorderViewController getRecordingURL]
@@ -246,7 +242,7 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:DETECTED_INSTRUMENT_CELL_IDENTIFIER forIndexPath:indexPath];
-
+    
     if (cell) {
         NSString *instumentTitle = self.instrumentLabels[indexPath.item];
         [cell setCellWithTitle:instumentTitle canRemove:YES];

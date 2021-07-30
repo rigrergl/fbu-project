@@ -9,7 +9,6 @@
 
 @implementation LikedGenreCollectionViewCell
 
-
 - (void)setCellWithTitle:(NSString *_Nonnull)likedGenreTitle
                canRemove:(BOOL)canRemove {
     self.canRemove = canRemove;

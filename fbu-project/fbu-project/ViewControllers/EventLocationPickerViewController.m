@@ -175,7 +175,7 @@ static const CGFloat ANNOTATION_ACCESSORY_VIEW_DIMENSION = 50;
     } else if ([annotation.title isEqualToString:self.optimalVenueAnnotation.title]) {
         annotationView.pinTintColor = OPTIMAL_VENUE_PIN_COLOR;
     }
-
+    
     return annotationView;
 }
 

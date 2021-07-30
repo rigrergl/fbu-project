@@ -17,7 +17,6 @@
 + (void)postLikedGenre:(NSString *)title
                forUser:(PFUser *)user
             completion:(LikedGenreReturnBlock _Nullable)completion {
-    
     LikedGenre *newLikedGenre = [LikedGenre new];
     newLikedGenre.title = title;
     newLikedGenre.user = user;

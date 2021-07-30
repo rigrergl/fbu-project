@@ -45,7 +45,7 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
 }
 
 - (void)fetchRecommendedUsers {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //async thread
         NSArray *users = Recommended();
@@ -74,10 +74,10 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
     CustomDraggableViewBackground *draggableBackground = [[CustomDraggableViewBackground alloc]initWithFrame:frame andUsers:users];
     draggableBackground.alpha = 0; //making the view fade in
-
+    
     self.draggableViewBackground = draggableBackground;
     [self.view addSubview:draggableBackground];
-
+    
     //animate down and in
     [UIView animateWithDuration:CARDS_ENTRY_ANIMATION_DURATION
                      animations:^{

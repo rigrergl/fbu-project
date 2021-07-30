@@ -86,7 +86,6 @@ CLLocation * CentroidOfPointsOnSphere(NSArray<CLLocation *> *_Nonnull locations)
     CLLocationCoordinate2D centroidCoordinate = [Vector3D CoordinateFromVector:meanVector];
     CLLocation *centroidLocation = [[CLLocation alloc] initWithLatitude:centroidCoordinate.latitude
                                                               longitude:centroidCoordinate.longitude];
-    
     return centroidLocation;
 }
 
@@ -138,7 +137,6 @@ void ComputeOptimalLocationUsingAveregeLocation(NSArray<MKPointAnnotation *> *_N
     for (MKPointAnnotation *annotation in userAnnotations) {
         CLLocation *location = [[CLLocation alloc] initWithLatitude:annotation.coordinate.latitude
                                                           longitude:annotation.coordinate.longitude];
-        
         [locations addObject:location];
     }
     

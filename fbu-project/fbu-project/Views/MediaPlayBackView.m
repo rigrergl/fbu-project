@@ -70,7 +70,6 @@ static CGFloat PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
-    
     NSError *error = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithData:self.recordingData error:&error];
     

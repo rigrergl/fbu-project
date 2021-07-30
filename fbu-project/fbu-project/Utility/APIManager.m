@@ -30,7 +30,6 @@ static NSString * const FOURSQUARE_VENUES_DICTIONARY_RESPONSE_KEY = @"response";
 static NSString * const FOURSQUARE_VENUES_DICTIONARY_GROUPS_KEY = @"groups";
 static NSString * const FOURSQUARE_VENUES_DICTIONARY_ITEMS_KEY = @"items";
 
-
 @implementation APIManager
 
 #pragma mark - Spotify API
@@ -91,7 +90,6 @@ static NSString * const FOURSQUARE_VENUES_DICTIONARY_ITEMS_KEY = @"items";
                                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                timeoutInterval:10.0];
             
-            
             NSString *authHeader = [NSString stringWithFormat: @"Bearer %@", spotifyToken];
             NSDictionary *headers = @{
                 @"Authorization": authHeader
@@ -134,8 +132,8 @@ static NSString * const FOURSQUARE_VENUES_DICTIONARY_ITEMS_KEY = @"items";
 }
 
 + (void)VenuesNear:(CLLocationCoordinate2D)coordinate
-            query:(NSString *_Nullable)query
-       completion:(void (^_Nonnull)(NSArray<FoursquareVenue *> *_Nullable))completion {
+             query:(NSString *_Nullable)query
+        completion:(void (^_Nonnull)(NSArray<FoursquareVenue *> *_Nullable))completion {
     NSString *path = [[NSBundle mainBundle] pathForResource: KEYS_PATH ofType: KEYS_PATH_FILE_TYPE];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile: path];
     NSString *clientId = [dict objectForKey: FOURSQUARE_CLIENT_ID_KEY];

@@ -45,7 +45,7 @@
     [acceptedSet addObject:[PFUser currentUser]];
     
     self.accepted = [acceptedSet allObjects];
-   
+    
     [self.invited enumerateObjectsUsingBlock:^(PFUser *_Nonnull user, NSUInteger index, BOOL *_Nonnull stop) {
         if ([user.objectId isEqualToString:[PFUser currentUser].objectId]) {
             [self.invited removeObjectAtIndex:index];

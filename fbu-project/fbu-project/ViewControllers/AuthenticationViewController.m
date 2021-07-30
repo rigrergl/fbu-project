@@ -93,6 +93,7 @@ static NSString * const LOGIN_SEGUE_TITLE = @"loginSegue";
         }
     }];
 }
+
 - (IBAction)didTapLogin:(UIButton *)sender {
     if(self.usernameField.text.length > 0 && self.passwordField.text.length > 0){
         [self loginUser];

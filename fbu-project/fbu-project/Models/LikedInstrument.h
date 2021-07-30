@@ -32,11 +32,11 @@ typedef void(^LikedInstrumentReturnBlock)(LikedInstrument *_Nullable newLikedIns
 + (NSArray<NSString *> *)InstrumentIdentifiers;
 
 + (void)postLikedInstrument:(NSString *)title
-               forUser:(PFUser *)user
-            completion:(LikedInstrumentReturnBlock _Nullable)completion;
+                    forUser:(PFUser *)user
+                 completion:(LikedInstrumentReturnBlock _Nullable)completion;
 
 + (void)deleteLikedInstrument:(LikedInstrument *)likedInstrument
-              completion:(PFBooleanResultBlock _Nullable)completion;
+                   completion:(PFBooleanResultBlock _Nullable)completion;
 
 @end
 

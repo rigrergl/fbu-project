@@ -46,7 +46,6 @@ static const CGFloat EVENT_PICTURE_CORNER_RADIUS = 14;
 static const CGFloat CLOSE_INDICATOR_CORNER_RADIUS = 4;
 static const NSInteger INVITEE_CELL_WIDTH = 60;
 
-
 @implementation NewEventViewController
 
 - (void)viewDidLoad {
@@ -70,7 +69,7 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     self.locationField.text = event.location;
     self.datePicker.date = event.date;
     [self fetchInvitees];
-
+    
     [self setEditingRights];
 }
 
@@ -164,7 +163,6 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
 }
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    
     InviteeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:INVITEE_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
@@ -182,7 +180,7 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
 
 - (void)removeInvitee:(InviteeCollectionViewCell *_Nonnull)cell {
     CGFloat indexToRemove = [self.inviteesCollectionView indexPathForCell:cell].item;
-
+    
     [self.invitees removeObjectAtIndex:indexToRemove];
     [self.inviteesCollectionView reloadData];
 }
@@ -233,7 +231,6 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(CANCEL_ACTION_TITLE, nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
-    
     [photoAlert addAction:chooseAction];
     [photoAlert addAction:takeAction];
     [photoAlert addAction:cancelAction];

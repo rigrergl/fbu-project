@@ -47,7 +47,6 @@ static NSString * const DEFAULT_SCENE_CONFIGURATION = @"Default Configuration";
     return [[UISceneConfiguration alloc] initWithName:DEFAULT_SCENE_CONFIGURATION sessionRole:connectingSceneSession.role];
 }
 
-
 - (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
     // Called when the user discards a scene session.
     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.

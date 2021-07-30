@@ -11,7 +11,6 @@
 
 @implementation MatchCollectionViewCell
 
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self doStyling];

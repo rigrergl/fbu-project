@@ -15,5 +15,4 @@ typedef void(^MatchingUsersReturnBlock)(NSArray *_Nullable matchedUsers,
 
 extern void MatchingUsers(MatchingUsersReturnBlock _Nullable completion);
 
-
 NS_ASSUME_NONNULL_END

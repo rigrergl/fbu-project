@@ -80,7 +80,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
     PFQuery *userQuery = [PFQuery queryWithClassName:[PFUser parseClassName]];
     NSString *userId = self.targetUser.objectId;
     [userQuery getObjectInBackgroundWithId:userId
-                                 block:^(PFObject *object, NSError *error) {
+                                     block:^(PFObject *object, NSError *error) {
         PFUser *user = (PFUser *)object;
         self.usernameLabel.text = user.username;
         
@@ -112,7 +112,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
         
         self.editBioButton.alpha = 0;
         self.editBioButton.enabled = NO;
-
+        
     }
 }
 
@@ -160,15 +160,13 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
     [userQuery includeKey:RECORDING_KEY];
     
     [userQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
-
         if (object) {
             self.targetUser = (PFUser *)object;
-
+            
             PFFileObject *recordingFile = self.targetUser[RECORDING_KEY];
             if(recordingFile == nil) {
                 return;
             }
-
             
             [self addPlaybackView];
         }
@@ -279,7 +277,6 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     if ([segue.identifier isEqualToString:PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER]) {
         AddLikedGenreViewController *destinationViewController = [segue destinationViewController];
         destinationViewController.didAddLikedInstrument = nil;
@@ -311,7 +308,6 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 - (IBAction)didTapEditBio:(UIButton *)sender {
     [self performSegueWithIdentifier:PROFILE_TO_COMPOSE_BIO_SEGUE_IDENTIFIER sender:nil];
 }
-
 
 - (IBAction)didTapChangeProfileImage:(UIButton *)sender {
     UIAlertController *photoAlert = [UIAlertController alertControllerWithTitle:nil
@@ -373,7 +369,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
     newProfileImage = resizeImage(newProfileImage,
                                   CGSizeMake(SAVED_PROFILE_IMAGE_DIMENSIONS,
                                              SAVED_PROFILE_IMAGE_DIMENSIONS));
-
+    
     self.profileImageView.image = newProfileImage;
     
     PFFileObject *pfImage = getFileFromImage(newProfileImage);

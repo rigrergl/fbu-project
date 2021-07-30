@@ -16,7 +16,6 @@ static const NSInteger POINTS_FOR_MEDIUM_DISTANCE = 10; //50-100 miles
 static const NSInteger POINTS_FOR_LONG_DISTANCE = 20; //100-500 miles
 static const NSInteger POINTS_FOR_VERY_LONG_DISTANCE = 40; //500-1000 miles
 static const NSInteger POINTS_FOR_MAX_DISTANCE = 60; //1000+ miles
-
 static const NSInteger POINTS_FOR_COMMON_GENRE = -5;
 static const NSInteger POINTS_FOR_MATCHING_INSTRUMENT_IN_RECORDING = -5;
 
@@ -161,7 +160,6 @@ NSInteger PointsForMatchingInstrumentsInRecording(PFUser *_Nonnull otherUser) {
     [[PFUser currentUser] fetchIfNeeded];
     NSArray<NSString *> *recordingTags = otherUser[INSTRUMENTS_IN_RECORDING];
     
-    
     NSInteger instrumentPoints = 0;
     for (NSString *instrument in recordingTags) {
         if ([currentUserLikedInstrumentsSet containsObject:instrument]) {
@@ -207,7 +205,7 @@ NSArray<PFUser *> *_Nullable Recommended(void) {
         }];
         
         return notLikedUsers;
-    } else {
-        return nil;
     }
+    
+    return nil;
 }
