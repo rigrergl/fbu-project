@@ -135,11 +135,11 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
     EventCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:EVENT_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
-        if (indexPath.section == ATTENDING_SECTION_NUMBER) {
+        if (indexPath.section == ATTENDING_SECTION_NUMBER && self.attendingEvents && self.attendingEvents.count > 0) {
             [cell setCellForAttending:self.attendingEvents[indexPath.item] segueToChat:^(EventCollectionViewCell *cell){
                 [self performSegueWithIdentifier:SEGUE_TO_CHAT_IDENTIFIER sender:cell.event];
             }];
-        } else {
+        } else if (self.invitedEvents && self.invitedEvents.count > 0) {
             [cell setCellForInvited:self.invitedEvents[indexPath.item] acceptInvite:^(EventCollectionViewCell *cell){
                 [self acceptInvite:cell];
             }];
