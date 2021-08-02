@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *_Nullable messages;
 @property (weak, nonatomic) IBOutlet UITextView *inputTextView;
-@property (nonatomic, strong) NSTimer *_Nullable refreshTimer;
 @property (nonatomic, assign) CGFloat originalFrameHeight;
 @property (weak, nonatomic) IBOutlet UIButton *chatTitleButton;
 @property (strong, nonatomic) PFUser *otherUser;

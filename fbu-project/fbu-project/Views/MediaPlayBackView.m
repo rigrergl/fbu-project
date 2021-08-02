@@ -13,7 +13,6 @@
 @property (nonatomic, strong) AVAudioPlayer *_Nullable audioPlayer;
 @property (nonatomic, strong) NSData *_Nonnull recordingData;
 @property (nonatomic, strong) UIProgressView *_Nullable progressView;
-@property (nonatomic, strong) NSTimer *_Nullable progressTimer;
 @property (nonatomic, strong) UIButton *_Nullable playButton;
 
 @end
@@ -106,14 +105,10 @@ static CGFloat PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
         self.progressView.alpha = 1;
     }];
     
-    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:PROGRESS_VIEW_UPDATE_INTERVAL
-                                                          target:self
-                                                        selector:@selector(updatePlaybackSlider:)
-                                                        userInfo:nil
-                                                         repeats:YES];
+    [self updatePlaybackSlider];
 }
 
-- (void)updatePlaybackSlider:(NSTimer *)timer {
+- (void)updatePlaybackSlider {
     if (self.audioPlayer == nil || self.progressView == nil) {
         return;
     }
@@ -122,11 +117,13 @@ static CGFloat PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
     CGFloat currentTime = self.audioPlayer.currentTime / totalTime;
     
     self.progressView.progress = currentTime;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(PROGRESS_VIEW_UPDATE_INTERVAL * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self updatePlaybackSlider];
+    });
 }
 
 - (void)hideProgressView {
-    [self.progressTimer invalidate];
-    self.progressTimer = nil;
     [self.progressView removeFromSuperview];
     self.progressView = nil;
 }
