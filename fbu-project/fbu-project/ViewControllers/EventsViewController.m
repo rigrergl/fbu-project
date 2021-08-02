@@ -63,8 +63,9 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
         }
         
         PFQuery *acceptedQuery = [PFQuery queryWithClassName:[Event parseClassName]];
-        [organizerQuery includeKey:EVENT_INVITED_KEY];
-        [organizerQuery includeKey:EVENT_ACCEPTED_KEY];
+        [acceptedQuery includeKey:EVENT_IMAGE_KEY];
+        [acceptedQuery includeKey:EVENT_INVITED_KEY];
+        [acceptedQuery includeKey:EVENT_ACCEPTED_KEY];
         [acceptedQuery whereKey:EVENT_ACCEPTED_KEY containsAllObjectsInArray:@[[PFUser currentUser]]];
         [acceptedQuery findObjectsInBackgroundWithBlock:^(NSArray<Event *> *_Nullable acceptedEvents, NSError *_Nullable error){
             if (acceptedEvents) {
@@ -78,6 +79,7 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
 - (void)fetchInvitedEvents {
     //events that have the current user inside their invited array
     PFQuery *query = [PFQuery queryWithClassName:[Event parseClassName]];
+    [query includeKey:EVENT_IMAGE_KEY];
     [query whereKey:EVENT_INVITED_KEY containsAllObjectsInArray:@[[PFUser currentUser]]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray<Event *> *_Nullable invitedEvents, NSError *_Nullable error){

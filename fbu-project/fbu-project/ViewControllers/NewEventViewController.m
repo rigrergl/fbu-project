@@ -70,8 +70,13 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     self.locationField.text = event.location;
     self.datePicker.date = event.date;
     [self fetchInvitees];
-    
     [self setEditingRights];
+    
+    [event[EVENT_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
+        if (data) {
+            self.eventPictureView.image = [UIImage imageWithData:data];
+        }
+    }];
 }
 
 - (void)fetchInvitees {

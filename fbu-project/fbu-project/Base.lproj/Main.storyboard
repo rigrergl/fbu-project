@@ -444,8 +444,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="246" height="262"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-event-picture" translatesAutoresizingMaskIntoConstraints="NO" id="FB0-JJ-yqv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="246" height="262"/>
+                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qax-l6-YQM">
                                                     <rect key="frame" x="213" y="230" width="25" height="24"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal">
                                                         <imageReference key="image" image="info.circle" catalog="system" symbolScale="large"/>
                                                     </state>
@@ -455,6 +459,7 @@
                                                 </button>
                                                 <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t4J-1O-cen">
                                                     <rect key="frame" x="8" y="229.5" width="27.5" height="24.5"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal">
                                                         <imageReference key="image" image="message.fill" catalog="system" symbolScale="large"/>
                                                     </state>
@@ -463,19 +468,20 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWM-Zt-kTl">
-                                                    <rect key="frame" x="24" y="28" width="126" height="36"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
+                                                    <rect key="frame" x="24" y="28" width="131" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="June 23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEb-ld-5SB">
-                                                    <rect key="frame" x="24" y="72" width="60" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <rect key="frame" x="24" y="72" width="61" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLt-zA-xIa">
                                                     <rect key="frame" x="8" y="230" width="25" height="24"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="checkmark.circle.fill" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                     </state>
@@ -485,6 +491,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lgJ-4h-5XE">
                                                     <rect key="frame" x="41" y="230" width="25" height="24"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal">
                                                         <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="large"/>
                                                     </state>
@@ -497,9 +504,13 @@
                                                 <constraint firstAttribute="bottom" secondItem="aLt-zA-xIa" secondAttribute="bottom" constant="8" id="E7v-ie-VwJ"/>
                                                 <constraint firstItem="EEb-ld-5SB" firstAttribute="leading" secondItem="JWM-Zt-kTl" secondAttribute="leading" id="JYw-KY-BGR"/>
                                                 <constraint firstItem="lgJ-4h-5XE" firstAttribute="leading" secondItem="t4J-1O-cen" secondAttribute="trailing" constant="5.5" id="Jyf-S4-Xeh"/>
+                                                <constraint firstAttribute="bottom" secondItem="FB0-JJ-yqv" secondAttribute="bottom" id="MhQ-3l-mtj"/>
+                                                <constraint firstItem="FB0-JJ-yqv" firstAttribute="top" secondItem="foG-60-syZ" secondAttribute="top" id="NKD-Mw-OEF"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JWM-Zt-kTl" secondAttribute="trailing" constant="24" id="Qea-UX-uZ2"/>
                                                 <constraint firstItem="aLt-zA-xIa" firstAttribute="leading" secondItem="foG-60-syZ" secondAttribute="leading" constant="8" id="Xhx-Ua-xgB"/>
                                                 <constraint firstAttribute="trailing" secondItem="qax-l6-YQM" secondAttribute="trailing" constant="8" id="aqQ-pf-UJp"/>
+                                                <constraint firstAttribute="trailing" secondItem="FB0-JJ-yqv" secondAttribute="trailing" id="m35-CD-TB9"/>
+                                                <constraint firstItem="FB0-JJ-yqv" firstAttribute="leading" secondItem="foG-60-syZ" secondAttribute="leading" id="n0R-Jx-fJ2"/>
                                                 <constraint firstItem="JWM-Zt-kTl" firstAttribute="top" secondItem="foG-60-syZ" secondAttribute="top" constant="28" id="qEN-xD-ONV"/>
                                                 <constraint firstItem="t4J-1O-cen" firstAttribute="leading" secondItem="foG-60-syZ" secondAttribute="leading" constant="8" id="tWW-59-5jl"/>
                                                 <constraint firstItem="lgJ-4h-5XE" firstAttribute="centerY" secondItem="aLt-zA-xIa" secondAttribute="centerY" id="u8w-5u-De5"/>
@@ -507,13 +518,14 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EEb-ld-5SB" secondAttribute="trailing" constant="8" id="wvj-dB-4WB"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="246" height="262"/>
                                         <connections>
                                             <outlet property="acceptButton" destination="aLt-zA-xIa" id="Vm2-ES-EMx"/>
                                             <outlet property="chatButton" destination="t4J-1O-cen" id="IbG-L4-LNR"/>
                                             <outlet property="dateLabel" destination="EEb-ld-5SB" id="kiC-jJ-XJa"/>
                                             <outlet property="declineButton" destination="lgJ-4h-5XE" id="GhR-2Z-nUh"/>
+                                            <outlet property="eventImageView" destination="FB0-JJ-yqv" id="VgX-tf-HWe"/>
                                             <outlet property="titleLabel" destination="JWM-Zt-kTl" id="4Vq-nz-SVC"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1564,8 +1576,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SbI-lA-vYa"/>
-        <segue reference="8OY-aU-wCI"/>
-        <segue reference="Ruy-vd-dse"/>
+        <segue reference="Y8g-ii-Y5V"/>
+        <segue reference="BY4-zM-kLe"/>
         <segue reference="f0v-1A-Gr4"/>
     </inferredMetricsTieBreakers>
     <resources>

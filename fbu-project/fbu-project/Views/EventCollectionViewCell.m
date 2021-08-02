@@ -7,7 +7,7 @@
 
 #import "EventCollectionViewCell.h"
 #import "CommonFunctions.h"
-
+#import "DictionaryConstants.h"
 @interface EventCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
 @property (weak, nonatomic) IBOutlet UIButton *acceptButton;
 @property (weak, nonatomic) IBOutlet UIButton *declineButton;
+@property (weak, nonatomic) IBOutlet UIImageView *eventImageView;
 
 @end
 
@@ -56,6 +57,12 @@ static NSString * const DATE_FORMAT = @"yyyy-MMM-dd";
     self.event = event;
     self.titleLabel.text = event.title;
     self.dateLabel.text = [EventCollectionViewCell getDateString:event.date];
+    
+    [event[EVENT_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
+        if (data) {
+            self.eventImageView.image = [UIImage imageWithData:data];
+        }
+    }];
 }
 
 + (NSString *)getDateString:(NSDate *_Nonnull)date {
