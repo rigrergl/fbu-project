@@ -29,7 +29,7 @@ typedef void(^LikedInstrumentReturnBlock)(LikedInstrument *_Nullable newLikedIns
 @property (nonatomic, strong) PFUser *_Nonnull user;
 
 + (NSString *)getDisplayNameForInstrument:(NSString *)shortName;
-+ (NSArray<NSString *> *)InstrumentIdentifiers;
++ (NSArray<NSString *> *)InstrumentNames;
 
 + (void)postLikedInstrument:(NSString *)title
                     forUser:(PFUser *)user

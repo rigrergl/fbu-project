@@ -7,6 +7,7 @@
 
 #import "MySoundClassifier.h"
 #import "AudioAnalyzer.h"
+#import "LikedInstrument.h"
 #import <SoundAnalysis/SoundAnalysis.h>
 
 @interface AudioAnalyzer () <SNResultsObserving>
@@ -57,7 +58,7 @@ didProduceResult:(nonnull id<SNResult>)result {
 - (void)addInstrumentLabelIfConfident:(NSString *)label
                            confidence:(CGFloat)confidence {
     if (confidence > MIN_CONFIDENCE) {
-        [self.setOfInstrumentLabels addObject:label];
+        [self.setOfInstrumentLabels addObject:[LikedInstrument getDisplayNameForInstrument:label]];
     }
 }
 

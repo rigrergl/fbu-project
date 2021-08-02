@@ -61,10 +61,10 @@ NSString * HUMAN_SINGING_VOICE_DISPLAY_NAME = @"voice";
     return fullName;
 }
 
-+ (NSArray<NSString *> *)InstrumentIdentifiers {
++ (NSArray<NSString *> *)InstrumentNames {
     NSDictionary<NSString *, NSString *> *namesDictionary = [LikedInstrument sharedTranslationDictionary];
-    NSArray<NSString *> *keys = [namesDictionary allKeys];
-    return keys;
+    NSArray<NSString *> *values = [namesDictionary allValues];
+    return values;
 }
 
 + (void)postLikedInstrument:(NSString *)title

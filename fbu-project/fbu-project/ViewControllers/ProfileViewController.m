@@ -217,8 +217,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
             };
         } else {
             LikedInstrument *instrument = self.likedInstruments[indexPath.item];
-            NSString *instrumentDisplayName = [LikedInstrument getDisplayNameForInstrument:instrument.title];
-            [cell setCellWithTitle:instrumentDisplayName canRemove:self.canEditProfile];
+            [cell setCellWithTitle:instrument.title canRemove:self.canEditProfile];
             cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
                 [self removeLikedInstrument:cell];
             };

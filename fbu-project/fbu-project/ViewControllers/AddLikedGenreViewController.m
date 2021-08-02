@@ -42,7 +42,7 @@ static NSInteger CELL_HEIGHT = 50;
 }
 
 - (void)fetchInstrumentIdentifiers {
-    self.entryTitles = self.filteredEntryTitles = [LikedInstrument InstrumentIdentifiers];
+    self.entryTitles = self.filteredEntryTitles = [LikedInstrument InstrumentNames];
     [self.collectionView reloadData];
 }
 
@@ -66,7 +66,7 @@ static NSInteger CELL_HEIGHT = 50;
                                                                                       forIndexPath:indexPath];
     if (cell) {
         if (self.didAddLikedInstrument) {
-            cell.titleLabel.text = [LikedInstrument getDisplayNameForInstrument:self.filteredEntryTitles[indexPath.item]];
+            cell.titleLabel.text = self.filteredEntryTitles[indexPath.item];
         } else if (self.didAddLikedGenre) {
             cell.titleLabel.text = self.filteredEntryTitles[indexPath.item];
         }
