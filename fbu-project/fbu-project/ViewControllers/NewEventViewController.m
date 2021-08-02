@@ -135,16 +135,20 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
             [self.event saveInBackground];
         } else {
             //upload new event to Parse database
-            [Event postEvent:[PFUser currentUser]
-                       venue:self.venue
-                        date:self.datePicker.date
-                    location:self.locationField.text
-                       title:self.titleField.text
-                       image:imageObject
-                     invited:self.invitees
-                    accepted:nil];
+            self.event = [Event postEvent:[PFUser currentUser]
+                                    venue:self.venue
+                                     date:self.datePicker.date
+                                 location:self.locationField.text
+                                    title:self.titleField.text
+                                    image:imageObject
+                                  invited:self.invitees
+                                 accepted:nil];
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:^(){
+            if (self.didSave) {
+                self.didSave(self.event);
+            }
+        }];
     } else {
         UIAlertController *alertController = createOkAlert(EMPTY_FIELDS_ALERT_TITLE, EMPTY_FIELDS_ALERT_MESSAGE);
         [self presentViewController:alertController animated:YES completion:nil];

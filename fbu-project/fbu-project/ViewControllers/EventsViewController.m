@@ -198,11 +198,32 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
         Event *event = (Event *) sender;
         ChatViewController *destinationController = [segue destinationViewController];
         destinationController.event = event;
-    } else if ([segue.identifier isEqualToString:SEGUE_TO_EVENT_INFO_IDENTIFIER] && [sender isKindOfClass: [Event class]]) {
+    } else if ([segue.identifier isEqualToString:SEGUE_TO_EVENT_INFO_IDENTIFIER]) {
         Event *event = (Event *)sender;
         NewEventViewController *destinationController = [segue destinationViewController];
-        [destinationController setEvent:event];
+        if (event) {
+            [destinationController setEvent:event];
+        }
+        destinationController.didSave = ^(Event *_Nullable event){
+            [self updateEvents:event];
+        };
     }
+}
+
+- (void)updateEvents:(Event *_Nullable)event {
+    if (!event) {
+        return;
+    }
+    
+    if (![self.attendingEvents containsObject:event]) {
+        [self.attendingEvents addObject:event];
+    }
+    
+    [self.collectionView reloadData];
+}
+
+- (IBAction)didTapAddEvent:(UIButton *)sender {
+    [self performSegueWithIdentifier:SEGUE_TO_EVENT_INFO_IDENTIFIER sender:nil];
 }
 
 @end

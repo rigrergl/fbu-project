@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NewEventViewController : UIViewController
 
+@property (nonatomic, copy, nullable) void (^didSave)(Event *_Nullable event);
 @property (nonatomic, strong) Event *event;
 - (void)setEvent:(Event * _Nonnull)event;
 

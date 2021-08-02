@@ -538,7 +538,7 @@
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Se4-vu-u7X" kind="presentation" identifier="eventInfoSegue" id="5eU-ra-QoF"/>
+                                    <action selector="didTapAddEvent:" destination="dYi-Qq-iup" eventType="touchUpInside" id="XDT-sI-dr3"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -546,6 +546,7 @@
                     <connections>
                         <outlet property="collectionView" destination="Fhi-bW-gCq" id="6XQ-RY-5Qh"/>
                         <segue destination="LGb-Xt-dCy" kind="show" identifier="eventsToChat" id="f0v-1A-Gr4"/>
+                        <segue destination="Se4-vu-u7X" kind="presentation" identifier="eventInfoSegue" id="BY4-zM-kLe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bOE-UL-smv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1561,7 +1562,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="SbI-lA-vYa"/>
         <segue reference="8OY-aU-wCI"/>
-        <segue reference="Ruy-vd-dse"/>
+        <segue reference="BY4-zM-kLe"/>
         <segue reference="f0v-1A-Gr4"/>
     </inferredMetricsTieBreakers>
     <resources>

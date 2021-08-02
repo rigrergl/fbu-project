@@ -21,14 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<PFUser *> *_Nullable invited;
 @property (nonatomic, strong) NSMutableArray<PFUser *> *_Nullable accepted;
 
-+ (void)postEvent:(PFUser *_Nonnull)organizer
-            venue:(FoursquareVenue *_Nullable)venue
-             date:(NSDate *_Nonnull)date
-         location:(NSString *_Nonnull)location
-            title:(NSString *_Nonnull)title
-            image:(PFFileObject *_Nullable)image
-          invited:(NSMutableArray<PFUser *> *_Nullable)invited
-         accepted:(NSMutableArray<PFUser *> *_Nullable)accepted;
++ (Event *_Nullable)postEvent:(PFUser *_Nonnull)organizer
+                        venue:(FoursquareVenue *_Nullable)venue
+                         date:(NSDate *_Nonnull)date
+                     location:(NSString *_Nonnull)location
+                        title:(NSString *_Nonnull)title
+                        image:(PFFileObject *_Nullable)image
+                      invited:(NSMutableArray<PFUser *> *_Nullable)invited
+                     accepted:(NSMutableArray<PFUser *> *_Nullable)accepted;
 
 - (void)moveUserToAccepted:(PFUser *)user;
 
