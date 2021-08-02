@@ -28,7 +28,7 @@
 static NSInteger INPUT_VIEW_BORDER_WIDTH = 1;
 static CGFloat INPUT_VIEW_CORNER_RADIUS = 10.0f;
 static CGFloat KEYBOARD_MOVEMENT_ANIMATION_DURATION = 0.3;
-static const NSInteger MESSAGE_CELL_INITIAL_HEIGHT = 500;
+static const NSInteger MESSAGE_CELL_INITIAL_HEIGHT = 20;
 static NSString * const LEFT_CHAT_CELL_IDENTIFIER = @"leftChatCell";
 static NSString * const RIGHT_CHAT_CELL_IDENTIFIER = @"rightChatCell";
 static NSString * const CHAT_TO_PROFILE_SEGUE_IDENTIFIER = @"chatToProfile";
@@ -74,6 +74,8 @@ static NSString * const CHAT_TO_EVENT_INFO_SEGUE_IDENTIFIER = @"chatToEventInfo"
 }
 
 - (void)setupCollectionView {
+    UICollectionViewFlowLayout *layout = self.collectionView.collectionViewLayout;
+    layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView reloadData];

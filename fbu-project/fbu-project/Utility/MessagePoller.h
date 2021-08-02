@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const NEW_MESSAGE_NOTIFICATION_NAME;
 
 + (instancetype)shared;
++ (BOOL)isDate:(NSDate *_Nonnull)date laterThanDate:(NSDate *_Nonnull)secondDate;
 - (void)startPollingMatch:(Match *_Nonnull)match;
 - (void)startPollingEvent:(Event *_Nonnull)event;
 - (void)stopPolling;

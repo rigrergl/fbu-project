@@ -19,6 +19,7 @@
 #import "OptimalLocation.h"
 #import "Vector3D.h"
 #import "FoursquareVenue.h"
+#import "MessagePoller.h"
 
 @interface fbu_projectTests : XCTestCase
 
@@ -492,6 +493,16 @@
     }];
     
     [self waitForExpectationsWithTimeout:10 handler:nil];
+}
+
+#pragma mark - Message poller
+
+- (void)testDateLaterThanDate {
+    NSDate *laterDate = [[NSDate alloc] initWithTimeIntervalSince1970:1];
+    NSDate *earlierDate = [[NSDate alloc] initWithTimeIntervalSince1970:0];
+    
+    XCTAssert([MessagePoller isDate:laterDate laterThanDate:earlierDate]);
+    XCTAssert([MessagePoller isDate:nil laterThanDate:nil] == NO);
 }
 
 @end

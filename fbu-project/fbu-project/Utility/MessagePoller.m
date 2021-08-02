@@ -65,8 +65,11 @@ static const CGFloat POLL_INTERVAL_SEC = 5;
     continuePolling = NO;
 }
 
-- (BOOL)isLaterThanLatestMessageDate:(NSDate *)date {
-    return ([self.dateOfLastLoadedMessage compare:date] == NSOrderedAscending);
++ (BOOL)isDate:(NSDate *_Nonnull)date laterThanDate:(NSDate *_Nonnull)secondDate {
+    if (date == nil || secondDate == nil) {
+        return NO;
+    }
+    return [date compare:secondDate] == NSOrderedDescending;
 }
 
 - (void)poll {
@@ -77,12 +80,14 @@ static const CGFloat POLL_INTERVAL_SEC = 5;
     if (self.match) {
         PFQuery *directMessageQuery = [PFQuery queryWithClassName:[DirectMessage parseClassName]];
         [directMessageQuery whereKey:DIRECT_MESSAGE_MATCH_KEY equalTo:self.match];
+        [directMessageQuery orderByAscending:CREATED_AT_KEY];
         
         [directMessageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
             if (messages && messages.count >= 1) {
                 DirectMessage *latestMessage = (DirectMessage *)messages[messages.count - 1];
-                if ([self isLaterThanLatestMessageDate:latestMessage.createdAt]) {
+                if ([MessagePoller isDate:latestMessage.createdAt laterThanDate:self.dateOfLastLoadedMessage]) {
                     //new message detected
+                    self.dateOfLastLoadedMessage = latestMessage.createdAt;
                     [[NSNotificationCenter defaultCenter]
                      postNotificationName:NEW_MESSAGE_NOTIFICATION_NAME
                      object:messages];
