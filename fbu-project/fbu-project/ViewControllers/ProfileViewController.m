@@ -32,6 +32,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *bioLabel;
 @property (weak, nonatomic) IBOutlet UIButton *editBioButton;
+@property (weak, nonatomic) IBOutlet UIButton *addLikedGenreButton;
+@property (weak, nonatomic) IBOutlet UIButton *addLikedInstrumentButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordAudioButton;
 
 @end
 
@@ -101,18 +104,17 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 
 - (void)setupEditRights {
     if (self.canEditProfile) {
-        self.changeProfileImageButton.alpha = 1;
-        self.changeProfileImageButton.enabled = YES;
-        
-        self.editBioButton.alpha = 1;
-        self.editBioButton.enabled = YES;
+        enableButton(self.changeProfileImageButton);
+        enableButton(self.editBioButton);
+        enableButton(self.addLikedGenreButton);
+        enableButton(self.addLikedInstrumentButton);
+        enableButton(self.recordAudioButton);
     } else {
-        self.changeProfileImageButton.alpha = 0;
-        self.changeProfileImageButton.enabled = NO;
-        
-        self.editBioButton.alpha = 0;
-        self.editBioButton.enabled = NO;
-        
+        disableButton(self.changeProfileImageButton);
+        disableButton(self.editBioButton);
+        disableButton(self.addLikedGenreButton);
+        disableButton(self.addLikedInstrumentButton);
+        disableButton(self.recordAudioButton);
     }
 }
 

@@ -72,3 +72,21 @@ UIAlertController * createOkAlert(NSString *_Nullable title, NSString *_Nullable
     
     return alert;
 }
+
+#pragma mark - Disable enable buttons
+
+void disableButton(UIButton *_Nonnull button) {
+    if (!button) {
+        return;
+    }
+    button.alpha = 0;
+    button.enabled = NO;
+}
+
+void enableButton(UIButton *_Nonnull button) {
+    if (!button) {
+        return;
+    }
+    button.alpha = 1;
+    button.enabled = YES;
+}

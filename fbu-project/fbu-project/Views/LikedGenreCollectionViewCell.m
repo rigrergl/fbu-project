@@ -6,6 +6,7 @@
 //
 
 #import "LikedGenreCollectionViewCell.h"
+#import "CommonFunctions.h"
 
 @implementation LikedGenreCollectionViewCell
 
@@ -13,22 +14,12 @@
                canRemove:(BOOL)canRemove {
     self.canRemove = canRemove;
     if (canRemove) {
-        [self enableRemoveButton];
+        enableButton(self.removeButton);
     } else {
-        [self disableRemoveButton];
+        disableButton(self.removeButton);
     }
     
     self.titleLabel.text = likedGenreTitle;
-}
-
-- (void)disableRemoveButton {
-    self.removeButton.enabled = NO;
-    self.removeButton.alpha = 0;
-}
-
-- (void)enableRemoveButton {
-    self.removeButton.enabled = YES;
-    self.removeButton.alpha = 1;
 }
 
 - (IBAction)didTapRemoveButton:(UIButton *)sender {

@@ -1239,6 +1239,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addLikedGenreButton" destination="tOB-Ax-330" id="P8t-0p-LjI"/>
+                        <outlet property="addLikedInstrumentButton" destination="pdk-wF-59f" id="2fo-3m-Ayx"/>
                         <outlet property="bioLabel" destination="l9e-Ii-eUI" id="k4S-bo-q7A"/>
                         <outlet property="changeProfileImageButton" destination="wy9-as-VeL" id="A19-sO-Wug"/>
                         <outlet property="editBioButton" destination="szZ-KY-o22" id="gie-Lz-4xz"/>
@@ -1246,6 +1248,7 @@
                         <outlet property="likedInstrumentsCollectionView" destination="nCv-DQ-ZxQ" id="aXC-n9-ylz"/>
                         <outlet property="playbackContainerView" destination="GZy-pK-JBy" id="fcM-3T-4xk"/>
                         <outlet property="profileImageView" destination="IeD-h3-dBs" id="WiL-VO-6Xi"/>
+                        <outlet property="recordAudioButton" destination="4u8-3C-qvP" id="bjw-km-0xR"/>
                         <outlet property="usernameLabel" destination="X0U-Pz-mRb" id="jzl-Rf-0rx"/>
                         <segue destination="Y4T-F4-NJP" kind="presentation" identifier="profileToAddLikedGenre" id="RoM-wF-xWN"/>
                         <segue destination="Y4T-F4-NJP" kind="presentation" identifier="profileToAddLikedInstrument" id="SbI-lA-vYa"/>

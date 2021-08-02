@@ -8,6 +8,7 @@
 #import "InviteeCollectionViewCell.h"
 #import "StylingConstants.h"
 #import "DictionaryConstants.h"
+#import "CommonFunctions.h"
 
 @implementation InviteeCollectionViewCell
 
@@ -45,9 +46,9 @@
     
     self.canRemove = canRemove;
     if (canRemove) {
-        [self enableRemoveButton];
+        enableButton(self.removeButton);
     } else {
-        [self disableRemoveButton];
+        disableButton(self.removeButton);
     }
     
     self.profileImageView.image = [UIImage imageNamed:DEFAULT_PROFILE_IMAGE_NAME];
@@ -65,16 +66,5 @@
         }
     }];
 }
-
-- (void)disableRemoveButton {
-    self.removeButton.enabled = NO;
-    self.removeButton.alpha = 0;
-}
-
-- (void)enableRemoveButton {
-    self.removeButton.enabled = YES;
-    self.removeButton.alpha = 1;
-}
-
 
 @end

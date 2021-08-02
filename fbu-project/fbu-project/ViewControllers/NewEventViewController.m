@@ -95,12 +95,9 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
 
 - (void)setEditingRights {
     if (!self.canEdit) {
-        self.saveButton.enabled = NO;
-        self.saveButton.alpha = 0;
-        self.addInviteeButton.enabled = NO;
-        self.addInviteeButton.alpha = 0;
-        self.changeImageButton.enabled = NO;
-        self.changeImageButton.alpha = 0;
+        disableButton(self.saveButton);
+        disableButton(self.addInviteeButton);
+        disableButton(self.changeImageButton);
         self.datePicker.enabled = NO;
         
         //delegate used for copy only restriction

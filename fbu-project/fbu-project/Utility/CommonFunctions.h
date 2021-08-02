@@ -17,4 +17,8 @@ UIImage *_Nullable DownloadUserProfileImage(PFUser *_Nonnull user);
 //alerts
 UIAlertController * createOkAlert(NSString *_Nullable title, NSString *_Nullable message);
 
+//disable-enable buttons
+void disableButton(UIButton *_Nonnull button);
+void enableButton(UIButton *_Nonnull button);
+
 NS_ASSUME_NONNULL_END

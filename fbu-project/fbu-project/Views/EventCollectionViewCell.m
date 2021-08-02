@@ -6,6 +6,7 @@
 //
 
 #import "EventCollectionViewCell.h"
+#import "CommonFunctions.h"
 
 @interface EventCollectionViewCell ()
 
@@ -34,12 +35,9 @@ static NSString * const DATE_FORMAT = @"yyyy-MMM-dd";
     self.segueToChat = segueToChat;
     self.acceptInvite = nil;
     
-    self.acceptButton.enabled = NO;
-    self.acceptButton.alpha = 0;
-    self.declineButton.enabled = NO;
-    self.declineButton.alpha = 0;
-    self.chatButton.enabled = YES;
-    self.chatButton.alpha = 1;
+    disableButton(self.acceptButton);
+    disableButton(self.declineButton);
+    enableButton(self.chatButton);
 }
 
 - (void)setCellForInvited:(Event *_Nonnull)event
@@ -49,12 +47,9 @@ static NSString * const DATE_FORMAT = @"yyyy-MMM-dd";
     self.acceptInvite = acceptInvite;
     self.segueToChat = nil;
     
-    self.acceptButton.enabled = YES;
-    self.acceptButton.alpha = 1;
-    self.declineButton.enabled = YES;
-    self.declineButton.alpha = 1;
-    self.chatButton.enabled = NO;
-    self.chatButton.alpha = 0;
+    enableButton(self.acceptButton);
+    enableButton(self.declineButton);
+    disableButton(self.chatButton);
 }
 
 - (void)setCell:(Event *_Nonnull)event {
