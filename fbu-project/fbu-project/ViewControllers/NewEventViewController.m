@@ -15,7 +15,7 @@
 #import "FoursquareVenue.h"
 #import <Parse/Parse.h>
 
-@interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addInviteeButton;
 @property (weak, nonatomic) IBOutlet UIButton *changeImageButton;
@@ -41,6 +41,7 @@ static NSString * const INVITEE_CELL_IDENTIFIER = @"InviteeCollectionViewCell";
 static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
 static NSString * const TAKE_ACTION_TITLE = @"Take Photo";
 static NSString * const CANCEL_ACTION_TITLE = @"Cancel";
+static NSString * const TEXT_FIELD_COPY_ITEM_TITLE = @"Copy";
 static NSInteger IMAGE_STANDARD_DIMENSIONS = 500;
 static const CGFloat EVENT_PICTURE_CORNER_RADIUS = 14;
 static const CGFloat CLOSE_INDICATOR_CORNER_RADIUS = 4;
@@ -100,10 +101,11 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
         self.addInviteeButton.alpha = 0;
         self.changeImageButton.enabled = NO;
         self.changeImageButton.alpha = 0;
-        
-        self.titleField.enabled = NO;
-        self.locationField.enabled = NO;
         self.datePicker.enabled = NO;
+        
+        //delegate used for copy only restriction
+        self.titleField.delegate = self;
+        self.locationField.delegate = self;
     }
 }
 
@@ -337,6 +339,27 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     
     NSString *formattedAddress = [NSString stringWithFormat:@"%@ %@, %@, %@, %@", streetNumber, streetLine1, city, state, zip];
     return formattedAddress;
+}
+
+#pragma mark - TextField delegate methods
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)copyTextFieldContent:(id)sender {
+    UIPasteboard* pb = [UIPasteboard generalPasteboard];
+    pb.string = self.titleField.text;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    UIMenuController* menuController = [UIMenuController sharedMenuController];
+    UIMenuItem* copyItem = [[UIMenuItem alloc] initWithTitle:TEXT_FIELD_COPY_ITEM_TITLE
+                                                      action:@selector(copyTextFieldContent:)];
+    menuController.menuItems = @[copyItem];
+    CGRect selectionRect = textField.frame;
+    [menuController showMenuFromView:self.view rect:selectionRect];
+    return NO;
 }
 
 @end
