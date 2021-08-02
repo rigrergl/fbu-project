@@ -31,11 +31,11 @@
             </objects>
             <point key="canvasLocation" x="2499" y="-12"/>
         </scene>
-        <!--Search-->
+        <!--Explore-->
         <scene sceneID="aUX-Ca-FJm">
             <objects>
                 <navigationController id="cHg-Rv-d4p" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="Hw9-Tm-JTE"/>
+                    <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="Hw9-Tm-JTE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nga-x2-9ys">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
