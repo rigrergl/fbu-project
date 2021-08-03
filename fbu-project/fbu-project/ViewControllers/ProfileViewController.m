@@ -17,6 +17,7 @@
 #import "CommonFunctions.h"
 #import "LikedInstrument.h"
 #import "ComposeBioViewController.h"
+#import "AudioRecorderViewController.h"
 
 @interface ProfileViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -46,6 +47,7 @@ static NSString * const LIKED_INSTRUMENT_CELL_IDENTIFIER = @"LikedInstrumentCell
 static NSString * const PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER = @"profileToAddLikedGenre";
 static NSString * const PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER = @"profileToAddLikedInstrument";
 static NSString * const PROFILE_TO_COMPOSE_BIO_SEGUE_IDENTIFIER = @"profileToComposeBio";
+static NSString * const PROFILE_TO_RECORD_SEGUE_IDENTIFIER = @"profileToRecord";
 static NSString * const MAIN_STORYBOARD_NAME = @"Main";
 static NSString * const ATHENTICATION_VIEW_CONTROLLER_NAME = @"AuthenticationViewController";
 static NSString * const CHOOSE_ACTION_TITLE = @"Choose From Photos";
@@ -170,27 +172,29 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
                 return;
             }
             
-            [self addPlaybackView];
+            [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
+                if (data) {
+                    [self addPlaybackView:data];
+                }
+            }];
         }
     }];
 }
 
-- (void)addPlaybackView {
-    PFFileObject *recordingFile = self.targetUser[RECORDING_KEY];
-    if(recordingFile == nil) {
+- (void)addPlaybackView:(NSData *_Nullable)data {
+    if(data == nil) {
         return;
     }
+    if (self.playbackView) {
+        [self.playbackView removeFromSuperview];
+        self.playbackView = nil;
+    }
     
-    [recordingFile getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
-        if (data) {
-            MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
-                                               initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
-                                               andData:data];
-            
-            self.playbackView = playbackView;
-            [self.playbackContainerView addSubview:playbackView];
-        }
-    }];
+    MediaPlayBackView *playbackView = [[MediaPlayBackView alloc]
+                                       initWithFrame:CGRectMake(0, 0, self.playbackContainerView.frame.size.width, self.playbackContainerView.frame.size.height)
+                                       andData:data];
+    self.playbackView = playbackView;
+    [self.playbackContainerView addSubview:playbackView];
 }
 
 - (IBAction)didTapLogout:(UIBarButtonItem *)sender {
@@ -300,6 +304,11 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
         ComposeBioViewController *destinationViewController = [segue destinationViewController];
         destinationViewController.didChangeBio = ^(NSString *_Nonnull newBio){
             self.bioLabel.text = newBio;
+        };
+    } else if ([segue.identifier isEqualToString:PROFILE_TO_RECORD_SEGUE_IDENTIFIER]) {
+        AudioRecorderViewController *destinationViewController = [segue destinationViewController];
+        destinationViewController.updateLocalRecording = ^(NSData *_Nullable data){
+            [self addPlaybackView:data];
         };
     }
 }

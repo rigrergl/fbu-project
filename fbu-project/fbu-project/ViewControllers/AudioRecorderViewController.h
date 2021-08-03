@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AudioRecorderViewController : UIViewController
 
+@property (nonatomic, copy, nonnull) void (^updateLocalRecording)(NSData *_Nullable recordingData);
+
 @end
 
 NS_ASSUME_NONNULL_END

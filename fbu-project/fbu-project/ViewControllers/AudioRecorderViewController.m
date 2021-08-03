@@ -207,6 +207,9 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
     
     [[PFUser currentUser] saveInBackground];
     
+    if (self.updateLocalRecording) {
+        self.updateLocalRecording(self.recordingData);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

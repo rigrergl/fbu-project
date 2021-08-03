@@ -997,7 +997,7 @@
                                                 <rect key="frame" x="157" y="964.5" width="92" height="30"/>
                                                 <state key="normal" title="Record Audio"/>
                                                 <connections>
-                                                    <segue destination="76d-1b-h45" kind="show" id="GYV-en-28j"/>
+                                                    <segue destination="76d-1b-h45" kind="show" identifier="profileToRecord" id="GYV-en-28j"/>
                                                 </connections>
                                             </button>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-eF-eaM">
