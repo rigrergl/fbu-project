@@ -44,6 +44,8 @@ extern NSString * const MATCH_USERS_KEY;
 extern NSString * const DIRECT_MESSAGE_CLASS_NAME;
 extern NSString * const DIRECT_MESSAGE_MATCH_KEY;
 extern NSString * const DIRECT_MESSAGE_EVENT_KEY;
+extern NSString * const DIRECT_MESSAGE_LIKES_KEY;
+extern NSString * const DIRECT_MESSAGE_USERS_LIKED_KEY;
 
 //Event
 extern NSString * const EVENT_DATE_KEY;

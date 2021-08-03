@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIView *bubbleView;
+@property (weak, nonatomic) IBOutlet UIView *likesView;
+@property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
+@property (strong, nonatomic) DirectMessage *_Nonnull message;
 
 - (void)setCellWithDirectMessage:(DirectMessage *)message;
 

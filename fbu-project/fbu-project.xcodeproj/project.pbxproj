@@ -10,6 +10,7 @@
 		28C673A4C9D5F86424CD8218 /* Pods_fbu_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC0A550F289E6F8ED25062A4 /* Pods_fbu_project.framework */; };
 		3B08DF0A26AE7CF900987A62 /* EventsSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */; };
 		3B08DF0B26AE7CF900987A62 /* EventsSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */; };
+		3B0CB16226BA0AA2008E97B9 /* NSMutableArray+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0CB16126BA0AA2008E97B9 /* NSMutableArray+Parse.m */; };
 		3B1CE7A626B220EB00A28844 /* Vector3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1CE7A526B220EB00A28844 /* Vector3D.m */; };
 		3B2DDF8926AF047000B1C423 /* AudioAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDF8826AF047000B1C423 /* AudioAnalyzer.m */; };
 		3B2DDF8B26AF104D00B1C423 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B2DDF8A26AF104D00B1C423 /* CoreML.framework */; };
@@ -98,6 +99,8 @@
 		3B08DF0726AE7CF900987A62 /* EventsSectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsSectionHeader.h; sourceTree = "<group>"; };
 		3B08DF0826AE7CF900987A62 /* EventsSectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsSectionHeader.m; sourceTree = "<group>"; };
 		3B08DF0926AE7CF900987A62 /* EventsSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsSectionHeader.xib; sourceTree = "<group>"; };
+		3B0CB16026BA0AA2008E97B9 /* NSMutableArray+Parse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Parse.h"; sourceTree = "<group>"; };
+		3B0CB16126BA0AA2008E97B9 /* NSMutableArray+Parse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Parse.m"; sourceTree = "<group>"; };
 		3B1CE7A426B220EB00A28844 /* Vector3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector3D.h; sourceTree = "<group>"; };
 		3B1CE7A526B220EB00A28844 /* Vector3D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vector3D.m; sourceTree = "<group>"; };
 		3B2DDF8726AF047000B1C423 /* AudioAnalyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioAnalyzer.h; sourceTree = "<group>"; };
@@ -435,6 +438,8 @@
 				3B5FBF1826B1166D00B0424F /* OptimalLocation.m */,
 				3B1CE7A426B220EB00A28844 /* Vector3D.h */,
 				3B1CE7A526B220EB00A28844 /* Vector3D.m */,
+				3B0CB16026BA0AA2008E97B9 /* NSMutableArray+Parse.h */,
+				3B0CB16126BA0AA2008E97B9 /* NSMutableArray+Parse.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -729,6 +734,7 @@
 				3B7D641C26A8F717002BE4CB /* AddInviteeCollectionViewCell.m in Sources */,
 				3B2F7739269F47B900BB7F4B /* MessageCollectionViewCell.m in Sources */,
 				3B2F773F269F76DB00BB7F4B /* MatchesViewController.m in Sources */,
+				3B0CB16226BA0AA2008E97B9 /* NSMutableArray+Parse.m in Sources */,
 				3B6100A926A5D86E00325CF2 /* UserSorter.m in Sources */,
 				3B66F68426A0A9100086BEDE /* ConversationCollectionViewCell.m in Sources */,
 				3B2F7736269F441600BB7F4B /* ChatViewController.m in Sources */,
