@@ -162,7 +162,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
     PFQuery *userQuery = [PFQuery queryWithClassName:[PFUser parseClassName]];
     [userQuery includeKey:RECORDING_KEY];
     
-    [userQuery getObjectInBackgroundWithId:[PFUser currentUser].objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
+    [userQuery getObjectInBackgroundWithId:self.targetUser.objectId block:^(PFObject *_Nullable object, NSError *_Nullable error){
         if (object) {
             self.targetUser = (PFUser *)object;
             
