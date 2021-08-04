@@ -15,11 +15,11 @@ Application that lets musicians of all skill levels find other musicians to jam 
 
 ### App Evaluation
 - **Category:** Music / Social
-- **Mobile:** Mobile first design, nearly all users would use the mobile app.
-- **Story:** Allows musicians to find friends to play with and share content.
+- **Mobile:** Mobile first design, nearly all users would use the mobile app. Uses location, camera, and audio recording.
+- **Story:** Allows musicians to find friends to play with and share content. Allows musicians to organize jam sessions wit other user's of the app.
 - **Market:** Anybody who plays an instrument, either at a beginner level, intermediate, or advanced.
-- **Habit:** Users can find band mates all day long. They can try out different mates and share their performance videos. Very addicting in the same ways that Tinder is. The average user will likely open this app a few times a day, they would create content as well as consume it.
-- **Scope:** The MVP of the app would just include matching with nearby musicians. P2 features would include the ability to include share performance videos and messaging inside the app. P3 features would include the ability to follow people (a la instagram) and see a feed of all the posts of people you follow.
+- **Habit:** Users can look through new potential band mates all day long (algorithm recommends users most likely to match first). They can try out different musicians and share their performance sound bites. Very addicting in the same ways that Tinder is. The average user will likely open this app a few times a day, they would create content as well as consume it.
+- **Scope:** The MVP of the app includes matching with nearby musicians, as well as messaging. P2 features include the ability to organize jam sessions whithin the app, and have groupchats for each of those so users don't have to leave the app at all.
 
 ## Product Spec
 
@@ -27,21 +27,23 @@ Application that lets musicians of all skill levels find other musicians to jam 
 
 **Required Must-have Stories**
 
-* User can create a new account
-* User can login/logout
-* Being able to find musicians in your local area
-* Being able to post a soundbite 
-* Messaging other users (to schedule a meetup)
-* Personalized jam buddy suggestions based on preferences and instrument (not just location)
+- [x] User can create a new account
+- [x] User can login/logout
+- [x] Being able to find musicians in your local area
+- [x] Being able to post a soundbite 
+- [x] Messaging other users (to schedule a meetup)
+- [x] Personalized jam buddy suggestions based on location, instrument preferences, and genre preferences.
 
 **Optional Nice-to-have Stories**
 
-* Being able to organize jam sessions inside the app and invite people
-* In-app groupchats for events
-* Using MLKit
-* Users are able to post videos instead of soundbites
-* Being able to follow people and view their feed
-* Experienced musicians can offer paid lessons
+- [x] Being able to organize jam sessions inside the app and invite people
+- [x] In-app groupchats for events
+- [x] Automatic recognition of instruments in a sound bite using CoreML (automatically detecting the instruments in a sound bite prevents users from cheating by forcing them to prove that they can play an instrument before putting it in their profile)
+- [x] Optimal location for events (based on least aggregrate travel distance for all invitees)
+- [x] Being able to like messages by double-tapping them
+- [ ] Users are able to post videos instead of soundbites
+- [ ] Being able to follow people and view their feed
+- [ ] Experienced musicians can offer paid lessons
 
 ### 2. Screen Archetypes
 
@@ -53,11 +55,12 @@ Application that lets musicians of all skill levels find other musicians to jam 
    * User can cycle through musician in their local area
    * User can swipe left or right
 * Profile Screen
-   * User can update location information
-   * User can upload videos
+   * User can update location information, profile picture, bio, liked genres, and liked instruments
+   * User can record and upload a new sound bite
 * Messaging Screen
    * User can view their matches and enter into DMs with them
-   * User can chat with their matches
+   * User can sent messages and receive them in real time
+   * User can double-tap a message to like it
 
 ### 3. Navigation
 
@@ -66,6 +69,7 @@ Application that lets musicians of all skill levels find other musicians to jam 
 * Matching Screen
 * Profile Screen
 * Messaging Screen
+* Events screen
 
 **Flow Navigation** (Screen to Screen)
 
@@ -73,13 +77,27 @@ Application that lets musicians of all skill levels find other musicians to jam 
    * Matching Screen
 * Registration Screen
    * Profile Screen
+* Matches screen
+   * Chat Screen
+* Chat Screen
+   * User profile
+   * Event info
+* Events screen
+   * Chat screen
+   * Event info     
+* Event info
+   * Location picker
+   * Add Invitee
+   * Profile screen
+* Profile screen
+   * Compose bio screen
+   * Photo picker screen
+   * Add Liked Entity (instrument and genre) screen
+   * Record sound bite screen
+   * Settings screen
 
 ## Wireframes
 <img src="https://github.com/rigrergl/fbu-project/blob/main/wireframe_1.jpg" width=600>
-
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
 
 ## Schema 
 ### Models
@@ -90,15 +108,12 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | objectId    | String      |unique id for the user (default field)
 | username    | String      |unique username for user 
 | password    | String      |password for user
-| location    | String      |last known location of user
-| instrumentsPlayed  | Array of String  | instruments the user can play (using application standard name)
-| instrumentsSought  | Array of String    | instruments that the user is looking for in jam buddies (used to filter match recommendations) (using application standard name)
-| likedGenres  | Array of String    | music genres that the user likes (using application standard name)
+| latestLatitude    | Number      |last known latitude of user
+| latestLongitude   | Number      |last known longitude of user
+| instrumentsInRecording  | Array of String  | instruments the user can play (using application standard name)
 | profileImage| File        |profile image for user
-| media       | TBD         |media (video, soundbite, or image). Feasibility research required to determine type
-| eventsOwned | Array of pointer to Event      |list of events the user created
-| eventsInvited | Array of pointer to Event      |list of events the user was invited to
-| eventsAccepted | Array of pointer to Event      |list of events the user has accepted
+| recording       | File    | sound file of the user's recording (displayed on user's profile and on user's card)
+| bio       | String    | user's bio
 | createdAt   | DateTime      |date when user is created (default field)
 | updatedAt   | DateTime      |date when user is last updated (default field)
 
@@ -134,9 +149,11 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | ----------- | ----------- |-------------|
 | objectId    | String      |unique id for the user (default field)
 | organizer    | Pointer to User |user that created the event
-| date    | DateTime |time the event is going to happen
-| location    | String |address or link of the event
-| description    | String |description of the event
+| date    | Date |time the event is going to happen
+| location    | String | Name of venue
+| venue    | Pointer to FoursquareVenue | venue object of this event
+| title    | String | title of the event
+| image    | File | image displayed on event card
 | invited    |Array of Pointer to User |list of users that were invited to this event
 | accepted    |Array of Pointer to User |list of users that accepted the invitation to this event
 | createdAt   | DateTime    |date when like is created (default field)
@@ -151,57 +168,98 @@ Application that lets musicians of all skill levels find other musicians to jam 
 | createdAt   | DateTime    |date when like is created (default field)
 | author      | Pointer to User    |user that sent the message
 | match | Pointer to Match   |match this message belongs to (null = this is an Event message)
-| Event | Pointer to Event   |event this message belongs to (null = this is a Match message)
+| event | Pointer to Event   |event this message belongs to (null = this is a Match message)
 | content     | Strings    |contents of the message
+| usersLiked     | Array of User    | users that have liked this message
+| likes     | Number    | number of likes in message
 | updatedAt   | DateTime    |date when like is last updated (default field)
 
+#### FoursquareVenue
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| createdAt   | DateTime    |date when like is created (default field)
+| latitude   | Number    | latitude of the venue
+| longitude   | Number    |longitude of the venue
+| venueId   | String    | id of venue in Foursquare database
+| name   | String    | name of the venue
+| eventId   | String    | id of event this venue is associated with
+| updatedAt   | DateTime    |date when like is last updated (default field)
 
+#### LikedGenre
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| createdAt   | DateTime    |date when like is created (default field)
+| title   | String    | title of genre (using application standard)
+| user   | Pointer to User    | user that has liked this genre
+| updatedAt   | DateTime    |date when like is last updated (default field)
+
+#### LikedInstrument
+| Property    | Type        | Description |
+| ----------- | ----------- |-------------|
+| objectId    | String      |unique id for the user (default field)
+| createdAt   | DateTime    |date when like is created (default field)
+| title   | String    | title of instrument (using application standard)
+| user   | Pointer to User    | user that has liked this instrument
+| updatedAt   | DateTime    |date when like is last updated (default field)
 
 
 ### Networking
 ## List of Network requests by screen
 - Matching Screen
-   - (GET) Query all users that fit the logged in user's preferences (and which the logged in user has not already liked)
-   - (POST) new like from current user to user in card
+   - (GET) Query all users that fit the logged in user's preferences (and which the logged in user has not already liked). Sort these users by compatibility with current user (liked genres, instruments, location)
+   - (POST) new Like from current user to user in card
+   - (POST) new UnLike from current user to user in card
 - Profile Screen
-    - (GET) instruments played by current user
-    - (GET) instuments sought by current user
-    - (GET) likd genres by current user
+    - (GET) instuments liked by current user
+    - (GET) genres liked by current user
     - (GET) current user's profile image
-    - (GET) current user's media
-    - (PUT) instruments played by current user
-    - (PUT) instuments sought by current user
-    - (PUT) liked genres by current user
+    - (GET) current user's bio
+    - (GET) current user's recording data
+    - (PUT) instruments liked by current user
+    - (PUT) genres liked by the current user
     - (PUT) current user's profile image
-    - (PUT) current user's media
+    - (PUT) current user's recording data
+    - (PUT) current user's bio
+    - (DELETE) liked genre for current user
+    - (DELETE) liked instrument for current user
 - Matches Screen
-    - (GET) current user's matches
+    - (GET) current user's matches (including profile images of the other user in the match)
     - (GET) latest message for each of the current user's match
 - DM Chat Screen 
     - (GET) messages between the current user and the other user
     - (POST) create new message by current user (in the DirectMessage table)
+    - (PUT) update usersLiked and likes of a message
+    - (GET) get latest message in a chat (live polling)
 - Events Screen
-    - (GET) events accepted by current user
+    - (GET) events organized by current user
     - (GET) events current user was invited to
     - (GET) events current user has accepted
-- Event Details Screen
-    - (GET) event time
+    - (POST) update accepted and invited arrays of an event
+- Event Info Screen
+    - (GET) event date
     - (GET) event location
+    - (GET) event venue
     - (GET) event organizer
-    - (GET) event description
+    - (GET) event title
     - (GET) users that accepted the event
     - (GET) users that were invited to the event
-    - (PUT) event time
+    - (PUT) event date
     - (PUT) event location
-    - (PUT) event description
-- New Event Screen
+    - (PUT) event title
+    - (PUT) event venue
     - (GET) current user's matched users
     - (POST) create new event
-- Event Groupchat Screen
-    - (GET) messages in the current groupchat
-    - (POST) create new message by current user (in the GroupchatMessage table)
+- Location Picker screen
+    - (GET) venues near location from Foursquare API
+    - (GET) invited user's locations
+    - (PUT) update event venue
 - Login Screen
     - (GET) login
     - (POST) register
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+- Add Liked Genre Screen
+    - (GET) list of genre seeds from Spotify API
+    - (POST) new liked genre for current user
+- Add Liked Instrument Screen
+    - (POST) new liked instrument for current user    
