@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,24 +15,38 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SectionHeader" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alV-yh-jUm">
-                    <rect key="frame" x="8" y="55.5" width="114" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="ZhA-wC-TIs"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <rect key="frame" x="14" y="35" width="116.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view clearsContextBeforeDrawing="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3G-vG-gBF">
+                    <rect key="frame" x="14" y="20" width="404" height="1"/>
+                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="9kt-tD-hrC"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="9Gg-ye-v9C"/>
             <constraints>
-                <constraint firstItem="alV-yh-jUm" firstAttribute="leading" secondItem="9Gg-ye-v9C" secondAttribute="leading" constant="8" id="mHb-Rr-AYh"/>
-                <constraint firstItem="alV-yh-jUm" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="pAj-P8-M2K"/>
+                <constraint firstItem="alV-yh-jUm" firstAttribute="top" secondItem="s3G-vG-gBF" secondAttribute="bottom" constant="14" id="55k-ga-CvK"/>
+                <constraint firstItem="s3G-vG-gBF" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="14" id="PfR-hA-ho4"/>
+                <constraint firstAttribute="trailing" secondItem="s3G-vG-gBF" secondAttribute="trailing" constant="14" id="gjq-BC-mbi"/>
+                <constraint firstItem="s3G-vG-gBF" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="20" id="hFh-a6-yGV"/>
+                <constraint firstItem="s3G-vG-gBF" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="hoV-1j-Fny"/>
+                <constraint firstItem="alV-yh-jUm" firstAttribute="leading" secondItem="s3G-vG-gBF" secondAttribute="leading" id="seb-LB-qYD"/>
             </constraints>
             <connections>
+                <outlet property="separator" destination="s3G-vG-gBF" id="Igb-Xa-X4x"/>
                 <outlet property="titleLabel" destination="alV-yh-jUm" id="0gb-h3-PTC"/>
             </connections>
             <point key="canvasLocation" x="57.971014492753625" y="102.45535714285714"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

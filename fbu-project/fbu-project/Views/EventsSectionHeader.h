@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const EVENTS_SECTION_HEADER_REUSE_IDENTIFIER;
 
-- (void)setTitle:(NSString *_Nonnull)title;
+- (void)setTitle:(NSString *_Nonnull)title
+           color:(UIColor *_Nullable)color
+displaySeparator:(BOOL)displaySeparator;
 
 @end
 

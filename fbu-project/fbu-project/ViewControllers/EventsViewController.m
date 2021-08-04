@@ -29,7 +29,7 @@ static const NSInteger INVITED_SECTION_NUMBER = 1;
 static const NSInteger EXPIRED_SECTION_NUMBER = 2;
 static NSInteger EVENT_GROUP_DIMENSIONS = 250;
 static NSInteger EVENT_EDGE_INSETS = 5;
-static NSInteger SECTION_HEADER_HEIGHT = 44;
+static NSInteger SECTION_HEADER_HEIGHT = 60;
 static NSString * const SECTION_HEADER_ELEMENT_KIND = @"section-header-element-kind";
 static NSString * ATTENDING_SECTION_TITLE = @"Attending";
 static NSString * INVITED_SECTION_TITLE = @"Invited";
@@ -83,7 +83,7 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
 }
 
 - (void)filterOutExpiredEventsFromAttending {
-    NSMutableArray *allEvents = self.attendingEvents; //TODO: verify this pointer transfer works
+    NSMutableArray *allEvents = self.attendingEvents;
     self.attendingEvents = [[NSMutableArray alloc] init];
     self.expiredEvents = [[NSMutableArray alloc] init];
     
@@ -197,11 +197,11 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
     EventsSectionHeader *sectionHeader = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:EVENTS_SECTION_HEADER_REUSE_IDENTIFIER forIndexPath:indexPath];
     
     if (indexPath.section == ATTENDING_SECTION_NUMBER) {
-        [sectionHeader setTitle:ATTENDING_SECTION_TITLE];
+        [sectionHeader setTitle:ATTENDING_SECTION_TITLE color:nil displaySeparator:NO];
     } else if (indexPath.section == INVITED_SECTION_NUMBER) {
-        [sectionHeader setTitle:INVITED_SECTION_TITLE];
+        [sectionHeader setTitle:INVITED_SECTION_TITLE color:nil displaySeparator:YES];
     } else if (indexPath.section == EXPIRED_SECTION_NUMBER) {
-        [sectionHeader setTitle:EXPIRED_SECTION_TITLE];
+        [sectionHeader setTitle:EXPIRED_SECTION_TITLE color:[UIColor redColor] displaySeparator:YES];
     }
     
     return sectionHeader;
