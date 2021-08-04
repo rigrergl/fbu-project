@@ -48,16 +48,15 @@ static const CGFloat POLL_INTERVAL_SEC = 5;
     self.match = match;
     self.event = nil;
     continuePolling = YES;
-    self.dateOfLastLoadedMessage = [NSDate date];
+    self.dateOfLastLoadedMessage = [NSDate dateWithTimeIntervalSince1970:0];
     [self poll];
 }
 
 - (void)startPollingEvent:(Event *_Nonnull)event {
-    //TODO: poll event messages
     self.event = event;
     self.match = nil;
     continuePolling = YES;
-    self.dateOfLastLoadedMessage = [NSDate date];
+    self.dateOfLastLoadedMessage = [NSDate dateWithTimeIntervalSince1970:0];
     [self poll];
 }
 
@@ -77,26 +76,28 @@ static const CGFloat POLL_INTERVAL_SEC = 5;
         return;
     }
     
+    PFQuery *directMessageQuery = [PFQuery queryWithClassName:[DirectMessage parseClassName]];
+    [directMessageQuery orderByAscending:CREATED_AT_KEY];
     if (self.match) {
-        PFQuery *directMessageQuery = [PFQuery queryWithClassName:[DirectMessage parseClassName]];
         [directMessageQuery whereKey:DIRECT_MESSAGE_MATCH_KEY equalTo:self.match];
-        [directMessageQuery orderByAscending:CREATED_AT_KEY];
-        
-        [directMessageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
-            if (messages && messages.count >= 1) {
-                DirectMessage *latestMessage = (DirectMessage *)messages[messages.count - 1];
-                if ([MessagePoller isDate:latestMessage.createdAt laterThanDate:self.dateOfLastLoadedMessage]) {
-                    //new message detected
-                    self.dateOfLastLoadedMessage = latestMessage.createdAt;
-                    [[NSNotificationCenter defaultCenter]
-                     postNotificationName:NEW_MESSAGE_NOTIFICATION_NAME
-                     object:messages];
-                }
-            }
-        }];
     } else if (self.event) {
-        //TODO: query group message
+        [directMessageQuery whereKey:DIRECT_MESSAGE_EVENT_KEY equalTo:self.event];
+    } else {
+        return;
     }
+    
+    [directMessageQuery findObjectsInBackgroundWithBlock:^(NSArray *_Nullable messages, NSError *_Nullable error){
+        if (messages && messages.count >= 1) {
+            DirectMessage *latestMessage = (DirectMessage *)messages[messages.count - 1];
+            if ([MessagePoller isDate:latestMessage.createdAt laterThanDate:self.dateOfLastLoadedMessage]) {
+                //new message detected
+                self.dateOfLastLoadedMessage = latestMessage.createdAt;
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:NEW_MESSAGE_NOTIFICATION_NAME
+                 object:messages];
+            }
+        }
+    }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(POLL_INTERVAL_SEC * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self poll];

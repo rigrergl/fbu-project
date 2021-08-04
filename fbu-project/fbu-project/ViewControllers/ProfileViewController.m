@@ -135,7 +135,6 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 }
 
 - (void)fetchLikedInstruments {
-    //TODO: fetch and reload collection view
     PFQuery *likedInstrumentsQuery = [PFQuery queryWithClassName:[LikedInstrument parseClassName]];
     [likedInstrumentsQuery whereKey:LIKED_INSTRUMENT_USER_KEY equalTo:self.targetUser];
     

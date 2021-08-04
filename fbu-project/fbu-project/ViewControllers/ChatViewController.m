@@ -172,7 +172,14 @@ static NSString * const CHAT_TO_EVENT_INFO_SEGUE_IDENTIFIER = @"chatToEventInfo"
 #pragma mark - Message Notifications (Polling)
 
 - (void)startPollingMessages {
-    [[MessagePoller shared] startPollingMatch:self.match];
+    if (self.match) {
+        [[MessagePoller shared] startPollingMatch:self.match];
+    } else if (self.event) {
+        [[MessagePoller shared] startPollingEvent:self.event];
+    } else {
+        return;
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveNewMessageNotification:)
                                                  name:NEW_MESSAGE_NOTIFICATION_NAME
