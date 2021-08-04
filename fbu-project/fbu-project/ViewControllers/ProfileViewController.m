@@ -10,9 +10,9 @@
 #import "SceneDelegate.h"
 #import "AuthenticationViewController.h"
 #import "MediaPlayBackView.h"
-#import "LikedGenreCollectionViewCell.h"
+#import "LikedEntityCollectionViewCell.h"
 #import "LikedGenre.h"
-#import "AddLikedGenreViewController.h"
+#import "AddLikedEntityViewController.h"
 #import "DictionaryConstants.h"
 #import "CommonFunctions.h"
 #import "LikedInstrument.h"
@@ -212,19 +212,19 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     NSString *cellIdentifier = collectionView == self.likedGenresCollectionView? LIKED_GENRE_CELL_IDENTIFIER : LIKED_INSTRUMENT_CELL_IDENTIFIER;
     
-    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    LikedEntityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     if (cell) {
         if (collectionView == self.likedGenresCollectionView) {
             LikedGenre *genre = self.likedGenres[indexPath.item];
             [cell setCellWithTitle:genre.title canRemove:self.canEditProfile];
-            cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+            cell.removeLikedEntity = ^(LikedEntityCollectionViewCell *_Nonnull cell) {
                 [self removeLikedGenre:cell];
             };
         } else {
             LikedInstrument *instrument = self.likedInstruments[indexPath.item];
             [cell setCellWithTitle:instrument.title canRemove:self.canEditProfile];
-            cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+            cell.removeLikedEntity = ^(LikedEntityCollectionViewCell *_Nonnull cell) {
                 [self removeLikedInstrument:cell];
             };
         }
@@ -255,7 +255,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
     [self performSegueWithIdentifier:PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER sender:nil];
 }
 
-- (void)removeLikedGenre:(LikedGenreCollectionViewCell *_Nonnull)cell {
+- (void)removeLikedGenre:(LikedEntityCollectionViewCell *_Nonnull)cell {
     NSInteger indexToRemove = [self.likedGenresCollectionView indexPathForCell:cell].item;
     LikedGenre *genreToRemove = self.likedGenres[indexToRemove];
     
@@ -267,7 +267,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
     [self.likedGenresCollectionView reloadData];
 }
 
-- (void)removeLikedInstrument:(LikedGenreCollectionViewCell *_Nonnull)cell {
+- (void)removeLikedInstrument:(LikedEntityCollectionViewCell *_Nonnull)cell {
     NSInteger indexToRemove = [self.likedInstrumentsCollectionView indexPathForCell:cell].item;
     LikedInstrument *instrumentToRemove = self.likedInstruments[indexToRemove];
     
@@ -283,7 +283,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:PROFILE_TO_ADD_GENRE_SEGUE_IDENTIFIER]) {
-        AddLikedGenreViewController *destinationViewController = [segue destinationViewController];
+        AddLikedEntityViewController *destinationViewController = [segue destinationViewController];
         destinationViewController.didAddLikedInstrument = nil;
         destinationViewController.didAddLikedGenre = ^(LikedGenre *newLikedGenre){
             if (newLikedGenre != nil) {
@@ -292,7 +292,7 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
             }
         };
     } else if ([segue.identifier isEqualToString:PROFILE_TO_ADD_INSTRUMENT_SEGUE_IDENTIFIER]) {
-        AddLikedGenreViewController *destinationViewController = [segue destinationViewController];
+        AddLikedEntityViewController *destinationViewController = [segue destinationViewController];
         destinationViewController.didAddLikedGenre = nil;
         destinationViewController.didAddLikedInstrument = ^(LikedInstrument *newLikedInstrument) {
             if (newLikedInstrument != nil) {

@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddLikedGenreCollectionViewCell : UICollectionViewCell
+@interface AddLikedEntityCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 

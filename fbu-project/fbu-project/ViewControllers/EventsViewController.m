@@ -10,7 +10,7 @@
 #import "Event.h"
 #import "DictionaryConstants.h"
 #import "ChatViewController.h"
-#import "NewEventViewController.h"
+#import "EventViewController.h"
 #import "EventsSectionHeader.h"
 #import <Parse/Parse.h>
 
@@ -202,7 +202,7 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
         destinationController.event = event;
     } else if ([segue.identifier isEqualToString:SEGUE_TO_EVENT_INFO_IDENTIFIER]) {
         Event *event = (Event *)sender;
-        NewEventViewController *destinationController = [segue destinationViewController];
+        EventViewController *destinationController = [segue destinationViewController];
         if (event) {
             [destinationController setEvent:event];
         }

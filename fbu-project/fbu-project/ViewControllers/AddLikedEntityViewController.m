@@ -5,11 +5,11 @@
 //  Created by Rigre Reinier Garciandia Larquin on 7/18/21.
 //
 
-#import "AddLikedGenreViewController.h"
-#import "AddLikedGenreCollectionViewCell.h"
+#import "AddLikedEntityViewController.h"
+#import "AddLikedEntityCollectionViewCell.h"
 #import "APIManager.h"
 
-@interface AddLikedGenreViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate>
+@interface AddLikedEntityViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -24,7 +24,7 @@ static NSString * const ADD_LIKED_INSTRUMENT_TITLE = @"Add Liked Instrument";
 static NSString * const ADD_LIKED_GENRE_CELL_IDENTIFIER = @"AddLikedGenreCollectionViewCell";
 static NSInteger CELL_HEIGHT = 50;
 
-@implementation AddLikedGenreViewController
+@implementation AddLikedEntityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,7 +67,7 @@ static NSInteger CELL_HEIGHT = 50;
 #pragma mark - CollectionView methods
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    AddLikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ADD_LIKED_GENRE_CELL_IDENTIFIER
+    AddLikedEntityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ADD_LIKED_GENRE_CELL_IDENTIFIER
                                                                                       forIndexPath:indexPath];
     if (cell) {
         if (self.didAddLikedInstrument) {

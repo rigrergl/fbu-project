@@ -11,7 +11,7 @@
 #import "DictionaryConstants.h"
 #import "MessagePoller.h"
 #import "ProfileViewController.h"
-#import "NewEventViewController.h"
+#import "EventViewController.h"
 #import <Parse/Parse.h>
 
 @interface ChatViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -272,7 +272,7 @@ static NSString * const CHAT_TO_EVENT_INFO_SEGUE_IDENTIFIER = @"chatToEventInfo"
         ProfileViewController *destinationViewController = [segue destinationViewController];
         destinationViewController.targetUser = self.otherUser;
     } else if ([segue.identifier isEqualToString:CHAT_TO_EVENT_INFO_SEGUE_IDENTIFIER]) {
-        NewEventViewController *destinationViewController = [segue destinationViewController];
+        EventViewController *destinationViewController = [segue destinationViewController];
         [destinationViewController setEvent:self.event];
     }
 }

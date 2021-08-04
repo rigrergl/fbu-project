@@ -10,7 +10,7 @@
 #import "DictionaryConstants.h"
 #import "AudioAnalyzer.h"
 #import "MediaPlayBackView.h"
-#import "LikedGenreCollectionViewCell.h"
+#import "LikedEntityCollectionViewCell.h"
 #import <Parse/Parse.h>
 
 @interface AudioRecorderViewController () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
@@ -244,13 +244,13 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
 #pragma mark - CollectionView methods
 
 - (nonnull UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    LikedGenreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:DETECTED_INSTRUMENT_CELL_IDENTIFIER forIndexPath:indexPath];
+    LikedEntityCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:DETECTED_INSTRUMENT_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (cell) {
         NSString *instumentTitle = self.instrumentLabels[indexPath.item];
         [cell setCellWithTitle:instumentTitle canRemove:YES];
         
-        cell.removeLikedEntity = ^(LikedGenreCollectionViewCell *_Nonnull cell) {
+        cell.removeLikedEntity = ^(LikedEntityCollectionViewCell *_Nonnull cell) {
             [self removeInstrumentLabel:cell];
         };
     }
@@ -258,7 +258,7 @@ static CGFloat SHOW_PLAY_BUTTON_ANIMATION_DURATION = 0.5;
     return cell;
 }
 
-- (void)removeInstrumentLabel:(LikedGenreCollectionViewCell *_Nonnull)cell {
+- (void)removeInstrumentLabel:(LikedEntityCollectionViewCell *_Nonnull)cell {
     NSInteger indexToRemove = [self.detectedInstrumentsCollectionView indexPathForCell:cell].item;
     
     [self.instrumentLabels removeObjectAtIndex:indexToRemove];

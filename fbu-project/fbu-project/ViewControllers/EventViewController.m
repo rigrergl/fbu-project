@@ -5,7 +5,7 @@
 //  Created by Rigre Reinier Garciandia Larquin on 7/21/21.
 //
 
-#import "NewEventViewController.h"
+#import "EventViewController.h"
 #import "InviteeCollectionViewCell.h"
 #import "DictionaryConstants.h"
 #import "AddInviteeViewController.h"
@@ -15,7 +15,7 @@
 #import "FoursquareVenue.h"
 #import <Parse/Parse.h>
 
-@interface NewEventViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
+@interface EventViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addInviteeButton;
 @property (weak, nonatomic) IBOutlet UIButton *changeImageButton;
@@ -50,7 +50,7 @@ static const CGFloat EVENT_PICTURE_CORNER_RADIUS = 14;
 static const CGFloat CLOSE_INDICATOR_CORNER_RADIUS = 4;
 static const NSInteger INVITEE_CELL_WIDTH = 60;
 
-@implementation NewEventViewController
+@implementation EventViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -331,7 +331,7 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
             if (placemarks && placemarks.count > 0) {
                 CLPlacemark *placemark = placemarks.firstObject;
-                self.locationField.text = [NewEventViewController getAddressStringFromPlacemark:placemark];
+                self.locationField.text = [EventViewController getAddressStringFromPlacemark:placemark];
             }
         }];
     }

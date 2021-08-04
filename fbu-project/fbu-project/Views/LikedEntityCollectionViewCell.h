@@ -10,11 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LikedGenreCollectionViewCell : UICollectionViewCell
+@interface LikedEntityCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *removeButton;
 @property (assign, nonatomic) BOOL canRemove;
-@property (copy, nonatomic) void (^removeLikedEntity)(LikedGenreCollectionViewCell *_Nonnull cell);
+@property (copy, nonatomic) void (^removeLikedEntity)(LikedEntityCollectionViewCell *_Nonnull cell);
 
 - (void)setCellWithTitle:(NSString *)likedGenreTitle
                canRemove:(BOOL)canRemove;

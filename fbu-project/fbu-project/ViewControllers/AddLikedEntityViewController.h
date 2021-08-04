@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AddLikedGenreViewController : UIViewController
+@interface AddLikedEntityViewController : UIViewController
 
 @property (copy, nonatomic) void (^_Nullable didAddLikedGenre)(LikedGenre *_Nullable newLikedGenre);
 @property (copy, nonatomic) void (^_Nullable didAddLikedInstrument)(LikedInstrument *_Nullable newLikedInstrument);

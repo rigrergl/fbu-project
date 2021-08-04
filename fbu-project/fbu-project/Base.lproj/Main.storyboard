@@ -638,7 +638,7 @@
         <!--New Event-->
         <scene sceneID="hAb-c6-W5b">
             <objects>
-                <viewController id="Se4-vu-u7X" customClass="NewEventViewController" sceneMemberID="viewController">
+                <viewController id="Se4-vu-u7X" customClass="EventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sa8-G3-Xyf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1117,7 +1117,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LikedGenreCollectionViewCell" id="C0N-XR-7xN" customClass="LikedGenreCollectionViewCell">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LikedGenreCollectionViewCell" id="C0N-XR-7xN" customClass="LikedEntityCollectionViewCell">
                                                         <rect key="frame" x="9" y="0.0" width="222" height="128"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CY0-PU-Pio">
@@ -1207,7 +1207,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LikedInstrumentCell" id="OEB-J4-vYy" customClass="LikedGenreCollectionViewCell">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LikedInstrumentCell" id="OEB-J4-vYy" customClass="LikedEntityCollectionViewCell">
                                                         <rect key="frame" x="27" y="0.0" width="186" height="128"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UOs-K8-JYS">
@@ -1411,10 +1411,10 @@
             </objects>
             <point key="canvasLocation" x="5423" y="2338"/>
         </scene>
-        <!--Add Liked Genre View Controller-->
+        <!--Add Liked Entity View Controller-->
         <scene sceneID="BbV-zt-Qnq">
             <objects>
-                <viewController id="Y4T-F4-NJP" customClass="AddLikedGenreViewController" sceneMemberID="viewController">
+                <viewController id="Y4T-F4-NJP" customClass="AddLikedEntityViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OFf-CX-Oa8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1440,7 +1440,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddLikedGenreCollectionViewCell" id="cM0-Wl-ehf" customClass="AddLikedGenreCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddLikedGenreCollectionViewCell" id="cM0-Wl-ehf" customClass="AddLikedEntityCollectionViewCell">
                                         <rect key="frame" x="8" y="0.0" width="398" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yU9-H2-4Tm">
@@ -1553,7 +1553,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetectedInstrumentCell" id="HM0-2g-qJW" customClass="LikedGenreCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetectedInstrumentCell" id="HM0-2g-qJW" customClass="LikedEntityCollectionViewCell">
                                         <rect key="frame" x="56" y="0.0" width="128" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bgH-QJ-zku">

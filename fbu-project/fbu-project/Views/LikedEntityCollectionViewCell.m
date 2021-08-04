@@ -5,10 +5,10 @@
 //  Created by Rigre Reinier Garciandia Larquin on 7/18/21.
 //
 
-#import "LikedGenreCollectionViewCell.h"
+#import "LikedEntityCollectionViewCell.h"
 #import "CommonFunctions.h"
 
-@implementation LikedGenreCollectionViewCell
+@implementation LikedEntityCollectionViewCell
 
 - (void)setCellWithTitle:(NSString *_Nonnull)likedGenreTitle
                canRemove:(BOOL)canRemove {

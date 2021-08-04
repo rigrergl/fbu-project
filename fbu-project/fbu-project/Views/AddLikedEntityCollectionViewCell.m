@@ -5,8 +5,8 @@
 //  Created by Rigre Reinier Garciandia Larquin on 7/18/21.
 //
 
-#import "AddLikedGenreCollectionViewCell.h"
+#import "AddLikedEntityCollectionViewCell.h"
 
-@implementation AddLikedGenreCollectionViewCell
+@implementation AddLikedEntityCollectionViewCell
 
 @end
