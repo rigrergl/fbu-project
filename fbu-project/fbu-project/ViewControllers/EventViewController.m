@@ -64,6 +64,7 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
         self.invitees = [[NSMutableArray alloc] init];
         self.canEdit = YES;
         self.screenTitleLabel.text = NEW_EVENT_SCREEN_TITLE;
+        self.datePicker.minimumDate = [NSDate now];
     }
 }
 

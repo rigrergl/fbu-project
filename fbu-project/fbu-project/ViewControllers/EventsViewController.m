@@ -19,18 +19,21 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, atomic) NSMutableArray<Event *> *_Nonnull attendingEvents;
 @property (strong, nonatomic) NSMutableArray<Event *> *_Nonnull invitedEvents;
+@property (strong, nonatomic) NSMutableArray<Event *> *_Nonnull expiredEvents;
 
 @end
 
-static const NSInteger NUMBER_OF_SECTIONS_IN_COLLECTION_VIEW = 2;
+static const NSInteger NUMBER_OF_SECTIONS_IN_COLLECTION_VIEW = 3;
 static const NSInteger ATTENDING_SECTION_NUMBER = 0;
 static const NSInteger INVITED_SECTION_NUMBER = 1;
+static const NSInteger EXPIRED_SECTION_NUMBER = 2;
 static NSInteger EVENT_GROUP_DIMENSIONS = 250;
 static NSInteger EVENT_EDGE_INSETS = 5;
 static NSInteger SECTION_HEADER_HEIGHT = 44;
 static NSString * const SECTION_HEADER_ELEMENT_KIND = @"section-header-element-kind";
 static NSString * ATTENDING_SECTION_TITLE = @"Attending";
 static NSString * INVITED_SECTION_TITLE = @"Invited";
+static NSString * EXPIRED_SECTION_TITLE = @"Past Events";
 static NSString * const EVENT_CELL_IDENTIFIER = @"EventCollectionViewCell";
 static NSString * const SEGUE_TO_CHAT_IDENTIFIER = @"eventsToChat";
 static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
@@ -70,10 +73,27 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
         [acceptedQuery findObjectsInBackgroundWithBlock:^(NSArray<Event *> *_Nullable acceptedEvents, NSError *_Nullable error){
             if (acceptedEvents) {
                 [self.attendingEvents addObjectsFromArray:acceptedEvents];
-                [self.collectionView reloadData];
             }
+            [self filterOutExpiredEventsFromAttending];
+            [self sortEventsByDate:self.attendingEvents ascending:YES];
+            [self sortEventsByDate:self.expiredEvents ascending:NO];
+            [self.collectionView reloadData];
         }];
     }];
+}
+
+- (void)filterOutExpiredEventsFromAttending {
+    NSMutableArray *allEvents = self.attendingEvents; //TODO: verify this pointer transfer works
+    self.attendingEvents = [[NSMutableArray alloc] init];
+    self.expiredEvents = [[NSMutableArray alloc] init];
+    
+    for (Event *event in allEvents) {
+        if ([event.date compare:[NSDate now]] == NSOrderedDescending) {
+            [self.attendingEvents addObject:event];
+        } else {
+            [self.expiredEvents addObject:event];
+        }
+    }
 }
 
 - (void)fetchInvitedEvents {
@@ -87,6 +107,19 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
             self.invitedEvents = invitedEvents;
             [self.collectionView reloadData];
         }
+        [self sortEventsByDate:self.invitedEvents ascending:YES];
+    }];
+}
+
+- (void)sortEventsByDate:(NSMutableArray<Event *> *_Nonnull)events ascending:(BOOL)ascending {
+    [events sortUsingComparator:^NSComparisonResult(Event *_Nonnull event1, Event *_Nonnull event2){
+        if (![event1 isKindOfClass:[Event class]] || ![event1 isKindOfClass:[Event class]]) {
+            return NSOrderedSame;
+        }
+        if (ascending) {
+            return [event1.date compare:event2.date];
+        }
+        return [event2.date compare:event1.date];
     }];
 }
 
@@ -141,9 +174,13 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
             [cell setCellForAttending:self.attendingEvents[indexPath.item] segueToChat:^(EventCollectionViewCell *cell){
                 [self performSegueWithIdentifier:SEGUE_TO_CHAT_IDENTIFIER sender:cell.event];
             }];
-        } else if (self.invitedEvents && self.invitedEvents.count > 0) {
+        } else if (indexPath.section == INVITED_SECTION_NUMBER && self.invitedEvents && self.invitedEvents.count > 0) {
             [cell setCellForInvited:self.invitedEvents[indexPath.item] acceptInvite:^(EventCollectionViewCell *cell){
                 [self acceptInvite:cell];
+            }];
+        } else if (indexPath.section == EXPIRED_SECTION_NUMBER && self.expiredEvents && self.expiredEvents.count > 0) {
+            [cell setCellForAttending:self.expiredEvents[indexPath.item] segueToChat:^(EventCollectionViewCell *cell){
+                [self performSegueWithIdentifier:SEGUE_TO_CHAT_IDENTIFIER sender:cell.event];
             }];
         }
         cell.segueToInfo = ^(EventCollectionViewCell *_Nonnull cell){
@@ -161,8 +198,10 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
     
     if (indexPath.section == ATTENDING_SECTION_NUMBER) {
         [sectionHeader setTitle:ATTENDING_SECTION_TITLE];
-    } else {
+    } else if (indexPath.section == INVITED_SECTION_NUMBER) {
         [sectionHeader setTitle:INVITED_SECTION_TITLE];
+    } else if (indexPath.section == EXPIRED_SECTION_NUMBER) {
+        [sectionHeader setTitle:EXPIRED_SECTION_TITLE];
     }
     
     return sectionHeader;
@@ -183,9 +222,13 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
      numberOfItemsInSection:(NSInteger)section {
     if (section == ATTENDING_SECTION_NUMBER) {
         return self.attendingEvents.count;
+    } else if (section == INVITED_SECTION_NUMBER) {
+        return self.invitedEvents.count;
+    } else if (section == EXPIRED_SECTION_NUMBER) {
+        return self.expiredEvents.count;
     }
     
-    return self.invitedEvents.count;
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
