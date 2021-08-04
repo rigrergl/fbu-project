@@ -29,9 +29,12 @@
 @property (weak, nonatomic) IBOutlet UIView *closeIndicator;
 @property (assign, nonatomic) BOOL canEdit;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UILabel *screenTitleLabel;
 
 @end
 
+static NSString * const NEW_EVENT_SCREEN_TITLE = @"New Event";
+static NSString * const EDIT_EVENT_SCREEN_TITLE = @"Edit Event";
 static NSString * const NEW_EVENT_TO_ADD_INVITEE_SEGUE_TITLE = @"newEventToAddInvitee";
 static NSString * const NEW_EVENT_TO_PROFILE_SEGUE_IDENTIFIER = @"eventToProfile";
 static NSString * const NEW_EVENT_TO_MAP_SEGUE_IDENTIFIER = @"newEventToMap";
@@ -56,9 +59,11 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     
     if (self.event) {
         [self setEvent:self.event];
+        self.screenTitleLabel.text = EDIT_EVENT_SCREEN_TITLE;
     } else {
         self.invitees = [[NSMutableArray alloc] init];
         self.canEdit = YES;
+        self.screenTitleLabel.text = NEW_EVENT_SCREEN_TITLE;
     }
 }
 

@@ -13,11 +13,14 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet UILabel *screenTitle;
 @property (strong, nonatomic) NSArray<NSString *> *_Nonnull entryTitles;
 @property (strong, nonatomic) NSArray<NSString *> *_Nonnull filteredEntryTitles;
 
 @end
 
+static NSString * const ADD_LIKED_GENRE_TITLE = @"Add Liked Genre";
+static NSString * const ADD_LIKED_INSTRUMENT_TITLE = @"Add Liked Instrument";
 static NSString * const ADD_LIKED_GENRE_CELL_IDENTIFIER = @"AddLikedGenreCollectionViewCell";
 static NSInteger CELL_HEIGHT = 50;
 
@@ -28,8 +31,10 @@ static NSInteger CELL_HEIGHT = 50;
     
     if (self.didAddLikedGenre) {
         [self fetchGenres];
+        self.screenTitle.text = ADD_LIKED_GENRE_TITLE;
     } else {
         [self fetchInstrumentIdentifiers];
+        self.screenTitle.text = ADD_LIKED_INSTRUMENT_TITLE;
     }
     
     [self setupCollectionView];
