@@ -59,13 +59,13 @@ static NSString * const DEFAULT_BIO_STRING = @"No Bio";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fetchRecording];
     
     if(self.targetUser == nil) {
         self.targetUser = [PFUser currentUser];
         self.canEditProfile = YES;
     }
     
+    [self fetchRecording];
     [self setupEditRights];
     [self setupCollectionView];
     [self fetchLikedGenres];
