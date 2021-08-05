@@ -78,6 +78,7 @@ static NSString * const INFO_BUTTON_IMAGE_NAME = @"info.circle";
     self.usernameLabel.text = self.user.username;
     [self.usernameLabel setTextAlignment:NSTextAlignmentCenter];
     self.usernameLabel.textColor = [UIColor blackColor];
+    self.usernameLabel.font = [UIFont boldSystemFontOfSize:USERNAME_LABEL_HEIGHT];
     
     [self addSubview:self.usernameLabel];
 }
