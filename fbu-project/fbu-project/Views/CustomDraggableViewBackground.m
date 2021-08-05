@@ -16,9 +16,11 @@ static NSString * const CHECK_BUTTON_IMAGE_NAME = @"checkButton";
 @implementation CustomDraggableViewBackground
 
 - (id)initWithFrame:(CGRect)frame
-           andUsers:(NSArray *)users {
+              users:(NSArray *)users
+     segueToProfile:(void(^_Nonnull)(PFUser *_Nonnull user))segueToProfile {
     self = [super initWithFrame:frame];
     if (self) {
+        self.segueToProfile = segueToProfile;
         [super layoutSubviews];
         [self setupView];
         self.users = users;
@@ -49,7 +51,10 @@ static NSString * const CHECK_BUTTON_IMAGE_NAME = @"checkButton";
     CGFloat cardWidth = self.frame.size.width - cardMargins;
     CGFloat cardHeight = self.frame.size.height - cardMargins - BUTTON_SECTION_HEIGHT;
     
-    CustomDraggableView *draggableView = [[CustomDraggableView alloc]initWithFrame:CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT + 20)/2,  cardWidth, cardHeight) andUser:self.users[index]];
+    CGRect draggableViewFrame = CGRectMake((self.frame.size.width - cardWidth)/2, (self.frame.size.height - cardHeight - BUTTON_SECTION_HEIGHT + 20)/2,  cardWidth, cardHeight);
+    CustomDraggableView *draggableView = [[CustomDraggableView alloc] initWithFrame:draggableViewFrame
+                                                                               user:self.users[index]
+                                                                     segueToProfile:self.segueToProfile];
     draggableView.delegate = self;
     return draggableView;
 }

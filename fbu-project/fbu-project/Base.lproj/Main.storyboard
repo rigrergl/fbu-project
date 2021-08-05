@@ -110,6 +110,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Explore" id="Jsz-gi-gaS"/>
+                    <connections>
+                        <segue destination="1JA-tM-tXk" kind="presentation" identifier="exploreToProfile" id="5x1-ri-GKN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7lb-0h-cxk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -255,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZn-mZ-OL2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1944.9275362318842" y="1556.9196428571429"/>
+            <point key="canvasLocation" x="1945" y="1801"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="DXw-6b-IbF">
@@ -487,7 +490,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIo-1g-gA5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1944.9275362318842" y="2337.7232142857142"/>
+            <point key="canvasLocation" x="1945" y="2484"/>
         </scene>
         <!--Jam Sessions-->
         <scene sceneID="aqw-s9-qGg">
@@ -1067,7 +1070,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KJ9-ay-Dnu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3811.594202898551" y="1556.9196428571429"/>
+            <point key="canvasLocation" x="3814" y="2423"/>
         </scene>
         <!--Profile-->
         <scene sceneID="d1D-jC-i8E">
@@ -1746,9 +1749,9 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SbI-lA-vYa"/>
-        <segue reference="Y8g-ii-Y5V"/>
-        <segue reference="BY4-zM-kLe"/>
-        <segue reference="f0v-1A-Gr4"/>
+        <segue reference="5x1-ri-GKN"/>
+        <segue reference="Ruy-vd-dse"/>
+        <segue reference="dOh-k7-uf7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="blank-profile-picture" width="600" height="600"/>

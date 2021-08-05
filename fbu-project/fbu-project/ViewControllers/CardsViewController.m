@@ -12,6 +12,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "UserSorter.h"
 #import "DictionaryConstants.h"
+#import "ProfileViewController.h"
 
 @interface CardsViewController () <AVAudioPlayerDelegate, CLLocationManagerDelegate>
 
@@ -23,6 +24,7 @@
 @end
 
 static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
+static NSString * const SEGUE_TO_PROFILE_IDENTIFIER = @"exploreToProfile";
 
 @implementation CardsViewController
 
@@ -72,7 +74,13 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
     CGRect frame = self.view.frame;
     frame.size.height = frame.size.height - topBarHeight - bottomBarHeight;
     frame.origin.y = -self.view.frame.size.height; //putting the view outside of the screen so it drops down
-    CustomDraggableViewBackground *draggableBackground = [[CustomDraggableViewBackground alloc]initWithFrame:frame andUsers:users];
+    CustomDraggableViewBackground *draggableBackground = [[CustomDraggableViewBackground alloc]initWithFrame:frame
+                                                                                                       users:users
+                                                                                              segueToProfile:^(PFUser *_Nonnull user){
+        if (user) {
+            [self performSegueWithIdentifier:SEGUE_TO_PROFILE_IDENTIFIER sender:user];
+        }
+    }];
     draggableBackground.alpha = 0; //making the view fade in
     
     self.draggableViewBackground = draggableBackground;
@@ -115,6 +123,18 @@ static CGFloat CARDS_ENTRY_ANIMATION_DURATION = 0.5;
     currentUser[LONGITUDE_KEY] = longitude;
     
     [[PFUser currentUser] saveInBackground];
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:SEGUE_TO_PROFILE_IDENTIFIER]) {
+        PFUser *user = (PFUser *)sender;
+        if (user && [user isKindOfClass:[PFUser class]]) {
+            ProfileViewController *destinationViewController = [segue destinationViewController];
+            destinationViewController.targetUser = user;
+        }
+    }
 }
 
 @end

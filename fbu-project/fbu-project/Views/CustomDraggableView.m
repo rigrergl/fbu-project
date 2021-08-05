@@ -19,21 +19,29 @@
 @end
 
 static NSInteger PLAYBACK_VIEW_X = 20;
-static NSInteger PLAYBACK_VIEW_Y = 200;
 
 static NSInteger USERNAME_LABEL_X = 0;
 static NSInteger USERNAME_LABEL_HEIGHT = 20;
 
+static NSInteger INFO_BUTTON_WIDTH = 30;
+static NSInteger INFO_BUTTON_EDGE_SPACING = 4;
+static NSString * const INFO_BUTTON_IMAGE_NAME = @"info.circle";
+
 @implementation CustomDraggableView
 
 - (id)initWithFrame:(CGRect)frame
-            andUser:(PFUser *)user {
+               user:(PFUser *)user
+     segueToProfile:(void (^_Nonnull)(PFUser *_Nonnull user))segueToProfile {
     self = (CustomDraggableView *)[super initWithFrame:frame];
+    
     if (self) {
         self.user = user;
+        self.segueToProfile = segueToProfile;
+        [self setupInfoButton];
         [self setupUsernameLabel];
         [self setupPlaybackSubview];
     }
+    
     return self;
 }
 
@@ -72,6 +80,23 @@ static NSInteger USERNAME_LABEL_HEIGHT = 20;
     self.usernameLabel.textColor = [UIColor blackColor];
     
     [self addSubview:self.usernameLabel];
+}
+
+- (void)setupInfoButton {
+    CGRect buttonFrame = CGRectMake(self.frame.size.width - INFO_BUTTON_WIDTH - INFO_BUTTON_EDGE_SPACING, INFO_BUTTON_EDGE_SPACING, INFO_BUTTON_WIDTH, INFO_BUTTON_WIDTH);
+    self.infoButton = [[UIButton alloc] initWithFrame:buttonFrame];
+    
+    UIImage *infoImage = [UIImage systemImageNamed:INFO_BUTTON_IMAGE_NAME];
+    [self.infoButton setBackgroundImage:infoImage forState:UIControlStateNormal];
+    [self.infoButton addTarget:self action:@selector(didTapInfoButton) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:self.infoButton];
+}
+
+- (void)didTapInfoButton {
+    if (self.segueToProfile) {
+        self.segueToProfile(self.user);
+    }
 }
 
 - (void)afterSwipeAction {
