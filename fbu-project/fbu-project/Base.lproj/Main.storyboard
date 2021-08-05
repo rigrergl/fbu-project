@@ -769,7 +769,7 @@
                                                     <imageReference key="image" image="map" catalog="system" symbolScale="large"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="sJc-6L-hyi" kind="presentation" identifier="newEventToMap" id="cSx-33-zmh"/>
+                                                    <action selector="didTapMapButton:" destination="Se4-vu-u7X" eventType="touchUpInside" id="ayu-dI-he7"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77t-ml-Pvz">
@@ -842,10 +842,12 @@
                         <outlet property="eventPictureView" destination="2LK-a9-sE4" id="2hn-rr-hTx"/>
                         <outlet property="inviteesCollectionView" destination="cnQ-KK-oof" id="NdL-AK-oaT"/>
                         <outlet property="locationField" destination="xlP-ab-ODg" id="Yei-Yd-vDP"/>
+                        <outlet property="mapButton" destination="Wx8-Au-aBy" id="Brc-QQ-1ca"/>
                         <outlet property="saveButton" destination="ukX-6I-X1m" id="PGI-cj-RA6"/>
                         <outlet property="screenTitleLabel" destination="77t-ml-Pvz" id="SOl-QC-Wc1"/>
                         <outlet property="titleField" destination="aZO-na-L8b" id="Jsl-X1-1Yz"/>
                         <segue destination="1JA-tM-tXk" kind="show" identifier="eventToProfile" id="Y8g-ii-Y5V"/>
+                        <segue destination="sJc-6L-hyi" kind="presentation" identifier="newEventToMap" id="ut0-4s-nL4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qlu-nQ-Sfi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1749,7 +1751,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SbI-lA-vYa"/>
-        <segue reference="5x1-ri-GKN"/>
+        <segue reference="Y8g-ii-Y5V"/>
         <segue reference="Ruy-vd-dse"/>
         <segue reference="dOh-k7-uf7"/>
     </inferredMetricsTieBreakers>

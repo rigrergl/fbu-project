@@ -30,6 +30,7 @@
 @property (assign, nonatomic) BOOL canEdit;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UILabel *screenTitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *mapButton;
 
 @end
 
@@ -75,12 +76,23 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
     self.titleField.text = event.title;
     self.locationField.text = event.location;
     self.datePicker.date = event.date;
+    [self fetchVenue];
     [self fetchInvitees];
     [self setEditingRights];
     
     [event[EVENT_IMAGE_KEY] getDataInBackgroundWithBlock:^(NSData *_Nullable data, NSError *_Nullable error){
         if (data) {
             self.eventPictureView.image = [UIImage imageWithData:data];
+        }
+    }];
+}
+
+- (void)fetchVenue {
+    disableButton(self.mapButton);
+    [self.event.venue fetchIfNeededInBackgroundWithBlock:^(PFObject *_Nullable object, NSError *_Nullable error){
+        if (object && [object isKindOfClass:[FoursquareVenue class]]) {
+            self.venue = (FoursquareVenue *)object;
+            enableButton(self.mapButton);
         }
     }];
 }
@@ -102,6 +114,23 @@ static const NSInteger INVITEE_CELL_WIDTH = 60;
             [self.inviteesCollectionView reloadData];
         }
     }];
+}
+
+- (IBAction)didTapMapButton:(UIButton *)sender {
+    if (self.canEdit) {
+        [self performSegueWithIdentifier:NEW_EVENT_TO_MAP_SEGUE_IDENTIFIER sender:nil];
+    } else if (self.venue) {
+        FoursquareVenue *venue = self.event.venue;
+        CLLocationCoordinate2D venueCoordinate = CLLocationCoordinate2DMake(venue.latitude, venue.longitude);
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:venueCoordinate];
+        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+        
+        NSDictionary *launchOptions = @{
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
+        };
+        
+        [mapItem openInMapsWithLaunchOptions:launchOptions];
+    }
 }
 
 - (void)setEditingRights {
