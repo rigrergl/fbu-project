@@ -38,7 +38,7 @@ static const CGFloat POLL_INTERVAL_SEC = 5;
     self = [super init];
     
     if (self) {
-        self.pollingLock = YES;
+        self.pollingLock = NO;
     }
     
     return self;
