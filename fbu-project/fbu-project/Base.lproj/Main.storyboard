@@ -109,7 +109,18 @@
                         <viewLayoutGuide key="safeArea" id="0Rr-mv-BBv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Explore" id="Jsz-gi-gaS"/>
+                    <navigationItem key="navigationItem" title="Explore" id="Jsz-gi-gaS">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="7B4-D0-ewJ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cfg-75-DDq">
+                                <rect key="frame" x="20" y="11" width="72" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="arrow.clockwise" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapRefresh:" destination="VFP-1N-3qn" eventType="touchUpInside" id="iua-ct-YTZ"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="1JA-tM-tXk" kind="presentation" identifier="exploreToProfile" id="5x1-ri-GKN"/>
                     </connections>
@@ -1751,11 +1762,12 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="SbI-lA-vYa"/>
-        <segue reference="8OY-aU-wCI"/>
+        <segue reference="5x1-ri-GKN"/>
         <segue reference="Ruy-vd-dse"/>
         <segue reference="dOh-k7-uf7"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="blank-profile-picture" width="600" height="600"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>

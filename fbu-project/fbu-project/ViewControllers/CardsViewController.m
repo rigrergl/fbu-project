@@ -39,6 +39,10 @@ static NSString * const SEGUE_TO_PROFILE_IDENTIFIER = @"exploreToProfile";
                                                object:nil];
 }
 
+- (IBAction)didTapRefresh:(UIButton *)sender {
+    [self fetchRecommendedUsers];
+}
+
 - (void)deviceRotated {
     if (self.users) {
         [self.draggableViewBackground removeFromSuperview];
