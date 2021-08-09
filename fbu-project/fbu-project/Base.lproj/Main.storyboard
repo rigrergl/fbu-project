@@ -580,6 +580,16 @@
                                                         <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="large"/>
                                                     </state>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBB-SJ-TQa">
+                                                    <rect key="frame" x="177" y="230" width="28" height="24"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" image="calendar.badge.plus" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didTapAddToCalendar:" destination="fsT-Zz-zfz" eventType="touchUpInside" id="U4M-dJ-sBA"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="qax-l6-YQM" secondAttribute="bottom" constant="8" id="0Vy-fx-Nii"/>
@@ -591,6 +601,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="FB0-JJ-yqv" secondAttribute="bottom" id="MhQ-3l-mtj"/>
                                                 <constraint firstItem="FB0-JJ-yqv" firstAttribute="top" secondItem="foG-60-syZ" secondAttribute="top" id="NKD-Mw-OEF"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JWM-Zt-kTl" secondAttribute="trailing" constant="24" id="Qea-UX-uZ2"/>
+                                                <constraint firstItem="qax-l6-YQM" firstAttribute="leading" secondItem="IBB-SJ-TQa" secondAttribute="trailing" constant="8" id="UHb-fY-Nft"/>
                                                 <constraint firstItem="aLt-zA-xIa" firstAttribute="leading" secondItem="foG-60-syZ" secondAttribute="leading" constant="8" id="Xhx-Ua-xgB"/>
                                                 <constraint firstAttribute="trailing" secondItem="qax-l6-YQM" secondAttribute="trailing" constant="8" id="aqQ-pf-UJp"/>
                                                 <constraint firstAttribute="trailing" secondItem="FB0-JJ-yqv" secondAttribute="trailing" id="m35-CD-TB9"/>
@@ -600,6 +611,7 @@
                                                 <constraint firstItem="lgJ-4h-5XE" firstAttribute="centerY" secondItem="aLt-zA-xIa" secondAttribute="centerY" id="u8w-5u-De5"/>
                                                 <constraint firstAttribute="bottom" secondItem="t4J-1O-cen" secondAttribute="bottom" constant="8" id="vKz-oX-YqN"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EEb-ld-5SB" secondAttribute="trailing" constant="8" id="wvj-dB-4WB"/>
+                                                <constraint firstAttribute="bottom" secondItem="IBB-SJ-TQa" secondAttribute="bottom" constant="8" id="yzq-2T-PJI"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1769,6 +1781,7 @@
     <resources>
         <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="blank-profile-picture" width="600" height="600"/>
+        <image name="calendar.badge.plus" catalog="system" width="128" height="108"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="default-event-picture" width="1100" height="746"/>

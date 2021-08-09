@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^EventCellBlock)(EventCollectionViewCell *_Nonnull cell);
 
 //properties
+@property (copy, nonatomic, nullable) void (^presentAlert)(UIAlertController *_Nonnull alert);
 @property (copy, nonatomic, nullable) void (^acceptInvite)(EventCollectionViewCell *_Nonnull cell);
 @property (copy, nonatomic, nullable) void (^segueToChat)(EventCollectionViewCell *_Nonnull cell);
 @property (copy, nonatomic, nullable) void (^segueToInfo)(EventCollectionViewCell *_Nonnull cell);

@@ -8,6 +8,8 @@
 #import "EventCollectionViewCell.h"
 #import "CommonFunctions.h"
 #import "DictionaryConstants.h"
+#import "CalendarManager.h"
+
 @interface EventCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -21,6 +23,11 @@
 
 static const CGFloat CELL_CORNER_RADIUS = 14;
 static NSString * const DATE_FORMAT = @"yyyy-MMM-dd";
+static NSString * const OK_ALERT_ACTION_TITLE = @"OK";
+static NSString * const SUCCESS_ALERT_TITLE = @"Success";
+static NSString * const EVENT_ADDED_MESSAGE = @"Event added to calendar";
+static NSString * const ERROR_ALERT_TITLE = @"Error";
+static NSString * const ERROR_ADDING_EVENT_MESSAGE = @"Could not add event to calendar";
 
 @implementation EventCollectionViewCell
 
@@ -92,6 +99,44 @@ static NSString * const DATE_FORMAT = @"yyyy-MMM-dd";
 - (IBAction)didTapAccept:(UIButton *)sender {
     if (self.acceptInvite) {
         self.acceptInvite(self);
+    }
+}
+
+- (IBAction)didTapAddToCalendar:(UIButton *)sender {
+    [[CalendarManager shared] addEvent:self.event completion:^(BOOL eventAdded){
+        if (eventAdded) {
+            //TODO: update calendarButton image to be remove event
+            [self presentAlertWithTitle:SUCCESS_ALERT_TITLE message:EVENT_ADDED_MESSAGE];
+        }  else {
+            [self presentAlertWithTitle:ERROR_ALERT_TITLE message:ERROR_ADDING_EVENT_MESSAGE];
+        }
+    }];
+}
+
+- (UIAlertController *)createAlert {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@""
+                                                                   message:@""
+                                                            preferredStyle:(UIAlertControllerStyleAlert)];
+    // create an OK action
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:OK_ALERT_ACTION_TITLE
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    // add the OK action to the alert controller
+    [alert addAction:okAction];
+    
+    return alert;
+}
+
+- (void)presentAlertWithTitle:(NSString *)title
+                      message:(NSString *)message {
+    UIAlertController *alert = [self createAlert];
+    alert.title = title;
+    alert.message = message;
+    
+    if (self.presentAlert) {
+        dispatch_async(dispatch_get_main_queue(), ^() {
+            self.presentAlert(alert);
+        });
     }
 }
 

@@ -183,8 +183,12 @@ static NSString * const SEGUE_TO_EVENT_INFO_IDENTIFIER = @"eventInfoSegue";
                 [self performSegueWithIdentifier:SEGUE_TO_CHAT_IDENTIFIER sender:cell.event];
             }];
         }
+        
         cell.segueToInfo = ^(EventCollectionViewCell *_Nonnull cell){
             [self performSegueWithIdentifier:SEGUE_TO_EVENT_INFO_IDENTIFIER sender:cell.event];
+        };
+        cell.presentAlert = ^(UIAlertController *_Nonnull alert){
+            [self presentViewController:alert animated:YES completion:nil];
         };
     }
     
