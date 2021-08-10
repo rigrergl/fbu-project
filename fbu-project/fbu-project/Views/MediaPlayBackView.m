@@ -56,6 +56,9 @@ static CGFloat PROGRESS_VIEW_UPDATE_INTERVAL = 0.05;
         return;
     }
     
+    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+    [generator impactOccurred];
+    
     if ([self.playButton isSelected]) {
         [self stopPlaying];
     } else {
