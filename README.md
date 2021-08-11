@@ -1,6 +1,6 @@
-Original App Design Project - README Template
+Original App Design Project
 ===
-
+Checkout the demo of the current progress: https://youtu.be/AouyO6b6K9c
 # 
 
 ## Table of Contents
